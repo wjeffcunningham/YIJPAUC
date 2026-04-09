@@ -1,0 +1,27 @@
+.image-grid-2x2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  padding: 2rem;
+
+  figure {
+    margin: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    figcaption {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      color: #444;
+      background-color: #fafafa;
+      text-align: center;
+    }
+  }
+}

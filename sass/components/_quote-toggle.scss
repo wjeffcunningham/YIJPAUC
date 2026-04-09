@@ -1,0 +1,37 @@
+// This stays in your main SCSS file
+.quote-toggle {
+  margin: 1.5rem 0;
+  font-size: inherit;
+
+  .clickable-word {
+    cursor: pointer;
+
+    .punctuation {
+      &.collapsed {
+        display: inline;
+      }
+      &.expanded {
+        display: none;
+      }
+    }
+  }
+
+  &[open] summary .punctuation.collapsed {
+    display: none;
+  }
+
+  &[open] summary .punctuation.expanded {
+    display: inline;
+  }
+
+ul {
+  margin-top: inherit;
+  padding-left: inherit;
+  border-left: inherit;
+  color: inherit; // ← ✅ Use this instead of #444
+}
+
+  p {
+    margin: 0.5em 0;
+  }
+}

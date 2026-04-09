@@ -1,0 +1,24 @@
+#score {
+  font-family: monospace;
+  font-weight: bold;
+  margin-left: 0.75em;
+  padding: 0 0.5em;
+  transition: color 0.3s, text-shadow 0.3s;
+}
+
+/* Glow in hint mode */
+body.hint-mode #score {
+  text-shadow: 0 0 6px gold;
+  color: gold;
+}
+
+/* Gold pulse animation */
+@keyframes score-pulse {
+  0%   { background-color: gold; color: black; }
+  30%  { background-color: #ffd700; color: black; }
+  100% { background-color: transparent; color: inherit; }
+}
+
+#score.pulse {
+  animation: score-pulse 0.5s ease;
+}

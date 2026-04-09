@@ -1,0 +1,464 @@
+.menu-header {
+  position: fixed;
+  top: 0rem;
+  right: 0rem;
+  z-index: 1000;
+}
+
+.menu-btn {
+  display: none;
+}
+
+/* Hide menu icon when menu is open */
+#menu-btn:checked + .menu-icon {
+  display: none;
+}
+
+.menu-icon {
+  font-size: 4rem;
+  cursor: pointer;
+  user-select: none;
+  display: inline-block;
+}
+
+/* Collapsible menu panel */
+.menu-grid {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  grid-auto-rows: min-content;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  width: 160px;
+  max-width: 160px;
+  background-color: #111;
+  color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+/* When the hamburger is toggled open */
+#menu-btn:checked ~ .menu-grid {
+  display: grid;
+}
+
+/* Expand height only when dossier is open */
+.menu-grid details[open] {
+  height: auto;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.menu-grid a,
+.menu-grid button,
+.menu-grid span,
+.menu-grid label {
+  color: white;
+  text-decoration: none;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.4);
+}
+
+/* Dark mode */
+
+@media (prefers-color-scheme: dark) {
+  .menu-grid {
+    background-color: rgba(0, 0, 0, 0.75);
+    color: #eee;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .menu-grid a,
+  .menu-grid button,
+  .menu-grid span,
+  .menu-grid label {
+    color: #eee;
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.4);
+  }
+}
+
+/* Hide all marginalia by default */
+body:has(#toggle-pa:checked) marginalia[data-type="pa"],
+body:has(#toggle-ci:checked) marginalia[data-type="ci"],
+body:has(#toggle-ch:checked) marginalia[data-type="ch"],
+body:has(#toggle-x:checked) marginalia[data-type="x"] {
+  display: inline;
+}
+
+/* Dark mode: toggle invisibles only if in dark mode AND checked */
+@media (prefers-color-scheme: dark) {
+  #toggle-x:checked ~ .menu-grid marginalia[data-type="x"] {
+    display: inline;
+  }
+}
+
+#menu-btn:checked ~ .menu-grid {
+  display: grid;
+}
+
+.dashboard-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: flex-start;
+
+  span,
+  a,
+  label {
+    font-size: 1.2rem;
+  }
+
+  .magnifier-label {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+.menu-abstract, .menu-index, .menu-nav {
+  border-top: 1px solid rgba(0, 0, 0, 0.3);
+  padding-top: 0.4rem;
+}
+
+.menu-nav a {
+  display: inline-block;
+  margin: 0 1rem;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.menu-links {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* 7 days/calendar style */
+  gap: 0.15rem;
+  padding: 0.2rem 0;
+  margin: 0;
+  list-style: none;
+  text-align: center;
+  font-size: 0.75rem; /* ⬅️ smaller font */
+  line-height: 1.1;
+}
+
+.menu-links li {
+  background: #222;
+  border-radius: 0.2rem;
+  padding: 0.15rem 0.1rem; /* tighter horizontal padding */
+  transition: background 0.1s ease;
+  min-width: 1.5ch; /* force compact cells */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.menu-links li a {
+  display: block;
+  color: #eee;
+  text-decoration: none;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.menu-links li label {
+  display: block;
+  font-size: inherit; /* ✅ same size as numbered links */
+  color: inherit;
+  text-align: center;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: normal;
+}
+
+/* Base widget styles */
+.widgets {
+  display: none;
+  grid-template-columns: repeat(4, 1fr); // ← change from 6 to 3
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+  justify-items: center;
+  align-items: center;
+}
+
+/* Only show base by default */
+.widgets:first-of-type {
+  display: grid;
+}
+
+#info-toggle:not(:checked) ~ #info-widgets { display: none; }
+#info-toggle:checked ~ #info-widgets { display: grid; }
+
+#info-toggle:checked ~ #base-widgets {
+  display: none;
+}
+
+#tools-widgets {
+  display: none;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.25rem;
+  margin-top: -0.25rem; /* tighten spacing slightly */
+  justify-items: center;
+}
+
+#tools-toggle:checked ~ #tools-widgets {
+  display: grid;
+}
+
+/* Base widget layout (top row) */
+.widgets {
+  display: none;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+  justify-items: center;
+  align-items: center;
+}
+
+/* Show base icons by default */
+#base-widgets {
+  display: grid;
+}
+
+/* Utility (tools) row — appears underneath when toggled */
+#tools-widgets {
+  display: none;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.25rem;
+  margin-top: -0.25rem;
+  justify-items: center;
+}
+
+#tools-toggle:checked ~ #tools-widgets {
+  display: grid;
+}
+
+/* Hide base row if tools is active */
+#tools-toggle:checked ~ #base-widgets {
+  display: none;
+}
+
+/* Optional: future-proofed logic if info row returns */
+#info-toggle:not(:checked) ~ #info-widgets { display: none; }
+#info-toggle:checked ~ #info-widgets { display: grid; }
+#info-toggle:checked ~ #base-widgets {
+  display: none;
+}
+
+/* Shared widget item styling */
+.widgets span,
+.widgets label,
+#score {
+  font-size: 1.1rem;
+  padding: 0.3rem;
+  width: 100%;
+  max-width: 2.2rem;
+  text-align: center;
+  line-height: 1.2;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Score box tweak */
+#score {
+  font-size: 0.75rem;
+  font-weight: bold;
+  cursor: default;
+}
+
+/* Optional: hide invisible-only icon unless in dark mode */
+.dark-only {
+  display: none;
+}
+
+body.dark-mode .dark-only {
+  display: inline-block;
+}
+
+.dossier-dropdown {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 4.5rem; /* reserves space to avoid shifting layout */
+  overflow: hidden;
+}
+
+.dossier-dropdown summary {
+  cursor: pointer;
+  font-weight: normal; /* 👈 fix boldness */
+  font-size: 1.1rem;
+  list-style: none;
+  text-align: center;
+  padding: 0;
+}
+
+.dossier-dropdown summary::-webkit-details-marker {
+  display: none; /* hides the default arrow icon */
+}
+
+.dossier-dropdown[open] .menu-links {
+  max-height: none;
+  overflow: visible;
+  display: grid;}
+
+/* Light / Dark Mode status icon */
+#toggleMode::after {
+  content: "💡"; /* default = light mode */
+}
+
+body.dark-mode #toggleMode::after {
+  content: "🌙"; /* shows moon when in dark mode */
+}
+
+#toggleMode {
+  all: unset; /* removes inherited borders, backgrounds, etc. */
+  display: inline-block;
+  font-size: 1.1rem;
+  padding: 0.3rem;
+  width: 100%;
+  max-width: 2.2rem;
+  text-align: center;
+  line-height: 1.2;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+/* 🔥 Unified glow for all active utility toggles */
+body:has(#toggle-pa:checked) label[for="toggle-pa"],
+body:has(#toggle-ci:checked) label[for="toggle-ci"],
+body:has(#toggle-ch:checked) label[for="toggle-ch"],
+body:has(#toggle-x:checked) label[for="toggle-x"],
+body:has(#magnify-toggle:checked) label[for="magnify-toggle"],
+body:has(#magnify-toggle:checked) label[for="toggle-pa"],
+body:has(#toggle-pa:checked) label[for="magnify-toggle"] {
+  text-shadow:
+    0 0 10px rgba(120, 200, 255, 1),
+    0 0 20px rgba(0, 150, 255, 1),
+    0 0 30px rgba(0, 150, 255, 1);
+  filter: brightness(1.4);
+}
+
+body:has(#audio-toggle:checked) label[for="audio-toggle"] {
+  text-shadow:
+    0 0 10px rgba(120, 200, 255, 1),
+    0 0 20px rgba(0, 150, 255, 1),
+    0 0 30px rgba(0, 150, 255, 1);
+  filter: brightness(1.4);
+}
+
+body:has(#music-toggle:checked) label[for="music-toggle"] {
+  text-shadow:
+    0 0 10px rgba(120, 200, 255, 1),
+    0 0 20px rgba(0, 150, 255, 1),
+    0 0 30px rgba(0, 150, 255, 1);
+  filter: brightness(1.4);
+}
+
+/* ✨ Glow on hover for light/dark toggle */
+body.dark-mode #toggleMode {
+  text-shadow:
+    0 0 10px rgba(120, 200, 255, 1),
+    0 0 20px rgba(0, 150, 255, 1),
+    0 0 30px rgba(0, 150, 255, 1);
+  filter: brightness(1.4);
+}
+
+/* ========== MODAL (INFO) ========== */
+
+/* Hide modals by default */
+#info-modal-toggle + #info-modal,
+#abstract-toggle + #abstract-modal {
+  display: none;
+}
+
+/* Show modals only when their checkboxes are checked */
+#info-modal-toggle:checked + #info-modal,
+#abstract-toggle:checked + #abstract-modal {
+  display: flex;
+  position: fixed;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Modal overlay background */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+}
+
+/* Modal content box */
+.modal-box {
+  background: #fff;
+  color: #111;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  z-index: 1001;
+  position: relative;
+  text-align: left;
+  line-height: 1.5;
+  font-size: 1rem;
+}
+
+/* Modal close button */
+.modal-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.75rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #333;
+  background: none;
+  border: none;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .modal-box {
+    background: #111;
+    color: #eee;
+  }
+
+  .modal-close {
+    color: #eee;
+  }
+}
+
+.widgets-row {
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: 0.25rem;
+  width: 100%;
+}
+
+#tools-widgets {
+  display: none;
+  grid-template-columns: repeat(4, 1fr); /* so 👻 aligns with ☰ */
+  justify-items: center;
+  margin-top: -0.2rem; /* slight tighten */
+}
+
+#tools-toggle:checked ~ .widgets-row #tools-widgets {
+  display: grid;
+}
+
+.ghost-icon {
+  grid-column: 4;
+}
+
+
+

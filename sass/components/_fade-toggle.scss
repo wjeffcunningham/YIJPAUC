@@ -1,0 +1,53 @@
+.fade-toggle {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+
+  /* Hide the checkbox itself */
+  input {
+    display: none;
+  }
+
+  /* The <label> holds both images, stacked on top of each other */
+  label {
+    display: block;
+    position: relative;
+    width: 100%;
+    max-width: 600px;          // Adjust to your desired max-width
+    aspect-ratio: 4 / 3;       // (Or change to match your image’s aspect ratio)
+    overflow: hidden;
+  }
+
+  /* Both images occupy the same position */
+  img {
+    display: block;            // Ensure the <img> actually renders
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;         // Crop/scale as needed
+    transition: opacity 0.6s ease;
+  }
+
+  /* The “front” image: visible by default */
+  .img-1 {
+    opacity: 1;
+    z-index: 2;
+  }
+
+  /* The “back” image: hidden by default */
+  .img-2 {
+    opacity: 0;
+    z-index: 1;
+  }
+
+  /* When checkbox is checked, swap opacities */
+  input:checked + label .img-1 {
+    opacity: 0;
+  }
+
+  input:checked + label .img-2 {
+    opacity: 1;
+  }
+}

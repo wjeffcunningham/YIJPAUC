@@ -1,0 +1,49 @@
+$cursor-url: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' height='24' width='24'><circle cx='10' cy='10' r='9' stroke='black' stroke-width='2' fill='white'/><line x1='15' y1='15' x2='22' y2='22' stroke='black' stroke-width='2'/></svg>") 10 10, auto;
+
+// --- Toggle checkbox and label ---
+.magnifier-toggle {
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  label::after {
+    content: " 🔍";
+  }
+
+  input[type="checkbox"]:checked + label::after {
+    content: " 🔍";
+  }
+}
+
+// --- Default state of marginalia ---
+marginalia {
+  display: none;
+  font-style: italic;
+  color: darkred;
+  margin-left: 0.5em;
+}
+
+// --- Activated magnify mode (no JS) ---
+body:has(#magnify-toggle:checked) {
+  .magnifier-zone * {
+    cursor: $cursor-url;
+  }
+
+  .magnifier-zone :hover > marginalia {
+    display: inline;
+  }
+}
+
+.magnifier-zone a {
+  text-decoration: none;
+  color: inherit;
+  border-bottom: none;
+}
+
+
+// In magnify mode, reveal underline or other styles
+body:has(#magnify-toggle:checked) .magnifier-zone a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}

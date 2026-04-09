@@ -1,0 +1,41 @@
+.evidence-toggle summary {
+  cursor: pointer;
+  list-style: none;
+  font-weight: normal;
+  font-size: inherit;
+  display: inline;
+  padding: 0;
+  margin: 0;
+
+  &::marker,
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  .clickable-word {
+    cursor: pointer;
+
+    .punctuation.collapsed {
+      display: inline;
+    }
+
+    .punctuation.expanded {
+      display: none;
+    }
+  }
+}
+
+.evidence-toggle[open] summary .punctuation.collapsed {
+  display: none;
+}
+
+.evidence-toggle[open] summary .punctuation.expanded {
+  display: inline;
+}
+
+.evidence-toggle ul {
+  margin-top: 0.75em;
+  padding-left: 1em;
+  border-left: 3px solid #ccc;
+  color: #444;
+}

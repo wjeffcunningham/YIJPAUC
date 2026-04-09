@@ -1,0 +1,188 @@
+@charset "UTF-8";
+//
+// 1. Configuration and helpers
+@use 'abstracts/variables';
+@use 'abstracts/functions';
+@use 'abstracts/mixins';
+@use 'abstracts/summary-reset';
+@use 'abstracts/marginalia';
+
+// 2. Vendors
+@use 'vendors/normalize';
+
+// 3. Base stuff
+@use 'base/animations';
+@use 'base/base';
+@use 'base/fonts';
+@use 'base/typography';
+@use 'base/helpers';
+
+// 4. Layout-related sections
+@use 'layout/container';
+@use 'layout/footer';
+@use 'layout/header';
+@use 'layout/main';
+
+// 5. Components
+@use 'components/abstract-cards';
+@use 'components/abstract-carousel';
+@use 'components/accordionsection';
+@use 'components/book-page';
+@use 'components/blockquote';
+@use 'components/bracket-hover';
+@use 'components/clip-image';
+@use 'components/click-carousel';
+@use 'components/darkmode';
+@use 'components/datebook-note';
+@use 'components/fade-toggle';
+@use 'components/fade-once-toggle';
+@use 'components/hero_image';
+@use 'components/hover-reveal';
+@use 'components/image-grid';
+@use 'components/image-grid-2';
+@use 'components/image-grid-strict169';
+@use 'components/index-entry';
+@use 'components/letter';
+@use 'components/lists';
+@use 'components/menu_button';
+@use 'components/five-card-carousel';
+@use 'components/mini-album';
+@use 'components/magnifier';
+@use 'components/marginalia-pair';
+@use 'components/magnify-container';
+@use 'components/meta-line';
+@use 'components/menu-grid';
+@use 'components/menu-icons';
+@use 'components/microlibrary';
+@use 'components/movietitle';
+@use 'components/nav';
+@use 'components/newspaper-block';
+@use 'components/newspaper';
+@use 'components/police-report';
+@use 'components/quote-toggle';
+@use 'components/redacted_text';
+@use 'components/score';
+@use 'components/scrapbook-img';
+@use 'components/scriptexcerpt';
+@use 'components/sketch-sequence';
+@use 'components/soft-media';
+@use 'components/title-header';
+@use 'components/transcript';
+@use 'components/video_resize';
+@use 'components/unlock-toast';
+@use 'components/video_container';
+@use 'components/wraparound-carousel';
+@use 'components/welcome-message';
+
+// 6. Page-specific styles
+@use 'pages/home';
+
+// 7. Themes
+@use 'themes/default';
+
+// ✅ Add this here:
+body {
+  color: #000;
+}
+
+// Existing styles follow:
+figure {
+  position: relative;
+  display: inline-block;
+}
+
+figure {
+  position: relative;
+  display: inline-block;
+}
+
+figure figcaption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 0.5em;
+  font-size: 0.9em;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+
+  // ✅ Fixes for long captions
+  white-space: normal;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+figure:hover figcaption {
+  opacity: 1;}
+
+ @mixin marginalia-base {
+  marginalia {
+    display: none;
+    color: #666;
+    font-style: italic;
+    font-size: 0.9em;
+    margin-left: 0.3em;
+    position: relative;
+  }
+
+  // PA and X: show in magnify mode
+  body:has(#magnify-toggle:checked) marginalia[data-type="pa"],
+  body:has(#magnify-toggle:checked) marginalia[data-type="x"] {
+    display: inline !important;
+    opacity: 1 !important;
+    position: static !important;
+  }
+
+  // CH and CI: show only on hover/click, with "i" marker
+  body:has(#magnify-toggle:checked) marginalia[data-type="ch"],
+  body:has(#magnify-toggle:checked) marginalia[data-type="ci"] {
+    opacity: 0;
+    position: absolute;
+    background: #fdf6e3;
+    border: 1px solid #ccc;
+    padding: 0.25em 0.5em;
+    border-radius: 4px;
+    font-size: 0.85em;
+    white-space: nowrap;
+    pointer-events: none;
+    transform: translateY(-1.5em);
+    z-index: 10;
+  }
+
+  // Show on hover or click
+  body:has(#magnify-toggle:checked) marginalia[data-type="ch"]:hover,
+  body:has(#magnify-toggle:checked) marginalia[data-type="ci"]:hover,
+  body:has(#magnify-toggle:checked) marginalia[data-type="ch"]:active,
+  body:has(#magnify-toggle:checked) marginalia[data-type="ci"]:active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  // "i" marker always visible
+  body:has(#magnify-toggle:checked) marginalia[data-type="ch"]::after,
+  body:has(#magnify-toggle:checked) marginalia[data-type="ci"]::after {
+    content: "i";
+    font-size: 0.65em;
+    color: #999;
+    margin-left: 0.25em;
+    vertical-align: super;
+    font-style: normal;
+    font-weight: bold;
+    opacity: 0.7;
+    cursor: help;
+  }
+
+  // Optional hidden content class
+  body:has(#magnify-toggle:checked) .hidden-unless-magnified {
+    display: inline !important;
+  }
+}
+
+@include marginalia.base;
+@include marginalia.hover-reveal("#magnify-toggle", ".magnifier-zone");
+@include marginalia.filter(pa, ci, ch, x);
+

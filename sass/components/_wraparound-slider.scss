@@ -1,0 +1,50 @@
+.wraparound-slider {
+  position: relative;
+  max-width: 720px;
+  margin: 2rem auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 12px rgba(0,0,0,0.15);
+
+  input[type="radio"] {
+    display: none;
+  }
+
+  .slides {
+    display: flex;
+    width: 400%; // 4 slides
+    transition: transform 0.6s ease;
+  }
+
+  .slide {
+    width: 100%;
+    flex-shrink: 0;
+    position: relative;
+    text-align: center;
+
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    label {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      color: white;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      border-radius: 8px;
+      font-size: 1.5rem;
+    }
+  }
+
+  // slide switching logic
+  #slide1:checked ~ .slides { transform: translateX(0%); }
+  #slide2:checked ~ .slides { transform: translateX(-100%); }
+  #slide3:checked ~ .slides { transform: translateX(-200%); }
+  #slide4:checked ~ .slides { transform: translateX(-300%); }
+}

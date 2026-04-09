@@ -1,0 +1,34 @@
+.abstract-carousel {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 1rem auto;
+}
+
+.abstract-slide {
+  display: none;
+  background: #f5f5f5;
+  border-left: 3px solid #999;
+  padding: 1rem;
+  border-radius: 0.3rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+/* Show slide based on radio input */
+#abstract1:checked ~ .slide1,
+#abstract2:checked ~ .slide2,
+#abstract3:checked ~ .slide3,
+#abstract4:checked ~ .slide4 {
+  display: block;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .abstract-slide {
+    background: #222;
+    border-left: 3px solid #555;
+    color: #eee;
+  }
+}

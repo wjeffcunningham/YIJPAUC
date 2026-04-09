@@ -1,0 +1,11 @@
+.newspaper {
+  font-family: "Times New Roman", serif;
+
+  p {
+    margin-bottom: 1rem;
+
+    &.dotted {
+      @extend .dotted;
+    }
+  }
+}

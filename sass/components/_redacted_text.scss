@@ -1,0 +1,22 @@
+.redact-toggle:not(:checked) + a {
+  background-color: rgba(0,0,0,1);
+  line-height: 140%;
+  -webkit-transition: background-color 500ms ease-out;
+  -moz-transition: background-color 500ms ease-out;
+  -o-transition: background-color 500ms ease-out;
+  transition: background-color 500ms ease-out;;
+  text-decoration: none;
+  color: #000000;
+}
+
+.redact-toggle:checked + a {
+  background-color: rgba(0,0,0,0);
+  line-height: 140%;
+  -webkit-transition: background-color 500ms ease-out;
+  -moz-transition: background-color 500ms ease-out;
+  -o-transition: background-color 500ms ease-out;
+  transition: background-color 500ms ease-out;;
+  text-decoration: none;
+  color: #000000;
+}
+

@@ -1,0 +1,17 @@
+.scriptexcerpt {
+  font-family: "Courier Prime", monospace;
+  padding: 0rem 1.5rem;
+  border: 0px solid lightgrey;
+  margin: 1.5rem 0;
+  white-space: pre-line;
+}
+
+.scriptexcerpt-center {
+  @extend .scriptexcerpt;
+  text-align: center;
+}
+
+.scriptexcerpt-left {
+  @extend .scriptexcerpt;
+  text-align: left; // ← valid value
+}

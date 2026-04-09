@@ -1,0 +1,59 @@
+.clip-image {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.01);
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 14px;
+    background: repeating-linear-gradient(
+      to right,
+      transparent 0px,
+      transparent 12px,
+      #000 12px,
+      #000 20px,
+      transparent 20px,
+      transparent 40px
+    );
+    z-index: 2;
+    opacity: 0.85;
+  }
+
+  &::before {
+    top: 0;
+  }
+
+  &::after {
+    bottom: 0;
+  }
+
+  video {
+    display: block;
+    width: 100%;
+    height: auto;
+    position: relative;
+    z-index: 3; // Ensures controls sit above caption
+  }
+
+  figcaption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 0.5em;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    font-size: 0.9em;
+    z-index: 2;
+    pointer-events: none; // Allows clicks to reach the video controls
+  }
+}

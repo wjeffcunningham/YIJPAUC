@@ -1,0 +1,32 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the menu button component.
+// -----------------------------------------------------------------------------
+
+.menu-btn {
+  display: none;
+}
+
+.menu-icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 2em; // desktop (unchanged, already correct)
+  z-index: 20;
+
+  // @include respond-to('medium') {
+  //   display: none;
+  // }
+}
+
+// Mobile: slightly smaller than desktop
+@media (max-width: 640px) {
+  .menu-icon {
+    font-size: 1.6em;
+  }
+}
+
+.menu-btn:checked ~ .menu {
+  visibility: visible;
+  z-index: 10;
+  background-color: #ffffff;
+}

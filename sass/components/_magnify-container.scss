@@ -1,0 +1,50 @@
+.magnify-container {
+  position: relative;
+  overflow: hidden;
+
+  .magnifier-wrap {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .magnify-target {
+    width: 100%;
+    display: block;
+    --zoom: 2.5; // scale factor
+    cursor: zoom-in;
+    transition: transform 0.3s ease;
+  }
+
+  .magnifier-wrap::after {
+    content: '';
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px #fff, 0 0 6px rgba(0,0,0,0.3);
+    pointer-events: none;
+    background-repeat: no-repeat;
+    background-size: calc(100% * var(--zoom));
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .magnifier-wrap:hover::after {
+    opacity: 1;
+  }
+
+  .magnifier-wrap:hover .magnify-target {
+    transform: scale(var(--zoom));
+    transform-origin: center;
+  }
+
+  .magnifier-wrap {
+    &:hover {
+      cursor: none;
+    }
+
+    &:hover::after {
+      animation: followMouse 0s infinite;
+    }
+  }
+}

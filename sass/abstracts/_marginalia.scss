@@ -1,0 +1,65 @@
+// sass/abstracts/_marginalia.scss
+
+$cursor-url: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' height='24' width='24'><circle cx='10' cy='10' r='9' stroke='black' stroke-width='2' fill='white'/><line x1='15' y1='15' x2='22' y2='22' stroke='black' stroke-width='2'/></svg>") 10 10, auto;
+
+//
+// BASE MARGINALIA BEHAVIOR
+//
+@mixin base {
+
+  // All marginalia hidden by default
+  marginalia {
+    display: none;
+    color: #666;
+    font-style: italic;
+    font-size: 0.9em;
+    margin-left: 0.3em;
+  }
+
+  // Magnify toggle: ONLY show parentheticals (PA)
+  body:has(#magnify-toggle:checked) marginalia[data-type="pa"] {
+    display: inline !important;
+  }
+
+  // Explicitly ensure other types are unaffected by magnify
+  body:has(#magnify-toggle:checked) marginalia:not([data-type="pa"]) {
+    display: none !important;
+  }
+
+  // Any content explicitly marked to appear only when magnified
+  body:has(#magnify-toggle:checked) .hidden-unless-magnified {
+    display: inline !important;
+  }
+}
+
+//
+// MAGNIFIER CURSOR / IMAGE ZOOM (UNCHANGED, SEPARATE CONCERN)
+//
+@mixin hover-reveal($toggle: "#magnify-toggle", $zone: ".magnifier-zone") {
+
+  body:has(#{$toggle}:checked) #{$zone} * {
+    cursor: $cursor-url;
+  }
+
+  body:has(#{$toggle}:checked) #{$zone} img {
+    transition: transform 0.3s ease, object-position 0.3s ease;
+    transform: scale(1.8);
+    object-fit: cover;
+    object-position: center center;
+  }
+
+  body:has(#{$toggle}:checked) #{$zone} img:hover {
+    cursor: zoom-in;
+  }
+}
+
+//
+// OPTIONAL: TYPE-SPECIFIC FILTER TOGGLES (NOT MAGNIFY)
+//
+@mixin filter($types...) {
+  @each $type in $types {
+    body:has(#{'#{$type}-toggle'}:checked) marginalia[data-type="#{$type}"] {
+      display: inline !important;
+    }
+  }
+}

@@ -1,0 +1,25 @@
+/* ----------------------------------------------------
+   Deeply nested ordered list (depth override)
+   Used where numeric registers would otherwise collide
+----------------------------------------------------- */
+
+ol.depth-3 {
+  list-style: none;          // suppress native ::marker
+  counter-reset: depth3;
+  margin-left: 1.5em;
+}
+
+ol.depth-3 > li {
+  counter-increment: depth3;
+  position: relative;
+  padding-left: 2.2em;
+  margin-bottom: 0.75em;
+}
+
+ol.depth-3 > li::before {
+  content: counter(depth3) " —";
+  position: absolute;
+  left: 0;
+  font-weight: 600;
+  opacity: 0.65;
+}

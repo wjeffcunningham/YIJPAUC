@@ -1,0 +1,9 @@
+.video-container {
+    margin: 0;
+    margin-bottom: 1em;
+}
+
+video[poster]{
+    object-fit: cover;
+    width: 100%;
+}

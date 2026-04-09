@@ -1,0 +1,69 @@
+@use "../abstracts/variables";
+
+/**p
+ * Basic typography style for copy text
+ */
+
+body {
+  color: variables.$text-color;
+  font-weight: 300;
+  font-family: variables.$text-font-stack;
+font-size: 18px; // or 20px if you prefer
+font-weight: 300;
+}
+
+p, li {
+  font-size: 1em; // or 1.1em if you want it a bit larger
+  line-height: 1.6;
+}
+
+.header a {
+  text-decoration: none;
+}
+
+body.work-bg {
+  color: variables.$work-text-color;
+}
+
+figcaption
+{
+  font-size: 0.8em;
+  font-style: italic;
+}
+
+.largequote
+{
+  // font-size: 1.5em;
+  // font-weight: 900;
+}
+
+h1
+{
+  font-size: 3vw; 
+  margin: 1em 0;
+}
+
+.bold-text {
+  font-weight: 900;
+}
+
+.script-mark {
+  font-family: variables.$text-font-stack !important;
+}
+
+.underlined {
+  text-decoration: underline;
+}
+
+summary {
+  all: unset;
+  display: inline;
+  font-size: inherit;
+  font-family: "EB Garamond", serif;
+  font-weight: 300;
+  line-height: 1.6;
+  color: inherit !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  cursor: pointer;
+}

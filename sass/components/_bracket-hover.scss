@@ -1,0 +1,24 @@
+.bracket-hover {
+  // Target spans with bracketed content
+  .bracketed {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+
+    &::before,
+    &::after {
+      content: "[";
+      visibility: hidden;
+    }
+  }
+
+  &:hover .bracketed {
+    visibility: visible;
+    opacity: 1;
+
+    &::before,
+    &::after {
+      visibility: visible;
+    }
+  }
+}

@@ -1,0 +1,16 @@
+@mixin summary-reset {
+  all: unset;
+  display: block;
+  font-family: "EB Garamond", serif;
+  font-weight: 300;
+  font-size: inherit;
+  line-height: 1.6;
+  color: inherit;
+  cursor: pointer;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "liga", "kern";
+  font-variation-settings: "wght" 300;
+}

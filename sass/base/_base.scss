@@ -1,0 +1,98 @@
+@use "../abstracts/variables";
+
+// -----------------------------------------------------------------------------
+// This file contains very basic styles.
+// -----------------------------------------------------------------------------
+
+/**
+ * Set up a decent box model on the root element
+ */
+html {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/**
+ * Make all elements from the DOM inherit from the parent box-sizing
+ * Since `*` has a specificity of 0, it does not override the `html` value
+ * making all elements inheriting from the root box-sizing value
+ * See: https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
+ */
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+
+/**
+ * Basic styles for links
+ */
+a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 0.5px solid currentColor;
+  font-weight: 100;
+  transition: border-bottom-color 0.2s ease;
+
+  &:hover,
+  &:active {
+    border-bottom-color: red; // or your highlight color
+  }
+}
+
+figure.hover-caption {
+  position: relative;
+  display: inline-block;
+}
+
+figure.hover-caption figcaption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.6); /* optional: translucent dark */
+  color: white;
+  padding: 0.5em;
+  font-size: 0.9em;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none; /* ensures caption doesn't block hover */
+}
+
+figure.hover-caption:hover figcaption {
+  opacity: 1;
+}
+
+
+p {
+  margin-top: 0;
+  margin-bottom: 1em;
+/*  max-width: 700px; */
+}
+
+/**
+ * Basic styles for lists
+ */
+
+li {
+}
+
+body {
+  // height: 100vh;
+  // margin: 2% 5%;
+  background-color: #fff;
+}
+
+h3 {
+  margin: 0;
+  margin-bottom: 0.5em;
+}

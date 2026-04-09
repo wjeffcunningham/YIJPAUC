@@ -1,0 +1,38 @@
+.thumbnail {
+  position: relative;
+  background: #fff;
+  padding: 0.5em;
+  margin: 2em auto;
+  width: fit-content;
+  max-width: 90%;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  font-size: 0.9em;
+  text-align: center;
+
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  figcaption {
+    margin-top: 0.4em;
+    color: #444;
+    font-style: italic;
+  }
+
+  // Paperclip accent using inline SVG (base64)
+  &::before {
+    content: "";
+    position: absolute;
+    top: -12px;
+    left: -12px;
+    width: 32px;
+    height: 32px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21.44 11.05L12.12 20.36a5 5 0 01-7.07-7.07l9.9-9.9a3.5 3.5 0 015 5l-9.19 9.19a2 2 0 01-2.83-2.83l8.48-8.48'/%3E%3C/svg%3E") no-repeat center;
+    background-size: contain;
+    z-index: 2;
+    pointer-events: none;
+  }
+}

@@ -1,0 +1,16 @@
+.police-report {
+  font-family: 'Courier Prime', Courier, monospace;
+  background-color: #f4f4f4;   // soft white, not blinding in dark mode
+  color: #111;                 // almost black
+  border-left: 4px solid #444; // visible in both modes
+  padding: 1.5em;
+  margin: 2em 0;
+  max-width: 60ch;
+  line-height: 1.4;
+}
+
+body.dark-mode .police-report {
+  background-color: #1e1e1e;
+  color: #ddd;
+  border-left: 4px solid #888;
+}

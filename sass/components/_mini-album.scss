@@ -1,0 +1,53 @@
+.mini-album {
+  position: relative;
+  max-width: 600px;
+  margin: 2rem auto;
+  overflow: hidden;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+
+  input[type="radio"] {
+    display: none;
+  }
+
+  .slides {
+    display: flex;
+    width: 400%;
+    transition: transform 0.4s ease-in-out;
+  }
+
+  .slide {
+    width: 100%;
+    flex-shrink: 0;
+    display: none;
+
+    img {
+      width: 100%;
+      display: block;
+    }
+  }
+
+  // Show only the selected slide
+  #slide1:checked ~ .slides .slide1,
+  #slide2:checked ~ .slides .slide2,
+  #slide3:checked ~ .slides .slide3,
+  #slide4:checked ~ .slides .slide4 {
+    display: block;
+  }
+
+  .controls {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    label {
+      font-size: 2rem;
+      background: rgba(255, 255, 255, 0.6);
+      padding: 0.25em 0.5em;
+      cursor: pointer;
+      user-select: none;
+    }
+  }
+}

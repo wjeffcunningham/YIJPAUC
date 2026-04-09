@@ -1,0 +1,22 @@
+.menu-icons {
+  display: flex;
+  flex-wrap: wrap; /* Optional: wraps icons if too narrow */
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.5em 1em;
+  font-size: 1.1rem;
+  border-bottom: 1px solid #ccc;
+  list-style: none;
+}
+
+.menu-icons a,
+.menu-icons button,
+.menu-icons span,
+.menu-icons label {
+  text-decoration: none;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.3rem;
+}

@@ -1,0 +1,27 @@
+.scrapbook-img {
+  max-width: 300px; // adjust as needed for “half-size”
+  margin: 2rem auto;
+  padding: 8px;
+  background: #fdfcf7;
+  border: 1px solid #aaa;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
+  display: block;
+  text-align: center;
+  font-family: 'Courier Prime', monospace;
+}
+
+.scrapbook-img img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.scrapbook-img .scrap-label {
+  margin-top: 0.5em;
+  background: #eee;
+  padding: 4px 8px;
+  border-left: 3px solid #999;
+  font-size: 0.75em;
+  color: #333;
+  text-align: left;
+}

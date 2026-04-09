@@ -1,0 +1,21 @@
+.soft-media {
+  border: 1px solid #000; // black border; you can change the color if needed
+  padding: 1rem; // optional, makes the content inside more readable
+}
+
+/* =========================================
+   Map embeds (Google My Maps, dossier)
+   ========================================= */
+
+figure.map-embed {
+  width: 100vw;
+  max-width: 640px;   // or 1024px if you prefer
+  margin: 2rem auto;
+
+  iframe {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border: 0;
+    display: block;
+  }
+}
