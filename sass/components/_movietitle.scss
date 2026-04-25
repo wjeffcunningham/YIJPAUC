@@ -1,3 +1,7 @@
 .movietitle {
-	font-style: italic;
+  font-style: italic;
+  text-decoration: underline;
+  text-decoration-thickness: 0.04em;
+  text-underline-offset: 0.08em;
+  text-decoration-color: rgba(0, 0, 0, 0.25);
 }

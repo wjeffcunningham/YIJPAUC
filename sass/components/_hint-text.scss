@@ -1,0 +1,15 @@
+.hint-text {
+  font-size: 0.85em;
+  font-style: italic;
+  opacity: 0.65;
+  margin-left: 0.45em;
+  position: relative;
+  top: -0.35em;
+  white-space: nowrap;
+  transition: opacity 0.25s ease;
+}
+
+details[open] > summary .hint-text {
+  opacity: 0;
+  pointer-events: none;
+}
