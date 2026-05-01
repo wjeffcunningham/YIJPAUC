@@ -988,7 +988,12 @@ body.dark-mode .datebook-note::before {
   color: #aaa;
 }
 
+.epigraph-toggle {
+  display: none !important;
+}
+
 .epigraph {
+  position: relative;
   max-width: 42rem;
   margin: 2.5rem auto;
   padding: 1.25rem 1.5rem;
@@ -1001,12 +1006,18 @@ body.dark-mode .datebook-note::before {
 
 .epigraph-body {
   display: grid;
+  grid-template-rows: auto auto;
   cursor: pointer;
 }
 
 .epigraph-face {
   grid-area: 1/1;
   transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.epigraph-face a {
+  pointer-events: auto;
 }
 
 .epigraph-original {
@@ -1036,6 +1047,7 @@ body.dark-mode .datebook-note::before {
   font-size: 0.65em;
   font-style: italic;
   opacity: 0.55;
+  cursor: pointer;
   transition: opacity 0.25s ease;
 }
 
@@ -2193,6 +2205,63 @@ body.dark-mode #toggleMode {
   border: none;
   cursor: pointer;
   font-size: 1.3rem;
+}
+
+.modal-toggle {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modal-trigger {
+  cursor: pointer;
+  border-bottom: 1px dotted currentColor;
+  font-style: normal;
+}
+
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+}
+
+.modal-toggle:checked ~ .modal-overlay {
+  display: block;
+}
+
+.modal-box {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 36rem;
+  width: 90%;
+  padding: 2rem 2.5rem;
+  background: var(--bg, #fff);
+  border-top: 1px solid rgba(0, 0, 0, 0.25);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.modal-close {
+  display: block;
+  margin-top: 1.25rem;
+  font-size: 0.7em;
+  font-style: italic;
+  opacity: 0.5;
+  cursor: pointer;
+  text-align: right;
+  letter-spacing: 0.04em;
+}
+
+.modal-close:hover {
+  opacity: 1;
+}
+
+/* reuse epigraph internals inside modal */
+.modal-box .epigraph-body {
+  margin: 0;
 }
 
 .microlibrary {
