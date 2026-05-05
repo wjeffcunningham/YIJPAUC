@@ -1,3 +1,13 @@
+.modal {
+  display: none;
+}
+
+#info-modal-toggle:checked ~ #info-modal,
+#abstract-toggle:checked ~ #abstract-modal,
+#modal-nietzsche:checked ~ #modal-nietzsche-box {
+  display: block;
+}
+
 .modal-toggle {
   position: absolute;
   opacity: 0;
@@ -16,17 +26,18 @@
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
   z-index: 100;
+  align-items: center;
+  justify-content: center;
 }
 
-.modal-toggle:checked ~ .modal-overlay {
-  display: block;
+#info-modal-toggle:checked ~ #info-modal .modal-overlay,
+#abstract-toggle:checked ~ #abstract-modal .modal-overlay,
+#modal-nietzsche:checked ~ #modal-nietzsche-box .modal-overlay {
+  display: flex;
 }
 
 .modal-box {
   position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   max-width: 36rem;
   width: 90%;
   padding: 2rem 2.5rem;
@@ -50,7 +61,6 @@
   opacity: 1;
 }
 
-/* reuse epigraph internals inside modal */
 .modal-box .epigraph-body {
   margin: 0;
 }

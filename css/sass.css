@@ -790,15 +790,72 @@ main {
   text-decoration-style: wavy;
 }
 
+.book-page--aristotle {
+  border-left: 3px solid rgba(180, 140, 60, 0.5);
+}
+
+.book-page--nietzsche {
+  border-left: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.book-page--shakespeare {
+  border: 1px solid #ccc;
+  outline: 3px solid #ccc;
+  outline-offset: 3px;
+}
+
+.book-meta {
+  margin-top: 0.5rem;
+  font-size: 0.72em;
+  font-style: italic;
+  line-height: 1.4;
+  text-align: right;
+}
+.book-meta a {
+  color: inherit;
+  border-bottom: 1px solid currentColor;
+  text-decoration: none;
+}
+.book-meta a:hover {
+  opacity: 1;
+}
+
+.book-meta-author {
+  display: inline;
+  opacity: 0.65;
+}
+
+.book-meta-ref {
+  display: none;
+  opacity: 0.55;
+}
+
+body:has(#toggle-ci:checked) .book-meta-ref {
+  display: inline;
+}
+
 body.dark-mode .book-page {
   background: #1a1a1a;
   color: #f5f5f5;
   border: 1px solid #333;
   box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.05), 0 1px 2px rgba(255, 255, 255, 0.1);
 }
-
 body.dark-mode .book-page::before {
   background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0) 60%, rgba(255, 255, 255, 0.04) 100%);
+}
+
+body.dark-mode .book-page--aristotle {
+  border-left: 3px solid rgba(200, 160, 80, 0.6);
+}
+
+body.dark-mode .book-page--nietzsche {
+  border-left: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+body.dark-mode .book-page--shakespeare {
+  border: 1px solid #555;
+  outline: 3px solid #555;
+  outline-offset: 3px;
 }
 
 .blockquote {
@@ -2207,6 +2264,16 @@ body.dark-mode #toggleMode {
   font-size: 1.3rem;
 }
 
+.modal {
+  display: none;
+}
+
+#info-modal-toggle:checked ~ #info-modal,
+#abstract-toggle:checked ~ #abstract-modal,
+#modal-nietzsche:checked ~ #modal-nietzsche-box {
+  display: block;
+}
+
 .modal-toggle {
   position: absolute;
   opacity: 0;
@@ -2225,17 +2292,18 @@ body.dark-mode #toggleMode {
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
   z-index: 100;
+  align-items: center;
+  justify-content: center;
 }
 
-.modal-toggle:checked ~ .modal-overlay {
-  display: block;
+#info-modal-toggle:checked ~ #info-modal .modal-overlay,
+#abstract-toggle:checked ~ #abstract-modal .modal-overlay,
+#modal-nietzsche:checked ~ #modal-nietzsche-box .modal-overlay {
+  display: flex;
 }
 
 .modal-box {
   position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   max-width: 36rem;
   width: 90%;
   padding: 2rem 2.5rem;
@@ -2259,7 +2327,6 @@ body.dark-mode #toggleMode {
   opacity: 1;
 }
 
-/* reuse epigraph internals inside modal */
 .modal-box .epigraph-body {
   margin: 0;
 }
@@ -2644,6 +2711,39 @@ figure.map-embed iframe {
   position: absolute;
   top: 10px;
   color: #f00;
+}
+
+.trans {
+  font-style: italic;
+  text-decoration: underline;
+  text-decoration-thickness: 0.04em;
+  text-underline-offset: 0.08em;
+  text-decoration-color: rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+.trans.is-translated {
+  text-decoration-style: dashed;
+  text-decoration-color: rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .trans {
+  text-decoration-color: rgba(255, 255, 255, 0.3);
+}
+body.dark-mode .trans.is-translated {
+  text-decoration-color: rgba(255, 255, 255, 0.5);
+}
+
+@keyframes trans-shimmer {
+  0%, 96%, 100% {
+    opacity: 1;
+  }
+  98% {
+    opacity: 0.55;
+  }
+}
+body.dark-mode .trans:not(.is-translated) {
+  animation: trans-shimmer 12s ease-in-out infinite;
 }
 
 .transcript {
