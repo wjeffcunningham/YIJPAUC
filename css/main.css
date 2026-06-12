@@ -790,15 +790,72 @@ main {
   text-decoration-style: wavy;
 }
 
+.book-page--aristotle {
+  border-left: 3px solid rgba(180, 140, 60, 0.5);
+}
+
+.book-page--nietzsche {
+  border-left: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.book-page--shakespeare {
+  border: 1px solid #ccc;
+  outline: 3px solid #ccc;
+  outline-offset: 3px;
+}
+
+.book-meta {
+  margin-top: 0.5rem;
+  font-size: 0.72em;
+  font-style: italic;
+  line-height: 1.4;
+  text-align: right;
+}
+.book-meta a {
+  color: inherit;
+  border-bottom: 1px solid currentColor;
+  text-decoration: none;
+}
+.book-meta a:hover {
+  opacity: 1;
+}
+
+.book-meta-author {
+  display: inline;
+  opacity: 0.65;
+}
+
+.book-meta-ref {
+  display: none;
+  opacity: 0.55;
+}
+
+body:has(#toggle-ci:checked) .book-meta-ref {
+  display: inline;
+}
+
 body.dark-mode .book-page {
   background: #1a1a1a;
   color: #f5f5f5;
   border: 1px solid #333;
   box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.05), 0 1px 2px rgba(255, 255, 255, 0.1);
 }
-
 body.dark-mode .book-page::before {
   background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0) 60%, rgba(255, 255, 255, 0.04) 100%);
+}
+
+body.dark-mode .book-page--aristotle {
+  border-left: 3px solid rgba(200, 160, 80, 0.6);
+}
+
+body.dark-mode .book-page--nietzsche {
+  border-left: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+body.dark-mode .book-page--shakespeare {
+  border: 1px solid #555;
+  outline: 3px solid #555;
+  outline-offset: 3px;
 }
 
 .blockquote {
@@ -988,6 +1045,84 @@ body.dark-mode .datebook-note::before {
   color: #aaa;
 }
 
+.epigraph-toggle {
+  display: none !important;
+}
+
+.epigraph {
+  position: relative;
+  max-width: 42rem;
+  margin: 2.5rem auto;
+  padding: 1.25rem 1.5rem;
+  font-size: 1.05em;
+  line-height: 1.55;
+  text-align: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.25);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.epigraph-body {
+  display: grid;
+  grid-template-rows: auto auto;
+  cursor: pointer;
+}
+
+.epigraph-face {
+  grid-area: 1/1;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.epigraph-face a {
+  pointer-events: auto;
+}
+
+.epigraph-original {
+  opacity: 1;
+}
+
+.epigraph-translation {
+  opacity: 0;
+}
+
+.epigraph-toggle:checked + .epigraph-body .epigraph-original {
+  opacity: 0;
+}
+
+.epigraph-toggle:checked + .epigraph-body .epigraph-translation {
+  opacity: 1;
+}
+
+.epigraph-toggle:checked + .epigraph-body .translate-hint {
+  opacity: 0;
+}
+
+.translate-hint {
+  grid-area: 2/1;
+  display: block;
+  margin-top: 0.6rem;
+  font-size: 0.65em;
+  font-style: italic;
+  opacity: 0.55;
+  cursor: pointer;
+  transition: opacity 0.25s ease;
+}
+
+.epigraph-source {
+  display: inline-block;
+  margin-top: 0.65rem;
+  font-size: 0.72em;
+  font-style: italic;
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  opacity: 0.65;
+}
+
+.epigraph-source:hover {
+  opacity: 1;
+}
+
 .fade-toggle {
   position: relative;
   display: inline-block;
@@ -1126,17 +1261,19 @@ body.dark-mode .datebook-note::before {
   }
 }
 .hint-text {
-  font-size: 0.6em;
+  font-size: 0.85em;
   font-style: italic;
-  opacity: 0.7;
-  margin-left: 0.4em;
+  opacity: 0.65;
+  margin-left: 0.45em;
   position: relative;
-  top: -0.3em;
+  top: -0.35em;
   white-space: nowrap;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.25s ease;
 }
-.hint-text:hover {
-  opacity: 1;
+
+details[open] > summary .hint-text {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .hover-reveal::after {
@@ -1501,6 +1638,150 @@ ol.depth-3 > li::before {
   padding: 0.25em 0.5em;
   cursor: pointer;
   user-select: none;
+}
+
+#map-modal-toggle {
+  display: none;
+}
+
+#map-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+}
+#map-modal-toggle:checked ~ #map-modal {
+  display: flex;
+}
+#map-modal .modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  cursor: pointer;
+}
+#map-modal .modal-box {
+  position: relative;
+  z-index: 201;
+  margin: auto;
+  background: var(--color-bg, #fff);
+  border: 1px solid var(--color-border, #ccc);
+  padding: 1.5rem 1.5rem 1rem;
+  max-width: min(680px, 92vw);
+  width: 100%;
+  max-height: 88vh;
+  overflow-y: auto;
+  border-radius: 2px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+}
+#map-modal .modal-close {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.9rem;
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: var(--color-muted, #999);
+  user-select: none;
+}
+#map-modal .modal-close:hover {
+  color: var(--color-text, #000);
+}
+#map-modal h2 {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted, #999);
+  margin: 0 0 1.25rem;
+}
+
+.map-svg-wrap {
+  width: 100%;
+  overflow: visible;
+}
+.map-svg-wrap svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+[id^=mapnode-] {
+  opacity: 0;
+  transition: opacity 0.5s ease, filter 0.5s ease;
+  pointer-events: none;
+}
+[id^=mapnode-].lit {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#mapnode-root {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.map-node-circle {
+  fill: none;
+  stroke: var(--color-text, #111);
+  stroke-width: 1.5;
+  transition: fill 0.3s ease;
+}
+[id^=mapnode-].lit .map-node-circle {
+  fill: var(--color-accent, #e8c84a);
+}
+
+.map-node-label {
+  font-family: "Courier Prime", "Courier New", monospace;
+  font-size: 9px;
+  fill: var(--color-text, #111);
+  dominant-baseline: middle;
+  text-anchor: middle;
+}
+
+.map-edge {
+  stroke: var(--color-text, #111);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+  opacity: 0.35;
+}
+
+.map-legend {
+  margin-top: 1rem;
+  font-size: 0.72rem;
+  color: var(--color-muted, #999);
+  font-family: "Courier Prime", monospace;
+  letter-spacing: 0.04em;
+  border-top: 1px solid var(--color-border, #eee);
+  padding-top: 0.6rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.map-legend .map-legend-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-text, #111);
+  background: var(--color-accent, #e8c84a);
+  margin-right: 0.35em;
+  vertical-align: middle;
+}
+
+body.dark #map-modal .modal-box {
+  background: var(--color-bg-dark, #111);
+  border-color: var(--color-border-dark, #333);
+}
+body.dark .map-node-circle {
+  stroke: var(--color-text-dark, #eee);
+}
+body.dark .map-node-label {
+  fill: var(--color-text-dark, #eee);
+}
+body.dark .map-edge {
+  stroke: var(--color-text-dark, #eee);
+}
+body.dark .map-legend {
+  color: var(--color-muted-dark, #666);
+  border-color: var(--color-border-dark, #333);
 }
 
 .magnifier-toggle input[type=checkbox] {
@@ -2127,6 +2408,73 @@ body.dark-mode #toggleMode {
   font-size: 1.3rem;
 }
 
+.modal {
+  display: none;
+}
+
+#info-modal-toggle:checked ~ #info-modal,
+#abstract-toggle:checked ~ #abstract-modal,
+#modal-nietzsche:checked ~ #modal-nietzsche-box {
+  display: block;
+}
+
+.modal-toggle {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modal-trigger {
+  cursor: pointer;
+  border-bottom: 1px dotted currentColor;
+  font-style: normal;
+}
+
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+}
+
+#info-modal-toggle:checked ~ #info-modal .modal-overlay,
+#abstract-toggle:checked ~ #abstract-modal .modal-overlay,
+#modal-nietzsche:checked ~ #modal-nietzsche-box .modal-overlay {
+  display: flex;
+}
+
+.modal-box {
+  position: relative;
+  max-width: 36rem;
+  width: 90%;
+  padding: 2rem 2.5rem;
+  background: var(--bg, #fff);
+  border-top: 1px solid rgba(0, 0, 0, 0.25);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.modal-close {
+  display: block;
+  margin-top: 1.25rem;
+  font-size: 0.7em;
+  font-style: italic;
+  opacity: 0.5;
+  cursor: pointer;
+  text-align: right;
+  letter-spacing: 0.04em;
+}
+
+.modal-close:hover {
+  opacity: 1;
+}
+
+.modal-box .epigraph-body {
+  margin: 0;
+}
+
 .microlibrary {
   font-family: Georgia, serif;
   padding: 1rem;
@@ -2180,6 +2528,10 @@ body.dark-mode #toggleMode {
 
 .movietitle {
   font-style: italic;
+  text-decoration: underline;
+  text-decoration-thickness: 0.04em;
+  text-underline-offset: 0.08em;
+  text-decoration-color: rgba(0, 0, 0, 0.25);
 }
 
 /* menu - navbar */
@@ -2503,6 +2855,39 @@ figure.map-embed iframe {
   position: absolute;
   top: 10px;
   color: #f00;
+}
+
+.trans {
+  font-style: italic;
+  text-decoration: underline;
+  text-decoration-thickness: 0.04em;
+  text-underline-offset: 0.08em;
+  text-decoration-color: rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+.trans.is-translated {
+  text-decoration-style: dashed;
+  text-decoration-color: rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .trans {
+  text-decoration-color: rgba(255, 255, 255, 0.3);
+}
+body.dark-mode .trans.is-translated {
+  text-decoration-color: rgba(255, 255, 255, 0.5);
+}
+
+@keyframes trans-shimmer {
+  0%, 96%, 100% {
+    opacity: 1;
+  }
+  98% {
+    opacity: 0.55;
+  }
+}
+body.dark-mode .trans:not(.is-translated) {
+  animation: trans-shimmer 12s ease-in-out infinite;
 }
 
 .transcript {

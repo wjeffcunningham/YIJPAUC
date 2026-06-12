@@ -9,7 +9,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
   <script type="text/javascript" src="./js/menu.js"></script>
   <script type="text/javascript" src="./js/tracklinks.js"></script>
-  <script type="text/javascript" src="./js/map.js"></script>
   <script type="text/javascript" src="./js/darkmode.js"></script>
   <meta charset="utf-8">
   <meta name="description" content="Why IJPAUC?">
@@ -20,54 +19,6 @@
     @media (max-width: 768px) {
       .hero-image-text { font-size: 20cqw; }
     }
-
-    /* ── Map modal show rule (until map.scss compiled into sass.css) ── */
-    #map-modal { display: none; }
-    #map-modal-toggle:checked ~ #map-modal { display: flex; }
-
-    /* ── Stats modal show rule ── */
-    #stats-modal { display: none; }
-    #stats-modal-toggle:checked ~ #stats-modal { display: flex; }
-
-    /* ── Game mode: map + stats icons hidden until game-toggle is on ── */
-    #game-map-label,
-    #game-stats-label { display: none; }
-    body:has(#game-toggle:checked) #game-map-label,
-    body:has(#game-toggle:checked) #game-stats-label { display: inline; }
-
-    /* ── Stats modal content ── */
-    #stats-modal .modal-box { min-width: min(340px, 88vw); }
-    .stats-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-family: 'Courier Prime', 'Courier New', monospace;
-      font-size: 0.85rem;
-      margin-top: 0.75rem;
-    }
-    .stats-table td {
-      padding: 0.4rem 0.5rem;
-      border-bottom: 1px solid var(--color-border, #eee);
-      vertical-align: top;
-    }
-    .stats-table td:first-child {
-      color: var(--color-muted, #999);
-      white-space: nowrap;
-      padding-right: 1rem;
-    }
-    .stats-table td:last-child { font-weight: 700; }
-    .stats-score-bar {
-      height: 4px;
-      background: var(--color-border, #eee);
-      border-radius: 2px;
-      margin-top: 0.25rem;
-      overflow: hidden;
-    }
-    .stats-score-bar-fill {
-      height: 100%;
-      background: var(--color-accent, #e8c84a);
-      border-radius: 2px;
-      transition: width 0.4s ease;
-    }
   </style>
 </head>
 <body>
@@ -76,178 +27,7 @@
      MODALS
      ============================================================ -->
 
-<input type="checkbox" id="map-modal-toggle" hidden>
-<input type="checkbox" id="stats-modal-toggle" hidden>
 <input type="checkbox" id="info-modal-toggle" hidden>
-
-<!-- ============================================================
-     MAP MODAL
-     ============================================================ -->
-
-<div class="modal" id="map-modal">
-  <label class="modal-overlay" for="map-modal-toggle"></label>
-  <div class="modal-box">
-    <label for="map-modal-toggle" class="modal-close">×</label>
-    <h2>Document Map</h2>
-    <div class="map-svg-wrap">
-      <!--
-        Node IDs must match data-expand-id / data-id values exactly.
-        Root is always lit. Section nodes light on <details> open.
-        Link nodes light when the corresponding track-link is clicked.
-
-        Coordinate grid: viewBox="0 0 600 460"
-        Root:       (300, 30)
-        Section 1:  (110, 110) — TZ Accident
-        Section 2:  (300, 110) — Amblin Evidence
-        Section 3:  (490, 110) — Basis of Hope in Trust
-      -->
-      <svg viewBox="0 0 600 460" xmlns="http://www.w3.org/2000/svg" aria-label="yIJPAUC document exploration map">
-
-        <!-- ── Edges ── -->
-        <line class="map-edge" x1="300" y1="42" x2="120" y2="98"/>
-        <line class="map-edge" x1="300" y1="42" x2="300" y2="98"/>
-        <line class="map-edge" x1="300" y1="42" x2="480" y2="98"/>
-
-        <!-- Section 1 → link nodes -->
-        <line class="map-edge" x1="120" y1="122" x2="50"  y2="190"/>
-        <line class="map-edge" x1="120" y1="122" x2="120" y2="190"/>
-        <line class="map-edge" x1="120" y1="122" x2="190" y2="190"/>
-
-        <!-- Section 2 → link nodes -->
-        <line class="map-edge" x1="300" y1="122" x2="230" y2="190"/>
-        <line class="map-edge" x1="300" y1="122" x2="300" y2="190"/>
-        <line class="map-edge" x1="300" y1="122" x2="370" y2="190"/>
-        <line class="map-edge" x1="300" y1="122" x2="300" y2="250"/>
-
-        <!-- Section 3 → sub-section nodes -->
-        <line class="map-edge" x1="480" y1="122" x2="420" y2="200"/>
-        <line class="map-edge" x1="480" y1="122" x2="480" y2="200"/>
-        <line class="map-edge" x1="480" y1="122" x2="540" y2="200"/>
-
-        <!-- ── Root (always lit) ── -->
-        <g id="mapnode-root">
-          <circle class="map-node-circle" cx="300" cy="30" r="14" style="fill:var(--color-accent,#e8c84a);stroke-width:2"/>
-          <text class="map-node-label" x="300" y="27" style="font-size:7px;font-weight:700">WHY</text>
-          <text class="map-node-label" x="300" y="36" style="font-size:6px">IJPAUC?</text>
-        </g>
-
-        <!-- ── Section 1: TZ Accident ── -->
-        <g id="mapnode-expand-tz">
-          <circle class="map-node-circle" cx="120" cy="110" r="20"/>
-          <text class="map-node-label" x="120" y="106" style="font-size:7px">TZ</text>
-          <text class="map-node-label" x="120" y="115" style="font-size:7px">Accident</text>
-        </g>
-
-        <!-- page25 = WJC github -->
-        <g id="mapnode-page25">
-          <circle class="map-node-circle" cx="50" cy="200" r="10"/>
-          <text class="map-node-label" x="50" y="215" style="font-size:7px">WJC</text>
-        </g>
-        <!-- page26 = VVIP26 youtube -->
-        <g id="mapnode-page26">
-          <circle class="map-node-circle" cx="120" cy="200" r="10"/>
-          <text class="map-node-label" x="120" y="215" style="font-size:7px">VVIP26</text>
-        </g>
-        <!-- page2 = dossier §1 -->
-        <g id="mapnode-page2">
-          <circle class="map-node-circle" cx="190" cy="200" r="10"/>
-          <text class="map-node-label" x="190" y="215" style="font-size:7px">Dossier §1</text>
-        </g>
-
-        <!-- ── Section 2: Amblin Evidence ── -->
-        <g id="mapnode-expand-amblin">
-          <circle class="map-node-circle" cx="300" cy="110" r="20"/>
-          <text class="map-node-label" x="300" y="106" style="font-size:7px">Amblin</text>
-          <text class="map-node-label" x="300" y="115" style="font-size:7px">Evidence</text>
-        </g>
-
-        <!-- Blues Brothers article -->
-        <g id="mapnode-page3">
-          <circle class="map-node-circle" cx="230" cy="200" r="10"/>
-          <text class="map-node-label" x="230" y="215" style="font-size:7px">Blues Bros.</text>
-        </g>
-        <!-- Cracked article -->
-        <g id="mapnode-page4">
-          <circle class="map-node-circle" cx="300" cy="200" r="10"/>
-          <text class="map-node-label" x="300" y="215" style="font-size:7px">Cracked</text>
-        </g>
-        <!-- NYT article -->
-        <g id="mapnode-page5">
-          <circle class="map-node-circle" cx="370" cy="200" r="10"/>
-          <text class="map-node-label" x="370" y="215" style="font-size:7px">NYT</text>
-        </g>
-        <!-- Dossier §22 -->
-        <g id="mapnode-page6">
-          <circle class="map-node-circle" cx="300" cy="260" r="10"/>
-          <text class="map-node-label" x="300" y="275" style="font-size:7px">Dossier §22</text>
-        </g>
-
-        <!-- ── Section 3: Basis of Hope in Trust ── -->
-        <g id="mapnode-expand-hope">
-          <circle class="map-node-circle" cx="480" cy="110" r="20"/>
-          <text class="map-node-label" x="480" y="106" style="font-size:7px">Hope in</text>
-          <text class="map-node-label" x="480" y="115" style="font-size:7px">Trust</text>
-        </g>
-
-        <!-- Sub-sections -->
-        <g id="mapnode-expand-poetics">
-          <circle class="map-node-circle" cx="420" cy="210" r="14"/>
-          <text class="map-node-label" x="420" y="206" style="font-size:7px">Poetics</text>
-          <text class="map-node-label" x="420" y="215" style="font-size:7px">&amp; Rhetoric</text>
-        </g>
-        <g id="mapnode-expand-melian">
-          <circle class="map-node-circle" cx="480" cy="210" r="14"/>
-          <text class="map-node-label" x="480" y="206" style="font-size:7px">Melian</text>
-          <text class="map-node-label" x="480" y="215" style="font-size:7px">Dialogue</text>
-        </g>
-        <!-- Nietzsche modal trigger -->
-        <g id="mapnode-nietzsche">
-          <circle class="map-node-circle" cx="540" cy="210" r="14"/>
-          <text class="map-node-label" x="540" y="210" style="font-size:7px">Nietzsche</text>
-        </g>
-
-        <!-- Score tally -->
-        <text x="300" y="440" class="map-node-label" id="map-score-display"
-              style="font-size:8px;fill:var(--color-muted,#999);text-anchor:middle">— — —</text>
-
-      </svg>
-    </div>
-
-    <div class="map-legend">
-      <span><span class="map-legend-dot"></span>visited node</span>
-      <span id="map-score-label" style="font-family:'Courier Prime',monospace;font-size:0.72rem"></span>
-    </div>
-  </div>
-</div>
-
-<!-- ============================================================
-     STATS MODAL
-     ============================================================ -->
-
-<div class="modal" id="stats-modal">
-  <label class="modal-overlay" for="stats-modal-toggle"></label>
-  <div class="modal-box">
-    <label for="stats-modal-toggle" class="modal-close">×</label>
-    <h2>Reading Stats</h2>
-    <table class="stats-table">
-      <tbody>
-        <tr>
-          <td>Link score</td>
-          <td id="stats-link-score">—</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>
-            <div class="stats-score-bar">
-              <div class="stats-score-bar-fill" id="stats-score-bar-fill" style="width:0%"></div>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
 <div class="modal" id="info-modal">
   <label class="modal-overlay" for="info-modal-toggle"></label>
   <div class="modal-box">
@@ -322,7 +102,6 @@
   <div class="menu-grid">
     <input type="checkbox" id="info-toggle" hidden>
     <input type="checkbox" id="tools-toggle" hidden>
-    <input type="checkbox" id="game-toggle" hidden>
 
     <div class="widgets-row">
       <div class="widgets" id="base-widgets">
@@ -338,9 +117,6 @@
         <input type="checkbox" id="audio-toggle" hidden>
         <label for="audio-toggle" class="audio-icon" title="Toggle Background Audio">🔊</label>
         <button id="music-toggle" class="music-icon" title="Cycle Background Music">🎶</button>
-        <label for="game-toggle" title="Toggle Game Mode">🎮</label>
-        <label for="map-modal-toggle" id="game-map-label" title="Document Map">🗺️</label>
-        <label for="stats-modal-toggle" id="game-stats-label" title="Reading Stats">📊</label>
         <label for="toggle-x" class="dark-only ghost-icon" title="Toggle Invisibles">👻</label>
         <marginalia data-type="x">v1.09</marginalia>
       </div>
@@ -364,7 +140,7 @@
         <li><a href="pages/dossier.html#section-04" class="track-link" data-id="page5">4</a></li>
         <li><a href="pages/dossier.html#section-05" class="track-link" data-id="page6">5</a></li>
         <li><a href="pages/dossier.html#section-06" class="track-link" data-id="page7">6</a></li>
-        <li><a href="pages/dossier.html#section-07" class="track-link" data-id="page8">8</a></li>
+        <li><a href="pages/dossier.html#section-07" class="track-link" data-id="page8">7</a></li>
         <li><a href="pages/dossier.html#section-08" class="track-link" data-id="page9">8</a></li>
         <li><a href="pages/dossier.html#section-09" class="track-link" data-id="page10">9</a></li>
         <li><a href="pages/dossier.html#section-10" class="track-link" data-id="page11">10</a></li>
@@ -451,7 +227,7 @@
       </figure>
     </div>
 
-    <p>I am not the first to <a href="https://www.cracked.com/article_30251_the-dark-allegory-hiding-inside-of-jurassic-park.html">make the connection</a> between <i>Jurassic Park</i> (1993) and the <i>Twilight Zone</i> accident; I am, however, the first to ask whether it constitutes a "confession." In other words, I consider the cultural status of <i>Jurassic Park</i> in light of the unanswered—and indeed, unasked—question of whether the film's co-producer, Spielberg, in any way (tacitly or explicitly) sanctioned the illegal hiring.</p>
+    <p>I am not the first to <a href="https://www.cracked.com/article_30251_the-dark-allegory-hiding-inside-of-jurassic-park.html">make the connection</a> between <i>Jurassic Park</i> (1993) and the <i>Twilight Zone</i> accident; I am, however, the first to ask whether it constitutes a "confession." In other words, I consider the cultural status of <i>Jurassic Park</i> in light of the unanswered—and indeed, unasked—question of whether the film's co-producer, Spielberg, in any way (tacitly or explicitly) sanctioned the illegal hiring. 
 
     <p>The question of assigning responsibility for the accident is eclipsed by the screaming, bullying, maniac who'd been calling the shots that night: director John Landis, already a major figure in American film history. Yet someone else, orders of magnitude more significant to the cinema arts is also implicated; or, at least, has been shielded from the question by those who were.</p>
 
@@ -464,7 +240,7 @@
     <p>In the end, do our narratives carry any real moral currency? And if so, upon what is that currency based?</p>
 
     <ol>
-    <li><details data-expand-id="expand-tz"><summary>The <i>Twilight Zone</i> Accident (July 23rd, 1982) <span class="hint-text">(tap to expand)</span></summary><br>
+    <li><details><summary>The <i>Twilight Zone</i> Accident (July 23rd, 1982) <span class="hint-text">(tap to expand)</span></summary><br>
 
         <p>At 2:20am, the two children are carried across a river—Le under one arm, Chen under the other—as the segment's protagonist, played by 53-year-old veteran Hollywood actor Vic Morrow (also killed), tries to deliver them to the safety of the opposite shore. But the fourth and fifth explosions fired blow through the roof of a fishing hut and destroy the tail rotor of the helicopter, causing it to spiral downwards onto the spot where Morrow had just moments earlier stumbled to his knees. Chen had for a few brief seconds slipped from his grasp; plunged face-first into the murky waters below.</p>
 
@@ -490,7 +266,7 @@
 
       </details></li>
 
-      <li><details data-expand-id="expand-amblin"><summary>Evidence of Amblin's Involvement (June/July 1982) <span class="hint-text">(tap to expand)</span></summary><br>
+      <li><details><summary>Evidence of Amblin's Involvement (June/July 1982) <span class="hint-text">(tap to expand)</span></summary><br>
 
         <p><i>Twilight Zone: The Movie</i><marginalia data-type="pa"> (released in 1983)</marginalia> was an anthology film co-produced by Landis and Spielberg. It featured four different segments by four different directors, of which Landis's—an original, written by Landis, eventually titled simply 'Time Out'—was the first to go to production.</p>
 
@@ -526,6 +302,18 @@
 
         <p>At the time of the final shot (2:20am), Marshall was standing beside the Locations Manager, who testified at a grand jury in 1983 that he had been participating in an on-set conspiracy to conceal the presence of the two children from a particular Fire Safety Officer known also to work as an On-Set Teacher and Childrens' Welfare Advocate. He testified that: "Marshall turned to [me] and said 'Those are dolls he's picking up, aren't they?'"</p>
 
+        <p>Marshall has several layers of legal accountability which, superficially, sufficiently motivates his reluctance to testify.</p>
+
+        <p>But as a consequence no one has ever been able to ask Spielberg or either of his aides, whether he knew about the illegal hiring. Landis and his production regulars meanwhile were situated on the Universal Studios lot.</p>
+
+        <p>Of course, all three were on an incredible creative and box office run, that had started with <i>Raiders of the Lost Ark</i>, and continued through <i>Poltergeist</i> and <i>E.T.</i>, with <i>Twilight Zone: The Movie</i>, the next on the way. It would be understandable if all three had been totally preoccupied at that time (March-July 1982). But fan magazines at least represent Spielberg hard at work on his own segment, a sprawling, suburban, Halloween nights' tale, in which a vicious neighbourhood bully receives his comeuppance, with makeup/costume work by the legendary make-up artist Rick Baker (who would go on to do <i>Thriller</i> the following year). Miller has said that he first met with Marshall and Kennedy in May of 1983 when they tapped him to direct a segment; Dante has said that the original concept for <i>Twilight Zone: The Movie</i> was that the plot would be far more continuous than the final edit became.</p>
+
+        <p>As Landis's attorney <marginalia data-type="ch">(Harland Braun) </marginalia>wrote, in protest, to the Los Angeles D.A.'s office, in November 1985, when the case was finally on its way to a full-blown, media-frenzied, triple-homicide trial, with billions of dollars in liabilities at stake in the pending $200-million dollar civil suit filed by the families. Landis could very well lose, and go to state prison, for his role in the accident. If this alibi was a bluff, it would be no laughing matter. And yet Braun wrote:</p>
+
+        <div class="letter"><p>Simple interviews with Spielberg, Marshall, and Kennedy would reveal that these highly placed and acknowledged experts knew that a scene was being shot in their own movie in which actors were being used in a scene with a helicopter and special effects. These participants knew the elements of the scene and would have stopped the production had they ever thought that special effects could not be safely used with actors and helicopters. [...]</p>
+
+        <p>With respect to Mr. Spielberg, Marshall and Kennedy will be able to state whether he knew that children were to be employed without permits. It could be reasonably inferred that given the close relationship between Spielberg, Marshall and Kennedy and Spielberg's close supervision of his own movies, that it would be almost inconceivable that Marshall and Kennedy would not tell Spielberg that children were to be employed without permits on Spielberg's own movie.</p></div>
+
         <p>In other words, if you're not going to turn over these rocks and ask these questions, you can't blame our clients for thinking what they were doing wasn't that bad, relative to standards which hadn't seemed to bother a few "acknowledged industry experts." The defendants had a plausible, unchallenged, exonerating narrative for the illegal hiring! <marginalia data-type="pa">(The letter prompted the state's second, international subpoena for Marshall's testimony, but again it was of no use.)</marginalia></p>
 
         <p>The lawyer additionally observed:</p>
@@ -556,221 +344,146 @@
 
       </details></li>
 
- The Basis of Hope in Trust
-
-In Aristotle's Rhetoric, he argues that those who write about the science of persuasion neglect the role of the speaker's perceived character in its function.
-
-...for it is not in the way some of the speech-art makers assume in their "arts," that the decency of the speaker contributes nothing to his persuasiveness, but character, one might say, has in it just about the most decisive means of persuasion. (Rhet 1.2)
-
-This is relevant to our question insofar as Hollywood movies are not only a form of storytelling, but also a form of politically-oriented speech.
-
-Aristotle discusses storytelling in his Poetics (350 BCE)—the earliest known screenwriter’s manual—and speechmaking in his handbook on political speech, On Rhetoric, where he advances the thesis stated above.
-
-In short, when Aristotle’s theory of narrative is compared against his theory of persuasive speaking—we get a clear picture of the consequences of the collapse in moral credibility of a major imaginary object trafficking in any significant currency as a source of moral or aesthetic edification.
-
-[3a; On Aristotle on Poetics & Rhetoric]
-
-"Tragedy then gradually evolved as men developed each element that came to light and after going through many changes, it stopped when it had found its own natural form." (Poetics 1449a)
-
-Today we often hear the word “narrative”—as in, “controlling the narrative”—the narrative being a kind of story.
-
-But what exactly is a “story”? Why do “narratives” hold such power for us? And what are the limits of this power?
-
-What Aristotle means by story (μῦθος) is not the same as what we mean by it today, accustomed as we are to the Hollywood format, which has largely been templated according to the theories of Joseph Campbell and "The Hero's Journey.”
-
-According to Campbell, the essential parameters of storytelling can be derived by way of cross-cultural analysis. The common denominator is expressed as: A protagonist-figure leaves his village, slays the dragon, and returns home—a separation, initiation, return structure—with each moment and sub-moment of this journey available for amplification or thematization. Its bias is optimistic, insofar as it serves a dual cultural function: of modelling for its citizens the attitude needed to overcome their own personal dragons, whatever they may be.
-
-“Story then is the first principle and like the soul of tragedy.” (Poetics 1450a)
-
-For Aristotle, by contrast, a story is that which organizes the incidents of tragedy specifically—the dramatic form developed in ancient Athens, which peaked about 50 years before Aristotle started writing about it. Since the paradigmatic story only emerges as a late historical development, Campbell's strategy of establishing the form by cultural consensus won’t do.
-
-Aristotle’s claim hinges on what he calls the ἴδιον (defining quality) of tragedy: its capacity, “through pity and fear,” to induce catharsis (κάθαρσις) of these same feelings.
-
-“Pity and fear” had already been established at the time as states with which tragedy and display speeches were specially concerned. Spectator reactions to tragedy—and comedy, for that matter—were conspicuous.
-
-***
-
-Aristotle attempts to explain how this effect actually works.
-
-The problem becomes salient once one appreciates that pity and fear are almost opposites, and from many angles drive the other out. Fear concerns our own anticipation of pain; pity concerns our anticipation of the suffering of others who are like us—so long as they don’t deserve it. (Rhet 2.5; 2.7; cf. Poetics 13). It’s this intersubjective asymmetry—the lack of a “doesn’t deserve it” clause on fear, in contrast to pity—which tragedy exploits.
-
-In Chapter 9, Aristotle locates a case where fear and pity come to be “on account of one another,” and so “contrary to expectation.”
-
- “…if this is the case, it will be more wondrous than if they come to be spontaneously or by chance, since even among chance things those seem most wondrous which appear to come to be as if for a purpose. For example, the statue of Mitys at Argo killed the one who was the cause of the death of Mitys; it fell on him while he contemplated it. For it is likely that as things of this sort do not come to be at random, so stories of this sort are necessarily more beautiful.” (Emphasis added).
-
-The mutual generation of pity-fear (exemplified in Mitys) produces a paradoxical effect with wondrous impact. This, Aristotle explains in Chapter 11, is most powerfully induced by way of an ideally-simultaneous moment of reversal and recognition. These, say Aristotle, besides the story, “are the greatest things by which tragedy guides the soul (psuchagogei),” and specifically characterize a “complex” story against a “simple” one.
-
-Aristotle gives as an example of reversal from Sophocles’ Oedipus, regarded as a tragic masterpiece:
-
-“For example in the Oedipus, on his coming [the messenger from Corinth], in supposing that he was going to cheer Oedipus and release him from the fear regarding his mother, once he had made it clear who he was, he did the contrary.”
-
-And an explanation of recognition, also from the Oedipus, at the same time (presumably by Oedipus) as he suddenly sees the world anew.
-
-“Recognition (anagnorisis), on the other hand, just as the name too signifies, is a change from ignorance to knowledge, whether toward friendship or enmity, of those whose relation to good or ill fortune has already been determined.”
-
-Since recognition and reversal concern mistakes, and mistakes are made by people acting in their world, the mistake that induces recognition/reversal depends on an appropriate agent to make it. Aristotle attempts to determine this agent in Chapter 13.
-
-He begins by making what would seem to be a few elementary exclusions.
-
-The tragic hero can’t be an evil man, whether he would prosper by the end, or receive his comeuppance. In the first case, the spectator would find it entirely unsatisfying. In the second, some feeling of “philanthropia” would at least be generated. 
-
-Aristotle adds another caveat:
-
-“…it is clear that sound men ought not to be shown changing from good to bad fortune (for this is neither fearful nor pitiable but disgusting (miaron))…”
-
-“Sound,” here is a technical term, “epiekes,” defined in the Nicomachean Ethics, meaning he who does not necessarily demand the full enactment of justice due to him by the law. Aristotle indicates that, beyond ineffective and unhappy, this would be “disgusting.”
-
-So, what remains is he:
-
-…who is neither distinguished by virtue and justice nor changing to bad fortune on account of vice and wickedness is of this sort, but one who changes on account of some mistake and is one of those in great repute and of good fortune such as Oedipus, Thyestes, and notable men of families of this sort. (Ch. 13)
-
-Ergo, Oedipus is a paradigmatic tragic hero, and Oedipus (presumably) the paradigmatic story, at least in its general design.
-
-The spectator begins by identifying with a hero, in a similar way to how they’d identify with an athlete at a sporting event. (EN 1166b34-1167a6ff.; 1170b6-15. Friendship (philia) models the self's relation to others: “all the things that have to do with friendship arise out of oneself and extend to others” (1168b3-7). To judge that someone is a philos is to be aware that their being is similar to one's own (1170b7-13). A philos, then, provides a second self, but one whose ways of being-at-work can be observed from a detached perspective not easily attained with regard to one's own being (1169b34-36).)
-
-But as the events of the play unfold, 
-
-And yet, we pity them. Why? The two axes of identification (as self and as other) are driven to an intersection so that we experience them both at once.
-
-Normally, Aristotle tells us, pity is limited by the sufferer not deserving their suffering (Rhet 2.8). But something in tragedy causes us to reckon that perspective against our own identification with the protagonist, would that our circumstances be the same.
-
-For the protagonist to trigger the tragic effect, they would have to be in some way culpable; meaning, they would be much like the defendant in a case of involuntary manslaughter; who never meant to do what he did, but it happened anyway, because he was in some way negligent, relative to an expected standard of conduct. This is a mistake in the specific sense as defined by Aristotle in Nicomachean Ethics 5.8.
-
-And this realization is the occasion for the cathartic expression we associate with tragedy. Couldn’t the same happen to me if I was justly punished for my worst lapses, had the worst possible or probable consequence of those lapses come to pass? Might there be outcomes still? Would I then be worthy of any pity at all? In the moment of reversal/recognition, our daily, oscillating, tendencies of blame and forgiveness are momentarily suspended and we see things, for a moment, in a personally significant reflection upon the whole.
-
-“At what point could I be forgiven? At what point is it just a matter of time?”
-
-“Was I too loose? Was I too tight? What could have been, what if not for… What might be yet to come, unless I’m diligent and prepared…”
-
-This node of human anxieties, those of the “akratic” (unrestrained person) (more or less), are those projected upon stories and salved by tragedy, in due proportion to the matter concerned (ranging from day-to-day worries to full-blown mania).]]
-
-But critically, in Chapter 14, in an apparent act of meta-narrative, Aristotle conspicuously reverses himself (see Benardete/Davis). He produces a new analysis of the best tragedies, with Sophocles’ Oedipus now ranking second place to Euripides’ Iphigenia at Taurus.
-
-But the strongest (c) is the last; I mean for example, in the Cresphontes, Merope intends to kill her son and does not kill him but recognizes him, and in the Iphigenia, the sister goes through this with her brother, and in the Helle, the son, intending to betray his mother, recognizes her. (1454a)
-
-These were tragedies, but among a small handful with happy endings, pioneered by Euripides, known formally as melodramas, in which the heroes narrowly avoid their proscribed fates.
-
-Aristotle found this variant no less “strong.” This means that the tragedy effect doesn’t necessarily depend on the tragic mistake actually coming to pass, per se. As well, this means that the paradigmatic tragedy does not necessarily have a conventionally “tragic” ending. 
-
-But at what point does a melodrama become a comedy properly?
-
-Comedy was just a modification of the same imaginary power; seeing mistakes, made frequently, but of no consequence, whether scaled to the size of a joke, or tragedy, or epic (like Homer’s lost Margites).
-
-Aristotle makes the geometrical symmetry between the forms clear:
-
-For Margites stands in analogy: just as the Iliad and the Odyssey are related to tragedies so is this related to comedies. (Ch 4—on media histories to that point).
-
-But Aristotle never says this: that tragedy, let alone tragedy ending in disaster, was best, per se. 
-
-Aristotle writes at the end of Chapter 13:
-
-“For the poets follow the spectators, making their poetry as they would pray for things to be. But this is not the pleasure of tragedy but is rather proper to comedy, where those who are the greatest of enemies in the story, for example, Orestes and Aegisthus, having become friends, go off at the end, and no one is killed by anyone.”
-
-The poets are motivated by the spectators to pander to their desire for things to end the way they would wish for them to be, rather than as they are.
-
-It is just this narrow technical space which pertains to our question above regarding Spielberg.
-
-To what extent is narrative optimism a narcotic? Given that Hollywood film typically has obvious political significances and relevancies, fathoming the relevance of this question requires the rhetorical lens.
-
-The two forms are fairly easily converted, as Aristotle points out in Chapter 19:
-
-“And it is clear that one should make use of the same forms in the events as well whenever one ought to produce pitiful things, terrible things, great things, or likely things, except that it differs in this way, that the one should be made apparent without being didactic, while other should be produced in speech by the speaker and should come to be as a consequence of speech.”
-
-Aristotle counts among the means of persuasion not only the argument itself, and the state of mind the listeners are put into, but also the character of the speaker. Considering the character of the speaker, Aristotle says three things matter:
-
-“These are judgement, virtue, and goodwill. For people go wrong in the things they speak of or give advice about by reason of all these or of any one of them, since they either have incorrect opinions on account of a lack of judgement, or while having correct opinions do not say what seems true to them on account of vice, or, if they are of good judgment and decent but not good-willed, it is possible for that very reason for them to fail to give the best advice they know how to give; besides these there are none. It is a necessity, therefore, that anyone who seems to have all these attributes will be trusted by his hearers.”
-
-The obvious problem is that when a speaker’s lived behaviour contradicts the ethical implications in his speech (should they exist), the former is at least a factor in the spectatorship of the work.
-
-The extreme version of this being the appeal made to the jury to impeach a witness’s account:
-
-“They think it right for all of you to stand by the oaths you’ve sworn when you judge them, when they themselves do not stand by theirs.” (Rhet 1.15).
-
-Ergo; . E.g., a 747 hijacking mystery would be less persuasive if we knew the producers would react such and such a way; pre-empty dramatic possibilities. 
-
-As well, e.g., on moral questions, obviously. I mean, for example. 
-
-These would simply cease to persuade, much like the original “Old Hollywood.” The form would have adapt.
-
-—we are simply above certain behaviours as a matter of civilized conduct: e.g., .
-
-As well, Optimism… general sense of basic trust. When the poet is somewhat like the narrator…violation, akin to?
-
-‘Narratives’//Representativeness heuristic 
-
-Losing ‘currency’
-
-Not a matter of framing and reframing
-
-
-Bernays footnote!!!
-
-Xxx
-
-
-        </details>
-
-        <details data-expand-id="expand-melian">
-          <summary>ii. Thucydides; The Melian Dialogue <span class="hint-text">(tap to expand)</span></summary><br>
-
-          <div class="book-page book-page--aristotle">
-            But if there is a contradictory oath sworn to by one's opponent, one may argue that someone who does not stand by things he has sworn to makes everything null and void, and it is for this reason that those who apply the laws have taken oaths: "They think it right for all of you to stand by the oaths you've sworn when you judge them, when they themselves do not stand by theirs."
-            <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>On Rhetoric</i></span><span class="book-meta-ref"> — I.15, 1377b9–12, trans. Sachs</span></footer>
-          </div>
-
-          <p>If a speaker's credibility is bankrupted, then, at least, that aspect or meta-aspect of their poem changes in light of that fact. For Aristotle, the poetic and the rhetorical are dual objects; one reflects the other in all but the purest viewing contexts — but particularly in respect of the moral dimensions of the object; this is the axis of dissonance. But it emanates to the rest in the form of a dilapidation (referred to as a sort of <span class="trans" data-en="pollution">μίαρον</span> in Sophocles' <i>Oedipus Rex</i>).</p>
-
-          <p>This was the mindset in which the Athenians encountered the Melians, as dramatized by the historian, Thucydides, who was brought back to front page news in the US and Worldwide in January 2026.</p>
-
-          <p>On January 6th, White House correspondent Stephen Miller seemed to cite Thucydides, speaking as the Athenians:</p>
-
-          <div class="book-page">
-            We live in a world, in the real world... that is governed by strength, that is governed by force, that is governed by power. These are the iron laws of the world since the beginning of time.
-            <footer class="book-meta">Stephen Miller, CNN, January 6th, 2026</footer>
-          </div>
-
-          <p>Prime Minister Carney, seemingly by way of repartee, replied at Davos a few weeks later:</p>
-
-          <div class="book-page">
-            It seems that every day we're reminded that we live in an era of great power rivalry, that the rules-based order is fading, that the strong can do what they can, and the weak must suffer what they must.
-            <footer class="book-meta">Mark Carney, Davos, January 22nd, 2026</footer>
-          </div>
-
-          <p>The Athenian ambassadors approach the Melian people and tell them they're going to become a colony of the war machine now and they're going to need to start paying tribute to help the war effort against the Spartans.</p>
-
-          <p>The Melians argue for their traditional neutrality; to be as loyal now as they have ever been.</p>
-
-          <p>The Athenian envoys implore the overpowered Melians to surrender before it gets ugly. Iron laws, so on and so forth. Not even an appeal to justice.</p>
-
-          <p>The Melians dared to question their logic, and their peculiar attitude of malaise and desperation, in the name of a slim-but-not-none chance the Spartans would come to their aid. They dragged out a siege with the Athenians over a gruelling 6-month summer campaign, with much back and forth sabotage and war games, while the Athenians' resources were badly needed elsewhere.</p>
-
-          <p>Committing to breaking the Melians was just one in a series of unnecessary, arrogant miscalculations that spelled the upset of the Athenian empire via the loss of what we today would call "soft power."</p>
-
-          <p>As long as there remained a shred of hope.</p>
-
-          <p>This attitude can't be beaten out of human-beings. Not in the final analysis.</p>
-
-          <div class="book-page book-page--aristotle">
-            indeed the writings of Herodotus could be put into verse and yet would still be a kind of history, whether written in metre or not. The real difference is this, that one tells what happened and the other what might happen. For this reason poetry is something more scientific and serious than history, because poetry tends to give general truths while history gives particular facts.
-            <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>On Poetics</i></span><span class="book-meta-ref"> — 1451b, trans. Sachs</span></footer>
-          </div>
-
-          <p>If Aristotle is right about the priority of poetry to history when it comes to truth, then a civilization's poetry is in fact a <i>primary</i> means of its access to truth. But what happens to our stories when we void the moral claims implicit inside of them?</p>
-
-        </details>
-
-        <!-- iii. placeholder — under construction -->
-        <p><marginalia data-type="x">iii.</marginalia></p>
-
-      </details></li>
+      <li>The Basis of Hope in Trust</li>
     </ol>
 
+    <p>In Aristotle's <i>Rhetoric</i>, he argues that those who write about the science of persuasion neglect the role of the speaker's perceived personal character in its function.</p>
+
+    <div class="book-page book-page--aristotle">
+      ...for it is not in the way some of the speech-art makers assume in their "arts," that the decency of the speaker contributes nothing to his persuasiveness, but character, one might say, has in it just about the most decisive means of persuasion.
+      <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>On Rhetoric</i></span><span class="book-meta-ref"> — 1356a, trans. Sachs</span>
+  </footer></div>
+
+<p>END BOOK 1</p>
+
     <!-- ============================================================
-         SECTION i–iii (now live inside section 3 above)
-         ============================================================ -->
+         SECTION i
+         ============================================================ 
+
+    <details>
+      <summary>i. Aristotle's <i>On Poetics</i> (335 BCE)<span class="hint-text">(tap to expand)</span></summary><br>
+
+<div class="book-page book-page--aristotle">
+  "Tragedy then gradually evolved as men developed each element that came to light and after going through many changes, it stopped when it had found its own natural form."
+  <footer class="book-meta">
+
+    <span class="book-meta-author">Aristotle, <i>On Poetics</i></span><span class="book-meta-ref"> — 1449a, trans. Sachs</span>
+
+  </footer>
+</div>
+
+<p>
+
+      <p>Aristotle's <i>Poetics</i>  <i>Rhetoric</i>; one of which deals with poetic objects, like stories—which Aristotle evaluates on their own merit—and the other deals with rhetorical objects, like speeches, where the speaker's integrity <i>does</i> come into play. To what extent is a story also a speech?</p>
+ 
+      <p>What Aristotle means by <span class="trans" data-en="story, plot">μῦθος</span> is not the same as what it means to us today, acquainted as we are with the Hollywood format, i.e., that of Joseph Campbell (<a href="https://en.wikipedia.org/wiki/Hero%27s_journey">"The Hero's Journey"</a>).</p>
+
+      <p>For Aristotle, the paradigmatic story isn't an <u>"epic"</u> or a <u>"drama"</u> generally, </p>
+
+      account differs insofar as he argues that the paradigmatic story only emerges as a late historical development; ergo, Campbell's strategy of engineering the archetypical template of story by aggregate won't do.</p>
+
+    <p>Arisotle's point hinges on what he calls the <span class="trans" data-en="special quality">ἴδιον</span> of tragedy: its capacity, by way of fear and pity, to induce relief or <span class="trans" data-en="catharsis / purging">κάθαρσις</span> of these emotions, along with feelings of <span class="trans" data-en="wonder, awe">θαυμάζειν</span> and <span class="trans" data-en="love of humanity">φιλανθρωπία</span>.
+
+      <p>In other words, a poetry with no shortage of civic benefits and which hardly depended on an ideal state. In this respect, Aristotle is what I would call a measured optimist.</p>
+
+      <p>Aristotle's optimism stands in contrast not to Campbell's theory of storytelling per se, but to Nietzsche's, as detailed in his first book, <i>The Birth of Tragedy Out of the Spirit of Song</i> (1872). The incompatibility here is not in Nietzsche's foregrounding of the tragic experience as the phenomenon worthy of analysis, but in his position that tragedy had ultimate priority among the various forms of storytelling for the Greeks.</p>
+
+      <p>But Aristotle never says this. While it's true that in Chapter 13 of the <i>Poetics</i>, he says that the best tragic form is represented by tragedies that end as we expect tragedies to end:</p>
+
+      <div class="book-page book-page--aristotle">
+        ...today the best tragedies are written about a few families—Alcmaeon for instance and Oedipus and Orestes and Meleager and Thyestes and Telephus and all the others whom it befell to suffer or inflict terrible disasters. Now, the most beautiful tragedy according to art is from this sort of putting-together.
+
+        <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>On Poetics</i></span><span class="book-meta-ref"> 1453a — trans. Sachs</footer>
+      </div>
+
+      <p>He then reverses himself in Chapter 14, where he offers a different ranking of the most beautiful tragic structure, favouring a new variant pioneered by Euripides in which stories sometimes had happy or bittersweet endings. In this later ranking, <i>Oedipus</i> only finishes second.</p><marginalia data-type="ci">(Davis/Benardete—this whole bit.)</marginalia>
+
+      <div class="book-page book-page--aristotle">
+        But the strongest is the last; I mean for example, in the <i>Cresphontes</i>, Merope intends to kill her son and does not kill him but recognizes him, and in the <i>Iphigenia</i>, the sister goes through this with her brother, and in the <i>Helle</i>, the son, intending to betray his mother, recognizes her.
+
+      <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>On Poetics</i></span><span class="book-meta-ref"> 1454a — trans. Sachs</footer></div>
+
+      <p>This is all to say that, in terms of critical merit, Aristotle had no problem with a happy ending. It's just that the tragic form of storytelling especially displayed what makes all stories quite so powerful for human beings.</p>
+
+      <div class="book-page book-page--aristotle">
+        "<span class="trans" data-en="story">μῦθος</span>, then, is the first principle and like the soul of tragedy, and characters the second."
+        <footer class="book-meta">
+
+          <span class="book-meta-author">Aristotle, <i>On Poetics</i></span><span class="book-meta-ref"> — 1450a35, trans. Sachs</span>
+
+        </footer>
+      </div>
+
+      <p>Aristotle's <u>genealogy</u> of <u>tragedy</u> has it as a compressed form of epic; it achieves this compression by way of making the <span class="trans" data-en="story">μῦθος</span> of "complex" rather than "simple" weave, employing moments of reversal and recognition.</p>
+
+      ***
+
+      <p>as in an epic, audience focuses on hero. analogous to sports event. as the story continues, aristotle says it unfolds just like a syllogism; but it uses, as material, the spectator's own imagination. As a result, as the "syllogism" unfolds—simulating learning—
+
+      <p>Fear was a basic emotion — as basic as desire. Pity was just fear on behalf of another who did not deserve what was upon them. Even the best men knew fear, because of always having to stay vigilant for what could happen if they weren't paying attention.</p>
+
+      <p>So all of this is about how best to construct stories for artistic effect. Should they have happy endings or sad? On this point Aristotle is agnostic. That is to say: the best narratives don't always have the same twist. A happy ending isn't necessarily false. That's important to establish upfront, given some common misconceptions. We shouldn't be adjusting for a bleak "ugly truth" made beautiful only in fleeting moments of delusion.</p>
+
+      <p>With that out of the way: what happens to <span class="trans" data-en="story / plot">μῦθος</span> when its speaker ceases to inspire; to be morally credible?</p>
+
+    </details>
+
+    <details>
+      <summary>ii. Thucydides; The Melian Dialogue <span class="hint-text">(tap to expand)</span></summary><br>
+
+      <div class="book-page book-page--aristotle">
+        But if there is a contradictory oath sworn to by one's opponent, one may argue that someone who does not stand by things he has sworn to makes everything null and void, and it is for this reason that those who apply the laws have taken oaths: "They think it right for all of you to stand by the oaths you've sworn when you judge them, when they themselves do not stand by theirs."
+        <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>Rhetoric</i></span><span class="book-meta-ref"> I.15, 1377b9-12 — trans. Sachs</footer>
+      </div>
+
+      <p>If a speaker's credibility is bankrupted, then, at least, that aspect or meta-aspect of their poem changes in light of that fact. For Aristotle, the poetic and the rhetorical are dual objects; one reflects the other in all but the purest viewing contexts — but particularly in respect of the moral dimensions of the object; this is the axis of dissonance. But it emanates to the rest in the form of a dilapidation (referred to as a sort of <span class="trans" data-en="pollution">μίαρον</span> in Sophocles' <i>Oedipus Rex</i>).</p>
+
+      <p>This was the mindset in which the Athenians encountered the Melians, as dramatized by the historian, Thucydides, who was brought back to front page news in the US and Worldwide in January 2026.</p>
+
+      <p>On January 6th, White House correspondent Steven Miller seemed to cite Thucydides, speaking as the Athenians:</p>
+
+      <div class="book-page">
+        We live in a world, in the real world... that is governed by strength, that is governed by force, that is governed by power. These are the iron laws of the world since the beginning of time.
+        <footer class="book-meta">Stephen Miller, CNN, January 6th, 2026</footer>
+      </div>
+
+      <p>Prime Minister Carney, seemingly by way of repartee, replied at Davos a few weeks later:</p>
+
+      <div class="book-page">
+        It seems that every day we're reminded that we live in an era of great power rivalry, that the rules-based order is fading, that the strong can do what they can, and the weak must suffer what they must.
+
+        <footer class="book-meta">Mark Carney, Davos, January 22nd, 2026</footer>
+      </div>
+
+      <p>The Athenian ambassadors approach the Melian people and tell them they're going to become a colony of the war machine now and they're going to need to start paying tribute to help the war effort against the Spartans.</p>
+
+      <p>The Melians argue for their traditional neutrality; to be as loyal now as they have ever been.</p>
+
+      <p>The Athenian envoys implore the overpowered Melians to surrender before it gets ugly. Iron laws, so on and so forth. Not even an appeal to justice.</p>
+
+      <p>The Melians dared to question their logic, and their peculiar attitude of malaise and desperation, in the name of a slim-but-not-none chance the Spartans would come to their aid. They dragged out a siege with the Athenians over a gruelling 6-month summer campaign, with much back and forth sabotage and war games, while the Athenians' resources were badly needed elsewhere.</p>
+
+      <p>Committing to breaking the Melians was just one in a series of unnecessary, arrogant miscalculations that spelled the upset of the Athenian empire via the loss of what we today would call "soft power."</p>
+
+      <p>As long as there remained a shred of hope.</p>
+
+      <p>This attitude can't be beaten out of human-beings. Not in the final analysis.</p>
+
+      <div class="book-page book-page--aristotle">
+        indeed the writings of Herodotus could be put into verse and yet would still be a kind of history, whether written in metre or not. The real difference is this, that one tells what happened and the other what might happen. For this reason poetry is something more scientific and serious than history, because poetry tends to give general truths while history gives particular facts.
+        <footer class="book-meta">Aristotle, <i>On Poetics</i> 1451b — trans. Sachs</footer>
+      </div>
+
+      <p>If Aristotle is right about the priority of poetry to history when it comes to truth, then a civilization's poetry is in fact a <i>primary</i> means of its access to truth. But what happens to our stories when we void the moral claims implicit inside of them?</p>
+
+    </details>
+
+    <p>iii.</p>
+
+  </div> -->
 
 <p><!-- [Under Construction] -->
-<br>
+<br>  
 </main>
 
 <!-- ============================================================
@@ -887,34 +600,6 @@ document.addEventListener('DOMContentLoaded', () => {
         el.classList.add('is-translated');
       }
     });
-  });
-
-  // === STATS MODAL: update on open ===
-  const statsToggle = document.getElementById('stats-modal-toggle');
-  if (statsToggle) {
-    statsToggle.addEventListener('change', function () {
-      if (!this.checked) return;
-      const visited = getVisited();
-      const count = visited.length;
-      const total = 101;
-      const scoreEl = document.getElementById('stats-link-score');
-      const barEl = document.getElementById('stats-score-bar-fill');
-      if (scoreEl) scoreEl.textContent = `${count} / ${total}`;
-      if (barEl) barEl.style.width = `${Math.min(100, Math.round(count / total * 100))}%`;
-    });
-  }
-
-  // === GAME TOGGLE: persist across sessions ===
-  const persistIds = ['toggle-pa', 'toggle-ci', 'toggle-ch', 'toggle-x', 'audio-toggle', 'magnify-toggle', 'game-toggle'];
-  persistIds.forEach(id => {
-    const el = document.getElementById(id);
-    const saved = localStorage.getItem(id);
-    if (el && saved !== null) el.checked = saved === 'true';
-    if (el) {
-      el.addEventListener('change', () => {
-        localStorage.setItem(id, el.checked);
-      });
-    }
   });
 
 });
