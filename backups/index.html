@@ -68,71 +68,6 @@
       border-radius: 2px;
       transition: width 0.4s ease;
     }
-
-    /* ── Section 3: tap-to-expand / tap-to-collapse hint text ──
-       Two spans, toggled purely by the native details-element's
-       open attribute. No JS required. */
-    details:not([open]) > summary .hint-collapse { display: none; }
-    details[open] > summary .hint-expand { display: none; }
-
-    /* ── Section 3: per-source citation styling (book-page) ──
-       These are additive modifiers layered on top of the existing
-       .book-page / .book-page--aristotle rules in sass.css. Until this
-       is folded into a _citations.scss partial, it lives here inline,
-       same as the map-modal/stats-modal rules above.
-       Poetics vs. Rhetoric: subtle (color + one border edge).
-       Aristotle (ancient) vs. modern political quotation: pronounced. */
-    .book-page--poetics   { --src-accent: #6b4a2f; }
-    .book-page--rhetoric  { --src-accent: #3d5a73; }
-    .book-page--ethics    { --src-accent: #5a6b3d; }
-    .book-page--poetics,
-    .book-page--rhetoric,
-    .book-page--ethics {
-      border-top: 3px double var(--src-accent);
-      border-bottom: 3px double var(--src-accent);
-    }
-    .book-page--rhetoric { border-bottom: 1px solid var(--src-accent); }
-    .book-page--ethics   { border-top: 1px solid var(--src-accent); }
-    .book-page--modern {
-      border: 1px solid var(--color-ink, #2a2a2a);
-      border-left-width: 4px;
-      border-style: solid;
-    }
-    .perseus-link {
-      font-family: 'Courier Prime', 'Courier New', monospace;
-      font-size: 0.68rem;
-      text-decoration: none;
-      border-bottom: 1px dotted currentColor;
-      margin-left: 0.6em;
-      opacity: 0.6;
-    }
-    .perseus-link:hover { opacity: 1; }
-
-    /* ── Section 3: suppress auto-numbering on the 3a/3b/3c sublist ──
-       The list items are already manually labeled (3a., 3b., 3c.) in
-       their own summary/marginalia text, so the browser's decimal
-       counter is redundant and was stacking as e.g. "1. 3a. ...". */
-    .essay-sublist { list-style: none; }
-
-    /* ── Section 3: structural subheads inside 3a ── */
-    .essay-subhead {
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      margin-top: 2rem;
-    }
-    .essay-step { margin-top: 1.4rem; }
-    .essay-step-sub { margin-left: 1rem; font-style: italic; }
-    .essay-aside { font-style: italic; opacity: 0.85; margin-left: 1rem; }
-
-    /* ── Section 3: pending-review markers for new paragraphs ──
-       Hidden by default; revealed via the existing 👻 "Toggle Invisibles"
-       icon (#toggle-x), so proofreading new content doesn't require any
-       new UI — it reuses the marginalia toggle already on the page. */
-    body:has(#toggle-x:checked) .new-graf {
-      border-left: 3px dashed var(--color-accent, #e8c84a);
-      padding-left: 0.75rem;
-      margin-left: -0.85rem;
-    }
   </style>
 </head>
 <body>
@@ -621,306 +556,220 @@
 
       </details></li>
 
-      <li><details data-expand-id="expand-hope" open>
-        <summary>The Basis of Hope in Trust <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
+        </details>
 
-        <p>In Aristotle's <i>On Rhetoric</i>, he argues that those who write about the science of persuasion neglect the role of the speaker's perceived character in its function.</p>
+        <details data-expand-id="expand-melian">
+          <summary>ii. Thucydides; The Melian Dialogue <span class="hint-text">(tap to expand)</span></summary><br>
 
-        <div class="book-page book-page--aristotle book-page--rhetoric" data-source="Rhetoric">
-          …for it is not in the way some of the speech-art makers assume in their "arts," that the decency of the speaker contributes nothing to his persuasiveness, but character, one might say, has in it just about the most decisive means of persuasion.
-          <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>On Rhetoric</i></span><span class="book-meta-ref"> — I.2, 1356a1–13, trans. Sachs <a class="perseus-link" href="https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0060:bekker+page=1356a" target="_blank" rel="noopener">Perseus ↗</a></span></footer>
-        </div>
+           The Basis of Hope in Trust
 
-        <p>This is relevant to our question insofar as Hollywood movies are not only a form of storytelling, but also (or effectively) a kind of display speech. Both, says Aristotle, are concerned with representing the beautiful out of the fabric of anxieties concerning the past and future.</p>
+In Aristotle's Rhetoric, he argues that those who write about the science of persuasion neglect the role of the speaker's perceived character in its function.
 
-        <p>Aristotle discusses storytelling in his <i>Poetics</i> (c. 335 BCE)—the earliest known screenwriter's manual—and speechmaking in his handbook on political speech, <i>On Rhetoric</i>, where he advances the thesis stated above.</p>
+...for it is not in the way some of the speech-art makers assume in their "arts," that the decency of the speaker contributes nothing to his persuasiveness, but character, one might say, has in it just about the most decisive means of persuasion. (Rhet 1.2)
 
-        <p>In short, when Aristotle's theory of narrative is compared against his theory of persuasive speaking, we get a clear picture of the consequences of the collapse in moral credibility of a major imaginary object trafficking in any significant currency as a source of moral or aesthetic edification.</p>
+This is relevant to our question insofar as Hollywood movies are not only a form of storytelling, but also a form of politically-oriented speech.
 
-        <ol class="essay-sublist">
-          <li><details data-expand-id="expand-poetics">
-            <summary>3a. On Aristotle's <i>Poetics</i> &amp; <i>Rhetoric</i> <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
+Aristotle discusses storytelling in his Poetics (350 BCE)—the earliest known screenwriter’s manual—and speechmaking in his handbook on political speech, On Rhetoric, where he advances the thesis stated above.
 
-            <p class="essay-subhead">1. The Story (<span class="trans" data-en="story">μῦθος</span>) of Tragedy (<span class="trans" data-en="tragedy">τραγῳδία</span>)</p>
+In short, when Aristotle’s theory of narrative is compared against his theory of persuasive speaking—we get a clear picture of the consequences of the collapse in moral credibility of a major imaginary object trafficking in any significant currency as a source of moral or aesthetic edification.
 
-            <div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
-              Tragedy then gradually evolved as men developed each element that came to light, and after going through many changes, it stopped when it had found its own natural form.
-              <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>Poetics</i></span><span class="book-meta-ref"> — 4, 1449a14–15, trans. Sachs <a class="perseus-link" href="https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1449a" target="_blank" rel="noopener">Perseus ↗</a></span></footer>
-            </div>
+[3a; On Aristotle on Poetics & Rhetoric]
 
-            <p>Today we often hear the word "narrative"—as in, "controlling the narrative"—the narrative being a kind of story.</p>
+"Tragedy then gradually evolved as men developed each element that came to light and after going through many changes, it stopped when it had found its own natural form." (Poetics 1449a)
 
-            <p>But what exactly is a "story"? Why do "narratives" hold such power for us? And what are the limits of this power?</p>
+Today we often hear the word “narrative”—as in, “controlling the narrative”—the narrative being a kind of story.
 
-            <p>What Aristotle means by story (<span class="trans" data-en="story">μῦθος</span>) is not the same as what we mean by it today, accustomed as we are to the Hollywood format, which has largely been templated according to the theories of Joseph Campbell and "The Hero's Journey."</p>
+But what exactly is a “story”? Why do “narratives” hold such power for us? And what are the limits of this power?
 
-            <p>According to Campbell, the essential parameters of storytelling can be derived by way of cross-cultural analysis. The common denominator is expressed as: a protagonist leaves his village, slays the dragon, and returns home—a separation, initiation, return structure—with each moment and sub-moment of this journey available for amplification or thematization. Its bias is optimistic, insofar as it serves a dual cultural function: entertainment, and modelling for its citizens the attitude needed to overcome their own personal dragons, whatever they may be.</p>
+What Aristotle means by story (μῦθος) is not the same as what we mean by it today, accustomed as we are to the Hollywood format, which has largely been templated according to the theories of Joseph Campbell and "The Hero's Journey.”
 
-            <div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
-              Story then is the first principle and like the soul of tragedy.
-              <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>Poetics</i></span><span class="book-meta-ref"> — 6, 1450a38–39, trans. Benardete/Davis <a class="perseus-link" href="https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1450a" target="_blank" rel="noopener">Perseus ↗</a></span></footer>
-            </div>
+According to Campbell, the essential parameters of storytelling can be derived by way of cross-cultural analysis. The common denominator is expressed as: A protagonist-figure leaves his village, slays the dragon, and returns home—a separation, initiation, return structure—with each moment and sub-moment of this journey available for amplification or thematization. Its bias is optimistic, insofar as it serves a dual cultural function: of modelling for its citizens the attitude needed to overcome their own personal dragons, whatever they may be.
 
-            <p>For Aristotle, by contrast, a story is that which organizes the incidents of tragedy specifically—the dramatic form developed in ancient Athens, which peaked nearly a century before Aristotle started writing about it. Since the paradigmatic story only emerges as a late historical development, Campbell's strategy of establishing the form by cultural consensus won't do.</p>
+“Story then is the first principle and like the soul of tragedy.” (Poetics 1450a)
 
-            <p>Aristotle's claim hinges on what he calls the <span class="trans" data-en="defining quality">ἴδιον</span> [defining quality] of tragedy: its capacity, "through pity and fear," to induce <span class="trans" data-en="catharsis">κάθαρσις</span> [catharsis] of these same feelings. (What is meant precisely by "catharsis" in this context remains a matter of controversy, to be discussed below.)</p>
+For Aristotle, by contrast, a story is that which organizes the incidents of tragedy specifically—the dramatic form developed in ancient Athens, which peaked about 50 years before Aristotle started writing about it. Since the paradigmatic story only emerges as a late historical development, Campbell's strategy of establishing the form by cultural consensus won’t do.
 
-            <p>"Pity and fear" had already been established at the time as states with which tragedy and display speeches were specially concerned. Spectator reactions to tragedy—and comedy, for that matter—were conspicuous.</p>
+Aristotle’s claim hinges on what he calls the ἴδιον (defining quality) of tragedy: its capacity, “through pity and fear,” to induce catharsis (κάθαρσις) of these same feelings.
 
-            <p>Aristotle explains how this effect comes about.</p>
+“Pity and fear” had already been established at the time as states with which tragedy and display speeches were specially concerned. Spectator reactions to tragedy—and comedy, for that matter—were conspicuous.
 
-            <div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
-              But the imitation is not only of a complete action but of fearful and pitiable things, and these come to be both especially, or more, whenever on account of one another they come to be contrary to expectation.
-              <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>Poetics</i></span><span class="book-meta-ref"> — 9, 1452a1–3, trans. Benardete/Davis <a class="perseus-link" href="https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1452a" target="_blank" rel="noopener">Perseus ↗</a></span></footer>
-            </div>
+***
 
-            <p>The problem becomes salient once one appreciates that pity and fear are almost opposites, and from many angles drive each other out. It is very difficult to pity someone that you fear at the same time as you are fearing them. Fear concerns our anticipation of our own potential suffering. Pity concerns our anticipation of the suffering of others who are like us—as long as they don't deserve it. (Rhet 2.5; 2.7; cf. Poetics 13.) It's this intersubjective asymmetry—the lack of a "doesn't deserve it" clause on fear, in contrast to pity—which tragedy exploits.</p>
+Aristotle attempts to explain how this effect actually works.
 
-            <p>Aristotle progressively defines the mechanisms as follows:</p>
+The problem becomes salient once one appreciates that pity and fear are almost opposites, and from many angles drive the other out. Fear concerns our own anticipation of pain; pity concerns our anticipation of the suffering of others who are like us—so long as they don’t deserve it. (Rhet 2.5; 2.7; cf. Poetics 13). It’s this intersubjective asymmetry—the lack of a “doesn’t deserve it” clause on fear, in contrast to pity—which tragedy exploits.
 
-            <p class="new-graf essay-step"><strong>i. Ch. 9: Wonder (<span class="trans" data-en="wonder">θαυμάζειν</span> [wonder]) and Beauty (<span class="trans" data-en="beautiful">καλόν</span> [beautiful]):</strong></p>
+In Chapter 9, Aristotle locates a case where fear and pity come to be “on account of one another,” and so “contrary to expectation.”
 
-            <div class="book-page book-page--aristotle book-page--poetics new-graf" data-source="Poetics">
-              [Fearful and pitiable things] come to be… especially… whenever on account of one another they come to be contrary to expectation. For if this is the case, it will be more wondrous than if they come to be spontaneously or by chance, since even among chance things those seem most wondrous which appear to have come to be as if for a purpose. For example, the statue of Mitys at Argos killed the one who was the cause of the death of Mitys; it fell on him while he contemplated it. For it is likely that as things of this sort do not come to be at random, so stories of this sort are of necessity more beautiful.
-              <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>Poetics</i></span><span class="book-meta-ref"> — 9, 1452a1–11, trans. Sachs <a class="perseus-link" href="https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1452a" target="_blank" rel="noopener">Perseus ↗</a></span></footer>
-            </div>
+ “…if this is the case, it will be more wondrous than if they come to be spontaneously or by chance, since even among chance things those seem most wondrous which appear to come to be as if for a purpose. For example, the statue of Mitys at Argo killed the one who was the cause of the death of Mitys; it fell on him while he contemplated it. For it is likely that as things of this sort do not come to be at random, so stories of this sort are necessarily more beautiful.” (Emphasis added).
 
-            <p class="new-graf">So how does one generate pity-and-fear in this way?</p>
+The mutual generation of pity-fear (exemplified in Mitys) produces a paradoxical effect with wondrous impact. This, Aristotle explains in Chapter 11, is most powerfully induced by way of an ideally-simultaneous moment of reversal and recognition. These, say Aristotle, besides the story, “are the greatest things by which tragedy guides the soul (psuchagogei),” and specifically characterize a “complex” story against a “simple” one.
 
-            <p class="new-graf essay-step"><strong>ii. Ch. 10: Reversal, Recognition, and Suffering:</strong></p>
+Aristotle gives as an example of reversal from Sophocles’ Oedipus, regarded as a tragic masterpiece:
 
-            <p class="new-graf">These, Aristotle says, besides the story, "are the greatest things by which tragedy guides the soul (<span class="trans" data-en="leads the soul">ψυχαγωγεῖ</span> [leads the soul])," and specifically characterize a "complex" story against a "simple" one.</p>
+“For example in the Oedipus, on his coming [the messenger from Corinth], in supposing that he was going to cheer Oedipus and release him from the fear regarding his mother, once he had made it clear who he was, he did the contrary.”
 
-            <p class="new-graf">Aristotle gives as an example of reversal from Sophocles' <i>Oedipus</i>, contemporaneously regarded as a tragic masterpiece:</p>
+And an explanation of recognition, also from the Oedipus, at the same time (presumably by Oedipus) as he suddenly sees the world anew.
 
-            <div class="book-page book-page--aristotle book-page--poetics new-graf" data-source="Poetics">
-              For example in the <i>Oedipus</i>, on his coming [the messenger from Corinth], in supposing that he was going to cheer Oedipus and release him from the fear regarding his mother, once he had made it clear who he was, he did the contrary.
-              <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>Poetics</i></span><span class="book-meta-ref"> — 11, TK, trans. Sachs <a class="perseus-link" href="https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1452a" target="_blank" rel="noopener">Perseus ↗</a></span></footer>
-            </div>
+“Recognition (anagnorisis), on the other hand, just as the name too signifies, is a change from ignorance to knowledge, whether toward friendship or enmity, of those whose relation to good or ill fortune has already been determined.”
 
-            <p class="new-graf">And an explanation of recognition, also from the <i>Oedipus</i>, more cryptic:</p>
+Since recognition and reversal concern mistakes, and mistakes are made by people acting in their world, the mistake that induces recognition/reversal depends on an appropriate agent to make it. Aristotle attempts to determine this agent in Chapter 13.
 
-            <div class="book-page book-page--aristotle book-page--poetics new-graf" data-source="Poetics">
-              Recognition (<span class="trans" data-en="recognition">ἀναγνώρισις</span> [recognition]), on the other hand, just as the name too signifies, is a change from ignorance to knowledge, whether toward friendship or enmity, of those whose relation to good or ill fortune has already been determined. A recognition is most beautiful when it comes to be at the same time as a reversal, for example as it is in the <i>Oedipus</i>.
-              <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>Poetics</i></span><span class="book-meta-ref"> — 11, TK, trans. Sachs <a class="perseus-link" href="https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1452a" target="_blank" rel="noopener">Perseus ↗</a></span></footer>
-            </div>
+He begins by making what would seem to be a few elementary exclusions.
 
-            <p class="new-graf">Aristotle adds a third part:</p>
+The tragic hero can’t be an evil man, whether he would prosper by the end, or receive his comeuppance. In the first case, the spectator would find it entirely unsatisfying. In the second, some feeling of “philanthropia” would at least be generated. 
 
-            <div class="book-page book-page--aristotle book-page--poetics new-graf" data-source="Poetics">
-              …suffering is a destructive or painful action, such as killings in the open, and the infliction of excessive pains and wounds, and everything of this sort.
-              <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>Poetics</i></span><span class="book-meta-ref"> — 11, TK, trans. Sachs <a class="perseus-link" href="https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1452b" target="_blank" rel="noopener">Perseus ↗</a></span></footer>
-            </div>
+Aristotle adds another caveat:
 
-            <p class="new-graf essay-step"><strong>iii. Ch. 13: Hamartia; Epiekes; Miaron; Philanthropon — Who is the Tragic Agent, and What is the Tragic Arc?</strong></p>
+“…it is clear that sound men ought not to be shown changing from good to bad fortune (for this is neither fearful nor pitiable but disgusting (miaron))…”
 
-            <p class="new-graf">Since recognition and reversal concern mistakes, and mistakes are made by people acting, the mistake that induces recognition/reversal depends on an appropriate agent to make it, and on whether it tends toward good or ill fortune.</p>
+“Sound,” here is a technical term, “epiekes,” defined in the Nicomachean Ethics, meaning he who does not necessarily demand the full enactment of justice due to him by the law. Aristotle indicates that, beyond ineffective and unhappy, this would be “disgusting.”
 
-            <p class="new-graf"><marginalia data-type="pa"> (Of critical importance to the overall argument of this essay is the existence of a special class of escape-tragedies pioneered by Euripides, including <i>Iphigenia in Tauris</i>, which ended in good fortune. Ergo, whether the ideal tragedy ended in good or bad fortune was, vis-à-vis the argument Aristotle is making, an open question—not foreclosed for bad fortune per se. I will expand on the significance of this, and a second misconception, below.)</marginalia></p>
+So, what remains is he:
 
-            <p class="new-graf">Aristotle here pursues a strategy of eliminating protagonists and arcs that won't work, for one reason or another, and then seeing what remains. He subtracts three types of story altogether.</p>
+…who is neither distinguished by virtue and justice nor changing to bad fortune on account of vice and wickedness is of this sort, but one who changes on account of some mistake and is one of those in great repute and of good fortune such as Oedipus, Thyestes, and notable men of families of this sort. (Ch. 13)
 
-            <div class="book-page book-page--aristotle book-page--poetics new-graf" data-source="Poetics">
-              …the sound [or decent] men (<span class="trans" data-en="decent">ἐπιεικής</span> [decent]) ought not to be shown changing from good to bad fortune (for this is neither fearful nor pitiable but loathsome)…
-              <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>Poetics</i></span><span class="book-meta-ref"> — 13, TK, trans. Sachs <a class="perseus-link" href="https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1452b" target="_blank" rel="noopener">Perseus ↗</a></span></footer>
-            </div>
+Ergo, Oedipus is a paradigmatic tragic hero, and Oedipus (presumably) the paradigmatic story, at least in its general design.
 
-            <p class="new-graf">One must pay special attention to this clause, which relates to the second misconception mentioned above, because of how contrary it runs to the ordinary understanding of "tragedy"—which might even describe such a "narrative" as most "tragic" of all, in a real-world sense.</p>
+The spectator begins by identifying with a hero, in a similar way to how they’d identify with an athlete at a sporting event. (EN 1166b34-1167a6ff.; 1170b6-15. Friendship (philia) models the self's relation to others: “all the things that have to do with friendship arise out of oneself and extend to others” (1168b3-7). To judge that someone is a philos is to be aware that their being is similar to one's own (1170b7-13). A philos, then, provides a second self, but one whose ways of being-at-work can be observed from a detached perspective not easily attained with regard to one's own being (1169b34-36).)
 
-            <p class="new-graf"><i>Epiekes</i> is a technical term ("decency") established in the <i>Nicomachean Ethics</i> book V, in contrast to the law-abiding man per se:</p>
+But as the events of the play unfold, 
 
-            <div class="book-page book-page--aristotle book-page--ethics new-graf" data-source="Nicomachean Ethics">
-              …while what is decent is just, it is not so according to the law, but is a setting straight of what is legally just.
-              <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>Nicomachean Ethics</i></span><span class="book-meta-ref"> — V.10, TK, trans. Sachs <a class="perseus-link" href="https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0054:bekker+page=1137b" target="_blank" rel="noopener">Perseus ↗</a></span></footer>
-            </div>
+And yet, we pity them. Why? The two axes of identification (as self and as other) are driven to an intersection so that we experience them both at once.
 
-            <p class="new-graf">Instead, Aristotle describes the man whose fortune turns despite his decency as "<span class="trans" data-en="pollution">μιαρόν</span> [pollution]."</p>
+Normally, Aristotle tells us, pity is limited by the sufferer not deserving their suffering (Rhet 2.8). But something in tragedy causes us to reckon that perspective against our own identification with the protagonist, would that our circumstances be the same.
 
-            <p class="new-graf">The next two distinctions are more intuitive.</p>
+For the protagonist to trigger the tragic effect, they would have to be in some way culpable; meaning, they would be much like the defendant in a case of involuntary manslaughter; who never meant to do what he did, but it happened anyway, because he was in some way negligent, relative to an expected standard of conduct. This is a mistake in the specific sense as defined by Aristotle in Nicomachean Ethics 5.8.
 
-            <p class="new-graf essay-step-sub">a. The tragic hero can't be an evil man who changes to good fortune.</p>
+And this realization is the occasion for the cathartic expression we associate with tragedy. Couldn’t the same happen to me if I was justly punished for my worst lapses, had the worst possible or probable consequence of those lapses come to pass? Might there be outcomes still? Would I then be worthy of any pity at all? In the moment of reversal/recognition, our daily, oscillating, tendencies of blame and forgiveness are momentarily suspended and we see things, for a moment, in a personally significant reflection upon the whole.
 
-            <p class="new-graf">An evil man prospering again could loosely be said to be "tragic," in the sense of being a "bad outcome," but Aristotle points out that this would not trigger pity, since:</p>
+“At what point could I be forgiven? At what point is it just a matter of time?”
 
-            <div class="book-page book-page--aristotle book-page--poetics new-graf" data-source="Poetics">
-              …with respect to one who has ill fortune, the pity concerns his not deserving it, and the fear concerns his being similar to us, so that what occurs will be neither pitiable nor fearful.
-              <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>Poetics</i></span><span class="book-meta-ref"> — 13, TK, trans. Sachs <a class="perseus-link" href="https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1452b" target="_blank" rel="noopener">Perseus ↗</a></span></footer>
-            </div>
+“Was I too loose? Was I too tight? What could have been, what if not for… What might be yet to come, unless I’m diligent and prepared…”
 
-            <p class="new-graf essay-step-sub">b. By the same logic, the tragic hero can't be an evil man who changes to ill fortune.</p>
+This node of human anxieties, those of the “akratic” (unrestrained person) (more or less), are those projected upon stories and salved by tragedy, in due proportion to the matter concerned (ranging from day-to-day worries to full-blown mania).]]
 
-            <p class="new-graf">Aristotle notes that in this case, "<span class="trans" data-en="love of humanity">φιλανθρωπία</span> [love of humanity]" would be produced — presumably the residue of the first option's "happy ending," but without pity or fear, and so without a bona fide cathartic effect. This excludes simple comeuppance-for-wickedness as the relevant mechanism of spectator satisfaction.</p>
+But critically, in Chapter 14, in an apparent act of meta-narrative, Aristotle conspicuously reverses himself (see Benardete/Davis). He produces a new analysis of the best tragedies, with Sophocles’ Oedipus now ranking second place to Euripides’ Iphigenia at Taurus.
 
-            <p class="new-graf essay-step-sub">c. So, what remains is he:</p>
+But the strongest (c) is the last; I mean for example, in the Cresphontes, Merope intends to kill her son and does not kill him but recognizes him, and in the Iphigenia, the sister goes through this with her brother, and in the Helle, the son, intending to betray his mother, recognizes her. (1454a)
 
-            <div class="book-page book-page--aristotle book-page--poetics new-graf" data-source="Poetics">
-              …who is neither distinguished by virtue and justice nor changing to bad fortune on account of vice and wickedness, but one who changes on account of some mistake, and is one of those in great repute and of good fortune, such as Oedipus, Thyestes, and notable men of families of this sort.
-              <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>Poetics</i></span><span class="book-meta-ref"> — 13, TK, trans. Sachs <a class="perseus-link" href="https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1453a" target="_blank" rel="noopener">Perseus ↗</a></span></footer>
-            </div>
+These were tragedies, but among a small handful with happy endings, pioneered by Euripides, known formally as melodramas, in which the heroes narrowly avoid their proscribed fates.
 
-            <p class="new-graf">It's only at this point that Aristotle concludes the change of fortune must come by way of a <span class="trans" data-en="mistake">ἁμαρτία</span> [mistake]—as we will see below, a specific kind of mistake—and not wickedness.</p>
+Aristotle found this variant no less “strong.” This means that the tragedy effect doesn’t necessarily depend on the tragic mistake actually coming to pass, per se. As well, this means that the paradigmatic tragedy does not necessarily have a conventionally “tragic” ending. 
 
-            <div class="book-page book-page--aristotle book-page--poetics new-graf" data-source="Poetics">
-              It is necessary, then, for the beautiful story to be simple rather than, as some say, double, and to change not to good fortune from bad fortune but the opposite, from good fortune to bad fortune, not because of wickedness but because of a [mistake]…
-              <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>Poetics</i></span><span class="book-meta-ref"> — 13, TK, trans. Sachs <a class="perseus-link" href="https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1453a" target="_blank" rel="noopener">Perseus ↗</a></span></footer>
-            </div>
+But at what point does a melodrama become a comedy properly?
 
-            <p class="new-graf">This validates the expectation that Sophocles' <i>Oedipus</i> is a paradigmatic tragedy, and Oedipus a paradigmatic tragic hero.</p>
+Comedy was just a modification of the same imaginary power; seeing mistakes, made frequently, but of no consequence, whether scaled to the size of a joke, or tragedy, or epic (like Homer’s lost Margites).
 
-            <p class="new-graf">However, in Chapter 14, Aristotle will reverse himself, and make a new claim: that a tragic form characterized by a happy ending is in fact strongest.</p>
+Aristotle makes the geometrical symmetry between the forms clear:
 
-            <p class="new-graf essay-step"><strong>IV. The Tragic Mechanism</strong></p>
+For Margites stands in analogy: just as the Iliad and the Odyssey are related to tragedies so is this related to comedies. (Ch 4—on media histories to that point).
 
-            <p class="new-graf">By this point the tragic mechanism can be inferred.</p>
+But Aristotle never says this: that tragedy, let alone tragedy ending in disaster, was best, per se. 
 
-            <p class="new-graf">Recall the statue of Mitys, above: <i>the one who was the cause of the death of Mitys</i> changes from good to bad fortune (death) by way of a mistake.</p>
+Aristotle writes at the end of Chapter 13:
 
-            <p class="new-graf">The reversal is the recognition that this mistake has already happened—that by now it's too late, and that the suffering is imminent.</p>
+“For the poets follow the spectators, making their poetry as they would pray for things to be. But this is not the pleasure of tragedy but is rather proper to comedy, where those who are the greatest of enemies in the story, for example, Orestes and Aegisthus, having become friends, go off at the end, and no one is killed by anyone.”
 
-            <p class="new-graf">But which mistake? Sitting in front of the wrong statue? No; it must be earlier. What was the earlier point that put him into the emotional state which would bring him to contemplate the statue of the man he'd killed, possibly by accident?</p>
+The poets are motivated by the spectators to pander to their desire for things to end the way they would wish for them to be, rather than as they are.
 
-            <p class="new-graf">Well, like "catharsis," what Aristotle means by "mistake" is another matter of controversy. <marginalia data-type="x">[etymology, scope of hamartia vis-à-vis NE 5.8 — TK]</marginalia></p>
+It is just this narrow technical space which pertains to our question above regarding Spielberg.
 
-            <p class="new-graf">And what produces "pity and fear" in the way Aristotle means? Is it the poetic justice of the moment?</p>
+To what extent is narrative optimism a narcotic? Given that Hollywood film typically has obvious political significances and relevancies, fathoming the relevance of this question requires the rhetorical lens.
 
-            <p class="new-graf">The spectator begins by identifying with a hero, in a similar way to how they'd identify with an athlete at a sporting event.<marginalia data-type="ci"> (EN 1166b34–1167a6ff.; 1170b6–15. Friendship (<span class="trans" data-en="friendship">φιλία</span> [friendship]) models the self's relation to others: "all the things that have to do with friendship arise out of oneself and extend to others" (1168b3–7). To judge that someone is a <span class="trans" data-en="friend">φίλος</span> [friend] is to be aware that their being is similar to one's own (1170b7–13). A <i>philos</i>, then, provides a second self—but one whose ways of being-at-work can be observed from a detached perspective not easily attained with regard to one's own being (1169b34–36).)</marginalia></p>
+The two forms are fairly easily converted, as Aristotle points out in Chapter 19:
 
-            <p class="new-graf">And yet, we pity them. Why? The two axes of identification—as self, and as other—are driven to an intersection, so that we experience them both at once.</p>
+“And it is clear that one should make use of the same forms in the events as well whenever one ought to produce pitiful things, terrible things, great things, or likely things, except that it differs in this way, that the one should be made apparent without being didactic, while other should be produced in speech by the speaker and should come to be as a consequence of speech.”
 
-            <p class="new-graf">How do we account for this? A few features of the tragic nucleus should be identified: (i) recognition, from not-culpable to culpable; (ii) the peculiar caveat from Chapter 9 — that things of this sort are necessarily more beautiful precisely because they do not come to be at random.</p>
+Aristotle counts among the means of persuasion not only the argument itself, and the state of mind the listeners are put into, but also the character of the speaker. Considering the character of the speaker, Aristotle says three things matter:
 
-            <p class="new-graf">Only, that is, if the sudden adjustment from non-culpable to culpable obtains in this specific sense.</p>
+“These are judgement, virtue, and goodwill. For people go wrong in the things they speak of or give advice about by reason of all these or of any one of them, since they either have incorrect opinions on account of a lack of judgement, or while having correct opinions do not say what seems true to them on account of vice, or, if they are of good judgment and decent but not good-willed, it is possible for that very reason for them to fail to give the best advice they know how to give; besides these there are none. It is a necessity, therefore, that anyone who seems to have all these attributes will be trusted by his hearers.”
 
-            <p class="new-graf">Normally, Aristotle tells us, pity is limited by the sufferer's not deserving their suffering (Rhet 2.8). But something in tragedy causes us to reckon that perspective against our own identification with the protagonist—would that our circumstances were the same.</p>
+The obvious problem is that when a speaker’s lived behaviour contradicts the ethical implications in his speech (should they exist), the former is at least a factor in the spectatorship of the work.
 
-            <p class="new-graf">For the protagonist to trigger the tragic effect, they would have to be in some way culpable: much like the defendant in a case of involuntary manslaughter, who never meant to do what he did, but it happened anyway, because he was in some way negligent relative to an expected standard of conduct. This is a mistake in the specific sense defined by Aristotle at Nicomachean Ethics 5.8.</p>
+The extreme version of this being the appeal made to the jury to impeach a witness’s account:
 
-            <p class="new-graf">And this realization is the occasion for the cathartic expression we associate with tragedy. Couldn't the same happen to me, if I were justly punished for my worst lapses—had the worst possible or probable consequence of those lapses come to pass? Might there be outcomes still? Would I then be worthy of any pity at all? In the moment of reversal/recognition, our daily, oscillating tendencies of blame and forgiveness are momentarily suspended, and we see things, for a moment, in a personally significant reflection upon the whole.</p>
+“They think it right for all of you to stand by the oaths you’ve sworn when you judge them, when they themselves do not stand by theirs.” (Rhet 1.15).
 
-            <p class="new-graf essay-aside">"At what point could I be forgiven? At what point is it just a matter of time?"</p>
+Ergo; . E.g., a 747 hijacking mystery would be less persuasive if we knew the producers would react such and such a way; pre-empty dramatic possibilities. 
 
-            <p class="new-graf essay-aside">"Was I too loose? Was I too tight? What could have been, what if not for… What might be yet to come, unless I'm diligent and prepared…"</p>
+As well, e.g., on moral questions, obviously. I mean, for example. 
 
-            <p class="new-graf">This node of human anxieties—those of the <span class="trans" data-en="unrestrained">ἀκρατής</span> [unrestrained] person, more or less—is what gets projected onto stories and salved by tragedy, in due proportion to the matter concerned, ranging from day-to-day worries to full-blown mania.</p>
+These would simply cease to persuade, much like the original “Old Hollywood.” The form would have adapt.
 
-            <p class="new-graf essay-step"><strong>V. Chapter 14: Euripides</strong></p>
+—we are simply above certain behaviours as a matter of civilized conduct: e.g., .
 
-            <p class="new-graf">But critically, in Chapter 14—in an apparent act of meta-narrative—Aristotle conspicuously reverses himself (see Benardete/Davis). He produces a new analysis of the best tragedies, with Sophocles' <i>Oedipus</i> now ranking second to Euripides' <i>Iphigenia in Tauris</i>.</p>
+As well, Optimism… general sense of basic trust. When the poet is somewhat like the narrator…violation, akin to?
 
-            <div class="book-page book-page--aristotle book-page--poetics new-graf" data-source="Poetics">
-              But the strongest is the last; I mean for example, in the <i>Cresphontes</i>, Merope intends to kill her son and does not kill him but recognizes him, and in the <i>Iphigenia</i>, the sister goes through this with her brother, and in the <i>Helle</i>, the son, intending to betray his mother, recognizes her.
-              <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>Poetics</i></span><span class="book-meta-ref"> — 14, 1454a, trans. Sachs <a class="perseus-link" href="https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1454a" target="_blank" rel="noopener">Perseus ↗</a></span></footer>
-            </div>
+‘Narratives’//Representativeness heuristic 
 
-            <p>These were tragedies, but among a small handful with happy endings, pioneered by Euripides, known formally as melodramas, in which the heroes narrowly avoid their proscribed fates.</p>
+Losing ‘currency’
 
-            <p>Aristotle found this variant no less "strong." This means that the tragedy effect doesn't necessarily depend on the tragic mistake actually coming to pass, per se. As well, this means that the paradigmatic tragedy does not necessarily have a conventionally "tragic" ending.</p>
+Not a matter of framing and reframing
 
-            <p>But at what point does an escape-tragedy become a comedy?</p>
 
-            <p>Comedy was just a modification of the same imaginary power: mistakes, made frequently, but of no consequence, whether scaled to the size of a joke, or a tragedy, or an epic (like Homer's lost <i>Margites</i>).</p>
+Bernays footnote!!!
 
-            <p>Aristotle makes the geometrical symmetry between the forms clear:</p>
+Xxx
 
-            <div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
-              Margites stands in analogy: just as the <i>Iliad</i> and the <i>Odyssey</i> are related to tragedies, so is this related to comedies.
-              <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>Poetics</i></span><span class="book-meta-ref"> — 4, TK, trans. Sachs <a class="perseus-link" href="https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1448b" target="_blank" rel="noopener">Perseus ↗</a></span></footer>
-            </div>
+          <div class="book-page book-page--aristotle">
+            But if there is a contradictory oath sworn to by one's opponent, one may argue that someone who does not stand by things he has sworn to makes everything null and void, and it is for this reason that those who apply the laws have taken oaths: "They think it right for all of you to stand by the oaths you've sworn when you judge them, when they themselves do not stand by theirs."
+            <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>On Rhetoric</i></span><span class="book-meta-ref"> — I.15, 1377b9–12, trans. Sachs</span></footer>
+          </div>
 
-            <p>But Aristotle never says this: that tragedy, let alone tragedy ending in disaster, was best, per se. He writes at the end of Chapter 13:</p>
+          <p>If a speaker's credibility is bankrupted, then, at least, that aspect or meta-aspect of their poem changes in light of that fact. For Aristotle, the poetic and the rhetorical are dual objects; one reflects the other in all but the purest viewing contexts — but particularly in respect of the moral dimensions of the object; this is the axis of dissonance. But it emanates to the rest in the form of a dilapidation (referred to as a sort of <span class="trans" data-en="pollution">μίαρον</span> in Sophocles' <i>Oedipus Rex</i>).</p>
 
-            <div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
-              For the poets follow the spectators, making their poetry as they would pray for things to be. But this is not the pleasure of tragedy, but is rather proper to comedy, where those who are the greatest of enemies in the story—for example, Orestes and Aegisthus—having become friends, go off at the end, and no one is killed by anyone.
-              <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>Poetics</i></span><span class="book-meta-ref"> — 13, TK, trans. Sachs <a class="perseus-link" href="https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1453a" target="_blank" rel="noopener">Perseus ↗</a></span></footer>
-            </div>
+          <p>This was the mindset in which the Athenians encountered the Melians, as dramatized by the historian, Thucydides, who was brought back to front page news in the US and Worldwide in January 2026.</p>
 
-            <p>The poets are motivated by the spectators to pander to their desire for things to end the way they would wish them to be, rather than as they are.</p>
+          <p>On January 6th, White House correspondent Stephen Miller seemed to cite Thucydides, speaking as the Athenians:</p>
 
-            <p>It is just this narrow technical space which pertains to our question above regarding Spielberg.</p>
+          <div class="book-page">
+            We live in a world, in the real world... that is governed by strength, that is governed by force, that is governed by power. These are the iron laws of the world since the beginning of time.
+            <footer class="book-meta">Stephen Miller, CNN, January 6th, 2026</footer>
+          </div>
 
-            <p>To what extent is narrative optimism a narcotic? Given that Hollywood film typically has obvious political significances and relevancies, fathoming the relevance of this question requires the rhetorical lens.</p>
+          <p>Prime Minister Carney, seemingly by way of repartee, replied at Davos a few weeks later:</p>
 
-            <p>The two forms are fairly easily converted, as Aristotle points out in Chapter 19:</p>
+          <div class="book-page">
+            It seems that every day we're reminded that we live in an era of great power rivalry, that the rules-based order is fading, that the strong can do what they can, and the weak must suffer what they must.
+            <footer class="book-meta">Mark Carney, Davos, January 22nd, 2026</footer>
+          </div>
 
-            <div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
-              And it is clear that one should make use of the same forms in the events as well, whenever one ought to produce pitiful things, terrible things, great things, or likely things—except that it differs in this way: that the one should be made apparent without being didactic, while the other should be produced in speech by the speaker, and should come to be as a consequence of speech.
-              <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>Poetics</i></span><span class="book-meta-ref"> — 19, TK, trans. Sachs <a class="perseus-link" href="https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1456b" target="_blank" rel="noopener">Perseus ↗</a></span></footer>
-            </div>
+          <p>The Athenian ambassadors approach the Melian people and tell them they're going to become a colony of the war machine now and they're going to need to start paying tribute to help the war effort against the Spartans.</p>
 
-            <p class="new-graf essay-subhead">2. Epideixis (Display Speech)</p>
+          <p>The Melians argue for their traditional neutrality; to be as loyal now as they have ever been.</p>
 
-            <p class="new-graf">Aristotle counts among the means of persuasion not only the argument itself, and the state of mind the listeners are put into, but also the character of the speaker. Considering the character of the speaker, Aristotle says three things matter:</p>
+          <p>The Athenian envoys implore the overpowered Melians to surrender before it gets ugly. Iron laws, so on and so forth. Not even an appeal to justice.</p>
 
-            <div class="book-page book-page--aristotle book-page--rhetoric new-graf" data-source="Rhetoric">
-              These are judgement, virtue, and goodwill. For people go wrong in the things they speak of or give advice about by reason of all these, or of any one of them, since they either have incorrect opinions on account of a lack of judgement, or, while having correct opinions, do not say what seems true to them on account of vice, or, if they are of good judgment and decent but not good-willed, it is possible for that very reason for them to fail to give the best advice they know how to give; besides these there are none. It is a necessity, therefore, that anyone who seems to have all these attributes will be trusted by his hearers.
-              <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>On Rhetoric</i></span><span class="book-meta-ref"> — II.1, TK, trans. Sachs <a class="perseus-link" href="https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0060:bekker+page=1378a" target="_blank" rel="noopener">Perseus ↗</a></span></footer>
-            </div>
+          <p>The Melians dared to question their logic, and their peculiar attitude of malaise and desperation, in the name of a slim-but-not-none chance the Spartans would come to their aid. They dragged out a siege with the Athenians over a gruelling 6-month summer campaign, with much back and forth sabotage and war games, while the Athenians' resources were badly needed elsewhere.</p>
 
-            <p class="new-graf">Given that popular entertainment falls under the category of <span class="trans" data-en="display speech">ἐπίδειξις</span> [display speech]—performance speech concerned with praising or blaming with regard to "what is beautiful or shameful," bringing other things back to refer to these—its presently-focused social function is telling people what to think of the future, or of the past.</p>
+          <p>Committing to breaking the Melians was just one in a series of unnecessary, arrogant miscalculations that spelled the upset of the Athenian empire via the loss of what we today would call "soft power."</p>
 
-            <p class="new-graf">The obvious problem is that when a speaker's lived behaviour contradicts the ethical implications of his speech (should they exist), the former is at least a factor in the spectatorship of the work.</p>
+          <p>As long as there remained a shred of hope.</p>
 
-            <p>The extreme version of this is the appeal made to a jury to impeach a witness's account:</p>
+          <p>This attitude can't be beaten out of human-beings. Not in the final analysis.</p>
 
-            <div class="book-page book-page--aristotle book-page--rhetoric" data-source="Rhetoric">
-              But if there is a contradictory oath sworn to by one's opponent, one may argue that someone who does not stand by things he has sworn to makes everything null and void, and it is for this reason that those who apply the laws have taken oaths: "They think it right for all of you to stand by the oaths you've sworn when you judge them, when they themselves do not stand by theirs."
-              <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>On Rhetoric</i></span><span class="book-meta-ref"> — I.15, 1377b9–12, trans. Sachs <a class="perseus-link" href="https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0060:bekker+page=1377b" target="_blank" rel="noopener">Perseus ↗</a></span></footer>
-            </div>
+          <div class="book-page book-page--aristotle">
+            indeed the writings of Herodotus could be put into verse and yet would still be a kind of history, whether written in metre or not. The real difference is this, that one tells what happened and the other what might happen. For this reason poetry is something more scientific and serious than history, because poetry tends to give general truths while history gives particular facts.
+            <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>On Poetics</i></span><span class="book-meta-ref"> — 1451b, trans. Sachs</span></footer>
+          </div>
 
-            <p>If a speaker's credibility is bankrupted, then, at least, that aspect or meta-aspect of their poem changes in light of that fact. For Aristotle, the poetic and the rhetorical are dual objects; one reflects the other in all but the purest viewing contexts — but particularly in respect of the moral dimensions of the object; this is the axis of dissonance. But it emanates to the rest in the form of a dilapidation (referred to as a sort of <span class="trans" data-en="pollution">μίαρον</span> in Sophocles' <i>Oedipus Rex</i>).</p>
+          <p>If Aristotle is right about the priority of poetry to history when it comes to truth, then a civilization's poetry is in fact a <i>primary</i> means of its access to truth. But what happens to our stories when we void the moral claims implicit inside of them?</p>
 
-            <p class="new-graf"><marginalia data-type="x">[Author's note — the section below (enthymemes, moral syllogisms, the impeached-witness analogy applied directly to Hollywood, the Bernays line) is still being drafted. Left as a visible stub rather than smoothed over, per the project's own "kruft method." — see chat for the open questions flagged on this pass.]</marginalia></p>
+        </details>
 
-          </details></li>
-
-          <li><details data-expand-id="expand-melian">
-            <summary>3b. Thucydides; The Melian Dialogue <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
-
-            <p>This was the mindset in which the Athenians encountered the Melians, as dramatized by the historian Thucydides, who was brought back to front-page news in the US and worldwide in January 2026.</p>
-
-            <p>On January 6th, White House correspondent Stephen Miller seemed to cite Thucydides, speaking as the Athenians:</p>
-
-            <div class="book-page book-page--modern" data-source="Jan. 2026">
-              We live in a world, in the real world... that is governed by strength, that is governed by force, that is governed by power. These are the iron laws of the world since the beginning of time.
-              <footer class="book-meta"><span class="book-meta-author">Stephen Miller</span><span class="book-meta-ref"> — CNN, January 6th, 2026</span></footer>
-            </div>
-
-            <p>Prime Minister Carney, seemingly by way of repartee, replied at Davos a few weeks later:</p>
-
-            <div class="book-page book-page--modern" data-source="Jan. 2026">
-              It seems that every day we're reminded that we live in an era of great power rivalry, that the rules-based order is fading, that the strong can do what they can, and the weak must suffer what they must.
-              <footer class="book-meta"><span class="book-meta-author">Mark Carney</span><span class="book-meta-ref"> — Davos, January 22nd, 2026</span></footer>
-            </div>
-
-            <p>The Athenian ambassadors approach the Melian people and tell them they're going to become a colony of the war machine now, and that they're going to need to start paying tribute to help the war effort against the Spartans.</p>
-
-            <p>The Melians argue for their traditional neutrality; to be as loyal now as they have ever been.</p>
-
-            <p>The Athenian envoys implore the overpowered Melians to surrender before it gets ugly. Iron laws, so on and so forth. Not even an appeal to justice.</p>
-
-            <p>The Melians dared to question their logic, and their peculiar attitude of malaise and desperation, in the name of a slim-but-not-none chance the Spartans would come to their aid. They dragged out a siege with the Athenians over a gruelling six-month summer campaign, with much back-and-forth sabotage and war games, while the Athenians' resources were badly needed elsewhere.</p>
-
-            <p>Committing to breaking the Melians was just one in a series of unnecessary, arrogant miscalculations that spelled the upset of the Athenian empire via the loss of what we today would call "soft power."</p>
-
-            <p>As long as there remained a shred of hope.</p>
-
-            <p>This attitude can't be beaten out of human beings. Not in the final analysis.</p>
-
-            <div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
-              Indeed the writings of Herodotus could be put into verse and yet would still be a kind of history, whether written in metre or not. The real difference is this, that one tells what happened and the other what might happen. For this reason poetry is something more scientific and serious than history, because poetry tends to give general truths while history gives particular facts.
-              <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>Poetics</i></span><span class="book-meta-ref"> — 9, 1451b, trans. Sachs <a class="perseus-link" href="https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1451b" target="_blank" rel="noopener">Perseus ↗</a></span></footer>
-            </div>
-
-            <p>If Aristotle is right about the priority of poetry to history when it comes to truth, then a civilization's poetry is in fact a <i>primary</i> means of its access to truth. But what happens to our stories when we void the moral claims implicit inside of them?</p>
-
-          </details></li>
-
-          <li><marginalia data-type="x">3c. [Under construction — the remainder of Section 3]</marginalia></li>
-        </ol>
+        <!-- iii. placeholder — under construction -->
+        <p><marginalia data-type="x">iii.</marginalia></p>
 
       </details></li>
     </ol>
-  </div>
+
+    <!-- ============================================================
+         SECTION i–iii (now live inside section 3 above)
+         ============================================================ -->
+
+<p><!-- [Under Construction] -->
+<br>
 </main>
 
 <!-- ============================================================
