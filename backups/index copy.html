@@ -111,8 +111,11 @@
     /* ── Section 3: suppress auto-numbering on the 3a/3b/3c sublist ──
        The list items are already manually labeled (3a., 3b., 3c.) in
        their own summary/marginalia text, so the browser's decimal
-       counter is redundant and was stacking as e.g. "1. 3a. ...". */
-    .essay-sublist { list-style: none; }
+       counter is redundant and was stacking as e.g. "1. 3a. ...".
+       Margin/padding reset so 3a/3b/3c sit flush with the main essay
+       body; progressive indentation is reintroduced inside each sub-
+       section's own content (essay-subhead, essay-step, etc.). */
+    .essay-sublist { list-style: none; margin-left: 0; padding-left: 0; }
 
     /* ── Section 3: always-visible chapter number on citations ──
        Sits outside .book-meta-ref so it shows even when the
@@ -130,12 +133,9 @@
       margin-top: 2rem;
     }
     br + .essay-subhead { margin-top: 0; }
-    .essay-step { margin-top: 1.4rem; margin-left: 1.5rem; }
+    .essay-step { margin-top: 1.4rem; }
     .essay-step-sub { margin-left: 1rem; font-style: italic; }
     .essay-aside { font-style: italic; opacity: 0.85; margin-left: 1rem; }
-
-    /* ── Tighten top gap before blockquotes ── */
-    .book-page { margin-top: 0.75rem; }
 
     /* ── Section 3: pending-review markers for new paragraphs ──
        Hidden by default; revealed via the existing 👻 "Toggle Invisibles"
@@ -541,7 +541,7 @@
 
     <p>In the end, do our narratives carry any real moral currency? And if so, upon what is that currency based?</p>
 
-    <ol style="padding-left:1.4em;margin-left:0">
+    <ol>
     <li><details data-expand-id="expand-tz"><summary>The <i>Twilight Zone</i> Accident (July 23rd, 1982) <span class="hint-text">(tap to expand)</span></summary><br>
 
         <p>At 2:20am, the two children are carried across a river—Le under one arm, Chen under the other—as the segment's protagonist, played by 53-year-old veteran Hollywood actor Vic Morrow (also killed), tries to deliver them to the safety of the opposite shore. But the fourth and fifth explosions fired blow through the roof of a fishing hut and destroy the tail rotor of the helicopter, causing it to spiral downwards onto the spot where Morrow had just moments earlier stumbled to his knees. Chen had for a few brief seconds slipped from his grasp; plunged face-first into the murky waters below.</p>
@@ -684,7 +684,7 @@
 
             <p>Aristotle progressively defines the mechanisms as follows:</p>
 
-            <p class="new-graf essay-step"><strong>i. Ch. 9: Wonder (<span class="trans" data-en="wonder">θαυμάζειν</span>) and Beauty (<span class="trans" data-en="beautiful">καλόν</span>):</strong></p>
+            <p class="new-graf essay-step"><strong>i. Ch. 9: Wonder (<span class="trans" data-en="wonder">θαυμάζειν</span> (wonder)) and Beauty (<span class="trans" data-en="beautiful">καλόν</span> (beautiful)):</strong></p>
 
             <div class="book-page book-page--aristotle book-page--poetics new-graf" data-source="Poetics">
               [Fearful and pitiable things] come to be… especially… whenever on account of one another they come to be contrary to expectation. For if this is the case, it will be more wondrous than if they come to be spontaneously or by chance, since even among chance things those seem most wondrous which appear to have come to be as if for a purpose. For example, the statue of Mitys at Argos killed the one who was the cause of the death of Mitys; it fell on him while he contemplated it. For it is likely that as things of this sort do not come to be at random, so stories of this sort are of necessity more beautiful.

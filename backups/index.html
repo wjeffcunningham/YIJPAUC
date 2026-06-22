@@ -130,12 +130,9 @@
       margin-top: 2rem;
     }
     br + .essay-subhead { margin-top: 0; }
-    .essay-step { margin-top: 1.4rem; margin-left: 1.5rem; }
+    .essay-step { margin-top: 1.4rem; }
     .essay-step-sub { margin-left: 1rem; font-style: italic; }
     .essay-aside { font-style: italic; opacity: 0.85; margin-left: 1rem; }
-
-    /* ── Tighten top gap before blockquotes ── */
-    .book-page { margin-top: 0.75rem; }
 
     /* ── Section 3: pending-review markers for new paragraphs ──
        Hidden by default; revealed via the existing 👻 "Toggle Invisibles"
@@ -541,7 +538,7 @@
 
     <p>In the end, do our narratives carry any real moral currency? And if so, upon what is that currency based?</p>
 
-    <ol style="padding-left:1.4em;margin-left:0">
+    <ol>
     <li><details data-expand-id="expand-tz"><summary>The <i>Twilight Zone</i> Accident (July 23rd, 1982) <span class="hint-text">(tap to expand)</span></summary><br>
 
         <p>At 2:20am, the two children are carried across a river—Le under one arm, Chen under the other—as the segment's protagonist, played by 53-year-old veteran Hollywood actor Vic Morrow (also killed), tries to deliver them to the safety of the opposite shore. But the fourth and fifth explosions fired blow through the roof of a fishing hut and destroy the tail rotor of the helicopter, causing it to spiral downwards onto the spot where Morrow had just moments earlier stumbled to his knees. Chen had for a few brief seconds slipped from his grasp; plunged face-first into the murky waters below.</p>
@@ -654,6 +651,8 @@
           <li><details data-expand-id="expand-poetics">
             <summary>3a. On Aristotle's <i>Poetics</i> &amp; <i>Rhetoric</i> <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
 
+            <p class="essay-subhead">3a.1. On Poetics: The Story (<span class="trans" data-en="story">μῦθος</span>) of Tragedy (<span class="trans" data-en="tragedy">τραγῳδία</span>)</p>
+
             <div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
               Tragedy then gradually evolved as men developed each element that came to light, and after going through many changes, it stopped when it had found its own natural form.
               <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>Poetics</i></span><span class="book-meta-chapter">, Ch. 4</span><span class="book-meta-ref"> — 1449a14–15, trans. Sachs <a class="perseus-link" href="https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1449a" target="_blank" rel="noopener">Perseus ↗</a></span></footer>
@@ -674,17 +673,17 @@
 
             <p>For Aristotle, by contrast, a story is that which organizes the incidents of tragedy specifically—the dramatic form developed in ancient Athens, which peaked nearly a century before Aristotle started writing about it. Since the paradigmatic story only emerges as a late historical development, Campbell's strategy of establishing the form by cultural consensus won't do.</p>
 
-            <p>Aristotle's claim hinges on what he calls the <span class="trans" data-en="defining quality">ἴδιον</span> (defining quality) of tragedy: its capacity, "through pity and fear," to induce <span class="trans" data-en="catharsis">κάθαρσις</span> (catharsis) of these same feelings. (What is meant precisely by "catharsis" in this context is famously a matter of controversy, to be discussed below.)</p>
+            <p>Aristotle's claim hinges on what he calls the <span class="trans" data-en="defining quality">ἴδιον</span> [defining quality] of tragedy: its capacity, "through pity and fear," to induce <span class="trans" data-en="catharsis">κάθαρσις</span> [catharsis] of these same feelings. (What is meant precisely by "catharsis" in this context is famously a matter of controversy, to be discussed below.)</p>
 
             <p>"Pity (<span class="trans" data-en="pity">ἔλεος</span>) and fear (<span class="trans" data-en="fear">φόβος</span>)" had already been established at the time as two reactions with which tragedy and display speeches were specially concerned. Spectator reactions to tragedy—and comedy, for that matter—were conspicuous.</p>
 
             <p>The problem becomes salient once one appreciates that pity and fear are almost opposites, and from many angles drive each other out.</p>
 
-            <p>Fear concerns our anticipation of our own potential suffering. Pity concerns our anticipation of the potential suffering of others who are like us—as long as they don't deserve it. <marginalia data-type="ci">(Rhet 2.5; 2.7; cf. Poetics 13.)</marginalia> It's this intersubjective asymmetry—the lack of a "doesn't deserve it" clause on fear, in contrast to pity—which tragedy exploits.</p>
+            <p>Fear concerns our anticipation of our own potential suffering. Pity concerns our anticipation of the potential suffering of others who are like us—as long as they don't deserve it. (Rhet 2.5; 2.7; cf. Poetics 13.) It's this intersubjective asymmetry—the lack of a "doesn't deserve it" clause on fear, in contrast to pity—which tragedy exploits.</p>
 
             <p>Aristotle progressively defines the mechanisms as follows:</p>
 
-            <p class="new-graf essay-step"><strong>i. Ch. 9: Wonder (<span class="trans" data-en="wonder">θαυμάζειν</span>) and Beauty (<span class="trans" data-en="beautiful">καλόν</span>):</strong></p>
+            <p class="new-graf essay-step"><strong>i. Ch. 9: Wonder (<span class="trans" data-en="wonder">θαυμάζειν</span> [wonder]) and Beauty (<span class="trans" data-en="beautiful">καλόν</span> [beautiful]):</strong></p>
 
             <div class="book-page book-page--aristotle book-page--poetics new-graf" data-source="Poetics">
               [Fearful and pitiable things] come to be… especially… whenever on account of one another they come to be contrary to expectation. For if this is the case, it will be more wondrous than if they come to be spontaneously or by chance, since even among chance things those seem most wondrous which appear to have come to be as if for a purpose. For example, the statue of Mitys at Argos killed the one who was the cause of the death of Mitys; it fell on him while he contemplated it. For it is likely that as things of this sort do not come to be at random, so stories of this sort are of necessity more beautiful.
@@ -695,7 +694,7 @@
 
             <p class="new-graf essay-step"><strong>ii. Ch. 10: Reversal, Recognition, and Suffering:</strong></p>
 
-            <p class="new-graf">These, Aristotle says, besides the story, "are the greatest things by which tragedy guides the soul (<span class="trans" data-en="leads the soul">ψυχαγωγεῖ</span> (leads the soul))," and specifically characterize a "complex" story against a "simple" one.</p>
+            <p class="new-graf">These, Aristotle says, besides the story, "are the greatest things by which tragedy guides the soul (<span class="trans" data-en="leads the soul">ψυχαγωγεῖ</span> [leads the soul])," and specifically characterize a "complex" story against a "simple" one.</p>
 
             <p class="new-graf">Aristotle gives as an example of reversal from Sophocles' <i>Oedipus</i>, contemporaneously regarded as a tragic masterpiece:</p>
 
@@ -740,7 +739,7 @@
               <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>Nicomachean Ethics</i></span><span class="book-meta-chapter">, Ch. V.10</span><span class="book-meta-ref"> — TK, trans. Sachs <a class="perseus-link" href="https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0054:bekker+page=1137b" target="_blank" rel="noopener">Perseus ↗</a></span></footer>
             </div>
 
-            <p class="new-graf">Instead, Aristotle describes the man whose fortune turns despite his decency as "<span class="trans" data-en="pollution">μιαρόν</span> (pollution)."</p>
+            <p class="new-graf">Instead, Aristotle describes the man whose fortune turns despite his decency as "<span class="trans" data-en="pollution">μιαρόν</span> [pollution]."</p>
 
             <p class="new-graf">The next two distinctions are more intuitive.</p>
 
@@ -755,7 +754,7 @@
 
             <p class="new-graf essay-step-sub">b. By the same logic, the tragic hero can't be an evil man who changes to ill fortune.</p>
 
-            <p class="new-graf">Aristotle notes that in this case, "<span class="trans" data-en="love of humanity">φιλανθρωπία</span> (love of humanity)" would be produced — presumably the residue of the first option's "happy ending," but without pity or fear, and so without a bona fide cathartic effect. This excludes simple comeuppance-for-wickedness as the relevant mechanism of spectator satisfaction.</p>
+            <p class="new-graf">Aristotle notes that in this case, "<span class="trans" data-en="love of humanity">φιλανθρωπία</span> [love of humanity]" would be produced — presumably the residue of the first option's "happy ending," but without pity or fear, and so without a bona fide cathartic effect. This excludes simple comeuppance-for-wickedness as the relevant mechanism of spectator satisfaction.</p>
 
             <p class="new-graf essay-step-sub">c. So, what remains is he:</p>
 
@@ -764,7 +763,7 @@
               <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>Poetics</i></span><span class="book-meta-chapter">, Ch. 13</span><span class="book-meta-ref"> — TK, trans. Benardete/Davis <a class="perseus-link" href="https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1453a" target="_blank" rel="noopener">Perseus ↗</a></span></footer>
             </div>
 
-            <p class="new-graf">It's only at this point that Aristotle concludes the change of fortune must come by way of a <span class="trans" data-en="mistake">ἁμαρτία</span> (mistake)—as we will see below, a specific kind of mistake—and not wickedness.</p>
+            <p class="new-graf">It's only at this point that Aristotle concludes the change of fortune must come by way of a <span class="trans" data-en="mistake">ἁμαρτία</span> [mistake]—as we will see below, a specific kind of mistake—and not wickedness.</p>
 
             <div class="book-page book-page--aristotle book-page--poetics new-graf" data-source="Poetics">
               It is necessary, then, for the beautiful story to be simple rather than, as some say, double, and to change not to good fortune from bad fortune but the opposite, from good fortune to bad fortune, not because of wickedness but because of a [mistake]…
@@ -807,7 +806,7 @@
 
             <p class="new-graf essay-aside">"Was I too loose? Was I too tight? What could have been, what if not for… What might be yet to come, unless I'm diligent and prepared…"</p>
 
-            <p class="new-graf">This node of human anxieties—those of the <span class="trans" data-en="unrestrained">ἀκρατής</span> (unrestrained) person, more or less—is what gets projected onto stories and salved by tragedy, in due proportion to the matter concerned, ranging from day-to-day worries to full-blown mania.</p>
+            <p class="new-graf">This node of human anxieties—those of the <span class="trans" data-en="unrestrained">ἀκρατής</span> [unrestrained] person, more or less—is what gets projected onto stories and salved by tragedy, in due proportion to the matter concerned, ranging from day-to-day worries to full-blown mania.</p>
 
             <p class="new-graf essay-step"><strong>v. Chapter 14: Euripides</strong></p>
 
@@ -853,6 +852,8 @@
               <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>Poetics</i></span><span class="book-meta-chapter">, Ch. 19</span><span class="book-meta-ref"> — TK, trans. Benardete/Davis <a class="perseus-link" href="https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1456b" target="_blank" rel="noopener">Perseus ↗</a></span></footer>
             </div>
 
+            <p class="new-graf essay-subhead">3a.2. On Rhetoric: Epideixis (Display Speech)</p>
+
             <p class="new-graf">Aristotle counts among the means of persuasion not only the argument itself, and the state of mind the listeners are put into, but also the character of the speaker. Considering the character of the speaker, Aristotle says three things matter:</p>
 
             <div class="book-page book-page--aristotle book-page--rhetoric new-graf" data-source="Rhetoric">
@@ -860,7 +861,7 @@
               <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>On Rhetoric</i></span><span class="book-meta-chapter">, Ch. II.1</span><span class="book-meta-ref"> — TK, trans. Sachs <a class="perseus-link" href="https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0060:bekker+page=1378a" target="_blank" rel="noopener">Perseus ↗</a></span></footer>
             </div>
 
-            <p class="new-graf">Given that popular entertainment falls under the category of <span class="trans" data-en="display speech">ἐπίδειξις</span> (display speech)—performance speech concerned with praising or blaming with regard to "what is beautiful or shameful," bringing other things back to refer to these—its presently-focused social function is telling people what to think of the future, or of the past.</p>
+            <p class="new-graf">Given that popular entertainment falls under the category of <span class="trans" data-en="display speech">ἐπίδειξις</span> [display speech]—performance speech concerned with praising or blaming with regard to "what is beautiful or shameful," bringing other things back to refer to these—its presently-focused social function is telling people what to think of the future, or of the past.</p>
 
             <p class="new-graf">The obvious problem is that when a speaker's lived behaviour contradicts the ethical implications of his speech (should they exist), the former is at least a factor in the spectatorship of the work.</p>
 
