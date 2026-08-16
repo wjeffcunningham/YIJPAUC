@@ -108,10 +108,13 @@
     }
     .perseus-link:hover { opacity: 1; }
 
-    /* ── Section 3: 3a/3b/3c are asides, not a numbered sequence ──
-       No decimal counter — these read as parallel asides off the
-       main essay, the same way 3a (Poetics) always has, not as
-       sequentially related items. */
+    /* ── Section 3: suppress auto-numbering on the 3a/3b/3c sublist ──
+       The list items are manually labeled (3a., 3b., 3c.) in their
+       own summary text, so the browser's decimal counter would be
+       redundant/stacking (e.g. "1. 3a. ..."). Body text will sit
+       between these sections eventually; they're asides off the
+       main essay flow, not a strict numbered sequence — the "3a."
+       labels are provisional markers, not list numbering. */
     .essay-sublist { list-style: none; }
 
     /* ── Section 3a: numbered index of chapter walkthroughs ──
@@ -668,9 +671,9 @@
 
         <p>The upshot of Aristotle's emphasis on dynamics over sequence is the ability to account for ethical dimensions of story entirely transparent to Campbell's analysis.</p>
 
-        <ul class="essay-sublist">
+        <ol class="essay-sublist">
           <li><details data-expand-id="expand-poetics">
-            <summary>On Aristotle's <i>Poetics</i> &amp; <i>Rhetoric</i> <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
+            <summary>3a. On Aristotle's <i>Poetics</i> &amp; <i>Rhetoric</i> <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
   
             <p>Aristotle's claim hinges on what he calls the <span class="trans" data-en="defining quality">ἴδιον</span> (defining quality) of tragedy: its capacity, "through pity and fear," to induce <span class="trans" data-en="catharsis">κάθαρσις</span> (catharsis) of these same feelings. (What is meant precisely by "catharsis" in this context is a matter of controversy, to be discussed below.)</p>
 
@@ -905,11 +908,11 @@
             <p class="new-graf">This is the standard put at risk by the moral collapse under discussion: the grace of the ἐπιεικής is what's forfeited when a storyteller's credibility is bankrupted, not merely the audience's goodwill.</p>
 
           </details></li>
-        </ul>
+        </ol>
 
-        <ul class="essay-sublist">
+        <ol class="essay-sublist">
           <li><details data-expand-id="expand-melian">
-            <summary>Thucydides; The Melian Dialogue <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
+            <summary>3b. Thucydides; The Melian Dialogue <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
 
             <p>This was the mindset in which the Athenians encountered the Melians, as dramatized by the historian Thucydides, who was brought back to front-page news in the US and worldwide in January 2026.</p>
 
@@ -951,12 +954,12 @@
           </details></li>
 
           <li><details data-expand-id="expand-jabotinsky">
-            <summary>Jabotinsky; The Iron Wall <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
+            <summary>3c. Jabotinsky; The Iron Wall <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
 
             <marginalia data-type="x">[Under construction — Vladimir Jabotinsky's 1923 "Iron Wall" essay, via Avi Shlaim; the case for a comparable "realist" self-narrative and its own axis of forgiveness owed.]</marginalia>
 
           </details></li>
-        </ul>
+        </ol>
 
         <p class="new-graf"><marginalia data-type="x">[Under construction — closing on Section 3: the throughline from ἐπιεικής/φιλανθρωπία through Melos and Jabotinsky back to the Spielberg case.]</marginalia></p>
 
@@ -1068,20 +1071,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const initState = getState();
   if (initState) playMusic(initState);
-
-  // === TRANSLATED WORDS ===
-  document.querySelectorAll('.trans').forEach(el => {
-    el.addEventListener('click', () => {
-      if (el.classList.contains('is-translated')) {
-        el.textContent = el.dataset.original;
-        el.classList.remove('is-translated');
-      } else {
-        el.dataset.original = el.textContent;
-        el.textContent = el.dataset.en;
-        el.classList.add('is-translated');
-      }
-    });
-  });
 
   // === STATS MODAL: update on open ===
   const statsToggle = document.getElementById('stats-modal-toggle');
