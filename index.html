@@ -108,11 +108,24 @@
     }
     .perseus-link:hover { opacity: 1; }
 
-    /* ── Section 3: suppress auto-numbering on the 3a/3b/3c sublist ──
-       The list items are already manually labeled (3a., 3b., 3c.) in
-       their own summary/marginalia text, so the browser's decimal
-       counter is redundant and was stacking as e.g. "1. 3a. ...". */
+    /* ── Section 3: 3a/3b/3c are asides, not a numbered sequence ──
+       No decimal counter — these read as parallel asides off the
+       main essay, the same way 3a (Poetics) always has, not as
+       sequentially related items. */
     .essay-sublist { list-style: none; }
+
+    /* ── Section 3a: numbered index of chapter walkthroughs ──
+       Unlike the 3a/3b/3c aside-list above, this inner list (Ch. 9,
+       Ch. 11, Ch. 13, The Tragic Mechanism) IS a sequential walk
+       through the Poetics, so it gets real numbering. The Ch. 13
+       sub-list (decent/wicked-success/etc.) stays unnumbered — it
+       inherits plain .essay-sublist since those four aren't a
+       sequence either, just parallel eliminated candidates. */
+    .essay-sublist--numbered {
+      list-style: decimal;
+      padding-left: 1.4rem;
+    }
+    .essay-sublist--numbered > li { padding-left: 0.3rem; }
 
     /* ── Section 3: always-visible chapter number on citations ──
        Sits outside .book-meta-ref so it shows even when the
@@ -655,9 +668,9 @@
 
         <p>The upshot of Aristotle's emphasis on dynamics over sequence is the ability to account for ethical dimensions of story entirely transparent to Campbell's analysis.</p>
 
-        <ol class="essay-sublist">
+        <ul class="essay-sublist">
           <li><details data-expand-id="expand-poetics">
-            <summary>3a. On Aristotle's <i>Poetics</i> &amp; <i>Rhetoric</i> <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
+            <summary>On Aristotle's <i>Poetics</i> &amp; <i>Rhetoric</i> <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
   
             <p>Aristotle's claim hinges on what he calls the <span class="trans" data-en="defining quality">ἴδιον</span> (defining quality) of tragedy: its capacity, "through pity and fear," to induce <span class="trans" data-en="catharsis">κάθαρσις</span> (catharsis) of these same feelings. (What is meant precisely by "catharsis" in this context is a matter of controversy, to be discussed below.)</p>
 
@@ -667,7 +680,7 @@
 
             <p>Although Aristotle establishes a provisional definition of tragedy in Ch. 6, he only describes its mechanisms progressively, by way of argument, through the text.</p>
 
-            <ol class="essay-sublist">
+            <ol class="essay-sublist essay-sublist--numbered">
 
             <li><details data-expand-id="expand-ch9">
               <summary>Ch. 9: Wonder (<span class="trans" data-en="wonder">θαυμάζειν</span>) and Beauty (<span class="trans" data-en="beautiful">καλόν</span>) <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
@@ -892,11 +905,11 @@
             <p class="new-graf">This is the standard put at risk by the moral collapse under discussion: the grace of the ἐπιεικής is what's forfeited when a storyteller's credibility is bankrupted, not merely the audience's goodwill.</p>
 
           </details></li>
-        </ol>
+        </ul>
 
-        <ol class="essay-sublist">
+        <ul class="essay-sublist">
           <li><details data-expand-id="expand-melian">
-            <summary>3b. Thucydides; The Melian Dialogue <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
+            <summary>Thucydides; The Melian Dialogue <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
 
             <p>This was the mindset in which the Athenians encountered the Melians, as dramatized by the historian Thucydides, who was brought back to front-page news in the US and worldwide in January 2026.</p>
 
@@ -938,12 +951,12 @@
           </details></li>
 
           <li><details data-expand-id="expand-jabotinsky">
-            <summary>3c. Jabotinsky; The Iron Wall <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
+            <summary>Jabotinsky; The Iron Wall <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
 
             <marginalia data-type="x">[Under construction — Vladimir Jabotinsky's 1923 "Iron Wall" essay, via Avi Shlaim; the case for a comparable "realist" self-narrative and its own axis of forgiveness owed.]</marginalia>
 
           </details></li>
-        </ol>
+        </ul>
 
         <p class="new-graf"><marginalia data-type="x">[Under construction — closing on Section 3: the throughline from ἐπιεικής/φιλανθρωπία through Melos and Jabotinsky back to the Spielberg case.]</marginalia></p>
 
