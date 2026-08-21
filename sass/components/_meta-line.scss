@@ -9,6 +9,11 @@
     display: inline;
   }
 
+  // Icon links: no underline
+  a:has(.meta-icon) {
+    text-decoration: none;
+  }
+
   .magnifier-toggle {
     display: inline-flex;
     align-items: center;
@@ -41,10 +46,21 @@
     margin-left: 0.5ch;
     transition: color 0.3s ease, filter 0.3s ease;
   }
+}
 
-  // ✅ Greenlight ON when toggle is active
-  input[type="checkbox"]:checked + label {
-    color: #4caf50; // bright green
-    filter: drop-shadow(0 0 2px #4caf50);
-  }
+// Greenlight ON when toggle is active
+body:has(#magnify-toggle:checked) .magnifier-toggle label {
+  color: #4caf50;
+  filter: drop-shadow(0 0 2px #4caf50);
+}
+
+// Tiny VVIP icon
+.meta-line img.meta-icon {
+  display: block;
+  width: 16px !important;
+  height: 16px !important;
+  max-width: 16px !important;
+  max-height: 16px !important;
+  object-fit: contain;
+  flex: 0 0 16px;
 }

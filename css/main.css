@@ -1899,6 +1899,9 @@ marginalia[data-type=ch] {
 .meta-line span {
   display: inline;
 }
+.meta-line a:has(.meta-icon) {
+  text-decoration: none;
+}
 .meta-line .magnifier-toggle {
   display: inline-flex;
   align-items: center;
@@ -1927,9 +1930,20 @@ marginalia[data-type=ch] {
   margin-left: 0.5ch;
   transition: color 0.3s ease, filter 0.3s ease;
 }
-.magnifier-toggle input[type=checkbox]:checked + label {
+
+body:has(#magnify-toggle:checked) .magnifier-toggle label {
   color: #4caf50;
   filter: drop-shadow(0 0 2px #4caf50);
+}
+
+.meta-line img.meta-icon {
+  display: block;
+  width: 16px !important;
+  height: 16px !important;
+  max-width: 16px !important;
+  max-height: 16px !important;
+  object-fit: contain;
+  flex: 0 0 16px;
 }
 
 .menu-header {

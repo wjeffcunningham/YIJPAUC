@@ -162,7 +162,60 @@
       padding-left: 0.75rem;
       margin-left: -0.85rem;
     }
-  </style>
+.meta-line a:has(img.meta-icon) {
+  position: relative;
+  display: inline-block;
+  text-decoration: none !important;
+  overflow: hidden;
+}
+
+.meta-line a:has(img.meta-icon) img.meta-icon {
+  display: block !important;
+  width: 16px !important;
+  height: 16px !important;
+  max-width: 16px !important;
+  max-height: 16px !important;
+  object-fit: contain !important;
+}
+
+.meta-line a:has(img.meta-icon)::after {
+  content: "";
+  position: absolute;
+  top: -30%;
+  left: -80%;
+  width: 45%;
+  height: 160%;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.05) 35%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0.05) 65%,
+    transparent 100%
+  );
+  transform: skewX(-12deg);
+  animation: vvip-sheen 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes vvip-sheen {
+  0%, 65% {
+    left: -80%;
+  }
+  85% {
+    left: 140%;
+  }
+  100% {
+    left: 140%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .meta-line a:has(img.meta-icon)::after {
+    animation: none;
+  }
+}
+</style>
 </head>
 <body>
 
@@ -511,15 +564,18 @@
 
     <p><i>Suppose that Steven Spielberg's mid-career magnum opus, Jurassic Park (1993), reflects the filmmaker's own guilt over his involvement in the illegal hiring of two children killed on a "Steven Spielberg Production" in 1982. Even if true, why would this discovery matter, all these years later, in today's far more cynical times?</i></p>
 
-    <div class="meta-line">
-      <a href="https://github.com/wjeffcunningham" class="track-link" data-id="page25">WJC</a>
-      August 16th, 2026
-      <a href="https://www.youtube.com/@VVVVIIPP26" class="track-link" data-id="page26">VVIP26</a>
-      <div class="magnifier-toggle">
-        <input type="checkbox" id="magnify-toggle">
-        <label for="magnify-toggle" title="Toggle Magnify Mode"></label>
-      </div>
-    </div>
+<div class="meta-line">
+  <a href="https://github.com/wjeffcunningham" class="track-link">WJC</a>
+  August 20th, 2026
+  <a href="https://www.youtube.com/@VVVVIIPP26" class="track-link" data-id="page26">
+    <img src="vvip.png" alt="VVIP26" class="meta-icon">
+  </a>
+  <div class="magnifier-toggle">
+    <input type="checkbox" id="magnify-toggle">
+    <label for="magnify-toggle" title="Toggle Magnify Mode"></label>
+  </div>
+</div>
+
 <br>
     <p>In my seminal media essay, <a href="https://ijpauc.net"><i>IJPAUC?</i> (2025)</a>, I argue that <a href="https://en.wikipedia.org/wiki/Jurassic_Park"><i>Jurassic Park</i> (1993)</a> is an unconscious confession. By that I mean that when Spielberg's emphasis on the pertinence of autobiography to his work is taken seriously, the evidence is overwhelming that the '90s blockbuster bears heavy imprints of the notorious 1982 <i>Twilight Zone: The Movie</i> helicopter accident that took the lives of two illegally-hired child "extras," Myca Le (7), and Renee Chen (6).</p>
 
@@ -658,7 +714,7 @@
               <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>Poetics</i></span><span class="book-meta-chapter">, Ch. 6</span><span class="book-meta-ref"> — 1450a38–39, trans. Benardete/Davis <a class="perseus-link" href="https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1450a" target="_blank" rel="noopener">Perseus ↗</a></span></footer>
             </div>
 
-        <p>For Aristotle, a story (<span class="trans" data-en="story">μῦθος</span>) is that which organizes the incidents of <i>tragedy</i> specifically—the dramatic form developed in ancient Athens, which peaked over a century before Aristotle started writing about it. Since the paradigmatic story only emerges as a late historical development, Campbell's strategy of establishing the form by way of cultural aggregate won't do. For Aristotle, any account of story has to explain how tragedy makes spectators burst into tears.</p>
+        <p>For Aristotle, a story (<span class="trans" data-en="story">μῦθος</span>) is that which organizes the incidents of <i>tragedy</i> specifically—the dramatic form developed in ancient Athens, which peaked over a century before Aristotle started writing about it. Since the paradigmatic story only emerges as a late historical development, Campbell's strategy of establishing the form by way of cultural aggregate won't do. For Aristotle, any account of story has to convincingly explain how a tragedy makes a spectator burst into tears.</p>
 
                           <div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
               Tragedy then gradually evolved as men developed each element that came to light, and after going through many changes, it stopped when it had found its own natural form.
@@ -701,14 +757,14 @@
 
             <p>But what is the significance of Aristotle’s emphasis on apparent teleology? What or whose "purpose" does he mean?</p>
 
-            <p>As for the Mitys thought experiment as it stands. It fails to function as a tragic plot because, as yet unsculpted, it appears to come to be at random. Yet even stated in bare outline it still serves to convey Aristotle's point concerning the fundamental and enduring interest of human beings into the workings of cosmic justice.</p>
+            <p>As for the Mitys thought experiment as it stands. It fails to function as a tragic plot because, as yet unsculpted, it appears to come to be at random. Yet even stated in dull outline it still serves to convey Aristotle's point concerning the fundamental and enduring interest of human beings into the workings of cosmic justice.</p>
 
                         </details></li>
 
             <li><details data-expand-id="expand-ch11">
               <summary>Ch. 11: Reversal (<span class="trans" data-en="reversal">περιπέτεια</span>), Recognition (<span class="trans" data-en="recognition">ἀναγνώρισις</span>), Suffering (<span class="trans" data-en="suffering">πάθος</span>) <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
 
-            <p class="new-graf">Reversal and recognition, says Aristotle, besides the story (the author's sequencing of events), "are the greatest things by which tragedy 'guides the soul' [<span class="trans" data-en="leads the soul">ψυχαγωγεῖ</span>]" and specifically characterize a "complex" story against a "simple" one.</p>
+            <p class="new-graf">Reversal and recognition, says Aristotle, besides the story (the author's sequencing of events), "are the greatest things by which tragedy 'guides the soul' (<span class="trans" data-en="leads the soul">ψυχαγωγεῖ</span>) and specifically characterize a "complex" story against a "simple" one.</p>
 
             <p class="new-graf">Aristotle gives as an example of reversal from Sophocles' <i>Oedipus</i>:</p>
 
@@ -720,24 +776,34 @@
             <p class="new-graf">And an explanation of recognition, also from the <i>Oedipus</i>:</p>
 
             <div class="book-page book-page--aristotle book-page--poetics new-graf" data-source="Poetics">
-              Recognition (<span class="trans" data-en="recognition">ἀναγνώρισις</span>), on the other hand, just as the name too signifies, is <em>a change from ignorance to knowledge, whether toward friendship or enmity, of those whose relation to good or ill fortune has already been determined</em>. A recognition is most beautiful when it comes to be at the same time as a reversal, for example as it is in the <i>Oedipus</i>.
+              Recognition (<span class="trans" data-en="recognition">ἀναγνώρισις</span>), on the other hand, just as the name too signifies, is <em>a change from ignorance to knowledge</em>, whether toward friendship or enmity, of those whose relation to good or ill fortune has already been determined. A recognition is most beautiful when it comes to be at the same time as a reversal, for example as it is in the <i>Oedipus</i>.
               <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>Poetics</i></span><span class="book-meta-chapter">, Ch. 11</span><span class="book-meta-ref"> — 1452a30-34, trans. Benardete/Davis <a class="perseus-link" href="https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1452a" target="_blank" rel="noopener">Perseus ↗</a></span></footer>
             </div>
 
-<p>Reversal is a change in the direction of the action. "The action," is the thrust of everything that's happened up until that point, in the plausible sequence in which its happened; e.g., to unveil the source of the plague (as in <i>Oedipus</i>). Until this point in the play, everything has been about discovering that source; now it's going in a whole other direction.</p>
+<p>Reversal is a change in the; e.g., to unveil the source of the plague (as in <i>Oedipus</i>). Until this point in the play, everything has been about discovering that source; now it's going in a whole other direction.</p>
 
 <p>The recognition is the hero's epistemic adjustment to that state. The distinction might seem academic because in the case of <i>Oedipus</i>—but not necessarily all tragedies, as Aristotle points out—they occur at the same time.</p> 
 
-<p>When knowledge of the reversal <i>is</i> the recognition, it means the action has been done, and all that remains to do is suffer the consequences. But it might happen that the reversal happens with half of the recognition still pending, with a range of dramatic outcomes still viable, some in good fortune, some in bad.</p>
+<p>When knowledge of the reversal <i>is</i> the recognition, it means the action has been done.</p>
 
-<p>But in other tragedies (let's take for example <i>Iphigenia at Tauris</i>) the moments of reversal and recognition are not simultaneous. First; the reversal. Iphigenia reads a letter revealing her identity to the two men standing in front of her. One of the men is her long-lost brother, Orestes, who now recognizes her; kidnapped and put into the role of priestess. But she has not yet recognized him; and he can't say it out loud, because they're surrounded by hostile Taurians, leaving open the possibility that she kills him before she recognizes who he is. In these cases the "suffering" aspect may only play out within the protagonist's fears, reasonably inferred and anticipated by the spectator, whether or not they actually come to pass.</p>
+<p>Aristotle also tags, as a third part of the story, the implied terminal point, the unhappy outcome of the change, the suffering.</p> 
 
-<p><i>Iphigenia at Tauris</i> belonged to a special class of escape-tragedies pioneered by Euripides—plays that ended in good fortune. Ergo, whether the ideal tragedy ended in good or bad fortune was, vis-à-vis the argument Aristotle is making, an open question—not foreclosed for bad fortune per se. Tragedies could certainly have happy endings and still be effective, as Aristotle will explain in Chapter 14 in a stark reversal of his own.</p>
-
-<p>Aristotle also tags, as a third part of the story, the implied terminal point: the unhappy outcome of the change, the suffering. This always looms in the background. When reversal and recognition come to be simultaneously; i.e., information delivered to the protagonist, which totally changes the scenario, when it's already too late to do anything about it but suffer in the general manner that Oedipus, Thyestes, et al. do.</p>
-
-<footer class="book-meta"><span class="book-meta-author">Aristotle, <i>Poetics</i></span><span class="book-meta-chapter">, Ch. 11</span><span class="book-meta-ref"> — 1452b9-15, trans. Benardete/Davis <a class="perseus-link" href="https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1452b" target="_blank" rel="noopener">Perseus ↗</a></span></footer>
+            <div class="book-page book-page--aristotle book-page--poetics new-graf" data-source="Poetics">
+              These, then, are two parts of the story, reversal and recognition, and a third is suffering. Of these, reversal and recognition have been spoken of, but suffering is a destructive or painful action such as killings in the open, and the infliction of excessive pains and wounds and everything of this sort.
+              <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>Poetics</i></span><span class="book-meta-chapter">, Ch. 11</span><span class="book-meta-ref"> — 1452b10-15, trans. Benardete/Davis <a class="perseus-link" href="https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1452a" target="_blank" rel="noopener">Perseus ↗</a></span></footer>
             </div>
+
+<p>This always looms in the background. When reversal and recognition come to be simultaneously; i.e., information delivered to the protagonist, which changes the scenario, when it's already too late to do anything about it but suffer, in the general manner that Oedipus, Thyestes, et al. do.</p>
+
+<p>But knowledge of the reversal might happen with half of the recognition still pending, with a range of dramatic outcomes still viable, some in good fortune, some in bad.</p>
+
+<p>Aristotle brings up Euripides' <i>Iphigenia at Tauris</i>. <i>Iphigenia at Tauris</i> belonged to a class of escape-tragedies pioneered by Euripides—ending in good fortune. Ergo, whether the ideal tragedy ended in good or bad fortune was, vis-à-vis the argument Aristotle is making, an open question—not foreclosed for bad fortune per se as one might presume. Tragedies could certainly have happy endings and still be effective, as Aristotle will explain in Chapter 14 in a stark reversal of his own.<p>.
+
+<p>First; the reversal. Iphigenia read aloud a letter that reveals her identity to the two men standing in front of her. One of the men is her tortured, long-lost brother, Orestes, who now recognizes her for the friend she is; kidnapped, and put into the role of priestess. But she has not yet recognized <i>him</i>; and he can't say it out loud, because now they're surrounded by hostile Taurians. This suspends the possibility that she sacrifices him before she recognizes him for who he is. Indeed, he might even consider doing so to save her life <marginalia data-type="pa">""</marginalia>. In these cases the "suffering" aspect may only play out within the protagonist's fears—reasonably inferred and anticipated by the spectator—whether or not they actually come to pass.</p>
+
+<p>Aristotle writes that "a recognition is most beautiful when it comes to be at the same time as a reversal, for example as it is in the <em>Oedipus</em>."</p>
+
+<p>But why? Why not as it is in the <em>Iphigenia</em>?</p>
 
 </details></li>
 
@@ -769,11 +835,11 @@
 
 <p class="new-graf">Instead, Aristotle describes the arc in which the decent man comes to ruin would be experienced by spectators as <span class="trans" data-en="loathsome">μιαρόν</span>.</p>
 
-<p>Aren't terrible things happening to decent men the epitome of tragedy? No; Aristotle points out that such a plot wouldn't produce fear or pity, but μιαρόν: disgust.</p>
+<p>Aren't terrible things happening to decent men the epitome of tragedy? No; Aristotle claims that such a plot wouldn't produce fear or pity, but μιαρόν: disgust.</p>
 
 <p>But why this limit, exactly? Decency? According to the technical definition given in the <i>Ethics</i>, could this be because, in principle at least, the decent man is more just than the law-abiding man (even in the law's most unfair applications), because he personally recognizes and compensates for cases where the law would be unjust. Is the implication that, given that this is all of us at our reasonable best, seeing such a figure come to ruin would again not allow for maximum identification for the rest of us, who sometimes struggle to meet even this standard? (Davis/Benardete)</p>
 
-<p>Throughout each of Arisotle's excluded plots, a repeated problem is spectator identification.</p>
+<p>Throughout each of Arisotle's excluded plots, a repeated problem is spectator identification interference.</p>
 
 </details></li>
 
@@ -792,7 +858,7 @@
   <footer class="book-meta"><span class="book-meta-author">Aristotle, <i>Poetics</i></span><span class="book-meta-chapter">, Ch. 13</span><span class="book-meta-ref"> — 1452b30, trans. Benardete/Davis <a class="perseus-link" href="https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1452b" target="_blank" rel="noopener">Perseus ↗</a></span></footer>
 </div>
 
-<p>No one identifies with a truly "bad guy" in the first place.</p>
+<p>No one identifies with a truly "bad guy" in the first place. But notably, even when the bad guy, say, gets away with it, we're not <i>as disgusted</i> as we would be to see the ἐπιεικής suffer.</p>
 
                 </details></li>
 
@@ -801,7 +867,7 @@
 
 <p class="new-graf">Aristotle notes that in this case, "<span class="trans" data-en="love of humanity">φιλανθρωπία</span> [love of humanity]" would be produced but without pity or fear. In narrative like this, even when there's a "twist of fate," the gratification is different; what's generated for the spectator is more like a shared love for humankind.</p> 
 
-<p>(Aristotle, of course, reminds us in the <i>Ethics</i>, that human beings shared a basic empathy with all other human-beings (CITE)).</p>
+<p>EN QUOTE.</p>
 
 <p>This rules out justified comeuppance as the mechanism of the tragic effect.</p>
 
@@ -809,7 +875,7 @@
 
 <p>One key point, here, again, is the intersubjective gap between fear and pity outlined in the <i>Rhetoric</i>. With almost optical precision, Aristotle is narrowing the psychic field at issue: the extent to which we forgive ourselves for that which we'd hestitate to forgive others.</p>
 
-<p>If tragedies—despite their peculiar, lately discovered, fussy structure—were paradigmatic stories.</p>
+<p>If stories are paradigmatically "tragic," then the paradigmatic protagonist would be someone...:</p>
 
                 </details></li>
 
@@ -835,20 +901,18 @@
 
 <p class="new-graf">This confirms Sophocles' <i>Oedipus</i> as a paradigmatic tragedy (an example meeting all key criteria without qualification), and Oedipus a paradigmatic tragic hero. Aristotle also mentions Thyestes; Orestes' grandfather, who was made to eat his own children in a soup.</p>
 
-<p>However, Arisotle does write that "a recognition is most beautiful when it comes to be at the same time as a reversal, for example, as it is in the Oedipus."</p>
+<p>Arisotle wrote that "a recognition is most beautiful when it comes to be at the same time as a reversal, for example, as it is in the Oedipus."</p>
 
-<p class="new-graf">However, in Chapter 14, Aristotle will dramatically reverse himself, and make a new claim: that a tragic form characterized by a happy ending is in fact the κράτιστον form of tragedy! But what is this new qualifier, "κράτιστον"?</p>
-
-<p>Namely: Does this supercede the "unhappy ending" claims of Ch. 13, or are the two forms of tragedy superior in two different senses?</p>
-
-<p>Are happy endings the best version of tragedies? Or alternative versions? Oedipus, Thyestes, etc, vs Orestes, Iphigenia, etc.—who make it through, at least in these alternate versions?</p>
+<p class="new-graf">However, in Chapter 14, Aristotle will dramatically reverse himself, and make a new claim: that recognizing before (as happens in the Iphigenia" is the most beautiful form of recognition.</p>
 
             </details></li>
 
             <li><details data-expand-id="expand-mechanism">
-              <summary>The Tragic Mechanism, Catharsis (κάθαρσις) <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
+              <summary>Ch. 14: Catharsis (κάθαρσις) <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
 
 <p class="new-graf">By this point the tragic mechanism can be inferred.</p>
+
+<p>[[And friendly affection goes together with the habit of living together, whereas goodwill arises suddenly—for example, it even arises for competitors, since people come to have goodwill for competitors and share their intent, though they would do nothing to assist them. For, just as we said, people feel goodwill suddenly and so feel only superficial affection. (EN 1166b34-1167a6ff.)]]</p>
 
 <p class="new-graf">Recall the Mitys outline: <i>the one who was the cause of the death of Mitys</i> changes from good to bad fortune (death) by way of a mistake.</p>
 
@@ -931,7 +995,7 @@
           </details></li>
         </ol>
 
-<p>(Essay continues.)(Aristotle first identifies the spectator as a node of concern to tragedy AS tragedy, rather that imitation genetically: "both by itself in relation to itself and in relation to the spectators" at 1449a7: .)
+<p>(Essay continues.)
 </p>
 
         <ol class="essay-sublist">
