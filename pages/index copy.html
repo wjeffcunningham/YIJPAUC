@@ -40,25 +40,6 @@
     #abstract-toggle:checked ~ #abstract-modal { display: flex; }
     #modal-nietzsche-box { display: none; }
     #modal-nietzsche:checked ~ #modal-nietzsche-box { display: flex; }
-    #modal-ch6-box { display: none; }
-    #modal-ch6:checked ~ #modal-ch6-box { display: flex; }
-    #modal-ch17-box { display: none; }
-    #modal-ch17:checked ~ #modal-ch17-box { display: flex; }
-
-    /* ── Epigraph modal commentary slot: quiet, separated from the quote ── */
-    .epigraph-commentary {
-      margin-top: 0.9rem;
-      padding-top: 0.75rem;
-      border-top: 1px solid rgba(0, 0, 0, 0.15);
-      font-size: 0.82em;
-      line-height: 1.5;
-      opacity: 0.8;
-    }
-    .epigraph-commentary .commentary-tk {
-      font-style: italic;
-      opacity: 0.6;
-    }
-    body.dark-mode .epigraph-commentary { border-top-color: rgba(255, 255, 255, 0.15); }
 
     /* ── Game mode: map + stats icons hidden until game-toggle is on ── */
     #game-map-label,
@@ -105,12 +86,6 @@
        open attribute. No JS required. */
     details:not([open]) > summary .hint-collapse { display: none; }
     details[open] > summary .hint-expand { display: none; }
-
-    /* ── Section 3 is locked permanently open: the mainline essay body
-       shouldn't be collapsible. Kept as a <details open> (rather than a
-       plain div) so any map.js logic keyed off details[open] still sees
-       it as open; the summary is just de-clicked via pointer-events. ── */
-    summary.summary-locked-open { pointer-events: none; cursor: default; }
 
     /* ── Section 3: per-source citation styling (book-page) ──
        These are additive modifiers layered on top of the existing
@@ -506,18 +481,6 @@ body.dark-mode img.meta-icon {
             </div>
           </td>
         </tr>
-        <tr>
-          <td>Epigraphs collected</td>
-          <td id="stats-epigraph-score">—</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>
-            <div class="stats-score-bar">
-              <div class="stats-score-bar-fill" id="stats-epigraph-bar-fill" style="width:0%"></div>
-            </div>
-          </td>
-        </tr>
       </tbody>
     </table>
   </div>
@@ -566,7 +529,7 @@ body.dark-mode img.meta-icon {
   </div>
 </div>
 
-<input type="checkbox" id="modal-nietzsche" class="epigraph-collect-toggle" data-collect-id="nietzsche" hidden>
+<input type="checkbox" id="modal-nietzsche" hidden>
 <div class="modal" id="modal-nietzsche-box">
   <label class="modal-overlay" for="modal-nietzsche"></label>
   <div class="modal-box">
@@ -581,50 +544,6 @@ body.dark-mode img.meta-icon {
         <a class="epigraph-source" href="https://www.gutenberg.org/files/51356/51356-h/51356-h.htm"><i>Die Geburt der Tragödie</i> §5</a>
       </div>
       <label for="epigraph-modal-1" class="translate-hint">tap to read in English</label>
-    </div>
-  </div>
-</div>
-
-<input type="checkbox" id="modal-ch6" class="epigraph-collect-toggle" data-collect-id="ch6" hidden>
-<div class="modal" id="modal-ch6-box">
-  <label class="modal-overlay" for="modal-ch6"></label>
-  <div class="modal-box">
-    <label for="modal-ch6" class="modal-close">×</label>
-    <input type="checkbox" class="epigraph-toggle" id="epigraph-modal-ch6">
-    <div class="epigraph-body">
-      <div class="epigraph-face epigraph-original">
-        ἔστιν οὖν τραγῳδία μίμησις πράξεως σπουδαίας καὶ τελείας μέγεθος ἐχούσης, ἡδυσμένῳ λόγῳ χωρὶς ἑκάστῳ τῶν εἰδῶν ἐν τοῖς μορίοις, δρώντων καὶ οὐ δι᾽ ἀπαγγελίας, δι᾽ ἐλέου καὶ φόβου περαίνουσα τὴν τῶν τοιούτων παθημάτων κάθαρσιν. λέγω δὲ ἡδυσμένον μὲν λόγον τὸν ἔχοντα ῥυθμὸν καὶ ἁρμονίαν καὶ μέλος, τὸ δὲ χωρὶς τοῖς εἴδεσι τὸ διὰ μέτρων ἔνια μόνον περαίνεσθαι καὶ πάλιν ἕτερα διὰ μέλους.
-      </div>
-      <div class="epigraph-face epigraph-translation">
-        "Tragedy, then, is an imitation of an action that is of stature and complete, with magnitude, that, by means of sweetened speech, but with each of its kinds separate in its proper parts, is of people acting and not through report, and accomplishes through pity and fear the cleansing of experiences of this sort. I mean by 'sweetened speech' that which has rhythm, harmony, and song, and by 'separate in its kinds' sometimes through meters alone accomplishing its task and again at other times through song."
-        <a class="epigraph-source" href="https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1449b" target="_blank" rel="noopener">Aristotle, <i>Poetics</i>, Ch. 6 — 1449b24–31, trans. Benardete/Davis</a>
-      </div>
-      <label for="epigraph-modal-ch6" class="translate-hint">tap to read in English</label>
-    </div>
-    <div class="epigraph-commentary" data-type="x">
-      <p class="commentary-tk">commentary TK</p>
-    </div>
-  </div>
-</div>
-
-<input type="checkbox" id="modal-ch17" class="epigraph-collect-toggle" data-collect-id="ch17" hidden>
-<div class="modal" id="modal-ch17-box">
-  <label class="modal-overlay" for="modal-ch17"></label>
-  <div class="modal-box">
-    <label for="modal-ch17" class="modal-close">×</label>
-    <input type="checkbox" class="epigraph-toggle" id="epigraph-modal-ch17">
-    <div class="epigraph-body">
-      <div class="epigraph-face epigraph-original">
-        τούς τε λόγους καὶ τοὺς πεποιημένους δεῖ καὶ αὐτὸν ποιοῦντα ἐκτίθεσθαι καθόλου, εἶθ᾽ οὕτως ἐπεισοδιοῦν καὶ παρατείνειν. λέγω δὲ οὕτως ἂν θεωρεῖσθαι τὸ καθόλου, οἷον τῆς Ἰφιγενείας: τυθείσης τινὸς κόρης καὶ ἀφανισθείσης ἀδήλως τοῖς θύσασιν, ἱδρυνθείσης δὲ εἰς ἄλλην χώραν, ἐν ᾗ νόμος ἦν τοὺς ξένους θύειν τῇ θεῷ, ταύτην ἔσχε τὴν ἱερωσύνην· χρόνῳ δὲ ὕστερον τῷ ἀδελφῷ συνέβη ἐλθεῖν τῆς ἱερείας, τὸ δὲ ὅτι ἀνεῖλεν ὁ θεὸς ἐλθεῖν ἐκεῖ καὶ ἐφ᾽ ὅ τι δὲ ἔξω τοῦ μύθου· ἐλθὼν δὲ καὶ ληφθεὶς θύεσθαι μέλλων ἀνεγνώρισεν, εἴθ᾽ ὡς Εὐριπίδης εἴθ᾽ ὡς Πολύιδος ἐποίησεν, κατὰ τὸ εἰκὸς εἰπὼν ὅτι οὐκ ἄρα μόνον τὴν ἀδελφὴν ἀλλὰ καὶ αὐτὸν ἔδει τυθῆναι, καὶ ἐντεῦθεν ἡ σωτηρία. μετὰ ταῦτα δὲ ἤδη ὑποθέντα τὰ ὀνόματα ἐπεισοδιοῦν· ὅπως δὲ ἔσται οἰκεῖα τὰ ἐπεισόδια, οἷον ἐν τῷ Ὀρέστῃ ἡ μανία δι᾽ ἧς ἐλήφθη καὶ ἡ σωτηρία διὰ τῆς καθάρσεως.
-      </div>
-      <div class="epigraph-face epigraph-translation">
-        "Regardless of whether they have already been made or he himself is making them, he must set forth accounts [logous] in general and then, on this basis, add episodes and stretch them out. And I mean [legô] the general would be contemplated in this way, for example of the Iphigeneia: A girl is sacrificed, disappears in a way that is not clear to those who sacrificed her, gets settled in another country in which it was the law to sacrifice strangers to the goddess, and she gets this priesthood. Later in time it happens that the brother of the priestess came, but that the god declared that he should go there for some cause is outside the general and for what purpose he was to go there is outside the story. But on his arrival he was caught, and being about to be sacrificed, he made himself recognized (whether in Euripides' way or as Polyidos made it up in saying according to the likely that it was as it should be that not only his sister be sacrificed but also he himself, and from the recognition he was saved). It is after this that the poet must insert the names and make up the episodes, and he must make sure that the episodes are appropriate, for example in the case of Orestes, the madness through which he was caught and his being saved through the cleansing."
-        <a class="epigraph-source" href="https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1455b" target="_blank" rel="noopener">Aristotle, <i>Poetics</i>, Ch. 17 — 1455a34–1455b15, trans. Benardete/Davis</a>
-      </div>
-      <label for="epigraph-modal-ch17" class="translate-hint">tap to read in English</label>
-    </div>
-    <div class="epigraph-commentary" data-type="x">
-      <p class="commentary-tk">commentary TK</p>
     </div>
   </div>
 </div>
@@ -866,7 +785,7 @@ body.dark-mode img.meta-icon {
       </details></li>
 
       <li><details data-expand-id="expand-hope" open>
-        <summary class="summary-locked-open">The Basis of Hope in Trust</summary><br>
+        <summary>The Basis of Hope in Trust <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
 
 <div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
   But they [the historian and the poet] differ in this: the one speaks of what has come to be while the other speaks of what... would come to be. Therefore <i>poiēsis</i> is more philosophic and of more stature than history. For poetry speaks rather of the general things while history speaks of the particular things.
@@ -877,7 +796,7 @@ body.dark-mode img.meta-icon {
 
         <p>But what exactly is a "story"? Why do "narratives" hold such power for us? And what are the limits of this power?</p>
 
-        <p>The dominant paradigm of storytelling in the West is Joseph Campbell's "The Hero's Journey." According to Campbell, the essential parameters of storytelling can be derived by way of cross-cultural analysis. In short, a hero-protagonist leaves their village, slays the dragon, and returns home changed and triumphant. It's by being formatted in this way that stories "work": by modelling for spectators the attitude needed to overcome their own personal dragons, whatever they may be. By Campbell's presentation, storytelling's underlying civic virtue is its pro-social orientation: it is fixedly constructive or optimistic.</p>
+        <p>The dominant paradigm of storytelling in the West is Joseph Campbell's "The Hero's Journey." According to Campbell, the essential parameters of storytelling can be derived by way of cross-cultural analysis. In short, a hero-protagonist leaves their village, slays the dragon, and returns home changed and triumphant. It's by being formatted in this way that stories "work": by modelling for spectators the attitude needed to overcome their own personal dragons, whatever they may be. By Campbell's presentation, storytelling's underlying virtue is its pro-social orientation: it is fixedly constructive or optimistic.</p>
 
         <p>But for Aristotle, who in c. 335 BCE wrote his <i>Poetics</i>—the earliest available Western treatise on storytelling—Campbell's method does not adequately account for the effects of story in their sharpest expressions.</p>
 
@@ -911,7 +830,7 @@ body.dark-mode img.meta-icon {
 
             <p>The problem becomes salient once one appreciates that pity and fear are almost opposites, and from many angles drive each other out. Aristotle defines the two terms in the <i>Rhetoric</i>. Fear concerns our anticipation of our own potential suffering. Pity concerns our anticipation of the potential suffering of others who are like us—as long as they don't deserve it. <marginalia data-type="ci">(Rhet 2.5; 2.7; Poetics 13.)</marginalia> It is very difficult to pity someone that you fear at the same time as you are fearing them. It's this intersubjective asymmetry—the lack of a "doesn't deserve it" clause on fear, in contrast to pity—which tragedy exploits.</p>
 
-            <p>Although Aristotle establishes <label for="modal-ch6" class="modal-trigger">a provisional definition of tragedy</label> in Ch. 6, he only describes its mechanisms progressively, by way of argument, through the text.</p>
+            <p>Although Aristotle establishes <u>a provisional definition of tragedy</u> in Ch. 6, he only describes its mechanisms progressively, by way of argument, through the text.</p>
 
             <ol class="essay-sublist essay-sublist--numbered">
 
@@ -971,7 +890,7 @@ body.dark-mode img.meta-icon {
 
 <p>But knowledge of the reversal might happen with half of the recognition still pending, with a range of dramatic outcomes still viable, some in good fortune, some in bad.</p>
 
-<p>At this point, Aristotle raises a key counter-example to Sophocles' Oedipus: Euripides' <i>Iphigenia at Tauris</i>. <i>Iphigenia at Tauris</i> belonged to a class of escape-tragedies pioneered by Euripides, ending in good fortune. Aristotle conveniently provides <label for="modal-ch17" class="modal-trigger">a plot summary in Ch. 17</label>.</p>
+<p>At this point, Aristotle raises a key counter-example to Sophocles' Oedipus: Euripides' <i>Iphigenia at Tauris</i>. <i>Iphigenia at Tauris</i> belonged to a class of escape-tragedies pioneered by Euripides, ending in good fortune. Aristotle conveniently provides <u>a plot summary in Ch. 17</u>.</p>
 
 <p>Ergo, vis-à-vis the analysis Aristotle is developing, whether the paradigmatic tragedy ends in good or bad fortune is an open question—not foreclosed for bad fortune as one might presume. Tragedies could certainly have happy endings and still be effective, as Aristotle will explain in Chapter 14 in an apparent reversal of his own.</p>
 
@@ -1136,20 +1055,6 @@ body.dark-mode img.meta-icon {
 
             </details></li>
 
-            <li><details data-expand-id="expand-politics">
-              <summary>On Aristotle's <i>Politics</i> <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
-
-<p class="new-graf"><marginalia data-type="x">[Politics summary — still under construction. Left as a visible stub per the "kruft method."]</marginalia></p>
-
-            </details></li>
-
-            <li><details data-expand-id="expand-rhetoric">
-              <summary>On Aristotle's <i>Rhetoric</i> <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
-
-<p class="new-graf"><marginalia data-type="x">[Rhetoric summary — still under construction. Left as a visible stub per the "kruft method."]</marginalia></p>
-
-            </details></li>
-
             </ol>
 
 <p class="new-graf"><marginalia data-type="x">[Chapter 14 (Euripides' reversal-with-recognition-pending, the escape-tragedy/comedy boundary, comedy and epic as the same mechanism at different scales) — still under construction. Left as a visible stub per the "kruft method."]</marginalia></p>
@@ -1201,7 +1106,7 @@ body.dark-mode img.meta-icon {
           </details></li>
         </ol>
 
-<p>Filler text
+<p>(Essay continues.)
 </p>
 
         <ol class="essay-sublist">
@@ -1241,11 +1146,9 @@ body.dark-mode img.meta-icon {
             <p>If Aristotle is right about the priority of poetry to history when it comes to truth, then a civilization's poetry is in fact a <i>primary</i> means of its access to truth. But what happens to our stories when we void the moral claims implicit inside of them? What is the value of this "currency"? Is anything lost? Anything material?</p>
 
           </details></li>
-        </ol>
 
         <p class="new-graf">Filler text</p>
 
-          <ol class="essay-sublist">
           <li><details data-expand-id="expand-jabotinsky">
             <summary>3c. Jabotinsky; The Iron Wall <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
 
@@ -1374,35 +1277,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const barEl = document.getElementById('stats-score-bar-fill');
       if (scoreEl) scoreEl.textContent = `${count} / ${total}`;
       if (barEl) barEl.style.width = `${Math.min(100, Math.round(count / total * 100))}%`;
-
-      const collected = getCollectedEpigraphs();
-      const epiTotal = 8;
-      const epiScoreEl = document.getElementById('stats-epigraph-score');
-      const epiBarEl = document.getElementById('stats-epigraph-bar-fill');
-      if (epiScoreEl) epiScoreEl.textContent = `${collected.length} / ${epiTotal}`;
-      if (epiBarEl) epiBarEl.style.width = `${Math.min(100, Math.round(collected.length / epiTotal * 100))}%`;
     });
   }
-
-  // === EPIGRAPH MODAL COLLECTION TRACKING ===
-  // Generic loop: any modal checkbox tagged .epigraph-collect-toggle with a
-  // data-collect-id gets recorded on first open. New modals (up to 8 total)
-  // slot in without touching this script — just add the class + attribute.
-  const getCollectedEpigraphs = () => JSON.parse(localStorage.getItem('collectedEpigraphs') || '[]');
-  const setCollectedEpigraphs = arr => localStorage.setItem('collectedEpigraphs', JSON.stringify(arr));
-
-  document.querySelectorAll('.epigraph-collect-toggle').forEach(toggle => {
-    toggle.addEventListener('change', function () {
-      if (!this.checked) return;
-      const id = this.dataset.collectId;
-      if (!id) return;
-      const collected = getCollectedEpigraphs();
-      if (!collected.includes(id)) {
-        collected.push(id);
-        setCollectedEpigraphs(collected);
-      }
-    });
-  });
 
   // === GAME TOGGLE: persist across sessions ===
   const persistIds = ['toggle-pa', 'toggle-ci', 'toggle-ch', 'toggle-x', 'audio-toggle', 'magnify-toggle', 'game-toggle'];
