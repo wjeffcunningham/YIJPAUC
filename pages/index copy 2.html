@@ -146,57 +146,6 @@
     }
     body.dark-mode .book-page--rhetoric { border-bottom: 1px solid var(--src-accent); }
     body.dark-mode .book-page--ethics   { border-top: 1px solid var(--src-accent); }
-    /* ── Mobile-only: double-line border, drawn by hand ──
-       border-style: double is fine on desktop — this override is
-       scoped to mobile only, where it isn't. Mobile Safari doesn't
-       reliably render border-style: double: at certain fractional
-       device-pixel-ratios the gap between the two lines balloons or
-       the second line drops well below the box, which is exactly
-       the artifact in the mobile screenshot (the second bottom line
-       rendering several lines down, cutting through the footer text
-       on the Ch. V.10 / NE card). Same rationale as swapping
-       ::marker for ::before+counter above: don't trust a flaky
-       cross-browser keyword, draw the line — but only where it's
-       actually broken, so desktop keeps its original look untouched. */
-    @media (max-width: 600px) {
-      .book-page--poetics,
-      .book-page--rhetoric,
-      .book-page--ethics {
-        position: relative;
-        border-top: 1px solid var(--src-accent);
-        border-bottom: 1px solid var(--src-accent);
-      }
-      .book-page--poetics::before,
-      .book-page--rhetoric::before,
-      .book-page--ethics::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: -3px;
-        height: 1px;
-        background: var(--src-accent);
-      }
-      .book-page--poetics::after,
-      .book-page--rhetoric::after,
-      .book-page--ethics::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: -3px;
-        height: 1px;
-        background: var(--src-accent);
-      }
-      .book-page--rhetoric::before { display: none; } /* single top line only */
-      .book-page--ethics::after    { display: none; } /* single bottom line only */
-      body.dark-mode .book-page--poetics,
-      body.dark-mode .book-page--rhetoric,
-      body.dark-mode .book-page--ethics {
-        border-top: 1px solid var(--src-accent);
-        border-bottom: 1px solid var(--src-accent);
-      }
-    }
     .book-page--modern {
       border: 1px solid var(--color-ink, #2a2a2a);
       border-left-width: 4px;
@@ -300,47 +249,6 @@
     .essay-step { margin-top: 1.4rem; margin-left: 1.5rem; }
     .essay-step-sub { margin-left: 1rem; font-style: italic; }
     .essay-aside { font-style: italic; opacity: 0.85; margin-left: 1rem; }
-
-    /* ── Mobile: let indented content fill the frame ──
-       On a narrow viewport, stacking margin-left on .essay-step,
-       .essay-step-sub, .essay-aside, and the two numbered sub-lists
-       eats a big share of an already-narrow column. Below 600px,
-       swap the margin-based indent for a thin left border + small
-       padding, so nesting still reads at a glance without shrinking
-       the line length. This only covers the classes defined in this
-       file's own <style> block — if .book-page or the 3a/3b/3c
-       details/ol nesting also carry left padding from sass.css
-       itself, that needs the equivalent treatment there; that
-       source isn't part of this upload so I can't check/edit it
-       from here. */
-    @media (max-width: 600px) {
-      .essay-step {
-        margin-left: 0;
-        padding-left: 0.75rem;
-        border-left: 2px solid var(--color-border, #ddd);
-      }
-      .essay-step-sub {
-        margin-left: 0;
-        padding-left: 0.6rem;
-      }
-      .essay-aside {
-        margin-left: 0;
-        padding-left: 0.6rem;
-        border-left: 2px solid var(--color-border, #ddd);
-      }
-      .essay-sublist--numbered {
-        padding-left: 1.4rem;
-      }
-      .essay-sublist--numbered > li::before {
-        left: -1.1rem;
-      }
-      .essay-sublist--numbered-sub {
-        padding-left: 1rem;
-      }
-      .essay-sublist--numbered-sub > li::before {
-        left: -1rem;
-      }
-    }
 
     /* ── Tighten top gap before blockquotes ── */
     .book-page { margin-top: 0.75rem; }
@@ -905,7 +813,7 @@ body.dark-mode img.meta-icon {
 
 <div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
   But they [the historian and the poet] differ in this: the one speaks of what has come to be while the other speaks of what... would come to be. Therefore <i>poiēsis</i> is more philosophic and of more stature than history. For poetry speaks rather of the general things while history speaks of the particular things.
-  <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 9</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1451b target=_blank rel=noopener>1451a36–b11</a>, trans. Benardete/Davis</span></footer>
+  <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 9</span><span class=book-meta-ref> — 1451a36–b11, trans. Benardete/Davis <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1451b target=_blank rel=noopener>Perseus ↗</a></span></footer>
 </div>
 
         <p>Today we often hear the word "narrative"—as in, "controlling the narrative"—the narrative being a kind of story.</p>
@@ -918,14 +826,14 @@ body.dark-mode img.meta-icon {
 
                 <div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
               Story then is the first principle and like the soul of tragedy.
-              <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 6</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1450a target=_blank rel=noopener>1450a38–39</a>, trans. Benardete/Davis</span></footer>
+              <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 6</span><span class=book-meta-ref> — 1450a38–39, trans. Benardete/Davis <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1450a target=_blank rel=noopener>Perseus ↗</a></span></footer>
             </div>
 
         <p>For Aristotle, a story (<span class="trans" data-en="story">μῦθος</span>) is that which organizes the incidents of <i>tragedy</i> specifically—the dramatic form developed in ancient Athens, which peaked over a century before Aristotle started writing about it. Since the paradigmatic story only emerges as a late historical development, Campbell's strategy of establishing the form by way of cultural aggregate won't do. For Aristotle, any account of story has to convincingly explain how a tragedy makes a spectator burst into tears at the critical moment.</p>
 
                           <div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
               Tragedy then gradually evolved as men developed each element that came to light, and after going through many changes, it stopped when it had found its own natural form.
-              <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 4</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1449a target=_blank rel=noopener>1449a14–15</a>, trans. Sachs</span></footer>
+              <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 4</span><span class=book-meta-ref> — 1449a14–15, trans. Sachs <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1449a target=_blank rel=noopener>Perseus ↗</a></span></footer>
             </div>
 
         <p>To say, however, that for Aristotle, the paradgimatic story is "tragic," is not to say that stories which end in suffering are preferred or primary. It's not that the best stories are tragic; it's that the tragic form best illustrates how stories work for human-beings. Arisotle shows great deference to comedy, which he argues "came to light side by side" with tragedy (1449a). Besides that, even within the form of tragedy, some tragedies have happy endings; Aristotle repeatedly sets Sophocles' <i>Oedipus Tyrannus</i> (429 BCE)—a tragedy in the typical sense—against Euripides' <i>Iphigenia at Tauris</i> (414 BCE), in which the protagonists recognize each other in time to avert the fatal mistake.</p>
@@ -948,7 +856,7 @@ body.dark-mode img.meta-icon {
 
             <div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
               Tragedy, then, is an imitation of an action that is of stature and complete, with magnitude, that, by means of sweetened speech, but with each of its kinds separate in its proper parts, is of people acting and not through report, and accomplishes through pity and fear the cleansing of experiences of this sort. I mean by "sweetened speech" that which has rhythm, harmony, and song, and by "separate in its kinds" sometimes through meters alone accomplishing its task and again at other times through song.
-              <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 6</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1449b target=_blank rel=noopener>1449b24–31</a>, trans. Benardete/Davis</span></footer>
+              <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 6</span><span class=book-meta-ref> — 1449b24–31, trans. Benardete/Davis <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1449b target=_blank rel=noopener>Perseus ↗</a></span></footer>
             </div>
 
             <ol class="essay-sublist essay-sublist--numbered">
@@ -958,7 +866,7 @@ body.dark-mode img.meta-icon {
 
             <div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
               Fearful and pitiable things come to be… especially… whenever on account of one another they come to be contrary to expectation. For if this is the case, it will be more wondrous (<span class=trans data-en=wondrous>θαυμαστὸν</span>) than if they come to be spontaneously or by chance, since even among chance things those seem most wondrous (<span class=trans data-en=most wondrous>θαυμασιώτατα</span>) which appear to have come to be as if for a purpose. For example, the statue of Mitys at Argos killed the one who was the cause of the death of Mitys; it fell on him while he contemplated it. For it is likely that as things of this sort do not come to be at random, so stories of this sort are of necessity more beautiful (<span class=trans data-en=more beautiful>καλλίους</span>).
-              <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 9</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1452a target=_blank rel=noopener>1452a1–11</a>, trans. Benardete/Davis</span></footer>
+              <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 9</span><span class=book-meta-ref> — 1452a1–11, trans. Benardete/Davis <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1452a target=_blank rel=noopener>Perseus ↗</a></span></footer>
             </div>
 
             <p>In this passage, Aristotle provides what feels like a tragic plot in miniature. The point is to suggest how pity and fear might be produced together “whenever on account of one another they come to be contrary to expectation.”</p> 
@@ -970,6 +878,7 @@ body.dark-mode img.meta-icon {
             <p>What is the significance of Aristotle’s emphasis on apparent teleology? What or whose "purpose" does he mean?</p>
 
             <p>"...so stories of this sort are of necessity more beautiful": we are searching not so much for story in general but also for the "beautiful" or "most beautiful" story.</p>
+å
                         </details></li>
 
             <li><details data-expand-id="expand-ch11">
@@ -981,25 +890,27 @@ body.dark-mode img.meta-icon {
 
             <div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
               What has been spoken of as <em>the change into the contrary of the things being done</em> is reversal (<span class=trans data-en=reversal>περιπέτεια</span>), and this too, just as we say, according to the likely or necessary. For example in the <i>Oedipus</i>, on his coming [the messenger from Corinth], in supposing that he was going to cheer Oedipus and release him from the fear regarding his mother, once he had made it clear who he was, he did the contrary.
-              <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 11</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1452a target=_blank rel=noopener>1452a24-28</a>, trans. Benardete/Davis</span></footer>
+              <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 11</span><span class=book-meta-ref> — 1452a24-28, trans. Benardete/Davis <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1452a target=_blank rel=noopener>Perseus ↗</a></span></footer>
             </div>
 
             <p>And an explanation of recognition, also from the <i>Oedipus</i>:</p>
 
             <div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
               Recognition (<span class=trans data-en=recognition>ἀναγνώρισις</span>), on the other hand, just as the name too signifies, is <em>a change from ignorance to knowledge</em>, whether toward friendship or enmity, of those whose relation to good or ill fortune has already been determined. A recognition (<span class=trans data-en=recognition>ἀναγνώρισις</span>) is most beautiful when it comes to be at the same time as a reversal (<span class=trans data-en=reversal>περιπετείᾳ</span>), for example as it is in the <i>Oedipus</i>.
-              <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 11</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1452a target=_blank rel=noopener>1452a30-34</a>, trans. Benardete/Davis</span></footer>
+              <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 11</span><span class=book-meta-ref> — 1452a30-34, trans. Benardete/Davis <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1452a target=_blank rel=noopener>Perseus ↗</a></span></footer>
             </div>
 
-<p>Reversal is "the change (<span class="trans" data-en="change">μεταβολή</span>) into the contrary (<span class="trans" data-en="contrary">ἐναντίον</span>) of the things being done"; e.g., to unveil the source of the plague (as in <i>Oedipus</i>). Until this point in the play, everything has been about discovering that source; now it's going in a whole other direction.</p>
+<p>Reversal is "the change (metabole) into the contrary (TRANS) of the things being done"; e.g., to unveil the source of the plague (as in <i>Oedipus</i>). Until this point in the play, everything has been about discovering that source; now it's going in a whole other direction.</p>
 
-<p>The definition of recognition is more technical: "a change from ignorance to knowledge whether toward friendship or enmity, of those whose relation to good or ill fortune has already been determined." The distinction might seem academic because in the case of <i>Oedipus</i>—but not necessarily all tragedies, as Aristotle points out—they occur at the same time.</p>
+<p>The definition of recognition is more technical "a change from ignorance to knowledge whether toward friendship or enmity, of those whose relation to good or ill fortune has already been determined." The distinction might seem academic because in the case of <i>Oedipus</i>—but not necessarily all tragedies, as Aristotle points out—they occur at the same time.</p>
+
+<p>(It's possible Sophocles himself avered with <i>Oedipus</i> to make the iconic tragedy.)</p>
 
 <p>When knowledge of the reversal <i>is</i> the recognition, it means the mistake has already happened. This means that all there is left to do is suffer, which Aristotle tags as a third part of story, the implied terminal point, the suffering.</p> 
 
             <div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
               These, then, are two parts of the story, reversal (<span class=trans data-en=reversal>περιπέτεια</span>) and recognition (<span class=trans data-en=recognition>ἀναγνώρισις</span>), and a third is suffering (<span class=trans data-en=suffering>πάθος</span>). Of these, reversal (<span class=trans data-en=reversal>περιπέτεια</span>) and recognition (<span class=trans data-en=recognition>ἀναγνώρισις</span>) have been spoken of, but suffering (<span class=trans data-en=suffering>πάθος</span>) is a destructive or painful action such as killings in the open, and the infliction of excessive pains and wounds and everything of this sort.
-              <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 11</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1452a target=_blank rel=noopener>1452b10-15</a>, trans. Benardete/Davis</span></footer>
+              <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 11</span><span class=book-meta-ref> — 1452b10-15, trans. Benardete/Davis <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1452a target=_blank rel=noopener>Perseus ↗</a></span></footer>
             </div>
 
 <p>The suffering always looms in the background. When reversal and recognition come to be simultaneously; i.e., information delivered to the protagonist, which changes the scenario, when it's already too late to do anything about it but suffer.</p>
@@ -1009,8 +920,8 @@ body.dark-mode img.meta-icon {
 <p>At this point, Aristotle raises a key counter-example to Sophocles' Oedipus: Euripides' <i>Iphigenia at Tauris</i>. <i>Iphigenia at Tauris</i> belonged to a class of escape-tragedies pioneered by Euripides, ending in good fortune. Aristotle conveniently provides a plot summary in Ch. 17.</p>
 
 <div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
-  A girl is sacrificed, disappears in a way that is not clear to those who sacrificed her, gets settled in another country in which it was the law to sacrifice strangers to the goddess, and she gets this priesthood. Later in time it happens that the brother of the priestess came, but that the god declared that he should go there for some cause is outside the general and for what purpose he was to go there is outside the story. But on his arrival he was caught, and being about to be sacrificed, he made himself recognized (whether in Euripides' way or as Polyidos made it up in saying according to the likely that it was as it should be that not only his sister be sacrificed but also he himself, and from the recognition he was saved). It is after this that the poet must insert the names and make up the episodes, and he must make sure that the episodes are appropriate, for example in the case of Orestes, the madness through which he was caught and his being saved through the <span class="trans" data-en="purification rite">καθάρσιον</span> [purification rite].
-  <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 17</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1455b target=_blank rel=noopener>1455a34–1455b15</a>, trans. Benardete/Davis</span></footer>
+  A girl is sacrificed, disappears in a way that is not clear to those who sacrificed her, gets settled in another country in which it was the law to sacrifice strangers to the goddess, and she gets this priesthood. Later in time it happens that the brother of the priestess came, but that the god declared that he should go there for some cause is outside the general and for what purpose he was to go there is outside the story. But on his arrival he was caught, and being about to be sacrificed, he made himself recognized (whether in Euripides' way or as Polyidos made it up in saying according to the likely that it was as it should be that not only his sister be sacrificed but also he himself, and from the recognition he was saved). It is after this that the poet must insert the names and make up the episodes, and he must make sure that the episodes are appropriate, for example in the case of Orestes, the madness through which he was caught and his being saved through the [cleansing--TRANS].
+  <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 17</span><span class=book-meta-ref> — 1455a34–1455b15, trans. Benardete/Davis <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1455b target=_blank rel=noopener>Perseus ↗</a></span></footer>
 </div>
 
 <p>Ergo, vis-à-vis the argument Aristotle is making, whether the paradigmatic tragedy ends in good or bad fortune is an open question—not foreclosed for bad fortune as one might presume. Tragedies could certainly have happy endings and still be effective, as Aristotle will explain in Chapter 14 in an apparent reversal of his own.</p>
@@ -1031,7 +942,7 @@ body.dark-mode img.meta-icon {
 
 <p>Since recognition and reversal concern mistakes, and mistakes are made by people acting, the mistake that induces the moments of recognition and reversal depends on someone making it. But not just any arc will produce the tragic effect.</p>
 
-<p>Aristotle names a few that won't work. In considering the reasons why, as though generating elemental sparks by way of particle acceleration: we gain a new handful of terms — decency (<span class="trans" data-en="decency">ἐπιείκεια</span>), wickedness (<span class="trans" data-en="wickedness">μοχθηρία</span>), disgusting (<span class="trans" data-en="loathsome">μιαρόν</span>), philanthropic sentiment (<span class="trans" data-en="philanthropic">φιλάνθρωπον</span>) — applicable to the ongoing dileneation of the paradigmatic story with its dependence on the generation of "pity and fear" and catharsis thereby.</p>
+<p>Aristotle names a few that won't work. In considering the reasons why, as though generating elemental sparks by way of particle acceleration: we gain a new handful of terms ([TRANS: epiekeia, wickedness, disgusting, philanthropon]) applicable to the ongoing dileneation of the paradigmatic story with its dependence on the generation of "pity and fear" and catharsis thereby.</p>
 
 <ol class="essay-sublist essay-sublist--numbered-sub">
 
@@ -1041,14 +952,14 @@ body.dark-mode img.meta-icon {
 
 <div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
   ...the <span class=trans data-en=decent>ἐπιεικής</span> ought not to be shown changing from good to bad fortune (for this is neither fearful nor pitiable but <span class=trans data-en=loathsome>μιαρόν</span>)...
-  <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 13</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1452b target=_blank rel=noopener>1452b34–36</a>, trans. Benardete/Davis</span></footer>
+  <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 13</span><span class=book-meta-ref> — 1452b28, trans. Benardete/Davis <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1452b target=_blank rel=noopener>Perseus ↗</a></span></footer>
 </div>
 
 <p>The term ἐπιεικής is discussed the <i>Nicomachean Ethics</i>, Book V, in contrast to the law-abiding man per se:</p>
 
 <div class="book-page book-page--aristotle book-page--ethics" data-source="Nicomachean Ethics">
   …while what is decent is just, it is not so according to the law, but is a setting straight of what is legally just.
-  <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Nicomachean Ethics</i></span><span class=book-meta-chapter>, Ch. V.10</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0054:bekker+page=1137b target=_blank rel=noopener>1137b26</a>, trans. Sachs</span></footer>
+  <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Nicomachean Ethics</i></span><span class=book-meta-chapter>, Ch. V.10</span><span class=book-meta-ref> — 1137b26, trans. Sachs <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0054:bekker+page=1137b target=_blank rel=noopener>Perseus ↗</a></span></footer>
 </div>
 
 <p>Instead, Aristotle describes the arc in which the decent man comes to ruin would be experienced by spectators as <span class="trans" data-en="loathsome">μιαρόν</span> (repellant, disgusting, offputting).</p>
@@ -1067,11 +978,11 @@ body.dark-mode img.meta-icon {
                   <summary>The Success of the Wicked Man <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
 
 <div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
-  ...so the <span class="trans" data-en="wicked">μοχθηρός</span> ought not to be shown changing from misfortune to good fortune (for this is the least tragic of all, since it has nothing of what it ought to have as it is neither productive of philanthropic feelings (<span class=trans data-en=philanthropic>φιλάνθρωπον</span>) nor pitiable nor fearful)...
-  <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 13</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1452b target=_blank rel=noopener>1452b36–1453a1</a>, trans. Benardete/Davis</span></footer>
+  ...so the wicked [TRANS] ought not to be shown changing from misfortune to good fortune (for this is the least tragic of all, since it has nothing of what it ought to have as it is neither productive of philanthropic feelings (<span class=trans data-en=philanthropic>φιλάνθρωπον</span>) nor pitiable nor fearful)...
+  <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 13</span><span class=book-meta-ref> — 1452b30, trans. Benardete/Davis <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1452b target=_blank rel=noopener>Perseus ↗</a></span></footer>
 </div>
 
-<p>No one identifies with being truly wicked, evil, or vicious in the first place. *** But notably, even when the bad guy, say, gets away with it, we're not <i>as disgusted</i> in this same way as we would be to see the ἐπιεικής come to bad fortune by way of a reversal.</p>
+<p>No one identifies with a truly "bad guy" in the first place. But notably, even when the bad guy, say, gets away with it, we're not <i>as disgusted</i> in this same way as we would be to see the ἐπιεικής come to bad fortune by way of a reversal.</p>
 
                 </details></li>
 
@@ -1079,23 +990,34 @@ body.dark-mode img.meta-icon {
                   <summary>The Downfall of the Wicked Man <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
 
 <div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
-  ...any more than the <span class="trans" data-en="very evil">σφόδρα πονηρός</span> ought to appear to fall from good fortune to ill fortune (for, though a putting together of this sort would have the feeling of kindship with the human, still it would not have either pity or fear; for with respect to one who has ill fortune, the pity concerns his not deserving it, and the fear concerns his being similar to us, so then what occurs will be neither pitiable nor fearful).
-  <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 13</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1452b target=_blank rel=noopener>1453a1–4</a>, trans. Benardete/Davis</span></footer>
+  ...any more than the very evil man (TRANS) ought to appear to fall from good fortune to ill fortune (for, though a putting together of this sort would have the feeling of kindship with the human, still it would not have either pity or fear; for with respect to one who has ill fortune, the pity concerns his not deserving it, and the fear concerns his being similar to us, so then what occurs will be neither pitiable nor fearful).
+  <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 13</span><span class=book-meta-ref> — 1452b30, trans. Benardete/Davis <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1452b target=_blank rel=noopener>Perseus ↗</a></span></footer>
+</div>
+
+<p>[Are the "wicked man" and the "very evil man" the same [TRANS]?] Either way, the spectator won't identify with them:</p>
+
+<div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
+  …with respect to one who has ill fortune, the pity concerns his not deserving it, and the fear concerns his being similar to us, so that what occurs will be neither pitiable nor fearful.
+  <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 13</span><span class=book-meta-ref> — 1452b30, trans. Benardete/Davis <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1452b target=_blank rel=noopener>Perseus ↗</a></span></footer>
 </div>
 
 <p>Aristotle notes that in this case, <span class="trans" data-en="love of humanity">φιλανθρωπία</span> [love of humanity] would be produced but without pity or fear. In narrative like this, even when there's a "change into the contrary of things being done" which benefits the the common good, the gratification is different; what's generated for the spectator is something more like a shared love for humankind than it is the tragic effect we have been locating.</p> 
 
+<p>Aristotle 
+
 <p>This rules out justified comeuppance as the mechanism of the tragic effect.</p>
 
-<p>None of these three plots work: "decent" (<span class="trans" data-en="decent">ἐπιεικής</span>) guy loses; "wicked" (<span class="trans" data-en="wicked">μοχθηρός</span>) guy wins; <i>"very evil" (<span class="trans" data-en="evil">πονηρός</span>) guy loses</i>.</p>
+<p>None of these three plots work: "decent" [TRANS] guy loses; "wicked guy[TRANS] wins" <i>"very evil guy[TRANS] loses"</i>.</p>
 
 <p>One key point, here, again, is the intersubjective gap between fear and pity fleshed out in the <i>Rhetoric</i>: our ability to fear for ourselves, despite dimensions of culpability which might preclude our being pitied by others. With almost optical precision, Aristotle is delimiting the psychic field at issue: actions for which we'd forgive ourselves but for which we'd hestitate to forgive others.</p>
 
-<p>In Ch. 13, in roughing-out a suitable tragic protagonist, Aristotle argues that a "very wicked" (<span class="trans" data-en="evil">πονηρός</span>) man won't do, because "…with respect to one who has ill fortune, the pity concerns his not deserving it, and the fear concerns his being similar to us, so that what occurs will be neither pitiable nor fearful."</p>
+<p>In Ch. 13, in roughing-out a suitable tragic protagonist, Aristotle argues that a ["very wicked"--translate] man won't do, because "…with respect to one who has ill fortune, the pity concerns his not deserving it, and the fear concerns his being similar to us, so that what occurs will be neither pitiable nor fearful."</p>
 
 <p>Aristotle introduced the spectator as a term of concern to the analysis of tragedy at 1459a6-9. The spectator must be able to fear for the relevant characters in order for the tragic effect—which concerns the uncanny appearance of pity and fear—to take place.</p>
 
 <p>The spectator begins by regarding the protagonist with vague, generalized good-will, the same way one might spectate a favoured athlete. This vague good-will is enabled by the initial excluding conditions Aristotle advises.</p>
+
+<p>"The fear concerns his being similar to us:" how?</p>
 
                 </details></li>
               </ol>
@@ -1106,12 +1028,12 @@ body.dark-mode img.meta-icon {
 
 <div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
   …is neither distinguished by virtue and justice nor changing to bad fortune on account of vice and wickedness, but one who changes on account of some mistake (<span class=trans data-en=some mistake>ἁμαρτίαν τινά</span>), and is one of those in great repute and of good fortune, such as Oedipus, Thyestes, and notable men of families of this sort.
-  <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 13</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1453a target=_blank rel=noopener>1453a7</a>, trans. Benardete/Davis</span></footer>
+  <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 13</span><span class=book-meta-ref> — 1453a7, trans. Benardete/Davis <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1453a target=_blank rel=noopener>Perseus ↗</a></span></footer>
 </div>
    
 <p></p>
 
-<p>It's only at this point that Aristotle concludes the change of fortune must come by way of a <span class="trans" data-en="mistake">ἁμαρτία</span> (mistake) and not vice as such.
+<p>It's only at this point that Aristotle concludes the change of fortune must come by way of a <span class="trans" data-en="mistake">ἁμαρτία</span> (mistake) and not wickedness. 
 
 <p>Hamartia (Ancient Greek: ἁμαρτία) originally means “missing the mark." With Christianity, ἁμαρτία becomes far more morally charged as “sin.” But already in the Greek sense, to be clear, it certainly carried the potential for culpability with serious consequences.</p>
 
@@ -1119,9 +1041,9 @@ body.dark-mode img.meta-icon {
 
 <p>A mistake in the general sense is a "missing of the mark." But this breaks into two specific senses: accidents (<span class="trans" data-en="accident">ἀτύχημα</span> [accident]) properly, and mistakes of neglect (<span class="trans" data-en="culpable mistake">ἁμάρτημα</span> [missing-of-the-marks], in the specific sense).</p>
 
-<p>***REVIEW ETHICS***</p>
+<p>***
 
-<o>Mistakes of neglect, in turn, can be traced back to two significant factors—one of which is intentional, and one of which are accidents of upbringing and human nature.<marginalia data-type="pa"> [...]</marginalia> However, of course, they are also the consequence of earlier acts of lack of self-restraint. I mean, for example, that precisely what makes the mistake of negligence both unintended and culpable is that the agent must have culpably erred at some point previously in time. Obviously the drunk driver who kills someone never meant to hit that person. What makes it culpable is their irresponsible decision to drink too much without a plan for getting home without endangering others.</p>
+Mistakes of neglect, in turn, can be traced back to two significant factors—one of which is intentional, and one of which are accidents of upbringing and human nature.<marginalia data-type="pa"> […]</marginalia> However, of course, they are also the consequence of earlier acts of lack of self-restraint. I mean, for example, that precisely what makes the mistake of negligence both unintended and culpable is that the agent must have culpably erred at some point previously in time. Obviously the drunk driver who kills someone never meant to hit that person. What makes it culpable is their irresponsible decision to drink too much without a plan for getting home without endangering others.</p>
 
 <p>This brings pity and fear into consonance with the stress and strain of restraint and latitude experienced by the akratic (<span class="trans" data-en="akratic">ἀκρατής</span>) person.</p>
 
@@ -1130,11 +1052,11 @@ body.dark-mode img.meta-icon {
 <p>The point is that audiences are moved not by the good or bad guy winning or losing per se but by the rush of adrenaline all of us get when we think we may have just messed everything up.</p>
 
 <div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
-  It is necessary, then, for the beautiful story to be simple rather than, as some say, double, and to change not to good fortune from bad fortune but the opposite, from good fortune to bad fortune, not because of wickedness but because of a [mistake] (<span class=trans data-en=a great mistake>ἁμαρτίαν μεγάλην</span>)...
-  <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 13</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1453a target=_blank rel=noopener>1453a8</a>, trans. Benardete/Davis</span></footer>
+  It is necessary, then, for the beautiful story to be simple rather than, as some say, double, and to change not to good fortune from bad fortune but the opposite, from good fortune to bad fortune, not because of wickedness but because of a [mistake] (<span class=trans data-en=a great mistake>ἁμαρτίαν μεγάλην</span>)…
+  <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 13</span><span class=book-meta-ref> — 1453a8, trans. Benardete/Davis <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1453a target=_blank rel=noopener>Perseus ↗</a></span></footer>
 </div>
 
-<p>This confirms Sophocles' <i>Oedipus</i> as a paradigmatic tragedy—an unqualified example of the "most beautiful" form of story—and Oedipus a paradigmatic tragic hero. Aristotle also mentions Thyestes, Orestes' grandfather, who was made to eat his own children in a soup, "and notable men of families of this sort."</p>
+<p>This confirms Sophocles' <i>Oedipus</i> as a paradigmatic tragedy (unqualified example of the "most beautiful"), and Oedipus a paradigmatic tragic hero. Aristotle also mentions Thyestes; Orestes' grandfather, who was made to eat his own children in a soup.</p>
 
 <p>Arisotle wrote that "a recognition is most beautiful when it comes to be at the same time as a reversal, for example, as it is in the Oedipus."</p>
 
@@ -1153,11 +1075,11 @@ body.dark-mode img.meta-icon {
 
 <p>In Chapter 13—just previously—Aristotle reasoned that the tragic protagonist is “one who changes on account of some mistake and is one of those in great repute and of good fortune such as Oedipus, Thyestes, and notable men of families of this sort. … It is necessary, then, for the beautiful story… to change… from good fortune to bad fortune, not because of wickedness but because of a great mistake…”</p>
 
-<p>He goes as far as to diagnose the cause of poets’ tendency toward happy endings—pandering to the spectators' wish for the story to end "as they would pray for things to be."</p>
+<p>He goes as far as to diagnose the cause of poets’ tendency toward happy endings—pandering to the spectators wish for their poetry to be "as they would pray for things to be," i.e., with everyone having become friends, going off at the end, where no one is killed by anyone. That is: the stuff of comedy.</p>
 
 <div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
   For the poets follow the spectators, making their poetry as they [the spectators] would pray for things to be. But this is not a pleasure of tragedy but is rather proper to comedy, where those who are the greatest of enemies in the story, for example, Orestes and Aegisthus, having become friends, go off at the end, and no one is killed by anyone.
-  <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 13</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1453a target=_blank rel=noopener>1453a35–40</a>, trans. Benardete/Davis</span></footer>
+  <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 13</span><span class=book-meta-ref> — 1453a35–40, trans. Benardete/Davis <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1453a target=_blank rel=noopener>Perseus ↗</a></span></footer>
 </div>
 
 <p>The dimension of analysis introduced in this chapter stems from Aristotle’s premise in Ch. 11 that “recognition is recognition of some [persons]”—that is, recognition in the strong sense required by the tragic effect is not merely of something, but of <i>someone</i>.</p>
@@ -1166,7 +1088,7 @@ body.dark-mode img.meta-icon {
 
 <div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
   It is surely necessary that actions of this sort be in the relation of friends toward one another, or of enemies, or of neither. Should it be enemy toward enemy, he is neither doing nor intending anything piteous except by virtue of the suffering itself, any more than if they are neither friends nor enemies. But the sufferings to be sought are these: whether they come to be in friendships, such as if brother should either kill or intend to kill or do something else of this sort to brother, or son to father, or mother to son, or son to mother.
-  <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 14</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1453b target=_blank rel=noopener>1453b15–22</a>, trans. Benardete/Davis</span></footer>
+  <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 14</span><span class=book-meta-ref> — 1453b15–22, trans. Benardete/Davis <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1453b target=_blank rel=noopener>Perseus ↗</a></span></footer>
 </div>
 
 <p>This distinction appears to reveal a dramatic possibility hitherto overlooked, vindicating the <i>happy</i> outcome.</p>
@@ -1175,22 +1097,22 @@ body.dark-mode img.meta-icon {
 
 <p>The tragic action can be done knowingly (like in <i>Medea</i>, when she plots to, and does, kill her children) or unknowingly (like in <i>Oedipus</i>).</p>
 
-<p>Of the two, Aristotle favours the latter; which is a complex plot, allowing for an “astounding” (<span class="trans" data-en="astounding">ἐκπληκτικόν</span>) recognition.</p>
+<p>Of the two, Aristotle favours the latter; which is a complex plot, allowing for an “astounding” (TRANS.) recognition.</p>
 
 <p>But he also considers a third possibility: “to intend to do something beyond cure because of ignorance but to recognize before doing it”—like in the <i>Iphigenia</i>, anticipated in Ch. 11.</p>
 
 <p>Even worse than the <i>Medea</i> structure—as Aristotle divides it—would be a variant in which the murderous action is intended but never happens. This would be <span class="trans" data-en="loathsome">μιαρόν</span> (disgusting) to see—presumably because the ill-will is never surfaced, and there’s no resolution.</p>
 
 <div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
-  To intend while cognizant and not to act is worst, for it is <span class="trans" data-en="loathsome">μιαρόν</span> and not tragic, since it is without suffering.
-  <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 14</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1453b target=_blank rel=noopener>1453b35–36</a>, trans. Benardete/Davis</span></footer>
+  To intend while cognizant and not to act is worst, for it is loathsome [TRANS] and not tragic, since it is without suffering.
+  <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 14</span><span class=book-meta-ref> — 1453b35–36, trans. Benardete/Davis <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1453b target=_blank rel=noopener>Perseus ↗</a></span></footer>
 </div>
 
-<p>By the same token, however, a variant of the <i>Oedipus</i>, in which the <i>unintended</i> action never comes to pass prior to the recognition, would be <span class="trans" data-en="best">κράτιστον</span> [best] — Aristotle's own word for this case, ranked above the <i>Oedipus</i>.</p>
+<p>By the same token, however, a variant of the <i>Oedipus</i>, in which the <i>unintended</i> action never comes to pass prior to the recognition, would be "CHRETOS" [TRANS] than the <i>Oedipus</i>.</p>
 
 <p>While the <i>Medea</i>-variant suffers from the audience’s imagining of the deed; the <i>Oedipus</i>-variant benefits from it, anticipating the potential suffering enough for the tragic effect to work, but with the story still ending “as they would pray for things to be.”</p>
 
-<p>The uncanny upshot of this conclusion is that apparently the paradigmatic story isn’t Sophocles’ <i>Oedipus</i>, but Euripides’ <i>Iphigenia</i>, as a positive variant of the former, using its same engine.</p>
+<p>The uncanny upshot of this conclusion is that apparently the paradigmatic story isn’t Sophocles’ <i>Oedipus</i>, but Euripides’ <i>Iphigenia</i>, as a “positive” variant of the former, using its same engine.</p>
 
 </details></li>
 
@@ -1217,7 +1139,7 @@ body.dark-mode img.meta-icon {
 
 <div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
   They are pleased in seeing images because in their contemplating them there is a coincidence of learning and figuring out (<i>sullogizesthai</i>) what each thing is—for example, "That's him!"
-  <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 4</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1448b target=_blank rel=noopener>1448b10–20</a>, trans. Benardete/Davis</span></footer>
+  <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 4</span><span class=book-meta-ref> — 1448b10–20, trans. Benardete/Davis <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1448b target=_blank rel=noopener>Perseus ↗</a></span></footer>
 </div>
 
 
@@ -1281,7 +1203,7 @@ body.dark-mode img.meta-icon {
 
             <div class="book-page book-page--aristotle book-page--rhetoric" data-source="Rhetoric">
               …for it is not in the way some of the speech-art makers assume in their arts, that the decency of the speaker contributes nothing to his persuasiveness, but character, one might say, has in it just about the most decisive means of persuasion.
-              <footer class=book-meta><span class=book-meta-author>Aristotle, <i>On Rhetoric</i></span><span class=book-meta-chapter>, Ch. I.2</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0060:bekker+page=1356a target=_blank rel=noopener>1356a1–13</a>, trans. Sachs</span></footer>
+              <footer class=book-meta><span class=book-meta-author>Aristotle, <i>On Rhetoric</i></span><span class=book-meta-chapter>, Ch. I.2</span><span class=book-meta-ref> — 1356a1–13, trans. Sachs <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0060:bekker+page=1356a target=_blank rel=noopener>Perseus ↗</a></span></footer>
             </div>
 
             <p>This is relevant to our question insofar as Hollywood movies are not only a form of storytelling, but also a kind of "display speech" (<span class="trans" data-en="display speech">ἐπίδειξις</span>)—the branch of rhetoric concerned not with what's advantageous (the future, proper to political deliberation) or what's just (the past, proper to the courtroom), but with what's beautiful or shameful, judged in the present.</p>
@@ -1292,7 +1214,7 @@ body.dark-mode img.meta-icon {
 
             <div class="book-page book-page--aristotle book-page--rhetoric" data-source="Rhetoric">
               These are judgement, virtue, and goodwill. For people go wrong in the things they speak of or give advice about by reason of all these, or of any one of them, since they either have incorrect opinions on account of a lack of judgement, or, while having correct opinions, do not say what seems true to them on account of vice, or, if they are of good judgment and decent but not good-willed, it is possible for that very reason for them to fail to give the best advice they know how to give; besides these there are none. It is a necessity, therefore, that anyone who seems to have all these attributes will be trusted by his hearers.
-              <footer class=book-meta><span class=book-meta-author>Aristotle, <i>On Rhetoric</i></span><span class=book-meta-chapter>, Ch. II.1</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0060:bekker+page=1378a target=_blank rel=noopener>TK</a>, trans. Sachs</span></footer>
+              <footer class=book-meta><span class=book-meta-author>Aristotle, <i>On Rhetoric</i></span><span class=book-meta-chapter>, Ch. II.1</span><span class=book-meta-ref> — TK, trans. Sachs <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0060:bekker+page=1378a target=_blank rel=noopener>Perseus ↗</a></span></footer>
             </div>
 
             <p>Given that popular entertainment falls under the category of <span class="trans" data-en="display speech">ἐπίδειξις</span>—performance speech concerned with praising or blaming with regard to "what is beautiful or shameful," bringing other things back to refer to these—its presently-focused social function is telling people what to think of the future, or of the past.</p>
@@ -1303,7 +1225,7 @@ body.dark-mode img.meta-icon {
 
             <div class="book-page book-page--aristotle book-page--rhetoric" data-source="Rhetoric">
               But if there is a contradictory oath sworn to by one's opponent, one may argue that someone who does not stand by things he has sworn to makes everything null and void, and it is for this reason that those who apply the laws have taken oaths: They think it right for all of you to stand by the oaths you've sworn when you judge them, when they themselves do not stand by theirs.
-              <footer class=book-meta><span class=book-meta-author>Aristotle, <i>On Rhetoric</i></span><span class=book-meta-chapter>, Ch. I.15</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0060:bekker+page=1377b target=_blank rel=noopener>1377b9–12</a>, trans. Sachs</span></footer>
+              <footer class=book-meta><span class=book-meta-author>Aristotle, <i>On Rhetoric</i></span><span class=book-meta-chapter>, Ch. I.15</span><span class=book-meta-ref> — 1377b9–12, trans. Sachs <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0060:bekker+page=1377b target=_blank rel=noopener>Perseus ↗</a></span></footer>
             </div>
 
             <p>If a speaker's credibility is bankrupted, then, at least, that aspect or meta-aspect of their poem changes in light of that fact. For Aristotle, the poetic and the rhetorical are dual objects; one reflects the other in all but the purest viewing contexts — but particularly in respect of the moral dimensions of the object; this is the axis of dissonance. But it emanates to the rest in the form of a dilapidation (referred to as a sort of <span class="trans" data-en="pollution">μίαρον</span> in Sophocles' <i>Oedipus Rex</i>).</p>
