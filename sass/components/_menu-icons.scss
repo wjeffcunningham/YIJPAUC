@@ -21,9 +21,9 @@
   font-size: 1.3rem;
 }
 
-// ── Game mode icons (moved from index.html <style>, 2026-10-17) ──
-/* ── Game mode: map + stats icons hidden until game-toggle is on ── */
-#game-map-label,
-#game-stats-label { display: none; }
-body:has(#game-toggle:checked) #game-map-label,
-body:has(#game-toggle:checked) #game-stats-label { display: inline; }
+// ── Tracker icons (moved from index.html <style>, 2026-10-17) ──
+/* ── Tracker: map + stats icons hidden until tracker-toggle is on ── */
+#tracker-map-label,
+#tracker-stats-label { display: none; }
+body:has(#tracker-toggle:checked) #tracker-map-label,
+body:has(#tracker-toggle:checked) #tracker-stats-label { display: inline; }

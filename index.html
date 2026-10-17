@@ -3,7 +3,7 @@
 <head>
   <title>YIJPAUC?</title>
   <link rel="icon" href="./favicon-v2.ico">
-  <link rel="stylesheet" type="text/css" href="./css/sass.css?v=26.10.17">
+  <link rel="stylesheet" type="text/css" href="./css/sass.css?v=26.10.17b">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
@@ -301,7 +301,7 @@
   <div class="menu-grid">
     <input type="checkbox" id="info-toggle" hidden>
     <input type="checkbox" id="tools-toggle" hidden>
-    <input type="checkbox" id="game-toggle" hidden>
+    <input type="checkbox" id="tracker-toggle" hidden>
 
     <div class="widgets-row">
       <div class="widgets" id="base-widgets">
@@ -317,9 +317,9 @@
         <input type="checkbox" id="audio-toggle" hidden>
         <label for="audio-toggle" class="audio-icon" title="Toggle Background Audio">🔊</label>
         <button id="music-toggle" class="music-icon" title="Cycle Background Music">🎶</button>
-        <label for="game-toggle" title="Toggle Game Mode">🎮</label>
-        <label for="map-modal-toggle" id="game-map-label" title="Document Map">🗺️</label>
-        <label for="stats-modal-toggle" id="game-stats-label" title="Reading Stats">📊</label>
+        <label for="tracker-toggle" title="Toggle Tracker">🔖</label>
+        <label for="map-modal-toggle" id="tracker-map-label" title="Document Map">🗺️</label>
+        <label for="stats-modal-toggle" id="tracker-stats-label" title="Reading Stats">📊</label>
         <label for="epigram-book-toggle" id="epigram-book-label" title="Epigram Book">📖</label>
         <label for="toggle-x" class="dark-only ghost-icon" title="Toggle Invisibles">👻</label>
         <marginalia data-type="x">v1.09</marginalia>
@@ -1172,7 +1172,7 @@ It is surely necessary that actions of this sort be in the relation of friends t
 <br>
         <p>If Aristotle is right about the priority of poetry to history when it comes to truth, then a civilization's poetry is in fact a primary means of its access to truth; its dilapidation, no laughing matter.</p>
 
-        <p>The "narrative" explains the stakes of what's going on, on the ground. It's limited by two tendencies of thought, the representativeness heuristic and scope neglect; which are the human tendencies to foreground the situation as it's being narrativized to them, in disproportion to the actual quanta at play, sometimes by measure of standard deviations.</p>
+        <p>The "narrative" explains the stakes of what's going on, on the ground. It's limited by (among many other things) two tendencies of thought, the representativeness heuristic and scope neglect; which are the human tendencies to foreground the situation as it's being narrativized to them, in disproportion to the actual quanta at play, sometimes by measure of standard deviations.</p>
 
         <p>When we lose the ability to trust the narrative because of evident abuses of these heuristics (at the point of "evidentiary overload,") people are liable to lose the ability to trust narrative altogether.</p>
 
@@ -1381,8 +1381,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   syncBook();
 
-  // === GAME TOGGLE: persist across sessions ===
-  const persistIds = ['toggle-pa', 'toggle-ci', 'toggle-ch', 'toggle-x', 'audio-toggle', 'magnify-toggle', 'game-toggle'];
+  // === TRACKER TOGGLE (formerly game-toggle): persist across sessions ===
+  // One-time carry-over of the old saved setting under its previous name.
+  if (localStorage.getItem('tracker-toggle') === null && localStorage.getItem('game-toggle') !== null) {
+    localStorage.setItem('tracker-toggle', localStorage.getItem('game-toggle'));
+  }
+  const persistIds = ['toggle-pa', 'toggle-ci', 'toggle-ch', 'toggle-x', 'audio-toggle', 'magnify-toggle', 'tracker-toggle'];
   persistIds.forEach(id => {
     const el = document.getElementById(id);
     const saved = localStorage.getItem(id);
