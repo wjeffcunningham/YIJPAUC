@@ -3,7 +3,7 @@
 <head>
   <title>YIJPAUC?</title>
   <link rel="icon" href="./favicon-v2.ico">
-  <link rel="stylesheet" type="text/css" href="./css/sass.css">
+  <link rel="stylesheet" type="text/css" href="./css/sass.css?v=26.10.17">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
@@ -15,433 +15,6 @@
   <meta name="description" content="Why IJPAUC?">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="prefetch" href="./full/gifs/landingdemo.mp4" as="video" type="video/mp4">
-  <style>
-    .hero-image-text { font-size: 6em; }
-    @media (max-width: 768px) {
-      .hero-image-text { font-size: 20cqw; }
-    }
-
-    /* ── Map modal show rule (until map.scss compiled into sass.css) ── */
-    #map-modal { display: none; }
-    #map-modal-toggle:checked ~ #map-modal { display: flex; }
-
-    /* ── Stats modal show rule ── */
-    #stats-modal { display: none; }
-    #stats-modal-toggle:checked ~ #stats-modal { display: flex; }
-
-    /* ── Info / Abstract / Nietzsche modal show rules ──
-       Same fix as map/stats above: these three modals use the same
-       checkbox-sibling pattern but had no matching display rule in
-       this file, so absent an equivalent rule in sass.css they were
-       rendering inline (open) instead of as hidden overlays. ── */
-    #info-modal { display: none; }
-    #info-modal-toggle:checked ~ #info-modal { display: flex; }
-    #abstract-modal { display: none; }
-    #abstract-toggle:checked ~ #abstract-modal { display: flex; }
-    #modal-nietzsche-box { display: none; }
-    #modal-nietzsche:checked ~ #modal-nietzsche-box { display: flex; }
-
-    /* ── Epigraph modal commentary slot: quiet, separated from the quote ── */
-    .epigraph-commentary {
-      margin-top: 0.9rem;
-      padding-top: 0.75rem;
-      border-top: 1px solid rgba(0, 0, 0, 0.15);
-      font-size: 0.82em;
-      line-height: 1.5;
-      opacity: 0.8;
-    }
-    .epigraph-commentary .commentary-tk {
-      font-style: italic;
-      opacity: 0.6;
-    }
-    body.dark-mode .epigraph-commentary { border-top-color: rgba(255, 255, 255, 0.15); }
-
-    /* ── Game mode: map + stats icons hidden until game-toggle is on ── */
-    #game-map-label,
-    #game-stats-label { display: none; }
-    body:has(#game-toggle:checked) #game-map-label,
-    body:has(#game-toggle:checked) #game-stats-label { display: inline; }
-
-    /* ── Stats modal content ── */
-    #stats-modal .modal-box { min-width: min(340px, 88vw); }
-    .stats-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-family: 'Courier Prime', 'Courier New', monospace;
-      font-size: 0.85rem;
-      margin-top: 0.75rem;
-    }
-    .stats-table td {
-      padding: 0.4rem 0.5rem;
-      border-bottom: 1px solid var(--color-border, #eee);
-      vertical-align: top;
-    }
-    .stats-table td:first-child {
-      color: var(--color-muted, #999);
-      white-space: nowrap;
-      padding-right: 1rem;
-    }
-    .stats-table td:last-child { font-weight: 700; }
-    .stats-score-bar {
-      height: 4px;
-      background: var(--color-border, #eee);
-      border-radius: 2px;
-      margin-top: 0.25rem;
-      overflow: hidden;
-    }
-    .stats-score-bar-fill {
-      height: 100%;
-      background: var(--color-accent, #e8c84a);
-      border-radius: 2px;
-      transition: width 0.4s ease;
-    }
-
-    /* ── Section 3: tap-to-expand / tap-to-collapse hint text ──
-       Two spans, toggled purely by the native details-element's
-       open attribute. No JS required. */
-    details:not([open]) > summary .hint-collapse { display: none; }
-    details[open] > summary .hint-expand { display: none; }
-
-    /* ── Section 3 is locked permanently open: the mainline essay body
-       shouldn't be collapsible. Kept as a <details open> (rather than a
-       plain div) so any map.js logic keyed off details[open] still sees
-       it as open; the summary is just de-clicked via pointer-events. ── */
-    summary.summary-locked-open { pointer-events: none; cursor: default; }
-
-    /* ── Section 3: per-source citation styling (book-page) ──
-       These are additive modifiers layered on top of the existing
-       .book-page / .book-page--aristotle rules in sass.css. Until this
-       is folded into a _citations.scss partial, it lives here inline,
-       same as the map-modal/stats-modal rules above.
-       Poetics vs. Rhetoric: subtle (color + one border edge).
-       Aristotle (ancient) vs. modern political quotation: pronounced. */
-    .book-page--poetics   { --src-accent: #6b4a2f; }
-    .book-page--rhetoric  { --src-accent: #3d5a73; }
-    .book-page--ethics    { --src-accent: #5a6b3d; }
-    .book-page--poetics,
-    .book-page--rhetoric,
-    .book-page--ethics {
-      border-top: 3px double var(--src-accent);
-      border-bottom: 3px double var(--src-accent);
-    }
-    .book-page--rhetoric { border-bottom: 1px solid var(--src-accent); }
-    .book-page--ethics   { border-top: 1px solid var(--src-accent); }
-    /* ── Dark mode counterpart ──
-       sass.css's body.dark-mode .book-page sets a flat 1px #333
-       border on all sides, and body.dark-mode .book-page--aristotle
-       adds a gold left accent on top of that — both are equal-
-       specificity, two-class selectors (body.dark-mode + .book-page…),
-       so without a same-tier override here they win over the plain
-       .book-page--poetics/rhetoric/ethics rules above and the double
-       top/bottom border disappears in dark mode, leaving just the
-       stray gold left edge. This restores the same double-line
-       treatment, in the same accent colors, for dark mode. */
-    body.dark-mode .book-page--poetics,
-    body.dark-mode .book-page--rhetoric,
-    body.dark-mode .book-page--ethics {
-      border-top: 3px double var(--src-accent);
-      border-bottom: 3px double var(--src-accent);
-      border-left: 1px solid var(--src-accent);
-      border-right: 1px solid var(--src-accent);
-    }
-    body.dark-mode .book-page--rhetoric { border-bottom: 1px solid var(--src-accent); }
-    body.dark-mode .book-page--ethics   { border-top: 1px solid var(--src-accent); }
-    /* ── Mobile-only: double-line border, drawn by hand ──
-       border-style: double is fine on desktop — this override is
-       scoped to mobile only, where it isn't. Mobile Safari doesn't
-       reliably render border-style: double: at certain fractional
-       device-pixel-ratios the gap between the two lines balloons or
-       the second line drops well below the box, which is exactly
-       the artifact in the mobile screenshot (the second bottom line
-       rendering several lines down, cutting through the footer text
-       on the Ch. V.10 / NE card). Same rationale as swapping
-       ::marker for ::before+counter above: don't trust a flaky
-       cross-browser keyword, draw the line — but only where it's
-       actually broken, so desktop keeps its original look untouched. */
-    @media (max-width: 600px) {
-      .book-page--poetics,
-      .book-page--rhetoric,
-      .book-page--ethics {
-        position: relative;
-        border-top: 1px solid var(--src-accent);
-        border-bottom: 1px solid var(--src-accent);
-      }
-      .book-page--poetics::before,
-      .book-page--rhetoric::before,
-      .book-page--ethics::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: -3px;
-        height: 1px;
-        background: var(--src-accent);
-      }
-      .book-page--poetics::after,
-      .book-page--rhetoric::after,
-      .book-page--ethics::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: -3px;
-        height: 1px;
-        background: var(--src-accent);
-      }
-      .book-page--rhetoric::before { display: none; } /* single top line only */
-      .book-page--ethics::after    { display: none; } /* single bottom line only */
-      body.dark-mode .book-page--poetics,
-      body.dark-mode .book-page--rhetoric,
-      body.dark-mode .book-page--ethics {
-        border-top: 1px solid var(--src-accent);
-        border-bottom: 1px solid var(--src-accent);
-      }
-    }
-    .book-page--modern {
-      border: 1px solid var(--color-ink, #2a2a2a);
-      border-left-width: 4px;
-      border-style: solid;
-    }
-    .perseus-link {
-      font-family: 'Courier Prime', 'Courier New', monospace;
-      font-size: 0.68rem;
-      text-decoration: none;
-      border-bottom: 1px dotted currentColor;
-      margin-left: 0.6em;
-      opacity: 0.6;
-    }
-    .perseus-link:hover { opacity: 1; }
-
-    /* ── Section 3: suppress auto-numbering on the 3a/3b/3c sublist ──
-       The list items are manually labeled (3a., 3b., 3c.) in their
-       own summary text, so the browser's decimal counter would be
-       redundant/stacking (e.g. "1. 3a. ..."). Body text will sit
-       between these sections eventually; they're asides off the
-       main essay flow, not a strict numbered sequence — the "3a."
-       labels are provisional markers, not list numbering. */
-    .essay-sublist { list-style: none; }
-
-    /* ── Section 3a: numbered index of chapter walkthroughs ──
-       Unlike the 3a/3b/3c aside-list above, this inner list (Ch. 9,
-       Ch. 11, Ch. 13, The Tragic Mechanism) IS a sequential walk
-       through the Poetics, so it gets real numbering. The Ch. 13
-       sub-list (decent/wicked-success/etc.) stays unnumbered — it
-       inherits plain .essay-sublist since those four aren't a
-       sequence either, just parallel eliminated candidates. */
-    .essay-sublist--numbered {
-      list-style: none;
-      counter-reset: essay-num;
-      padding-left: 2.6rem;
-    }
-    .essay-sublist--numbered > li {
-      counter-increment: essay-num;
-      position: relative;
-      padding-left: 0.3rem;
-    }
-    /* Subtle oldstyle-figure touch on the sub-numbering markers:
-       EB Garamond's text figures (onum) have the varied baseline —
-       some numerals dipping below it — that gives numerals like
-       "3" and "9" their small "boot" descender, softer and more
-       bookish than lining figures. Sized and muted down slightly
-       since this is a sub-numbering, not a top-level index.
-       Uses ::before + counter rather than ::marker — ::marker's
-       support for font-family/font-feature-settings is inconsistent
-       across browsers (notably Safari), so it was silently falling
-       back to the UA default marker. ::before is reliable. */
-    .essay-sublist--numbered > li::before {
-      content: counter(essay-num) ".";
-      position: absolute;
-      left: -1.8rem;
-      font-family: 'EB Garamond', serif;
-      font-style: italic;
-      font-variant-numeric: oldstyle-nums;
-      font-feature-settings: 'onum' 1;
-      font-size: 0.85em;
-      opacity: 0.6;
-    }
-    /* ── Section 3a, Ch. 13 sub-list: the four eliminated arcs ──
-       Nested one level deeper than the Ch. 9/11/13/14 index above —
-       a "sub-sub" numbering — so it's marked distinctly: monospace
-       parenthesized figures rather than italic oldstyle periods,
-       smaller and quieter than the parent list's markers. */
-    .essay-sublist--numbered-sub {
-      counter-reset: essay-subnum;
-      padding-left: 1.5rem;
-    }
-    .essay-sublist--numbered-sub > li {
-      counter-increment: essay-subnum;
-      position: relative;
-    }
-    .essay-sublist--numbered-sub > li::before {
-      content: counter(essay-subnum) ")";
-      position: absolute;
-      left: -1.5rem;
-      font-family: 'Courier Prime', 'Courier New', monospace;
-      font-size: 0.72rem;
-      opacity: 0.5;
-    }
-
-    /* ── Section 3: always-visible chapter number on citations ──
-       Sits outside .book-meta-ref so it shows even when the
-       #toggle-ci citation toggle is off (sass.css sets
-       .book-meta-ref { display: none } by default). Matches
-       .book-meta-author's opacity for visual consistency. */
-    .book-meta-chapter {
-      display: inline;
-      opacity: 0.65;
-    }
-
-    /* ── Section 3: structural subheads inside 3a ── */
-    .essay-subhead {
-      letter-spacing: 0.02em;
-      margin-top: 2rem;
-    }
-    br + .essay-subhead { margin-top: 0; }
-    .essay-step { margin-top: 1.4rem; margin-left: 1.5rem; }
-    .essay-step-sub { margin-left: 1rem; font-style: italic; }
-    .essay-aside { font-style: italic; opacity: 0.85; margin-left: 1rem; }
-
-    /* ── Mobile: let indented content fill the frame ──
-       On a narrow viewport, stacking margin-left on .essay-step,
-       .essay-step-sub, .essay-aside, and the two numbered sub-lists
-       eats a big share of an already-narrow column. Below 600px,
-       swap the margin-based indent for a thin left border + small
-       padding, so nesting still reads at a glance without shrinking
-       the line length. This only covers the classes defined in this
-       file's own <style> block — if .book-page or the 3a/3b/3c
-       details/ol nesting also carry left padding from sass.css
-       itself, that needs the equivalent treatment there; that
-       source isn't part of this upload so I can't check/edit it
-       from here. */
-    @media (max-width: 600px) {
-      .essay-step {
-        margin-left: 0;
-        padding-left: 0.75rem;
-        border-left: 2px solid var(--color-border, #ddd);
-      }
-      .essay-step-sub {
-        margin-left: 0;
-        padding-left: 0.6rem;
-      }
-      .essay-aside {
-        margin-left: 0;
-        padding-left: 0.6rem;
-        border-left: 2px solid var(--color-border, #ddd);
-      }
-      .essay-sublist--numbered {
-        padding-left: 1.4rem;
-      }
-      .essay-sublist--numbered > li::before {
-        left: -1.1rem;
-      }
-      .essay-sublist--numbered-sub {
-        padding-left: 1rem;
-      }
-      .essay-sublist--numbered-sub > li::before {
-        left: -1rem;
-      }
-    }
-
-    /* ── Section 3: small inline folds ──
-       For the [[Epigram: …]] blocks and the numbered sub-subsections
-       (3.a.3.ii.1, 3.a.3.ii.2, …n1) carried over from the Google Doc.
-       Quieter than the chapter-level <details>: a monospace label with
-       a +/− glyph, contents set off by a thin left rule. No
-       data-expand-id on these, so map.js doesn't see them. Interim
-       inline rules — to be ported into the SCSS source. */
-    details.fold { margin: 0.9rem 0; }
-    details.fold > summary {
-      list-style: none;
-      cursor: pointer;
-      font-family: 'Courier Prime', 'Courier New', monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.03em;
-      opacity: 0.6;
-    }
-    details.fold > summary::-webkit-details-marker { display: none; }
-    details.fold > summary::before { content: "+ "; }
-    details.fold[open] > summary::before { content: "− "; }
-    details.fold > summary:hover { opacity: 1; }
-    details.fold > .fold-body {
-      margin-top: 0.5rem;
-      padding-left: 0.9rem;
-      border-left: 1px solid var(--color-border, #ddd);
-    }
-    details.fold--note > summary { font-size: 0.66rem; }
-    details.fold--note > .fold-body { font-size: 0.9em; opacity: 0.85; }
-    @media (max-width: 600px) {
-      details.fold > .fold-body { padding-left: 0.6rem; }
-    }
-
-    /* ── Tighten top gap before blockquotes ── */
-    .book-page { margin-top: 0.75rem; }
-
-.meta-line a:has(img.meta-icon) {
-  position: relative;
-  display: inline-block;
-  text-decoration: none !important;
-  overflow: hidden;
-}
-/* Fallback for browsers/contexts where the :has() rule above
-   doesn't apply — targets the link by its own class directly,
-   no relational selector required. */
-.vvip-link {
-  text-decoration: none !important;
-}
-
-.meta-line a:has(img.meta-icon) img.meta-icon {
-  display: block !important;
-  width: 16px !important;
-  height: 16px !important;
-  max-width: 16px !important;
-  max-height: 16px !important;
-  object-fit: contain !important;
-  transition: filter 0.2s ease;
-}
-
-/* ── Dark mode: invert the vvip logo so it stays visible ── */
-body.dark-mode img.meta-icon {
-  filter: invert(1);
-}
-
-.meta-line a:has(img.meta-icon)::after {
-  content: "";
-  position: absolute;
-  top: -30%;
-  left: -80%;
-  width: 45%;
-  height: 160%;
-  background: linear-gradient(
-    115deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.05) 35%,
-    rgba(255, 255, 255, 0.8) 50%,
-    rgba(255, 255, 255, 0.05) 65%,
-    transparent 100%
-  );
-  transform: skewX(-12deg);
-  animation: vvip-sheen 4s ease-in-out infinite;
-  pointer-events: none;
-}
-
-@keyframes vvip-sheen {
-  0%, 65% {
-    left: -80%;
-  }
-  85% {
-    left: 140%;
-  }
-  100% {
-    left: 140%;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .meta-line a:has(img.meta-icon)::after {
-    animation: none;
-  }
-}
-</style>
 </head>
 <body>
 
@@ -451,6 +24,7 @@ body.dark-mode img.meta-icon {
 
 <input type="checkbox" id="map-modal-toggle" hidden>
 <input type="checkbox" id="stats-modal-toggle" hidden>
+<input type="checkbox" id="epigram-book-toggle" hidden>
 <input type="checkbox" id="info-modal-toggle" hidden>
 
 <!-- ============================================================
@@ -633,6 +207,25 @@ body.dark-mode img.meta-icon {
   </div>
 </div>
 
+<!-- Epigram Book: one entry per collectable epigram (8 planned).
+     Each entry carries a hidden .epi-have checkbox; the collection script
+     ticks it from localStorage, and CSS only shows ticked entries. The
+     menu icon (#epigram-book-label) appears once any box is ticked. -->
+<div class="modal" id="epigram-book">
+  <label class="modal-overlay" for="epigram-book-toggle"></label>
+  <div class="modal-box">
+    <label for="epigram-book-toggle" class="modal-close">×</label>
+    <h2>Epigram Book</h2>
+    <ol class="epigram-book-list">
+      <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="nietzsche" hidden><label for="modal-nietzsche">Nietzsche, <i>Die Geburt der Tragödie</i> §5</label></li>
+      <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="poetics-6" hidden><a href="#epi-poetics-6">Aristotle, <i>Poetics</i>, Ch. 6</a></li>
+      <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="davis-88" hidden><a href="#epi-davis-88">Davis, <i>The Poetry of Philosophy</i> (1992)</a></li>
+      <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="en-7-14" hidden><a href="#epi-en-7-14">Aristotle, <i>Nicomachean Ethics</i>, VII.14</a></li>
+      <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="en-9-5" hidden><a href="#epi-en-9-5">Aristotle, <i>Nicomachean Ethics</i>, IX.5</a></li>
+    </ol>
+  </div>
+</div>
+
 <div class="modal" id="info-modal">
   <label class="modal-overlay" for="info-modal-toggle"></label>
   <div class="modal-box">
@@ -727,6 +320,7 @@ body.dark-mode img.meta-icon {
         <label for="game-toggle" title="Toggle Game Mode">🎮</label>
         <label for="map-modal-toggle" id="game-map-label" title="Document Map">🗺️</label>
         <label for="stats-modal-toggle" id="game-stats-label" title="Reading Stats">📊</label>
+        <label for="epigram-book-toggle" id="epigram-book-label" title="Epigram Book">📖</label>
         <label for="toggle-x" class="dark-only ghost-icon" title="Toggle Invisibles">👻</label>
         <marginalia data-type="x">v1.09</marginalia>
       </div>
@@ -1122,7 +716,7 @@ body.dark-mode img.meta-icon {
 
             <p>Although Aristotle establishes a provisional definition of tragedy in Ch. 6, this mainly ties together tragedy's place within the broader art of poetry. He unpacks its mechanisms progressively, by way of argument, through the text.</p>
 
-            <details class="fold fold--epigram"><summary>Epigram — <i>Poetics</i>, Ch. 6</summary><div class="fold-body">
+            <details class="fold fold--epigram" id="epi-poetics-6" data-collect-id="poetics-6"><summary>Epigram — <i>Poetics</i>, Ch. 6 <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><div class="fold-body">
             <div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
               Tragedy, then, is an imitation of an action that is of stature and complete, with magnitude, that, by means of sweetened speech, but with each of its kinds separate in its proper parts, is of people acting and not through report, and accomplishes through pity and fear the cleansing of experiences of this sort. I mean by "sweetened speech" that which has rhythm, harmony, and song, and by "separate in its kinds" sometimes through meters alone accomplishing its task and again at other times through song.
               <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 6</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1449b target=_blank rel=noopener>1449b24–31</a>, trans. Benardete/Davis</span></footer>
@@ -1192,7 +786,7 @@ body.dark-mode img.meta-icon {
   <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Poetics</i></span><span class=book-meta-chapter>, Ch. 17</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0056:section=1455b target=_blank rel=noopener>1455a34–1455b15</a>, trans. Benardete/Davis</span></footer>
 </div>
 
-<details class="fold fold--epigram"><summary>Epigram — Davis (1992)</summary><div class="fold-body">
+<details class="fold fold--epigram" id="epi-davis-88" data-collect-id="davis-88"><summary>Epigram — Davis (1992) <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><div class="fold-body">
 <div class="book-page book-page--modern" data-source="Davis">
   "Without the specific language in which Aristotle discusses the <i>Iphigenia</i>, there would be no reason to connect his summary of it with his account of tragedy. Once we notice this language, however, we wonder whether it is not Aristotle's interpretation of the play that Orestes is meant to be the poet in his role as standing apart from his own passions. Orestes is the spectator "purified" by the action of the play. This confirms Aristotle's earlier suggestion in chapter fourteen that the <i>Iphigenia among the Taurians</i> is an attempt to present the action characteristic of the best man—the <i>epiekes</i>—by bringing the spectator onto the stage. All of this would be invisible were we to pay no attention to the specific language of Aristotle's account."
   <footer class=book-meta><span class=book-meta-author>Michael Davis, <i>The Poetry of Philosophy: On Aristotle's Poetics</i></span><span class=book-meta-ref> — 1992, p. 88</span></footer>
@@ -1260,7 +854,7 @@ body.dark-mode img.meta-icon {
 <p>No one identifies with being wicked, evil, or vicious in the first place.</p>
 
 <!-- 3.a.3.ii.1. -->
-<details class="fold fold--sub" data-fold-id="3.a.3.ii.1"><summary>3.a.3.ii.1 — Vice and Unrestraint (<i>EN</i> VII.8)</summary><div class="fold-body">
+<details class="fold fold--sub" data-fold-id="3.a.3.ii.1"><summary>3.a.3.ii.1 — Vice and Unrestraint (<i>EN</i> VII.8) <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><div class="fold-body">
 
 <p>This is another striking psychological claim of the <i>Nicomachean Ethics</i>.</p>
 
@@ -1280,13 +874,13 @@ body.dark-mode img.meta-icon {
 </div></details>
 
 <!-- 3.a.3.ii.2. -->
-<details class="fold fold--sub" data-fold-id="3.a.3.ii.2"><summary>3.a.3.ii.2 — Dimensions of Culpability</summary><div class="fold-body">
+<details class="fold fold--sub" data-fold-id="3.a.3.ii.2"><summary>3.a.3.ii.2 — Dimensions of Culpability <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><div class="fold-body">
 
 <p>Aristotle writes that, because the vicious can't trust themselves to act in their own best interests (to be friends to themselves), they don't seem fully decent even to themselves (1166b).</p>
 
 <p>The corollary is that the vicious, insofar as they recognize their own failings at all (and there may be a negative correlation), sees them for lapses of restraint, rather than defects of character. They focus on the extenuating circumstances, such as their accidents of upbringing or the generally "wicked" (<i>poneria</i>) nature of human beings altogether; the general trials and troubles of life which upset one like turbulent seas upset a sailor until, of course, they picked up a bad habit or two.</p>
 
-<details class="fold fold--epigram"><summary>Epigram — <i>EN</i> VII.14</summary><div class="fold-body">
+<details class="fold fold--epigram" id="epi-en-7-14" data-collect-id="en-7-14"><summary>Epigram — <i>EN</i> VII.14 <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><div class="fold-body">
 <div class="book-page book-page--aristotle book-page--ethics" data-source="Nicomachean Ethics">
   "Because of the continually changing material basis of human beings – a certain defectiveness – they are always in need of different things to maintain their best state. This makes it easy for an agent to take a "cure" in a pained state that induces a taste for a pleasure that ultimately does more harm than good."
   <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Nicomachean Ethics</i></span><span class=book-meta-chapter>, Ch. VII.14</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0054:bekker+page=1154b target=_blank rel=noopener>1154b26–32</a><marginalia data-type="ci"> (paraphrase or Sachs? — confirm)</marginalia></span></footer>
@@ -1306,7 +900,7 @@ body.dark-mode img.meta-icon {
 <p>(Again, Aristotle believed human-beings shared friendship with all of their species, Greeks and barbarians alike.)</p>
 
 <!-- 3.a.3.ii.2.n1 -->
-<details class="fold fold--note" data-fold-id="3.a.3.ii.2.n1"><summary>n1</summary><div class="fold-body">
+<details class="fold fold--note" data-fold-id="3.a.3.ii.2.n1"><summary>n1 <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><div class="fold-body">
 <p>Universal "love" is not the exclusive province of Christianity; but, to what extent this global friendship among-ones'-species is subject to the laws of "friends and enemies," is another topic.</p>
 </div></details>
 
@@ -1442,7 +1036,7 @@ It is surely necessary that actions of this sort be in the relation of friends t
 
 <p>The spectator begins by regarding the actors as they would a favoured athlete. They feel good-will towards them.</p>
 
-<details class="fold fold--epigram"><summary>Epigram — <i>EN</i> IX.5</summary><div class="fold-body">
+<details class="fold fold--epigram" id="epi-en-9-5" data-collect-id="en-9-5"><summary>Epigram — <i>EN</i> IX.5 <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><div class="fold-body">
 <div class="book-page book-page--aristotle book-page--ethics" data-source="Nicomachean Ethics">
   "…And good will is not loving either, since there is no intensity or desire in it, but these things go along with loving; and loving involves intimate acquaintance, while good will is also of sudden origin, as happens in connection with those engaged in athletic competition, since people would become good-willed toward them and share their wishes, but would not share their action in any way, for as we said, they become good-willed suddenly and like them superficially…"
   <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Nicomachean Ethics</i></span><span class=book-meta-chapter>, Ch. IX.5</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0054:bekker+page=1166b target=_blank rel=noopener>1166b30–1167a5</a>, trans. Sachs</span></footer>
@@ -1594,7 +1188,7 @@ It is surely necessary that actions of this sort be in the relation of friends t
 
         <p>Hilary Leach, an intern from the DGA (effectively a PA, roped into the conspiracy at the bottom level), told a grand jury in 1983, how she knew that something illegal was happening, once she heard children were going to be involved, a few weeks before the accident from the 2nd AD: 'Because as a member or as a hopeful member of the DGA we know the rules, I know the rules, and I knew that we were not following the rules.'</p>
 
-        <p>The case studied in <i>IJPAUC?</i> is a covert analogy to the situation the USA find themselves in today, seemingly speedrunning bankrupting their own moral currency for pennies on the dollar. Its prestige media tends to account for this as the natural terminus of Western modernity; a pessimistic arc Aristotle would classify as "disgusting" rather than "tragic."</p>
+        <p>The case studied in <i>IJPAUC?</i> is a covert analogy to the situation the USA find themselves in today, seemingly speedrunning bankrupting their own moral currency for pennies on the dollar. Its prestige media tends to account for this as the natural terminus of Western modernity; a pessimistic arc Aristotle would classify as "disgusting" rather than "tragic," per se.</p>
 
         <p>Not my country. Not my cynicism.</p>
 
@@ -1731,25 +1325,61 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // === EPIGRAPH MODAL COLLECTION TRACKING ===
-  // Generic loop: any modal checkbox tagged .epigraph-collect-toggle with a
-  // data-collect-id gets recorded on first open. New modals (up to 8 total)
-  // slot in without touching this script — just add the class + attribute.
+  // === EPIGRAM COLLECTION ===
+  // Two kinds of collectable epigram, one list in localStorage
+  // ('collectedEpigraphs', 8 planned):
+  //   - modal checkboxes tagged .epigraph-collect-toggle (Nietzsche)
+  //   - <details data-collect-id> folds in the essay body
+  // Either one is recorded on first open. The Epigram Book is plain HTML:
+  // syncBook() only ticks each entry's hidden .epi-have checkbox; CSS does
+  // the showing/hiding (and reveals the menu icon).
   const getCollectedEpigraphs = () => JSON.parse(localStorage.getItem('collectedEpigraphs') || '[]');
   const setCollectedEpigraphs = arr => localStorage.setItem('collectedEpigraphs', JSON.stringify(arr));
 
+  const syncBook = () => {
+    const collected = getCollectedEpigraphs();
+    document.querySelectorAll('.epi-have').forEach(box => {
+      box.checked = collected.includes(box.dataset.collectId);
+    });
+  };
+
+  const collect = id => {
+    if (!id) return;
+    const collected = getCollectedEpigraphs();
+    if (!collected.includes(id)) {
+      collected.push(id);
+      setCollectedEpigraphs(collected);
+    }
+    syncBook();
+  };
+
   document.querySelectorAll('.epigraph-collect-toggle').forEach(toggle => {
     toggle.addEventListener('change', function () {
-      if (!this.checked) return;
-      const id = this.dataset.collectId;
-      if (!id) return;
-      const collected = getCollectedEpigraphs();
-      if (!collected.includes(id)) {
-        collected.push(id);
-        setCollectedEpigraphs(collected);
+      if (this.checked) collect(this.dataset.collectId);
+    });
+  });
+
+  document.querySelectorAll('details[data-collect-id]').forEach(fold => {
+    fold.addEventListener('toggle', () => {
+      if (fold.open) collect(fold.dataset.collectId);
+    });
+  });
+
+  // Book entries: close the book, then open the fold (and every
+  // collapsed section around it) before following the link.
+  const bookToggle = document.getElementById('epigram-book-toggle');
+  document.querySelectorAll('.epigram-book-entry a, .epigram-book-entry label').forEach(entry => {
+    entry.addEventListener('click', () => {
+      if (bookToggle) bookToggle.checked = false;
+      const hash = entry.getAttribute('href');
+      const target = hash && document.querySelector(hash);
+      for (let el = target; el; el = el.parentElement) {
+        if (el.tagName === 'DETAILS') el.open = true;
       }
     });
   });
+
+  syncBook();
 
   // === GAME TOGGLE: persist across sessions ===
   const persistIds = ['toggle-pa', 'toggle-ci', 'toggle-ch', 'toggle-x', 'audio-toggle', 'magnify-toggle', 'game-toggle'];
