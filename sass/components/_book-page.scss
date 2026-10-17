@@ -122,3 +122,121 @@ body.dark-mode .book-page--shakespeare {
   outline: 3px solid #555;
   outline-offset: 3px;
 }
+
+// ── Section 3 citation styling (moved from index.html <style>, 2026-10-17) ──
+/* ── Section 3: per-source citation styling (book-page) ──
+   These are additive modifiers layered on top of the existing
+   .book-page / .book-page--aristotle rules in sass.css. Until this
+   is folded into a _citations.scss partial, it lives here inline,
+   same as the map-modal/stats-modal rules above.
+   Poetics vs. Rhetoric: subtle (color + one border edge).
+   Aristotle (ancient) vs. modern political quotation: pronounced. */
+.book-page--poetics   { --src-accent: #6b4a2f; }
+.book-page--rhetoric  { --src-accent: #3d5a73; }
+.book-page--ethics    { --src-accent: #5a6b3d; }
+.book-page--poetics,
+.book-page--rhetoric,
+.book-page--ethics {
+  border-top: 3px double var(--src-accent);
+  border-bottom: 3px double var(--src-accent);
+}
+.book-page--rhetoric { border-bottom: 1px solid var(--src-accent); }
+.book-page--ethics   { border-top: 1px solid var(--src-accent); }
+/* ── Dark mode counterpart ──
+   sass.css's body.dark-mode .book-page sets a flat 1px #333
+   border on all sides, and body.dark-mode .book-page--aristotle
+   adds a gold left accent on top of that — both are equal-
+   specificity, two-class selectors (body.dark-mode + .book-page…),
+   so without a same-tier override here they win over the plain
+   .book-page--poetics/rhetoric/ethics rules above and the double
+   top/bottom border disappears in dark mode, leaving just the
+   stray gold left edge. This restores the same double-line
+   treatment, in the same accent colors, for dark mode. */
+body.dark-mode .book-page--poetics,
+body.dark-mode .book-page--rhetoric,
+body.dark-mode .book-page--ethics {
+  border-top: 3px double var(--src-accent);
+  border-bottom: 3px double var(--src-accent);
+  border-left: 1px solid var(--src-accent);
+  border-right: 1px solid var(--src-accent);
+}
+body.dark-mode .book-page--rhetoric { border-bottom: 1px solid var(--src-accent); }
+body.dark-mode .book-page--ethics   { border-top: 1px solid var(--src-accent); }
+/* ── Mobile-only: double-line border, drawn by hand ──
+   border-style: double is fine on desktop — this override is
+   scoped to mobile only, where it isn't. Mobile Safari doesn't
+   reliably render border-style: double: at certain fractional
+   device-pixel-ratios the gap between the two lines balloons or
+   the second line drops well below the box, which is exactly
+   the artifact in the mobile screenshot (the second bottom line
+   rendering several lines down, cutting through the footer text
+   on the Ch. V.10 / NE card). Same rationale as swapping
+   ::marker for ::before+counter above: don't trust a flaky
+   cross-browser keyword, draw the line — but only where it's
+   actually broken, so desktop keeps its original look untouched. */
+@media (max-width: 600px) {
+  .book-page--poetics,
+  .book-page--rhetoric,
+  .book-page--ethics {
+    position: relative;
+    border-top: 1px solid var(--src-accent);
+    border-bottom: 1px solid var(--src-accent);
+  }
+  .book-page--poetics::before,
+  .book-page--rhetoric::before,
+  .book-page--ethics::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -3px;
+    height: 1px;
+    background: var(--src-accent);
+  }
+  .book-page--poetics::after,
+  .book-page--rhetoric::after,
+  .book-page--ethics::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -3px;
+    height: 1px;
+    background: var(--src-accent);
+  }
+  .book-page--rhetoric::before { display: none; } /* single top line only */
+  .book-page--ethics::after    { display: none; } /* single bottom line only */
+  body.dark-mode .book-page--poetics,
+  body.dark-mode .book-page--rhetoric,
+  body.dark-mode .book-page--ethics {
+    border-top: 1px solid var(--src-accent);
+    border-bottom: 1px solid var(--src-accent);
+  }
+}
+.book-page--modern {
+  border: 1px solid var(--color-ink, #2a2a2a);
+  border-left-width: 4px;
+  border-style: solid;
+}
+.perseus-link {
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  font-size: 0.68rem;
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+  margin-left: 0.6em;
+  opacity: 0.6;
+}
+.perseus-link:hover { opacity: 1; }
+
+/* ── Section 3: always-visible chapter number on citations ──
+   Sits outside .book-meta-ref so it shows even when the
+   #toggle-ci citation toggle is off (sass.css sets
+   .book-meta-ref { display: none } by default). Matches
+   .book-meta-author's opacity for visual consistency. */
+.book-meta-chapter {
+  display: inline;
+  opacity: 0.65;
+}
+
+/* ── Tighten top gap before blockquotes ── */
+.book-page { margin-top: 0.75rem; }
