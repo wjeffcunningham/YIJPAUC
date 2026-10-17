@@ -64,20 +64,3 @@
 .modal-box .epigraph-body {
   margin: 0;
 }
-
-// ── Modal show rules (moved from index.html <style>, 2026-10-17) ──
-/* ── Stats modal show rule ── */
-#stats-modal { display: none; }
-#stats-modal-toggle:checked ~ #stats-modal { display: flex; }
-
-/* ── Info / Abstract / Nietzsche modal show rules ──
-   Same fix as map/stats above: these three modals use the same
-   checkbox-sibling pattern but had no matching display rule in
-   this file, so absent an equivalent rule in sass.css they were
-   rendering inline (open) instead of as hidden overlays. ── */
-#info-modal { display: none; }
-#info-modal-toggle:checked ~ #info-modal { display: flex; }
-#abstract-modal { display: none; }
-#abstract-toggle:checked ~ #abstract-modal { display: flex; }
-#modal-nietzsche-box { display: none; }
-#modal-nietzsche:checked ~ #modal-nietzsche-box { display: flex; }

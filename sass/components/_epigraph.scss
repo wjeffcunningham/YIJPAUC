@@ -75,19 +75,3 @@
 .epigraph-source:hover {
   opacity: 1;
 }
-
-// ── Epigraph modal commentary (moved from index.html <style>, 2026-10-17) ──
-/* ── Epigraph modal commentary slot: quiet, separated from the quote ── */
-.epigraph-commentary {
-  margin-top: 0.9rem;
-  padding-top: 0.75rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.15);
-  font-size: 0.82em;
-  line-height: 1.5;
-  opacity: 0.8;
-}
-.epigraph-commentary .commentary-tk {
-  font-style: italic;
-  opacity: 0.6;
-}
-body.dark-mode .epigraph-commentary { border-top-color: rgba(255, 255, 255, 0.15); }

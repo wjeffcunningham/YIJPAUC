@@ -47,9 +47,3 @@ body:has(#magnify-toggle:checked) .magnifier-zone a {
   text-decoration-thickness: 1px;
   text-underline-offset: 2px;
 }
-
-// ── Restored from css/sass.css (May build) (moved from index.html <style>, 2026-10-17) ──
-.magnifier-toggle input[type=checkbox]:checked + label {
-  color: #4caf50;
-  filter: drop-shadow(0 0 2px #4caf50);
-}

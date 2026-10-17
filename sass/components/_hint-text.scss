@@ -13,10 +13,3 @@ details[open] > summary .hint-text {
   opacity: 0;
   pointer-events: none;
 }
-
-// ── Section 3 expand/collapse hints (moved from index.html <style>, 2026-10-17) ──
-/* ── Section 3: tap-to-expand / tap-to-collapse hint text ──
-   Two spans, toggled purely by the native details-element's
-   open attribute. No JS required. */
-details:not([open]) > summary .hint-collapse { display: none; }
-details[open] > summary .hint-expand { display: none; }
