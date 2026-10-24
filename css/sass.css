@@ -1873,54 +1873,44 @@ ol.depth-3 > li::before {
   margin: 0 0 1.25rem;
 }
 
-.map-svg-wrap {
-  width: 100%;
-  overflow: visible;
+.docmap {
+  font-family: "EB Garamond", serif;
+  font-size: 1rem;
+  line-height: 1.35;
 }
-.map-svg-wrap svg {
-  width: 100%;
-  height: auto;
-  display: block;
+.docmap ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
-
-[id^=mapnode-] {
-  opacity: 0;
-  transition: opacity 0.5s ease, filter 0.5s ease;
-  pointer-events: none;
+.docmap ol ol {
+  margin: 0.15rem 0 0.35rem 0.55rem;
+  padding-left: 0.9rem;
+  border-left: 1px solid var(--color-border, #ccc);
 }
-[id^=mapnode-].lit {
-  opacity: 1;
-  pointer-events: auto;
+.docmap li {
+  margin: 0.2rem 0;
 }
-
-#mapnode-root {
-  opacity: 1;
-  pointer-events: auto;
+.docmap a {
+  color: var(--color-muted, #999);
+  border-bottom: 0;
+  transition: color 0.3s ease;
 }
-
-.map-node-circle {
-  fill: none;
-  stroke: var(--color-text, #111);
-  stroke-width: 1.5;
-  transition: fill 0.3s ease;
+.docmap a:hover, .docmap a:focus-visible {
+  color: var(--color-text, #111);
+  border-bottom: 0.5px solid;
 }
-[id^=mapnode-].lit .map-node-circle {
-  fill: var(--color-accent, #e8c84a);
+.docmap li.lit > a {
+  color: var(--color-text, #111);
 }
-
-.map-node-label {
+.docmap .docmap-num {
   font-family: "Courier Prime", "Courier New", monospace;
-  font-size: 9px;
-  fill: var(--color-text, #111);
-  dominant-baseline: middle;
-  text-anchor: middle;
+  font-size: 0.8em;
+  letter-spacing: 0.02em;
+  margin-right: 0.15em;
 }
-
-.map-edge {
-  stroke: var(--color-text, #111);
-  stroke-width: 1;
-  stroke-dasharray: 3 3;
-  opacity: 0.35;
+.docmap > ol > li > a {
+  font-weight: 600;
 }
 
 .map-legend {
@@ -1934,34 +1924,35 @@ ol.depth-3 > li::before {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
 }
-.map-legend .map-legend-dot {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  border: 1.5px solid var(--color-text, #111);
-  background: var(--color-accent, #e8c84a);
-  margin-right: 0.35em;
-  vertical-align: middle;
+.map-legend .docmap-key {
+  margin-right: 0.8em;
+}
+.map-legend .docmap-key--lit {
+  color: var(--color-text, #111);
 }
 
-body.dark #map-modal .modal-box {
+body.dark-mode #map-modal .modal-box {
   background: var(--color-bg-dark, #111);
   border-color: var(--color-border-dark, #333);
 }
-body.dark .map-node-circle {
-  stroke: var(--color-text-dark, #eee);
+body.dark-mode .docmap a {
+  color: var(--color-muted-dark, #777);
 }
-body.dark .map-node-label {
-  fill: var(--color-text-dark, #eee);
+body.dark-mode .docmap a:hover, body.dark-mode .docmap a:focus-visible,
+body.dark-mode .docmap li.lit > a {
+  color: var(--color-text-dark, #eee);
 }
-body.dark .map-edge {
-  stroke: var(--color-text-dark, #eee);
-}
-body.dark .map-legend {
-  color: var(--color-muted-dark, #666);
+body.dark-mode .docmap ol ol {
   border-color: var(--color-border-dark, #333);
+}
+body.dark-mode .map-legend {
+  color: var(--color-muted-dark, #777);
+  border-color: var(--color-border-dark, #333);
+}
+body.dark-mode .map-legend .docmap-key--lit {
+  color: var(--color-text-dark, #eee);
 }
 
 .magnifier-toggle input[type=checkbox] {

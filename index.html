@@ -3,7 +3,7 @@
 <head>
   <title>YIJPAUC?</title>
   <link rel="icon" href="./favicon-v2.ico">
-  <link rel="stylesheet" type="text/css" href="./css/sass.css?v=26.10.19">
+  <link rel="stylesheet" type="text/css" href="./css/sass.css?v=26.10.24">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
@@ -36,133 +36,42 @@
   <div class="modal-box">
     <label for="map-modal-toggle" class="modal-close">×</label>
     <h2>Document Map</h2>
-    <div class="map-svg-wrap">
-      <!--
-        Node IDs must match data-expand-id / data-id values exactly.
-        Root is always lit. Section nodes light on <details> open.
-        Link nodes light when the corresponding track-link is clicked.
-
-        Coordinate grid: viewBox="0 0 600 460"
-        Root:       (300, 30)
-        Section 1:  (110, 110) — TZ Accident
-        Section 2:  (300, 110) — Amblin Evidence
-        Section 3:  (490, 110) — Basis of Hope in Trust
-      -->
-      <svg viewBox="0 0 600 460" xmlns="http://www.w3.org/2000/svg" aria-label="yIJPAUC document exploration map">
-
-        <!-- ── Edges ── -->
-        <line class="map-edge" x1="300" y1="42" x2="120" y2="98"/>
-        <line class="map-edge" x1="300" y1="42" x2="300" y2="98"/>
-        <line class="map-edge" x1="300" y1="42" x2="480" y2="98"/>
-
-        <!-- Section 1 → link nodes -->
-        <line class="map-edge" x1="120" y1="122" x2="50"  y2="190"/>
-        <line class="map-edge" x1="120" y1="122" x2="120" y2="190"/>
-        <line class="map-edge" x1="120" y1="122" x2="190" y2="190"/>
-
-        <!-- Section 2 → link nodes -->
-        <line class="map-edge" x1="300" y1="122" x2="230" y2="190"/>
-        <line class="map-edge" x1="300" y1="122" x2="300" y2="190"/>
-        <line class="map-edge" x1="300" y1="122" x2="370" y2="190"/>
-        <line class="map-edge" x1="300" y1="122" x2="300" y2="250"/>
-
-        <!-- Section 3 → sub-section nodes -->
-        <line class="map-edge" x1="480" y1="122" x2="420" y2="200"/>
-        <line class="map-edge" x1="480" y1="122" x2="480" y2="200"/>
-        <line class="map-edge" x1="480" y1="122" x2="540" y2="200"/>
-
-        <!-- ── Root (always lit) ── -->
-        <g id="mapnode-root">
-          <circle class="map-node-circle" cx="300" cy="30" r="14" style="fill:var(--color-accent,#e8c84a);stroke-width:2"/>
-          <text class="map-node-label" x="300" y="27" style="font-size:7px;font-weight:700">WHY</text>
-          <text class="map-node-label" x="300" y="36" style="font-size:6px">IJPAUC?</text>
-        </g>
-
-        <!-- ── Section 1: TZ Accident ── -->
-        <g id="mapnode-expand-tz">
-          <circle class="map-node-circle" cx="120" cy="110" r="20"/>
-          <text class="map-node-label" x="120" y="106" style="font-size:7px">TZ</text>
-          <text class="map-node-label" x="120" y="115" style="font-size:7px">Accident</text>
-        </g>
-
-        <!-- page25 = WJC github -->
-        <g id="mapnode-page25">
-          <circle class="map-node-circle" cx="50" cy="200" r="10"/>
-          <text class="map-node-label" x="50" y="215" style="font-size:7px">WJC</text>
-        </g>
-        <!-- page26 = VVIP26 youtube -->
-        <g id="mapnode-page26">
-          <circle class="map-node-circle" cx="120" cy="200" r="10"/>
-          <text class="map-node-label" x="120" y="215" style="font-size:7px">VVIP26</text>
-        </g>
-        <!-- page2 = dossier §1 -->
-        <g id="mapnode-page2">
-          <circle class="map-node-circle" cx="190" cy="200" r="10"/>
-          <text class="map-node-label" x="190" y="215" style="font-size:7px">Dossier §1</text>
-        </g>
-
-        <!-- ── Section 2: Amblin Evidence ── -->
-        <g id="mapnode-expand-amblin">
-          <circle class="map-node-circle" cx="300" cy="110" r="20"/>
-          <text class="map-node-label" x="300" y="106" style="font-size:7px">Amblin</text>
-          <text class="map-node-label" x="300" y="115" style="font-size:7px">Evidence</text>
-        </g>
-
-        <!-- Blues Brothers article -->
-        <g id="mapnode-page3">
-          <circle class="map-node-circle" cx="230" cy="200" r="10"/>
-          <text class="map-node-label" x="230" y="215" style="font-size:7px">Blues Bros.</text>
-        </g>
-        <!-- Cracked article -->
-        <g id="mapnode-page4">
-          <circle class="map-node-circle" cx="300" cy="200" r="10"/>
-          <text class="map-node-label" x="300" y="215" style="font-size:7px">Cracked</text>
-        </g>
-        <!-- NYT article -->
-        <g id="mapnode-page5">
-          <circle class="map-node-circle" cx="370" cy="200" r="10"/>
-          <text class="map-node-label" x="370" y="215" style="font-size:7px">NYT</text>
-        </g>
-        <!-- Dossier §22 -->
-        <g id="mapnode-page6">
-          <circle class="map-node-circle" cx="300" cy="260" r="10"/>
-          <text class="map-node-label" x="300" y="275" style="font-size:7px">Dossier §22</text>
-        </g>
-
-        <!-- ── Section 3: Basis of Hope in Trust ── -->
-        <g id="mapnode-expand-hope">
-          <circle class="map-node-circle" cx="480" cy="110" r="20"/>
-          <text class="map-node-label" x="480" y="106" style="font-size:7px">Hope in</text>
-          <text class="map-node-label" x="480" y="115" style="font-size:7px">Trust</text>
-        </g>
-
-        <!-- Sub-sections -->
-        <g id="mapnode-expand-poetics">
-          <circle class="map-node-circle" cx="420" cy="210" r="14"/>
-          <text class="map-node-label" x="420" y="206" style="font-size:7px">Poetics</text>
-          <text class="map-node-label" x="420" y="215" style="font-size:7px">&amp; Rhetoric</text>
-        </g>
-        <g id="mapnode-expand-melian">
-          <circle class="map-node-circle" cx="480" cy="210" r="14"/>
-          <text class="map-node-label" x="480" y="206" style="font-size:7px">Melian</text>
-          <text class="map-node-label" x="480" y="215" style="font-size:7px">Dialogue</text>
-        </g>
-        <!-- Nietzsche modal trigger -->
-        <g id="mapnode-nietzsche">
-          <circle class="map-node-circle" cx="540" cy="210" r="14"/>
-          <text class="map-node-label" x="540" y="210" style="font-size:7px">Nietzsche</text>
-        </g>
-
-        <!-- Score tally -->
-        <text x="300" y="440" class="map-node-label" id="map-score-display"
-              style="font-size:8px;fill:var(--color-muted,#999);text-anchor:middle">— — —</text>
-
-      </svg>
-    </div>
+    <!--
+      Document map: a plain outline of the essay's folds.
+      Each <li id="mapnode-{id}"> matches a <details id="{id}" data-expand-id="{id}">.
+      map.js adds .lit to entries whose section has been opened, and makes
+      each link open its section (and any folds around it) before jumping.
+      New section? Add one <li> here, in reading order.
+    -->
+    <nav class="docmap" aria-label="Document map">
+      <ol>
+        <li id="mapnode-expand-tz"><a href="#expand-tz"><span class="docmap-num">1.</span> The <i>Twilight Zone</i> Accident (July 1982)</a></li>
+        <li id="mapnode-expand-amblin"><a href="#expand-amblin"><span class="docmap-num">2.</span> Evidence of Amblin's Involvement (1982)</a></li>
+        <li id="mapnode-expand-hope"><a href="#expand-hope"><span class="docmap-num">3.</span> The Basis of Hope in Trust</a>
+        <ol>
+          <li id="mapnode-expand-poetics"><a href="#expand-poetics"><span class="docmap-num">3a.</span> On Aristotle's <i>Poetics</i> &amp; <i>Rhetoric</i></a>
+            <ol>
+              <li id="mapnode-expand-ch9"><a href="#expand-ch9"><span class="docmap-num">Ch. 9</span> Wonder and Beauty</a></li>
+              <li id="mapnode-expand-ch11"><a href="#expand-ch11"><span class="docmap-num">Ch. 11</span> Reversal, Recognition, Suffering</a></li>
+              <li id="mapnode-expand-ch13"><a href="#expand-ch13"><span class="docmap-num">Ch. 13</span> Mistake, Decency, Disgust, Humanistic Sentiment</a>
+                <ol>
+                  <li id="mapnode-expand-ch13-decent"><a href="#expand-ch13-decent">The Unexpected Downfall of the Decent Man</a></li>
+                  <li id="mapnode-expand-ch13-wicked-success"><a href="#expand-ch13-wicked-success">The Unexpected Success of the Wicked Man</a></li>
+                  <li id="mapnode-expand-ch13-wicked-downfall"><a href="#expand-ch13-wicked-downfall">The Unexpected Downfall of the Wicked Man</a></li>
+                </ol></li>
+              <li id="mapnode-expand-ch14"><a href="#expand-ch14"><span class="docmap-num">Ch. 14</span> Recognition of What Could Have Been</a></li>
+              <li id="mapnode-expand-mechanism"><a href="#expand-mechanism">The Tragic Effect—Catharsis</a></li>
+              <li id="mapnode-expand-rhetoric"><a href="#expand-rhetoric">On Aristotle's <i>Rhetoric</i></a></li>
+            </ol></li>
+          <li id="mapnode-expand-melian"><a href="#expand-melian"><span class="docmap-num">3b.</span> Thucydides; The Melian Dialogue</a></li>
+          <li id="mapnode-expand-jabotinsky"><a href="#expand-jabotinsky"><span class="docmap-num">3c.</span> Jabotinsky; The Iron Wall</a></li>
+        </ol></li>
+      </ol>
+    </nav>
 
     <div class="map-legend">
-      <span><span class="map-legend-dot"></span>visited node</span>
-      <span id="map-score-label" style="font-family:'Courier Prime',monospace;font-size:0.72rem"></span>
+      <span><span class="docmap-key docmap-key--lit">opened</span> <span class="docmap-key">not yet</span></span>
+      <span id="map-score-label"></span>
     </div>
   </div>
 </div>
@@ -559,7 +468,7 @@
 
 <ol style="padding-left:1.4em;margin-left:0">
 
-<li><details data-expand-id="expand-tz"><summary>The <i>Twilight Zone</i> Accident (July 1982) <span class="hint-text">(tap to expand)</span></summary><br>
+<li><details id="expand-tz" data-expand-id="expand-tz"><summary>The <i>Twilight Zone</i> Accident (July 1982) <span class="hint-text">(tap to expand)</span></summary><br>
 
 <p>At 2:20am, at Indian Dunes film park, an hour north of Los Angeles, the two children are carried across a manmade lake—Le under one arm, Chen under the other—as the segment's protagonist, played by 53-year-old veteran Hollywood actor Vic Morrow, tries to deliver them to the safety of the opposite shore. But the fourth charge fired, by one of two special effects men, blows through the roof of a fishing hut, damaging the tail rotor of the helicopter, causing it to spiral downwards onto the spot where Morrow had just moments earlier stumbled to his knees. Chen had for a few brief seconds slipped from his grasp; plunged face-first into the murky waters below. Morrow and Le were battered and decapitated by the blades of the helicopter; Chen was crushed to death by its skids and fuselage.</p>
 
@@ -594,7 +503,7 @@
 
       </details></li>
 
-      <li><details data-expand-id="expand-amblin"><summary>Evidence of Amblin's Involvement (1982) <span class="hint-text">(tap to expand)</span></summary><br>
+      <li><details id="expand-amblin" data-expand-id="expand-amblin"><summary>Evidence of Amblin's Involvement (1982) <span class="hint-text">(tap to expand)</span></summary><br>
 
         <p><i>Twilight Zone: The Movie</i><marginalia data-type="pa"> (released in June 1983)</marginalia> was an anthology film co-produced by Landis and Spielberg. It was originally planned (in all likelihood) to be "A Steven Spielberg Production." It featured four different segments by four different directors, of which Landis's—an original, written by Landis, eventually titled simply 'Time Out'—was the first to go to production.</p>
 
@@ -670,7 +579,7 @@
       </details></li>
 
 
-      <li><details data-expand-id="expand-hope" open>
+      <li><details id="expand-hope" data-expand-id="expand-hope" open>
         <summary class="summary-locked-open">The Basis of Hope in Trust</summary><br>
 
 <div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
@@ -682,7 +591,7 @@
 
         <p>But what exactly is a "story"? Why do "narratives" hold such power for us? And what are the limits of this 'power'?</p>
 
-        <p>The dominant paradigm of storytelling in the West is Joseph Campbell's "The Hero's Journey." According to Campbell, the essential parameters of storytelling can be derived by way of cross-cultural analysis. In short, a hero-protagonist leaves their village, slays the dragon, and returns home changed and triumphant. It's by being formatted in this way that stories 'work': by modelling for spectators the attitude needed to overcome their own personal dragons, whatever they may be. By Campbell's account, storytelling's underlying virtue is its pro-social orientation: it is fixedly constructive or optimistic.</p>
+        <p>The dominant paradigm of storytelling in the West is Joseph Campbell's "The Hero's Journey."<marginalia data-type="ci"> (Joseph Campbell, <i>The Hero with a Thousand Faces</i>, 1949.)</marginalia> According to Campbell, the essential parameters of storytelling can be derived by way of cross-cultural analysis. In short, a hero-protagonist leaves their village, slays the dragon, and returns home changed and triumphant. It's by being formatted in this way that stories 'work': by modelling for spectators the attitude needed to overcome their own personal dragons, whatever they may be. By Campbell's account, storytelling's underlying virtue is its pro-social orientation: it is fixedly constructive or optimistic.</p>
 
         <p>But for Aristotle, who in c. 335 BCE wrote his <i>Poetics</i>—the earliest Western treatise on storytelling, and one of the most read, studied, and commented-upon texts in the Western canon—Campbell's method does not adequately account for the effects of story in their sharpest expressions.</p>
 
@@ -727,7 +636,7 @@
         <p>Namely, what happens when the storyteller’s known biography contradicts the explicit or implicit moral premises operative in the story?</p>
 
         <ol class="essay-sublist">
-          <li><details data-expand-id="expand-poetics">
+          <li><details id="expand-poetics" data-expand-id="expand-poetics">
             <summary>3a. On Aristotle's <i>Poetics</i> &amp; <i>Rhetoric</i> <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
   
             <p>Aristotle's claim hinges on what he calls the ἴδιον (defining quality) of tragedy: its capacity, "through pity and fear," to induce κάθαρσις (catharsis) of these same feelings. (What is meant precisely by "catharsis" in this context is a matter of controversy, to be discussed below.)</p>
@@ -752,11 +661,11 @@
             </div>
             </div></details>
 
-            <p>The problem becomes salient once one appreciates that "pity and fear" are almost opposites, and from many angles drive each other out. Aristotle defines the two terms in the <i>Rhetoric</i>. Fear concerns our anticipation of our own potential suffering. Pity concerns our anticipation of the potential suffering of others who are like us—so long as they don't deserve it. <marginalia data-type="ci">(Rhet 2.5; 2.7; Poetics 13.)</marginalia> It is very difficult to pity someone that you fear at the same time as you are fearing them. It's this intersubjective asymmetry—the lack of a "doesn't deserve it" clause on fear, in contrast to pity—which tragedy exploits.</p>
+            <p>The problem becomes salient once one appreciates that "pity and fear" are almost opposites, and from many angles drive each other out. Aristotle defines the two terms in the <i>Rhetoric</i>. Fear concerns our anticipation of our own potential suffering. Pity concerns our anticipation of the potential suffering of others who are like us—so long as they don't deserve it. <marginalia data-type="ci"> (<i>Rhetoric</i> II.5, II.7; <i>Poetics</i> Ch. 13.)</marginalia> It is very difficult to pity someone that you fear at the same time as you are fearing them. It's this intersubjective asymmetry—the lack of a "doesn't deserve it" clause on fear, in contrast to pity—which tragedy exploits.</p>
 
             <p>Although Aristotle establishes a provisional definition of tragedy in Ch. 6, this mainly ties together tragedy's place within the broader art of poetry. He unpacks its mechanisms progressively, by way of argument, through the text. Through this process, he splays out the particulars of the effect, and leaves the reader to infer the “how.”</p>
 
-            <marginalia data-type="pa"><p>Note on pervasiveness of Jaeger’s thesis that Aristotle’s works are primarily lecture notes; in some passages (e.g. <i>Rhetoric</i> 3.12), the fact that Aristotle may be conceiving himself as writing to a reader are of plain significance.</p>
+            <marginalia data-type="pa"><p>Note on pervasiveness of Jaeger’s thesis that Aristotle’s works are primarily lecture notes; in some passages (e.g. <i>Rhetoric</i> 3.12), the fact that Aristotle may be conceiving himself as writing to a reader are of plain significance. (Werner Jaeger, <i>Aristotle: Fundamentals of the History of His Development</i>, 1923; trans. Robinson, 1934.)</p>
             <details class="fold fold--epigram" id="epi-rhet-3-12" data-collect-id="rhet-3-12"><summary>Epigram + <i>On Rhetoric</i> III.12 <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><div class="fold-body">
             <div class="book-page book-page--aristotle book-page--rhetoric" data-source="Rhetoric">
               “What is suited to a written speech is not the same as what suits debate, and the same wording is not suited to both a public assembly and a lawcourt. And it is necessary to have knowledge of both, since one involves knowing how to speak grammatically, the other how to avoid being forced to keep silent when one wants to put one’s opinions out to others, which happens to people who have no skill at writing.”
@@ -773,7 +682,7 @@
 
             <ol class="essay-sublist essay-sublist--numbered">
 
-            <li><details data-expand-id="expand-ch9">
+            <li><details id="expand-ch9" data-expand-id="expand-ch9">
               <summary>Ch. 9: Wonder (θαυμαστόν) and Beauty (καλόν) <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
 
             <div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
@@ -793,7 +702,7 @@
 
             </details></li>
 
-            <li><details data-expand-id="expand-ch11">
+            <li><details id="expand-ch11" data-expand-id="expand-ch11">
               <summary>Ch. 11: Reversal (περιπέτεια), Recognition (ἀναγνώρισις), Suffering (πάθος) <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
 
             <p>Reversal and recognition, says Aristotle, besides the story (the poet's sequencing of events), "are the greatest things by which tragedy 'guides the soul' (ψυχαγωγεῖ) and specifically characterize a "complex" story against a "simple" one.</p>
@@ -851,7 +760,7 @@
 
 </details></li>
 
-<li><details data-expand-id="expand-ch13">
+<li><details id="expand-ch13" data-expand-id="expand-ch13">
 
 <summary>Ch. 13: Mistake (ἁμαρτία), Decency (ἐπιείκεια), Disgusting (μιαρόν), Humanistic Sentiment (φιλάνθρωπον) <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
 
@@ -862,7 +771,7 @@
 
 <ol class="essay-sublist essay-sublist--numbered-sub">
 
-<li><details data-expand-id="expand-ch13-decent">
+<li><details id="expand-ch13-decent" data-expand-id="expand-ch13-decent">
 <summary>The Unexpected Downfall of the Decent Man (ἐπιεικής) <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
 
 
@@ -892,7 +801,7 @@
 
 </details></li>
 
-<li><details data-expand-id="expand-ch13-wicked-success">
+<li><details id="expand-ch13-wicked-success" data-expand-id="expand-ch13-wicked-success">
                   <summary>The Unexpected Success of the Wicked Man <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
 
 <div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
@@ -924,11 +833,11 @@
 <details class="fold fold--epigram" id="epi-en-7-14" data-collect-id="en-7-14"><summary>Epigram + <i>EN</i> VII.14 <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><div class="fold-body">
 <div class="book-page book-page--aristotle book-page--ethics" data-source="Nicomachean Ethics">
   This is why God always enjoys a single and simple pleasure; for there is not only an activity of movement but an activity of immobility, and pleasure is found more in rest than in movement. But 'change in all things is sweet', as the poet says, because of some vice (<span class="trans" data-en="wickedness">πονηρίαν</span>); for as it is the vicious man (<span class="trans" data-en="the wicked man">ὁ πονηρός</span>) that is changeable, so the nature that needs change is vicious; for it is not simple nor good (<span class="trans" data-en="decent">ἐπιεικής</span>).
-  <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Nicomachean Ethics</i></span><span class=book-meta-chapter>, Ch. VII.14</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0054:bekker+page=1154b target=_blank rel=noopener>1154b26–31</a>, trans. Ross</span></footer>
+  <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Nicomachean Ethics</i></span><span class=book-meta-chapter>, Ch. VII.14</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0054:bekker+page=1154b target=_blank rel=noopener>1154b26–31</a>, trans. Ross<marginalia data-type="ci"> (swap for Sachs)</marginalia></span></footer>
 </div>
 <div class="book-page book-page--aristotle book-page--ethics" data-source="Nicomachean Ethics">
   The name self-indulgence is applied also to childish faults (<span class="trans" data-en="childish mistakes">παιδικὰς ἁμαρτίας</span>); for they bear a certain resemblance to what we have been considering. Which is called after which, makes no difference to our present purpose; plainly, however, the later is called after the earlier. The transference of the name seems not a bad one; for that which desires what is base and which develops quickly ought to be kept in a chastened condition, and these characteristics belong above all to appetite and to the child, since children in fact live at the beck and call of appetite, and it is in them that the desire for what is pleasant is strongest.
-  <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Nicomachean Ethics</i></span><span class=book-meta-chapter>, Ch. III.12</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0054:bekker+page=1119a target=_blank rel=noopener>1119a33–b7</a>, trans. Ross</span></footer>
+  <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Nicomachean Ethics</i></span><span class=book-meta-chapter>, Ch. III.12</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0054:bekker+page=1119a target=_blank rel=noopener>1119a33–b7</a>, trans. Ross<marginalia data-type="ci"> (swap for Sachs)</marginalia></span></footer>
 </div>
 </div></details>
 
@@ -948,7 +857,7 @@
 
                 </details></li>
 
-<li><details data-expand-id="expand-ch13-wicked-downfall">
+<li><details id="expand-ch13-wicked-downfall" data-expand-id="expand-ch13-wicked-downfall">
                   <summary>The Unexpected Downfall of the Wicked Man <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
 
 <div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
@@ -991,7 +900,7 @@
 
             </details></li>
 
-<li><details data-expand-id="expand-ch14">
+<li><details id="expand-ch14" data-expand-id="expand-ch14">
 <summary>Ch. 14—Recognition of What Could Have Been <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
 
 <p>In Chapter 14, Aristotle concerns himself with the most beautiful kind of recognition.</p>
@@ -1060,7 +969,7 @@ It is surely necessary that actions of this sort be in the relation of friends t
 
 </details></li>
 
-<li><details data-expand-id="expand-mechanism">
+<li><details id="expand-mechanism" data-expand-id="expand-mechanism">
 
 <summary>The Tragic Effect—Catharsis (κάθαρσις) <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
 
@@ -1131,7 +1040,7 @@ It is surely necessary that actions of this sort be in the relation of friends t
 <p>The latter, Belfiore, e.g., argue as follows:</p>
 
 <div class="book-page book-page--modern" data-source="hamartia">
-  The implication drawn… is that <i>hamartia</i> proper… at least as understood in V.8… is a kind of culpable ignorance…. Needless to say, as an interpretation which bears on the <i>Poetics</i> there are grave problems. To turn to Oedipus, the claim would be that Oedipus' illusion about his family identity could have been avoided; there was information of which he could have availed himself, possibilities for further application and control which he failed to take. But this is implausible. Similarly, it would be absurd to hold that Thyestes, whose <i>hamartia</i> is also cited in <i>Poetics</i> 13, was negligent in failing to look for morsels of his children in the plate of meat served up to him<marginalia data-type="ci"> (source?)</marginalia>
+  The implication drawn… is that <i>hamartia</i> proper… at least as understood in V.8… is a kind of culpable ignorance…. Needless to say, as an interpretation which bears on the <i>Poetics</i> there are grave problems. To turn to Oedipus, the claim would be that Oedipus' illusion about his family identity could have been avoided; there was information of which he could have availed himself, possibilities for further application and control which he failed to take. But this is implausible. Similarly, it would be absurd to hold that Thyestes, whose <i>hamartia</i> is also cited in <i>Poetics</i> 13, was negligent in failing to look for morsels of his children in the plate of meat served up to him<marginalia data-type="ci"> (Belfiore; source?)</marginalia>
 </div>
 
 <p>But this argument illustrates where both miss the point.</p>
@@ -1166,7 +1075,7 @@ It is surely necessary that actions of this sort be in the relation of friends t
             <p>To what extent is narrative optimism a narcotic? Given that Hollywood films typically have obvious political significance and resonances, fathoming the relevance of this question requires a rhetorical analysis.</p>
 
             <ol class="essay-sublist">
-            <li><details data-expand-id="expand-rhetoric">
+            <li><details id="expand-rhetoric" data-expand-id="expand-rhetoric">
               <summary>On Aristotle's <i>Rhetoric</i> <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
 
             <p>Aristotle provides the principle of conversion at <i>Poetics</i> Ch. 19:</p>
@@ -1217,12 +1126,12 @@ It is surely necessary that actions of this sort be in the relation of friends t
         </ol>
 
         <ol class="essay-sublist">
-          <li><details data-expand-id="expand-melian">
+          <li><details id="expand-melian" data-expand-id="expand-melian">
             <summary>3b. Thucydides; The Melian Dialogue <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
 
-            <p>This was the mindset in which the Athenians encountered the Melians, as dramatized by the historian Thucydides, who was brought back to front-page news in the USA and worldwide in January 2026.</p>
+            <p>This was the mindset in which the Athenians encountered the Melians, as dramatized by the historian Thucydides, who was brought back to front-page news in the USA and worldwide in January 2026.<marginalia data-type="ci"> (Thucydides, <i>History of the Peloponnesian War</i>, V.84–116; trans. Crawley, <a href=https://www.gutenberg.org/ebooks/7142 target=_blank rel=noopener>Project Gutenberg</a>.)</marginalia></p>
 
-            <p>On January 6th, White House correspondent Stephen Miller seemed to cite Thucydides, speaking as the Athenians:</p>
+            <p>On January 6th, White House Deputy Chief of Staff Stephen Miller seemed to cite Thucydides, speaking as the Athenians:</p>
 
             <div class="book-page book-page--modern" data-source="Jan. 2026">
               We live in a world, in the real world... that is governed by strength, that is governed by force, that is governed by power. These are the iron laws of the world since the beginning of time.
@@ -1250,7 +1159,7 @@ It is surely necessary that actions of this sort be in the relation of friends t
         </ol>
 
           <ol class="essay-sublist">
-          <li><details data-expand-id="expand-jabotinsky">
+          <li><details id="expand-jabotinsky" data-expand-id="expand-jabotinsky">
             <summary>3c. Jabotinsky; The Iron Wall <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
 
             <p><i>The early Zionist theorists—interested in safety against pogroms and perennial antisemitism—successfully petitioned the United Kingdom for a Jewish national home. Ze'ev Jabotinsky entrenched a powerful metaphor and conception of human nature. Human beings, Jabotinsky theorized, who stood to lose their very homeland, could not be negotiated with except by overwhelming force. This noble-seeming narrative about human nature has become a perpetual strategic monolith.</i></p>
@@ -1262,13 +1171,13 @@ It is surely necessary that actions of this sort be in the relation of friends t
 <br>
         <p>If Aristotle is right about the priority of poetry to history when it comes to truth, then a civilization's poetry is in fact a primary means of its access to truth; its dilapidation, no laughing matter.</p>
 
-        <p>The "narrative" explains the stakes of what's going on, on the ground. It's limited by (among other things) two tendencies of thought, the representativeness heuristic and scope neglect; which are the human tendencies to foreground the situation as it's being narrativized to them, in disproportion to the actual quanta at play, sometimes by measure of standard deviations.</p>
+        <p>The "narrative" explains the stakes of what's going on, on the ground. It's limited by (among other things) two tendencies of thought, the representativeness heuristic and scope neglect; which are the human tendencies to foreground the situation as it's being narrativized to them, in disproportion to the actual quanta at play, sometimes by measure of standard deviations.<marginalia data-type="ci"> (Tversky &amp; Kahneman, "Judgment under Uncertainty: Heuristics and Biases," <i>Science</i> 185, 1974; on scope neglect, Kahneman, Ritov &amp; Schkade, "Economic Preferences or Attitude Expressions?" <i>Journal of Risk and Uncertainty</i> 19, 1999.)</marginalia></p>
 
         <p>When we lose the ability to trust the narrative because of evident abuses of these heuristics (at the point of "evidentiary overload,") people are liable to lose the ability to trust narrative altogether.</p>
 
         <p>As Aristotle explains, anticipating Campbell's strategy; you don't get the full effect if the storyteller isn't credible for the narrative they're trying to sell, in terms of any implicit moral premises the filmmaker intends to be persuasive. The wonder simply won't be produced. 'Humanitarian sentiment,' yes; catharsis, no.</p>
 
-        <p>Why did Production Assistant Carolyn-Lee Epstein tell police and testify to the same effect that longtime Amblin accountant Bonne Radford, "who seemed to be expecting her," gave her a sealed brown envelope filled with 10 $100-bills, the morning of Friday, July 22nd, 1982? Labrecque, at least (whose archives are kept at the Academy library in Beverly Hills, CA) writes that Radford did so from the Amblin' offices; at that time located on the Warner Bros.' lot. Within five or ten minutes, once she drove back to Landis's cluster of trailers on the Universal Studios lot, she watched as one of Landis's co-defendants, Associate Producer George Folsey, Jr., counted the 10 $100-bills out in the open.</p>
+        <p>Why did Production Assistant Carolyn-Lee Epstein tell police and testify to the same effect that longtime Amblin accountant Bonne Radford, "who seemed to be expecting her," gave her a sealed brown envelope filled with 10 $100-bills, the morning of Friday, July 22nd, 1982? LaBrecque, at least (whose archives are kept at the Academy library in Beverly Hills, CA) writes that Radford did so from the Amblin' offices; at that time located on the Warner Bros.' lot. Within five or ten minutes, once she drove back to Landis's cluster of trailers on the Universal Studios lot, she watched as one of Landis's co-defendants, Associate Producer George Folsey, Jr., counted the 10 $100-bills out in the open.</p>
 
         <details class="quote-toggle"><summary>
         <p>She remembered the amount from <span class="clickable-word"><u>numerous conversations she'd overheard about the hiring.</u></span></p></summary>

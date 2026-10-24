@@ -59,68 +59,56 @@
   }
 }
 
-// ── SVG map container ───────────────────────────────────────────────────────
+// ── Document map: plain outline (replaces the SVG node map, 2026-10-24) ──
+// Each <li id="mapnode-{id}"> gets .lit from map.js once its section is opened.
 
-.map-svg-wrap {
-  width: 100%;
-  overflow: visible;
+.docmap {
+  font-family: 'EB Garamond', serif;
+  font-size: 1rem;
+  line-height: 1.35;
 
-  svg {
-    width: 100%;
-    height: auto;
-    display: block;
+  ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
   }
-}
 
-// ── Node groups ─────────────────────────────────────────────────────────────
-// All nodes are invisible until .lit is added by map.js
-
-[id^="mapnode-"] {
-  opacity: 0;
-  transition: opacity 0.5s ease, filter 0.5s ease;
-  pointer-events: none;
-
-  &.lit {
-    opacity: 1;
-    pointer-events: auto;
+  // nested levels hang off a thin rule, like an indented contents page
+  ol ol {
+    margin: 0.15rem 0 0.35rem 0.55rem;
+    padding-left: 0.9rem;
+    border-left: 1px solid var(--color-border, #ccc);
   }
-}
 
-// Root node is always visible (it's the document itself)
-#mapnode-root {
-  opacity: 1;
-  pointer-events: auto;
-}
+  li { margin: 0.2rem 0; }
 
-// ── Node anatomy ────────────────────────────────────────────────────────────
+  a {
+    color: var(--color-muted, #999);
+    border-bottom: 0;              // site-wide links carry a hairline; not here
+    transition: color 0.3s ease;
 
-.map-node-circle {
-  fill: none;
-  stroke: var(--color-text, #111);
-  stroke-width: 1.5;
-  transition: fill 0.3s ease;
-
-  [id^="mapnode-"].lit & {
-    fill: var(--color-accent, #e8c84a);   // amber glow on lit nodes
+    &:hover,
+    &:focus-visible {
+      color: var(--color-text, #111);
+      border-bottom: 0.5px solid;
+    }
   }
+
+  // opened sections read in full ink
+  li.lit > a { color: var(--color-text, #111); }
+
+  .docmap-num {
+    font-family: 'Courier Prime', 'Courier New', monospace;
+    font-size: 0.8em;
+    letter-spacing: 0.02em;
+    margin-right: 0.15em;
+  }
+
+  // top level reads a touch heavier
+  > ol > li > a { font-weight: 600; }
 }
 
-.map-node-label {
-  font-family: 'Courier Prime', 'Courier New', monospace;
-  font-size: 9px;
-  fill: var(--color-text, #111);
-  dominant-baseline: middle;
-  text-anchor: middle;
-}
-
-.map-edge {
-  stroke: var(--color-text, #111);
-  stroke-width: 1;
-  stroke-dasharray: 3 3;
-  opacity: 0.35;
-}
-
-// ── Score legend at bottom of modal ────────────────────────────────────────
+// ── Legend + count at bottom of modal ───────────────────────────────────────
 
 .map-legend {
   margin-top: 1rem;
@@ -133,30 +121,30 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
 
-  .map-legend-dot {
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    border: 1.5px solid var(--color-text, #111);
-    background: var(--color-accent, #e8c84a);
-    margin-right: 0.35em;
-    vertical-align: middle;
-  }
+  .docmap-key { margin-right: 0.8em; }
+  .docmap-key--lit { color: var(--color-text, #111); }
 }
 
-// ── Dark mode adjustments ───────────────────────────────────────────────────
+// ── Dark mode ───────────────────────────────────────────────────────────────
 
-body.dark {
+body.dark-mode {
   #map-modal .modal-box {
     background: var(--color-bg-dark, #111);
     border-color: var(--color-border-dark, #333);
   }
 
-  .map-node-circle { stroke: var(--color-text-dark, #eee); }
-  .map-node-label  { fill: var(--color-text-dark, #eee); }
-  .map-edge        { stroke: var(--color-text-dark, #eee); }
-  .map-legend      { color: var(--color-muted-dark, #666);
-                     border-color: var(--color-border-dark, #333); }
+  .docmap {
+    a { color: var(--color-muted-dark, #777); }
+    a:hover, a:focus-visible,
+    li.lit > a { color: var(--color-text-dark, #eee); }
+    ol ol { border-color: var(--color-border-dark, #333); }
+  }
+
+  .map-legend {
+    color: var(--color-muted-dark, #777);
+    border-color: var(--color-border-dark, #333);
+    .docmap-key--lit { color: var(--color-text-dark, #eee); }
+  }
 }

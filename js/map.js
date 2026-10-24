@@ -12,8 +12,11 @@
  *  3. On any track-link click (link scoring already handled by menu.js /
  *     tracklinks.js) → also illuminate its map node if one exists
  *
- * Node IDs used in the SVG must match the data-expand-id / data-id values
- * exactly. Each SVG node group carries id="mapnode-{id}".
+ * The map is a plain outline in index.html (.docmap). Each entry is
+ * <li id="mapnode-{id}">, matching <details id="{id}" data-expand-id="{id}">.
+ *
+ *  4. Clicking a map entry closes the modal, opens that section and every
+ *     fold around it, and scrolls to it.
  */
 
 (function () {
@@ -69,6 +72,9 @@
 
   function illuminateAllVisited() {
     getVisited().forEach(illuminateNode);
+    // sections open right now count too (e.g. Section 3, open by default)
+    document.querySelectorAll('details[data-expand-id][open]')
+      .forEach(el => illuminateNode(el.dataset.expandId));
   }
 
   // ── Record an interaction ──────────────────────────────────────────────────
@@ -111,12 +117,30 @@
   // ── Map modal open ─────────────────────────────────────────────────────────
 
   function updateMapScoreLabel() {
-    const label   = document.getElementById('map-score-label');
-    const display = document.getElementById('map-score-display');
-    const count   = getVisited().length;
-    const text    = `${count} / ${TOTAL_LINKS} discovered`;
-    if (label)   label.textContent   = text;
-    if (display) display.textContent = text;
+    const label = document.getElementById('map-score-label');
+    if (!label) return;
+    const entries = document.querySelectorAll('.docmap li[id^="mapnode-"]');
+    const lit     = document.querySelectorAll('.docmap li.lit');
+    label.textContent = `${lit.length} / ${entries.length} sections opened`;
+  }
+
+  // ── Map entry click → open the section (and its parents), then jump ───────
+
+  function bindDocmapLinks() {
+    document.querySelectorAll('.docmap a[href^="#"]').forEach(link => {
+      link.addEventListener('click', function (e) {
+        const target = document.getElementById(this.getAttribute('href').slice(1));
+        if (!target) return;                 // fall back to plain anchor
+        e.preventDefault();
+        const toggle = document.getElementById('map-modal-toggle');
+        if (toggle) toggle.checked = false;  // close the map
+        for (let el = target; el; el = el.parentElement) {
+          if (el.tagName === 'DETAILS') el.open = true;  // fires toggle → recordId
+        }
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.replaceState(null, '', '#' + target.id);
+      });
+    });
   }
 
   function bindMapModalOpen() {
@@ -136,6 +160,7 @@
     bindExpandListeners();
     bindTrackLinkMap();
     bindMapModalOpen();
+    bindDocmapLinks();
     updateScoreDisplay();
   });
 
