@@ -116,7 +116,7 @@
   </div>
 </div>
 
-<!-- Epigram Book: one entry per collectable epigram (8 planned).
+<!-- Epigram Book: one entry per collectable epigram (10 planned).
      Each entry carries a hidden .epi-have checkbox; the collection script
      ticks it from localStorage, and CSS only shows ticked entries. The
      menu icon (#epigram-book-label) appears once any box is ticked. -->
@@ -126,7 +126,7 @@
     <label for="epigram-book-toggle" class="modal-close">×</label>
     <h2>Epigram Book</h2>
     <ol class="epigram-book-list">
-      <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="nietzsche" hidden><label for="modal-nietzsche">Nietzsche, <i>Die Geburt der Tragödie</i> §5</label></li>
+      <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="nietzsche" hidden><a href="#epi-nietzsche">Nietzsche, <i>Die Geburt der Tragödie</i> §5</a></li>
       <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="poetics-6" hidden><a href="#epi-poetics-6">Aristotle, <i>Poetics</i>, Ch. 6</a></li>
       <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="davis-88" hidden><a href="#epi-davis-88">Davis, <i>The Poetry of Philosophy</i> (1992)</a></li>
       <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="en-7-14" hidden><a href="#epi-en-7-14">Aristotle, <i>Nicomachean Ethics</i>, VII.14</a></li>
@@ -134,6 +134,8 @@
       <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="poetics-4" hidden><a href="#epi-poetics-4">Aristotle, <i>Poetics</i>, Ch. 4</a></li>
       <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="ion-535c" hidden><a href="#epi-ion-535c">Plato, <i>Ion</i>, 535c</a></li>
       <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="rhet-3-12" hidden><a href="#epi-rhet-3-12">Aristotle, <i>On Rhetoric</i>, III.12</a></li>
+      <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="problemata-30-1" hidden><a href="#epi-problemata-30-1">[Aristotle], <i>Problemata</i>, XXX.1</a></li>
+      <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="proclus-rep" hidden><a href="#epi-proclus-rep">Proclus, <i>Commentary on the Republic</i></a></li>
     </ol>
   </div>
 </div>
@@ -178,25 +180,6 @@
           <p>Beyond its specific case, the form itself is the argument: a para-forensic, media-native pamphlet probing cultural memory. It models a posture of slow epistemology—neither outrage nor apathy, but unresolved, open inquiry.</p>
         </label>
       </div>
-    </div>
-  </div>
-</div>
-
-<input type="checkbox" id="modal-nietzsche" class="epigraph-collect-toggle" data-collect-id="nietzsche" hidden>
-<div class="modal" id="modal-nietzsche-box">
-  <label class="modal-overlay" for="modal-nietzsche"></label>
-  <div class="modal-box">
-    <label for="modal-nietzsche" class="modal-close">×</label>
-    <input type="checkbox" class="epigraph-toggle" id="epigraph-modal-1">
-    <div class="epigraph-body">
-      <div class="epigraph-face epigraph-original">
-        ...daß die ganze Komödie der Kunst durchaus nicht für uns aufgeführt wird, etwa zu unserer Besserung und Bildung, ja daß wir ebensowenig die eigentlichen Schöpfer jener Kunstwelt sind: wohl aber dürfen wir von uns selbst annehmen, daß wir für den wahren Schöpfer derselben Bilder und künstlerische Projektionen sind und in der Bedeutung von Kunstwerken unsre höchste Würde haben — denn nur als ästhetisches Phänomen ist das Dasein und die Welt ewig gerechtfertigt —, während freilich unser Bewußtsein über diese unsre Bedeutung wenig von dem verschieden ist, das die auf Leinwand gemalten Krieger von der auf ihr dargestellten Schlacht haben. Nur soweit der Genius im Aktus der künstlerischen Zeugung mit jenem Urkünstler der Welt verschmilzt, weiß er etwas über das ewige Wesen der Kunst; denn in jenem Zustande ist er, wunderbarerweise, dem unheimlichen Bild des Märchens gleich, das die Augen drehn und sich selber anschaun kann; jetzt ist er zugleich Subjekt und Objekt, zugleich Dichter, Schauspieler und Zuschauer.
-      </div>
-      <div class="epigraph-face epigraph-translation">
-        "...to our humiliation and enhancement, that the whole comedy of art is not at all performed for us, for our improvement or edification, any more than we are the actual creators of that art world: but we can indeed assume for our own part that we are images and artistic projections for the true creator of the world, and that our highest dignity lies in the meaning of works of art — for it is only as an aesthetic phenomenon that existence and the world are eternally justified — while of course our awareness of our meaning differs hardly at all from the awareness that warriors painted on canvas have of the battle portrayed. Only in so far as the genius is fused with the primal artist of the world in the act of artistic creation does he know anything of the eternal essence of art; for in that state he is wonderfully similar to the weird fairy-tale image of the creature that can turn its eyes around and look at itself; now he is at once subject and object, at once poet, actor, and audience."
-        <a class="epigraph-source" href="https://www.gutenberg.org/files/51356/51356-h/51356-h.htm"><i>Die Geburt der Tragödie</i> §5</a>
-      </div>
-      <label for="epigraph-modal-1" class="translate-hint">tap to read in English</label>
     </div>
   </div>
 </div>
@@ -972,13 +955,9 @@ It is surely necessary that actions of this sort be in the relation of friends t
 
 <summary>The Tragic Effect—Catharsis (κάθαρσις) <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
 
-<p>Although Aristotle doesn't put quite so fine a point on it in the <i>Poetics</i>, the mechanisms of the tragic effect can by now be inferred.</p>
+<p>Although Aristotle doesn't put quite so fine a point on it in the text, the broad mechanisms of the tragic effect can by now be inferred.</p>
 
-<p>In Ch. 13, Aristotle provided the principle of spectator-protagonist identification: "with respect to one who has ill fortune, the pity concerns his not deserving it, and the fear concerns his being similar to us."<marginalia data-type="ci"> (Ch. 13, 1453a2–6; Benardete/Davis.)</marginalia></p>
-
-<p>This puts "pity and fear" into the intersubjective terms of friendship elaborated in books VIII and IX of the <i>Nicomachean Ethics</i>.</p>
-
-<p>The spectator begins by regarding the actors as they would a favoured athlete; they feel good-will towards them.</p>
+<p>The story is fraught from the outset by an imagined, impending suffering, threatening the protagonist. In order to "fear" for the protagonist, the spectator must feel that they are similar to them. They begin by regarding the protagonist with the same good will they would feel toward a favoured athlete<marginalia data-type="ci"> (<i>EN</i> IX.5, 1166b30–1167a5)</marginalia>.</p>
 
 <details class="fold fold--epigram" id="epi-en-9-5" data-collect-id="en-9-5"><summary>Epigram + <i>EN</i> IX.5 <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><div class="fold-body">
 <div class="book-page book-page--aristotle book-page--ethics" data-source="Nicomachean Ethics">
@@ -987,7 +966,7 @@ It is surely necessary that actions of this sort be in the relation of friends t
 </div>
 </div></details>
 
-<p>As the plot unspools, the spectators learn more about the character, their choices, and the circumstances.</p>
+<p>This is not yet friendship; as the story in its particular treatment unspools, the spectators gain a finer grasp of the circumstances, the character, and their choices. Somewhat paradoxically, the more we learn about the particulars of the protagonist's situation, the more we identify with them.</p>
 
 <details class="fold fold--epigram" id="epi-poetics-4" data-collect-id="poetics-4"><summary>Epigram + <i>Poetics</i>, Ch. 4 <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><div class="fold-body">
 <div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
@@ -996,83 +975,139 @@ It is surely necessary that actions of this sort be in the relation of friends t
 </div>
 </div></details>
 
-<p>Somewhat paradoxically, the more we learn about the particulars of the protagonist's situation—the more specific they become—the more we identify with them.</p>
+<p>The catalyst of the change is the protagonist's mistake.</p>
 
-<p>The catalyst of the change is a mistake.</p>
+<p>Which mistake?</p>
 
-<p>Which mistake? Whose mistake?</p>
+<p>When? It's not obvious.</p>
 
-<p>Hamartia (Ancient Greek: ἁμαρτία) originally means "missing the mark." With Christianity, ἁμαρτία becomes morally charged as "sin." But already in the Greek sense, ἁμαρτία carries the potential for culpability with significant consequences.</p>
+<p>This is because every mistake—being, by definition, unintended—if it is to be culpable, traces back to an earlier, voluntary lapse against the agent's own best judgement.</p>
 
-<p>Mistakes (<i>hamartēmata</i>) in Aristotle are given a definite, proto-legal structure in the <i>Ethics</i>, V.8.<marginalia data-type="ci"> (<i>EN</i> V.8, 1135b11–19.)</marginalia></p>
+<p>Mistakes in Aristotle are given a definite, proto-legal structure in the <i>Ethics</i>, V.8.<marginalia data-type="ci"> (<i>EN</i> V.8, 1135b11–19.)</marginalia> A mistake in the general sense is a "missing of the mark." But this breaks into two specific senses: accidents (<span class="trans" data-en="accident">ἀτύχημα</span>) properly, and mistakes of neglect (<span class="trans" data-en="culpable mistake">ἁμάρτημα</span>). The distinction is whether the harm resulted contrary to what might reasonably have been supposed (1135b10–25). In an evaluation of the causes of the accident—for matters of determining culpability, if any—it might come to light that, although the accident itself was unintended, its conditions were reasonably foreseeable and yet were disregarded by the culpable party at some earlier, soberer, point in time. The plainest example is drunkenness prior to the operation of a serious task, like driving. But a mistake can be negligent even as a product of ordinary behavioural laxity over time.</p>
 
-<p>A mistake in the general sense is a "missing of the mark." But this breaks into two specific senses: accidents (ἀτύχημα [accident]) properly, and mistakes of neglect (ἁμάρτημα [missing-of-the-marks], in the specific sense). The distinction is whether the harm resulted contrary to what might reasonably have been supposed (1135b10-25).</p>
+<p>Sachs argues that the <i>hamartia</i> of <i>Poetics</i> 13 must correspond to the <i>hamartēma</i> of the <i>Nicomachean Ethics</i> V.8, <i>in the specific sense</i>. This is because without the agent being in some way culpable for his fate, the tragic effect wouldn't have sufficient explanatory 'torque.'</p>
 
-<p>In an evaluation of the causes of the accident—say for matters of determining culpability, if any—it might come to light that, although the accident itself was unintended, its conditions were reasonably foreseeable and yet were disregarded by the culpable party at some earlier, soberer, point in time.</p>
+<p>Many classicists believe that the <i>hamartia</i> of the <i>Poetics</i> cannot be in the culpable sense (Sorabji, Belfiore, Sherman).</p>
 
-<p>The plainest example is drunkenness prior to the operation of a serious task, like driving. But a mistake can be negligent even as a product of ordinary behavioural laxity over time.</p>
-
-<p>If the reversal reveals that the agent had greater culpability for his mistake (whatever it is) than was previously appreciated by the spectator, this would act as a catalyst, explaining the tragic cascade.</p>
-
-<p>The spectator should no longer be able to pity the agent—and yet they do.</p>
-
-<p>It is the activation of precisely this psychological limit, by way of precisely this dramatic lever, which makes the effect work.</p>
-
-<p>The persistence of this pity—owing to our identification with the protagonist—manifests as forgiveness, and "philanthropia"—translated as something like "well-wishing for the common good of humanity."</p>
-
-<p>So the persistence of pity and its manifestation as forgiveness—for others, like the protagonist—and then, for oneself, on the same terms. The strangest alchemy of the tragic effect is that in spite of the unhappy ending, the <i>philanthropon</i> is produced.</p>
-
-<p>And this is catharsis.</p>
-
-<p>The <i>mistake</i> must be culpable in order for the reversal to produce sufficient resistance for the tragic effect to occur at all; the critical confusion results because the mistake can simultaneously entail the involuntary fields of upbringing, human nature, etc.</p>
-
-<p>This doesn't override the field for which the protagonist is culpable; the field of human action. Catharsis results from the persistence of pity the spectator feels for the protagonist. This sets off a cognitive and emotional cascade.</p>
-
-<p>First, the spectator accepts that some principle keeps lapsed men from being beneath pity (which by Aristotle's account requires that whomever to be pitied does not deserve their suffering), he feels relief in this.</p>
-
-<p>Second, at the same time he shares in the grief of what has been done and cannot be undone, as a consequence of the protagonist's immediate recklessness or "characteristics" bad habits as a consequence of actions chosen, and/or performed, time and time again.</p>
-
-<p>Historically, this is what is known as the "fatal flaw" reading of Aristotle; what was that virtue, the neglect of which, led ultimately to the hero's demise? This is why they in some way deserve what's happening to them; the supposed basic algebra of the tragic effect.</p>
-
-<p>Although critics have wasted much ink debating whether Aristotle's "hamartia" means mistake in the culpable sense, or in the general sense (see contemporary classicists, Belfiore, Sorabji, etc.).<marginalia data-type="ci"> (Belfiore, <i>Tragic Pleasures</i>, 1992, pp. 167–168; Richard Sorabji, <i>Necessity, Cause, and Blame</i>, 1980, pp. 296–297.)</marginalia></p>
-
-<p>The latter, Belfiore, e.g., argue as follows:</p>
+<p>Sherman argues as follows:</p>
 
 <div class="book-page book-page--modern" data-source="hamartia">
   The implication drawn… is that <i>hamartia</i> proper… at least as understood in V.8… is a kind of culpable ignorance…. Needless to say, as an interpretation which bears on the <i>Poetics</i> there are grave problems. To turn to Oedipus, the claim would be that Oedipus' illusion about his family identity could have been avoided; there was information of which he could have availed himself, possibilities for further application and control which he failed to take. But this is implausible. Similarly, it would be absurd to hold that Thyestes, whose <i>hamartia</i> is also cited in <i>Poetics</i> 13, was negligent in failing to look for morsels of his children in the plate of meat served up to him
   <footer class=book-meta><span class=book-meta-author>Sherman</span></footer>
 </div>
 
-<p>But this argument illustrates where both miss the point.</p>
-
 <p>The entire tragic engine as Aristotle presents it depends on the interchange of a <i>general</i> mistake for which first there is no culpability (from the perspective of the spectator) for a <i>specific</i> mistake, for which there is. There is always both a general respect—in which the agent is not guilty, even if by virtue of his basic humanity—and a specific respect—in which they are culpable for whatever is upon them.</p>
 
-<p>Thyestes may not be negligent in "failing to look for morsels" in the immediate perceptual sense per se, but he could certainly be considered negligent in taking adequate precautions in some respect or another, somewhere down the line. The same as Oedipus; or Iphigenia, Orestes, or Pylades, for that matter.</p>
+<p>Thyestes may not be negligent in "failing to look for morsels" in the immediate perceptual sense per se, but he could certainly be considered negligent for not taking adequate precautions in some respect or another, somewhere down the line. The same as Oedipus; or Iphigenia, Orestes, or Pylades, for that matter. Just as Thyestes is the grandfather of the house of Atreus, his tragedy is especially paradigmatic: the delayed consequences of diverting attention from matters of critical importance (e.g. his children's safety) for lapses of the flesh.</p>
 
-<p>In the <i>Ethics</i>, all mistakes, even those of potentially criminal negligence are intelligible as the function of upbringing, human-nature, etc.; however, mistakes in the specific sense often trace back to lapses on the part of the protagonist.</p>
+<p>If the reversal reveals that the agent had greater culpability for his mistake than was previously appreciated by the spectator, this could serve as the catalyst for a tragic effect that fulfills all of Aristotle's expectations. The spectator has been identifying with a protagonist they believed <i>not</i> to be vicious, aligning them with how the protagonist sees themselves. But after the reversal, if the protagonist is known to be culpable for their mistake, the spectator should no longer be able to pity them—and yet they do. It is the activation of precisely this psychological limit, by way of precisely this dramatic lever, which makes the effect work.</p>
 
-<p>That Aristotle includes among the civic functions of <i>catharsis,</i> a de-escalation of "melancholia" by way of imaginary intersubjectivity is made plain in VIII.7 in the <i>Politics</i> (1342a5-16):</p>
+<p>The fact of the pity persisting causes a cascade effect.</p>
+
+<p>First, broadly, the spectator enters a heady frame of mind such that their usual habits of blaming and forgiving—of others and of themselves—are drawn into an extraordinary state of parity.</p>
+
+<p>This is because, ordinarily, we distribute "blame" or "forgiveness" according to whether we ascribe someone's mistakes and their consequences to forces within or beyond their control. This also applies to ourselves—we blame or forgive ourselves for our failures to restrain ourselves in accordance with our own perceived best interests, including social obligations to our community. We blame to the extent that we judge that the mistake or its conditions could have been foreseen and resisted; we forgive when we accept that the lapse was typical enough of the human condition. Usually, this distribution is foggy and haphazard. We forgive or blame unevenly, depending on how we feel on the day.</p>
+
+<p>After identifying with a protagonist, fearing for them, and still pitying them despite revealed culpability which, from the outset, would've precluded pity, we're put in a position to experience the tragedy from the perspective of the protagonist. They have been inured to the relative failures of observation that have ensued from their habits, and have been effectively operating in a high-risk perspectival 'bubble.' The reversal reveals the protagonist's culpability; and this triggers this spectator's awareness of the persistence of pity. The protagonist has shifted, gradually, from being a favoured stranger, to a proper friend in the sense of a "second self," who is due an extension of the condition of pity one applies to oneself (with "not deserving it" being presumed).</p>
+
+<p>In what sense can "not deserving it" apply to a mistake for which a protagonist would otherwise be culpable? Only insofar as it owes to upbringing or human nature. But this robs the protagonist of all agency.</p>
+
+<p>In this sense, the spectator comes to regard the agent as a <i>philos</i> in a radical and paradigmatic way similar to how parents regard their children: not as independent agents but as products and reflections of their origin.</p>
+
+<p>This sense of pity transcends the particulars of the agent's circumstances: it applies to all men who commit a <i>hamartia</i> in the specific sense despite their culpability in inducing its possibility. In this disclosure of the general aspect, the agent emerges as a paradigm for all such culpable but pitiable men.</p>
+
+<p>This paradigm, however, is attached to its opposite. Insofar as the spectator still identifies with the agent as agent, he cannot fully absolve him. Precisely in the emergence of the agent's essential pitiability its limiting opposite also becomes apparent. The agent stands as a paradigm of any agent who experiences a <i>hamartia</i> of his own doing. Insofar as it is open to all human-beings to be more or less susceptible to such shocks, the agent stands for all men, including the spectator.</p>
+
+<p>In this sense, then, the spectator regards the agent as a <i>philos</i> at another extreme: not as a child, but as a reflection of his own being, specifically his being in the mode of suffering as the result of distorted perception brought on by himself. Thus, not only is the spectator's pitying raised to an unexpected pitch, but his fearing as well, insofar as he is reminded to dread the punishments he himself is due but which have yet to manifest. Thus, in the standing side-by-side of being unfortunate and being fortunate (i.e., the spectator's being both other than and one with the suffering agent), fearing and pitying are both brought to appearance.</p>
+
+<p>That catharsis salves the aspect of the human condition tasked with managing culpability is made plain in an important passage in the <i>Politics</i>, Ch. VIII.7 (1342a5–16):</p>
 
 <div class="book-page book-page--aristotle" data-source="Politics">
   For the passion that occurs strongly in connection with certain sorts of souls is present in all, but differs by greater and less – for example, pity and fear, and further inspiration (<i>enthousiasmos</i>). For there are certain persons who are possessed by this motion<marginalia data-type="pa"> (i.e., the <i>enthousiasmos</i>)</marginalia>, but as a result of the sacred tunes – when they use the tunes that put the soul in a frenzy – we see them calming down as if obtaining a cure and a <i>katharsis</i>. This same thing, then, must necessarily be experienced also by the pitying and the fearful as well as by the generally passionate, and by others insofar as each individual has a share in such things, and there must occur for all a certain <i>katharsis</i> and feeling of relief accompanied by pleasure.
   <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Politics</i></span><span class=book-meta-chapter>, Ch. VIII.7</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0058:bekker+page=1342a target=_blank rel=noopener>1342a5–16</a>, trans. Lord</span></footer>
 </div>
 
-<p>In this passage, Aristotle establishes a continuum of responsiveness to passions, ranging from full-blown "enthusiasm"; to 'pity and fear'; to the "generally passionate;" and then to any human-being.</p>
+<p>In this passage, Aristotle establishes a hierarchy of responsiveness to passions, ranging from full-blown "enthusiasm"; to "pity and fear"; to the "generally passionate"; and then to the general simply. In the same way that the "sacred tunes" calm those in the throes of the deepest inspiration, they also calm those in the midst of 'pitying and fearing', or any human-being. Everyone is burdened by the possible consequences of their lapses.</p>
 
-<p>All suffer from the weight of the anxiety of the possible consequences of their lapses; those actions (or non-actions) for which they could be called culpable, differing only by a matter of "greater and less."</p>
+<p>All of these states—apparently each with active (e.g. "fearing") and passive (e.g. "pitying") dimensions—fall under the general category of <i>melancholia,</i> or literally 'black-bile': the human tendency, associated particularly with artists and philosophers, to see the world through different perspectives or extremes; which makes the body run hot and cold at faster alternations than usual—more like our "bi-polar" or "manic depressive." Although the condition differs by tiers of intensity, to some degree this is a universal affliction.</p>
 
-<p>The alchemy of the tragic effect is that it converts an unhappy ending, somehow, (at least theoretically), into an experience of shared friend-feeling for fellow human-beings. This includes an experience of forgiveness both for self and others, to the extent possible. The very limits to forgiveness are what produce the tragic effect.</p>
+<details class="fold fold--epigram" id="epi-problemata-30-1" data-collect-id="problemata-30-1"><summary>Epigram + <i>Problemata</i> XXX.1 <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><div class="fold-body">
+<div class="book-page book-page--aristotle" data-source="Problemata">
+  "And many others of the heroes seem to have been similarly afflicted, and among men of recent times Empedocles, Plato, and Socrates, and numerous other well-known men, and also most of the poets."
+  <footer class=book-meta><span class=book-meta-author>[Aristotle], <i>Problemata</i></span><span class=book-meta-chapter>, XXX.1</span><span class=book-meta-ref> — 953a25–30<marginalia data-type="ci"> (trans. Forster?)</marginalia></span></footer>
+</div>
+</div></details>
 
-            </details></li>
+<p>The critical alchemy of the tragic effect is that in spite of the unhappy ending, the <i>philanthropon</i> is produced.</p>
+
+<p>The spectator is "re-calibrated," reminded of both the potential for forgiveness, and the real costs of culpable mistakes, in a shared experience of gaining an insight into the human condition. They become less "volatile," wherever they happen to be on the <i>Politics</i>' hierarchy of responsiveness to passions.</p>
+
+<p>And this is catharsis.</p>
+
+<p>Sachs argues that wonder (θαυμαστόν) is part and parcel with this experience; integrated into a descriptor Aristotle uses later in the text, ἔκπληξις: having the ground come out from under one's feet.</p>
+
+<p>This recalls Aristotle's Mitys example in Ch. 9, in which Aristotle evoked an ineffable "intentional" quality which accompanied wonder. Whereas in the Mitys example—our reaction to hearing that Mitys' killer was later crushed by Mitys' statue—this effect is produced by what a skeptic might call lingering cultic superstitions (as per the Mitys outline). It is also produced when the story comes about both <i>plausibly</i> and <i>contrary to expectation</i> (παρὰ τὴν δόξαν).</p>
+
+<p>It is just this narrow technical field, on the production of wonder in popular narrative, which pertains to our question above regarding Spielberg.</p>
+
+<p>The first point being: that the operation of "wonder" and ἔκπληξις is the relevant question at all; versus a reaction to a sad ending, or a reaction to a happy ending, per se.</p>
+
+<p>This evades the general "optimism" of the Campbellian method critiqued above.</p>
+
+<p>At the same time, it also evades the critique of Nietzsche, in his first book, <i>The Birth of Tragedy</i> (1872). In that book, Nietzsche categorizes <i>all</i> dramatic theory from Euripides-on—and codified by Aristotle—as fundamentally "optimistic" in the pejorative sense above, as a specific, invasive form of Greek philosophy pioneered by Socrates.</p>
+
+<p>Nietzsche speculated (in his own account) that Greeks generally were exceptionally well-reconciled to finding meaning in an otherwise pessimistic ontology of the universe; they would revel in art, like tragedy, in which the Apollonian side of reality—our tendency to govern our lives by rationality and restraint—meets and is even temporarily overtaken by the opposite tendency, the Dionysian, to revel in the dissolution of the mundane. It is at the height of this experience that the spectator has the following insight.</p>
+
+<details class="fold fold--epigram" id="epi-nietzsche" data-collect-id="nietzsche"><summary>Epigram + Nietzsche, <i>Die Geburt der Tragödie</i> §5 <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><div class="fold-body">
+<div class="epigraph">
+  <input type="checkbox" class="epigraph-toggle" id="epigraph-nietzsche">
+  <div class="epigraph-body">
+    <div class="epigraph-face epigraph-original">
+      ...daß die ganze Komödie der Kunst durchaus nicht für uns aufgeführt wird, etwa zu unserer Besserung und Bildung, ja daß wir ebensowenig die eigentlichen Schöpfer jener Kunstwelt sind: wohl aber dürfen wir von uns selbst annehmen, daß wir für den wahren Schöpfer derselben Bilder und künstlerische Projektionen sind und in der Bedeutung von Kunstwerken unsre höchste Würde haben — denn nur als ästhetisches Phänomen ist das Dasein und die Welt ewig gerechtfertigt —, während freilich unser Bewußtsein über diese unsre Bedeutung wenig von dem verschieden ist, das die auf Leinwand gemalten Krieger von der auf ihr dargestellten Schlacht haben. Nur soweit der Genius im Aktus der künstlerischen Zeugung mit jenem Urkünstler der Welt verschmilzt, weiß er etwas über das ewige Wesen der Kunst; denn in jenem Zustande ist er, wunderbarerweise, dem unheimlichen Bild des Märchens gleich, das die Augen drehn und sich selber anschaun kann; jetzt ist er zugleich Subjekt und Objekt, zugleich Dichter, Schauspieler und Zuschauer.
+    </div>
+    <div class="epigraph-face epigraph-translation">
+      "...to our humiliation and enhancement, that the whole comedy of art is not at all performed for us, for our improvement or edification, any more than we are the actual creators of that art world: but we can indeed assume for our own part that we are images and artistic projections for the true creator of the world, and that our highest dignity lies in the meaning of works of art — for it is only as an aesthetic phenomenon that existence and the world are eternally justified — while of course our awareness of our meaning differs hardly at all from the awareness that warriors painted on canvas have of the battle portrayed. Only in so far as the genius is fused with the primal artist of the world in the act of artistic creation does he know anything of the eternal essence of art; for in that state he is wonderfully similar to the weird fairy-tale image of the creature that can turn its eyes around and look at itself; now he is at once subject and object, at once poet, actor, and audience."
+      <a class="epigraph-source" href="https://www.gutenberg.org/files/51356/51356-h/51356-h.htm"><i>Die Geburt der Tragödie</i> §5</a>
+    </div>
+    <label for="epigraph-nietzsche" class="translate-hint">tap to read in English</label>
+  </div>
+</div>
+</div></details>
+
+<p>But Nietzsche's analysis of Euripides applies a shallow hermeneutics: assuming for example, that the function of the <i>deus ex machina</i> is strictly to "assert" a happy ending.</p>
+
+<p>Actually, it's likely Euripides intended that the <i>Iphigenia</i> appeared as a wish-fulfillment fantasy. It was nevertheless bittersweet and effective; and this was sufficient for Aristotle's point in Chapter 14 of the <i>Poetics</i>.</p>
+
+<p>Aristotle himself writes in Ch. 13 that Tragedy with happy ending transitions into Comedy; operating not by the laws of plausibility, but "as they [the spectators] would pray for things to be."</p>
+
+<p>Nietzsche's critique of Aristotle (and his Socratic milieu) is similar to that of Proclus; the Neoplatonic philosopher. Both observe that Aristotle is hyper-attentive to the material facets of the phenomena he addresses. Proclus does so with Aristotle's theory of nature; which only accounts for the bottom "hypostasis" of the 4-tiered Neoplatonic hierarchy of reality. Nietzsche suggests that Aristotle reduces poetry to its mechanical formulae, rather than adequately accounting for, <i>par impossible</i>, its full phenomenology.</p>
+
+<p>But it's possible Aristotle is leaving such matters to other occasions.</p>
+
+<p>While Nietzsche abandons Aristotle's ambivalence for pessimism, Proclus' competing theory of poetry is entirely consistent with Aristotle's.</p>
+
+<details class="fold fold--epigram" id="epi-proclus-rep" data-collect-id="proclus-rep"><summary>Epigram + Proclus, <i>Commentary on the Republic</i> <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><div class="fold-body">
+<div class="book-page" data-source="Proclus">
+  "The fathers of myth observed that nature creates images of nonmaterial and noetic forms and embellishes this cosmos with imitations of them, depicting the indivisible in a fragmented manner, the eternal by means of things that proceed through time, the noetic through that which the senses can grasp, and portraying the nonmaterial materially, the nonspatial spatially, and that which is permanently fixed through change. When they saw this, in line with nature and with the procession of those things that have only apparent and image-like existence, they themselves fabricated images of the divine in the medium of language, expressing the transcendent potentiality of the models by those things most opposite to them and furthers removed from them: that which is beyond nature they represented by things contrary to nature; that which is more divine than all reason, by the irrational, that which transcends in simplicity all fragmented beauty, but things that are condensed ugly and obscene. They do this, in all probability to or remind us of the transcending supereminence of that which they treat."
+  <footer class=book-meta><span class=book-meta-author>Proclus, <i>Commentary on Plato's Republic</i></span><span class=book-meta-chapter>, Essay 6, Book 1</span><span class=book-meta-ref> — trans. Lamberton<marginalia data-type="ci"> (Kroll page?)</marginalia></span></footer>
+</div>
+</div></details>
+
+<p>The true poetic experience, rather than mere entertainment, Proclus interprets, concerns not story per se, but the proper interpretation of necessarily degraded and contradictory symbols of the divine.</p>
+
+<p>All of this is to say that Aristotle's theory of poetry remains "ambivalent" (with Proclus, contra Campbell (Optimistic) and Nietzsche (Pessimistic)), and wonder-dependent.</p>
+
+<p>We now attempt to further delineate the necessary conditions for the production of wonder in the spectator by the story and its storyteller. This is in order to highlight the "blind spot" brought on by an American cultural narrative between the low-brow optimistic ignoramuses; and the prestige class, pessimistic, 'A24'-class ignoramuses (except <i>The Zone of Interest</i> (2023)).</p>
+
+</details></li>
 
             </ol>
 
             <p></p>
 
-            <p>It is just this narrow technical field, on the production of wonder in popular narrative, which pertains to our question above regarding Spielberg.</p>
+            <p>The production of wonder (or ἔκπληξις) governs the tragic effect in Aristotle. But what are the conditions of wonder?</p>
 
-            <p>To what extent is narrative optimism a narcotic? Given that Hollywood films typically have obvious political significance and resonances, fathoming the relevance of this question requires a rhetorical analysis.</p>
+            <p>In particular we consider the relevance to its production of the credibility of its "speaker."</p>
 
             <ol class="essay-sublist">
             <li><details id="expand-rhetoric" data-expand-id="expand-rhetoric">
@@ -1103,7 +1138,23 @@ It is surely necessary that actions of this sort be in the relation of friends t
               <footer class=book-meta><span class=book-meta-author>Aristotle, <i>On Rhetoric</i></span><span class=book-meta-chapter>, Ch. II.1</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0060:bekker+page=1378a target=_blank rel=noopener>1378a</a>, trans. Sachs</span></footer>
             </div>
 
-            <p>Given that popular entertainment falls under the category of <span class="trans" data-en="display speech">ἐπίδειξις</span>—performance speech concerned with praising or blaming with regard to "what is beautiful or shameful," bringing other things back to refer to these—its presently-focused social function is telling people what to think of the future, or of the past.</p>
+            <p>For example: How would a speaker's credibility matter?</p>
+
+            <p>(1) "they have incorrect opinions on account of a lack of judgement":</p>
+
+            <p>If the speaker is already notorious, it's reasonable to question, e.g., their moral authority, such that moral premises, implicit or explicit, exist in their speeches.</p>
+
+            <p>(2) "or, while having correct opinions, do not say what seems true to them on account of vice,"</p>
+
+            <p>Why would the speaker's reputation for vice have on our ability to trust their words?</p>
+
+            <p>What if they are speaking out of spite? Out of the throes of addiction? Etc.</p>
+
+            <p>(3) "or, if they are of good judgment and decent but not good-willed, it is possible for that very reason for them to fail to give the best advice they know how to give."</p>
+
+            <p>If the speaker generally has poor intentions towards us, and the work has the presumed ulterior motive of injuring or defending against its spectator/consumer somehow.</p>
+
+            <p>Given that popular entertainment falls under the category of <span class="trans" data-en="display speech">ἐπίδειξις</span>—performance speech concerned with praising or blaming with regard to "what is beautiful or shameful." In other words, calibrating spectator-citizens to 'see' the present moment through the assessment of the speaker.</p>
 
             <p>The obvious problem is that when a speaker's lived behaviour contradicts the ethical implications of his speech (should they exist), the former is at least a factor in the spectatorship of the work.</p>
 
@@ -1114,7 +1165,7 @@ It is surely necessary that actions of this sort be in the relation of friends t
               <footer class=book-meta><span class=book-meta-author>Aristotle, <i>On Rhetoric</i></span><span class=book-meta-chapter>, Ch. I.15</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0060:bekker+page=1377b target=_blank rel=noopener>1377b9–12</a>, trans. Sachs</span></footer>
             </div>
 
-            <p>If a speaker's credibility is bankrupted, then, at least, that aspect or meta-aspect of their poem changes in light of that fact. Not only does its 'aura' become 'polluted,' but, I argue, it ceases to function even in purer viewing contexts, insofar as it requires an active act of self-deception in order to sustain the original effect.</p>
+            <p>If a speaker's credibility is bankrupted, then, at least, that aspect or meta-aspect of their poem changes in light of that fact. Not only does its cultural 'aura' become "polluted" generally, but—I argue—it ceases to function even in purer viewing contexts, insofar as it requires an active act of self-deception for sustenance.</p>
 
         <marginalia data-type="pa"><p>Ironically, many Campbellians consider themselves as following in Aristotle's tradition; they overstate his principle that a story has a beginning, middle, and an end.</p></marginalia>
 
@@ -1163,8 +1214,6 @@ It is surely necessary that actions of this sort be in the relation of friends t
             <summary>3c. Jabotinsky; The Iron Wall <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
 
             <p><i>The early Zionist theorists—interested in safety against pogroms and perennial antisemitism—successfully petitioned the United Kingdom for a Jewish national home. Ze'ev Jabotinsky entrenched a powerful metaphor and conception of human nature. Human beings, Jabotinsky theorized, who stood to lose their very homeland, could not be negotiated with except by overwhelming force. This noble-seeming narrative about human nature has become a perpetual strategic monolith.</i></p>
-
-            <p>ss.</p>
 
             <p>Read: Avi Shlaim, <i>The Iron Wall: Israel and the Arab World</i> (2000).</p>
 
@@ -1319,7 +1368,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (barEl) barEl.style.width = `${Math.min(100, Math.round(count / total * 100))}%`;
 
       const collected = getCollectedEpigraphs();
-      const epiTotal = 8;
+      const epiTotal = 10;
       const epiScoreEl = document.getElementById('stats-epigraph-score');
       const epiBarEl = document.getElementById('stats-epigraph-bar-fill');
       if (epiScoreEl) epiScoreEl.textContent = `${collected.length} / ${epiTotal}`;
@@ -1329,8 +1378,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // === EPIGRAM COLLECTION ===
   // Two kinds of collectable epigram, one list in localStorage
-  // ('collectedEpigraphs', 8 planned):
-  //   - modal checkboxes tagged .epigraph-collect-toggle (Nietzsche)
+  // ('collectedEpigraphs', 10 planned):
+  //   - modal checkboxes tagged .epigraph-collect-toggle (none at present)
   //   - <details data-collect-id> folds in the essay body
   // Either one is recorded on first open. The Epigram Book is plain HTML:
   // syncBook() only ticks each entry's hidden .epi-have checkbox; CSS does
