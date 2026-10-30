@@ -2752,6 +2752,31 @@ body:has(#tracker-toggle:checked) #tracker-stats-label {
   display: flex;
 }
 
+#info-modal,
+#abstract-modal,
+#modal-nietzsche-box {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+}
+#info-modal .modal-overlay,
+#abstract-modal .modal-overlay,
+#modal-nietzsche-box .modal-overlay {
+  display: block;
+  position: absolute;
+  inset: 0;
+}
+#info-modal .modal-box,
+#abstract-modal .modal-box,
+#modal-nietzsche-box .modal-box {
+  z-index: 201;
+  margin: auto;
+  max-height: 88vh;
+  overflow-y: auto;
+}
+
 .microlibrary {
   font-family: Georgia, serif;
   padding: 1rem;

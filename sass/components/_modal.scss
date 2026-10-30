@@ -81,3 +81,30 @@
 #abstract-toggle:checked ~ #abstract-modal { display: flex; }
 #modal-nietzsche-box { display: none; }
 #modal-nietzsche:checked ~ #modal-nietzsche-box { display: flex; }
+
+// ── About / Abstract / Nietzsche: float over the page, centred (2026-10-30) ──
+// These boxes sat in the page flow (only the dimmed overlay was fixed), so
+// an open box pushed the hero and text down and could be scrolled away.
+// Same mechanics as #epigram-book and #map-modal.
+#info-modal,
+#abstract-modal,
+#modal-nietzsche-box {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+
+  .modal-overlay {
+    display: block;
+    position: absolute;
+    inset: 0;
+  }
+
+  .modal-box {
+    z-index: 201;
+    margin: auto;
+    max-height: 88vh;
+    overflow-y: auto;
+  }
+}
