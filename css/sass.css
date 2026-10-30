@@ -2644,8 +2644,13 @@ body.dark-mode #toggleMode {
   display: grid;
 }
 
-.ghost-icon {
+.version-tag {
   grid-column: 4;
+  font-family: "Courier Prime", "Courier New", monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  opacity: 0.6;
+  align-self: center;
 }
 
 .menu-icons {
