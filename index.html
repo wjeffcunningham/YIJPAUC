@@ -233,7 +233,7 @@
      ============================================================ -->
 
 <div id="hero-image-container">
-  <video autoplay muted playsinline loop id="hero-media" class="hero-media" poster="./full/gifs/landingdemo-poster.jpg">
+  <video autoplay muted playsinline loop id="hero-media" class="hero-media">
     <source src="./full/gifs/landingdemo.mp4" type="video/mp4">
     <img src="./full/gifs/landingdemo.gif" alt="Landing animation">
   </video>
@@ -1332,7 +1332,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Hero clip: the video autoplays everywhere it's allowed. Where it isn't
   // (iOS Low Power Mode, data-saver modes), swap in the animated GIF, which
   // still animates there. Safari's own play button is hidden in
-  // _hero_image.scss, and the poster frame covers the moment before the swap.
+  // _hero_image.scss. (No poster attribute: video[poster] in the CSS would
+  // override .hero-media's width and break the hero framing.)
   const hero = document.getElementById('hero-media');
   if (hero && hero.tagName === 'VIDEO') {
     let swapped = false;
