@@ -4264,12 +4264,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // === 6. AMBIENT AUDIO LOGIC ===
   function playAmbient() {
-    // 03.wav (the 20+ variant) may be missing: fall back to the default.
+    // 03.wav (the 20+ variant) may be missing. A missing <source> never
+    // rejects play() (the element just waits), so check networkState first.
+    const altUsable = ambientAlt && !ambientAlt.error &&
+      ambientAlt.networkState !== HTMLMediaElement.NETWORK_NO_SOURCE;
     const playDefault = () => {
       ambientAlt?.pause(); if (ambientAlt) ambientAlt.muted = true;
       ambientDefault.muted = false; ambientDefault.play().catch(() => {});
     };
-    if (getVisited().length >= 20 && ambientAlt) {
+    if (getVisited().length >= 20 && altUsable) {
       ambientDefault.pause(); ambientDefault.muted = true;
       ambientAlt.muted = false;
       ambientAlt.play().catch(playDefault);
