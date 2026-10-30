@@ -1,0 +1,38 @@
+// =============================================================
+// Radar, room map and survey (map.js r3, 2026-10-30)
+// Must be @used AFTER components/menu-icons: the map-icon gate
+// below overrides menu-icons' "show when tracker is on" rule by
+// coming later in the cascade (same specificity).
+// =============================================================
+
+$radar-glow:
+  0 0 10px rgb(120, 200, 255),
+  0 0 20px rgb(0, 150, 255),
+  0 0 30px rgb(0, 150, 255);
+
+// 📡 Radar icon: same aura as the other active toggles
+body:has(#tracker-toggle:checked) label[for=tracker-toggle] {
+  text-shadow: $radar-glow;
+  filter: brightness(1.4);
+}
+
+// 🗺️ Map icon: shown once #map-unlocked is ticked (5 rooms, or the
+// survey), whether or not the radar is on; hidden otherwise.
+body:has(#map-unlocked:checked) #tracker-map-label {
+  display: inline;
+}
+body:has(#map-unlocked:not(:checked)) #tracker-map-label {
+  display: none;
+}
+
+// Survey fold inside the About box
+#survey {
+  margin-top: 1rem;
+
+  #survey-readout {
+    font-family: "Courier Prime", "Courier New", monospace;
+    font-size: 0.8em;
+    line-height: 1.6;
+    opacity: 0.75;
+  }
+}

@@ -617,6 +617,21 @@ main {
   padding: 0 1.5rem;
 }
 
+.essay-list {
+  padding-left: 1.4em;
+  margin-left: 0;
+}
+
+.plain-list {
+  list-style: none;
+  padding-left: 1.4em;
+}
+
+main ol + p,
+main ul + p {
+  margin-top: 1em;
+}
+
 .abstract-cards {
   display: flex;
   flex-direction: column;
@@ -2976,6 +2991,29 @@ body.dark-mode .police-report {
 }
 .quote-toggle p {
   margin: 0.5em 0;
+}
+
+body:has(#tracker-toggle:checked) label[for=tracker-toggle] {
+  text-shadow: 0 0 10px rgb(120, 200, 255), 0 0 20px rgb(0, 150, 255), 0 0 30px rgb(0, 150, 255);
+  filter: brightness(1.4);
+}
+
+body:has(#map-unlocked:checked) #tracker-map-label {
+  display: inline;
+}
+
+body:has(#map-unlocked:not(:checked)) #tracker-map-label {
+  display: none;
+}
+
+#survey {
+  margin-top: 1rem;
+}
+#survey #survey-readout {
+  font-family: "Courier Prime", "Courier New", monospace;
+  font-size: 0.8em;
+  line-height: 1.6;
+  opacity: 0.75;
 }
 
 .redact-toggle:not(:checked) + a {

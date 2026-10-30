@@ -1,0 +1,25 @@
+// =============================================================
+// Essay lists (proofread r2, 2026-10-30)
+// Replaces the inline style on the main <ol>, the bullets on the
+// Ch. 14 <ul>, and the five empty <p></p> spacers.
+// =============================================================
+
+// Main numbered essay list (was style="padding-left:1.4em;margin-left:0")
+.essay-list {
+  padding-left: 1.4em;
+  margin-left: 0;
+}
+
+// Ch. 14 list of the three plays: no glyph markers
+.plain-list {
+  list-style: none;
+  padding-left: 1.4em;
+}
+
+// Space that the empty <p></p> spacers used to make
+main {
+  ol + p,
+  ul + p {
+    margin-top: 1em;
+  }
+}

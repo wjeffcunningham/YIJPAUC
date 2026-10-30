@@ -22,6 +22,7 @@
 @use 'layout/footer';
 @use 'layout/header';
 @use 'layout/main';
+@use 'layout/essay-lists';
 
 // 5. Components
 @use 'components/abstract-cards';
@@ -64,6 +65,7 @@
 @use 'components/newspaper';
 @use 'components/police-report';
 @use 'components/quote-toggle';
+@use 'components/radar';
 @use 'components/redacted_text';
 @use 'components/score';
 @use 'components/scrapbook-img';

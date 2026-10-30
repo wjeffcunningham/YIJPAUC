@@ -617,6 +617,21 @@ main {
   padding: 0 1.5rem;
 }
 
+.essay-list {
+  padding-left: 1.4em;
+  margin-left: 0;
+}
+
+.plain-list {
+  list-style: none;
+  padding-left: 1.4em;
+}
+
+main ol + p,
+main ul + p {
+  margin-top: 1em;
+}
+
 .abstract-cards {
   display: flex;
   flex-direction: column;
@@ -856,6 +871,156 @@ body.dark-mode .book-page--shakespeare {
   border: 1px solid #555;
   outline: 3px solid #555;
   outline-offset: 3px;
+}
+
+/* ── Section 3: per-source citation styling (book-page) ──
+   These are additive modifiers layered on top of the existing
+   .book-page / .book-page--aristotle rules in sass.css. Until this
+   is folded into a _citations.scss partial, it lives here inline,
+   same as the map-modal/stats-modal rules above.
+   Poetics vs. Rhetoric: subtle (color + one border edge).
+   Aristotle (ancient) vs. modern political quotation: pronounced. */
+.book-page--poetics {
+  --src-accent: #6b4a2f;
+}
+
+.book-page--rhetoric {
+  --src-accent: #3d5a73;
+}
+
+.book-page--ethics {
+  --src-accent: #5a6b3d;
+}
+
+.book-page--poetics,
+.book-page--rhetoric,
+.book-page--ethics {
+  border-top: 3px double var(--src-accent);
+  border-bottom: 3px double var(--src-accent);
+}
+
+.book-page--rhetoric {
+  border-bottom: 1px solid var(--src-accent);
+}
+
+.book-page--ethics {
+  border-top: 1px solid var(--src-accent);
+}
+
+/* ── Dark mode counterpart ──
+   sass.css's body.dark-mode .book-page sets a flat 1px #333
+   border on all sides, and body.dark-mode .book-page--aristotle
+   adds a gold left accent on top of that — both are equal-
+   specificity, two-class selectors (body.dark-mode + .book-page…),
+   so without a same-tier override here they win over the plain
+   .book-page--poetics/rhetoric/ethics rules above and the double
+   top/bottom border disappears in dark mode, leaving just the
+   stray gold left edge. This restores the same double-line
+   treatment, in the same accent colors, for dark mode. */
+body.dark-mode .book-page--poetics,
+body.dark-mode .book-page--rhetoric,
+body.dark-mode .book-page--ethics {
+  border-top: 3px double var(--src-accent);
+  border-bottom: 3px double var(--src-accent);
+  border-left: 1px solid var(--src-accent);
+  border-right: 1px solid var(--src-accent);
+}
+
+body.dark-mode .book-page--rhetoric {
+  border-bottom: 1px solid var(--src-accent);
+}
+
+body.dark-mode .book-page--ethics {
+  border-top: 1px solid var(--src-accent);
+}
+
+/* ── Mobile-only: double-line border, drawn by hand ──
+   border-style: double is fine on desktop — this override is
+   scoped to mobile only, where it isn't. Mobile Safari doesn't
+   reliably render border-style: double: at certain fractional
+   device-pixel-ratios the gap between the two lines balloons or
+   the second line drops well below the box, which is exactly
+   the artifact in the mobile screenshot (the second bottom line
+   rendering several lines down, cutting through the footer text
+   on the Ch. V.10 / NE card). Same rationale as swapping
+   ::marker for ::before+counter above: don't trust a flaky
+   cross-browser keyword, draw the line — but only where it's
+   actually broken, so desktop keeps its original look untouched. */
+@media (max-width: 600px) {
+  .book-page--poetics,
+  .book-page--rhetoric,
+  .book-page--ethics {
+    position: relative;
+    border-top: 1px solid var(--src-accent);
+    border-bottom: 1px solid var(--src-accent);
+  }
+  .book-page--poetics::before,
+  .book-page--rhetoric::before,
+  .book-page--ethics::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -3px;
+    height: 1px;
+    background: var(--src-accent);
+  }
+  .book-page--poetics::after,
+  .book-page--rhetoric::after,
+  .book-page--ethics::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -3px;
+    height: 1px;
+    background: var(--src-accent);
+  }
+  .book-page--rhetoric::before {
+    display: none;
+  } /* single top line only */
+  .book-page--ethics::after {
+    display: none;
+  } /* single bottom line only */
+  body.dark-mode .book-page--poetics,
+  body.dark-mode .book-page--rhetoric,
+  body.dark-mode .book-page--ethics {
+    border-top: 1px solid var(--src-accent);
+    border-bottom: 1px solid var(--src-accent);
+  }
+}
+.book-page--modern {
+  border: 1px solid var(--color-ink, #2a2a2a);
+  border-left-width: 4px;
+  border-style: solid;
+}
+
+.perseus-link {
+  font-family: "Courier Prime", "Courier New", monospace;
+  font-size: 0.68rem;
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+  margin-left: 0.6em;
+  opacity: 0.6;
+}
+
+.perseus-link:hover {
+  opacity: 1;
+}
+
+/* ── Section 3: always-visible chapter number on citations ──
+   Sits outside .book-meta-ref so it shows even when the
+   #toggle-ci citation toggle is off (sass.css sets
+   .book-meta-ref { display: none } by default). Matches
+   .book-meta-author's opacity for visual consistency. */
+.book-meta-chapter {
+  display: inline;
+  opacity: 0.65;
+}
+
+/* ── Tighten top gap before blockquotes ── */
+.book-page {
+  margin-top: 0.75rem;
 }
 
 .blockquote {
@@ -1123,6 +1288,25 @@ body.dark-mode .datebook-note::before {
   opacity: 1;
 }
 
+/* ── Epigraph modal commentary slot: quiet, separated from the quote ── */
+.epigraph-commentary {
+  margin-top: 0.9rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+  font-size: 0.82em;
+  line-height: 1.5;
+  opacity: 0.8;
+}
+
+.epigraph-commentary .commentary-tk {
+  font-style: italic;
+  opacity: 0.6;
+}
+
+body.dark-mode .epigraph-commentary {
+  border-top-color: rgba(255, 255, 255, 0.15);
+}
+
 .fade-toggle {
   position: relative;
   display: inline-block;
@@ -1249,7 +1433,7 @@ body.dark-mode .datebook-note::before {
   transform: translate(-50%, -50%);
   color: #f00;
   text-align: center;
-  font-size: 2.5em;
+  font-size: 6em;
   font-weight: normal;
   z-index: 1;
   pointer-events: none;
@@ -1257,7 +1441,7 @@ body.dark-mode .datebook-note::before {
 
 @media (max-width: 768px) {
   .hero-image-text {
-    font-size: 10cqw;
+    font-size: 20cqw;
   }
 }
 .hint-text {
@@ -1274,6 +1458,17 @@ body.dark-mode .datebook-note::before {
 details[open] > summary .hint-text {
   opacity: 0;
   pointer-events: none;
+}
+
+/* ── Section 3: tap-to-expand / tap-to-collapse hint text ──
+   Two spans, toggled purely by the native details-element's
+   open attribute. No JS required. */
+details:not([open]) > summary .hint-collapse {
+  display: none;
+}
+
+details[open] > summary .hint-expand {
+  display: none;
 }
 
 .hover-reveal::after {
@@ -1693,54 +1888,44 @@ ol.depth-3 > li::before {
   margin: 0 0 1.25rem;
 }
 
-.map-svg-wrap {
-  width: 100%;
-  overflow: visible;
+.docmap {
+  font-family: "EB Garamond", serif;
+  font-size: 1rem;
+  line-height: 1.35;
 }
-.map-svg-wrap svg {
-  width: 100%;
-  height: auto;
-  display: block;
+.docmap ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
-
-[id^=mapnode-] {
-  opacity: 0;
-  transition: opacity 0.5s ease, filter 0.5s ease;
-  pointer-events: none;
+.docmap ol ol {
+  margin: 0.15rem 0 0.35rem 0.55rem;
+  padding-left: 0.9rem;
+  border-left: 1px solid var(--color-border, #ccc);
 }
-[id^=mapnode-].lit {
-  opacity: 1;
-  pointer-events: auto;
+.docmap li {
+  margin: 0.2rem 0;
 }
-
-#mapnode-root {
-  opacity: 1;
-  pointer-events: auto;
+.docmap a {
+  color: var(--color-muted, #999);
+  border-bottom: 0;
+  transition: color 0.3s ease;
 }
-
-.map-node-circle {
-  fill: none;
-  stroke: var(--color-text, #111);
-  stroke-width: 1.5;
-  transition: fill 0.3s ease;
+.docmap a:hover, .docmap a:focus-visible {
+  color: var(--color-text, #111);
+  border-bottom: 0.5px solid;
 }
-[id^=mapnode-].lit .map-node-circle {
-  fill: var(--color-accent, #e8c84a);
+.docmap li.lit > a {
+  color: var(--color-text, #111);
 }
-
-.map-node-label {
+.docmap .docmap-num {
   font-family: "Courier Prime", "Courier New", monospace;
-  font-size: 9px;
-  fill: var(--color-text, #111);
-  dominant-baseline: middle;
-  text-anchor: middle;
+  font-size: 0.8em;
+  letter-spacing: 0.02em;
+  margin-right: 0.15em;
 }
-
-.map-edge {
-  stroke: var(--color-text, #111);
-  stroke-width: 1;
-  stroke-dasharray: 3 3;
-  opacity: 0.35;
+.docmap > ol > li > a {
+  font-weight: 600;
 }
 
 .map-legend {
@@ -1754,34 +1939,35 @@ ol.depth-3 > li::before {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
 }
-.map-legend .map-legend-dot {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  border: 1.5px solid var(--color-text, #111);
-  background: var(--color-accent, #e8c84a);
-  margin-right: 0.35em;
-  vertical-align: middle;
+.map-legend .docmap-key {
+  margin-right: 0.8em;
+}
+.map-legend .docmap-key--lit {
+  color: var(--color-text, #111);
 }
 
-body.dark #map-modal .modal-box {
+body.dark-mode #map-modal .modal-box {
   background: var(--color-bg-dark, #111);
   border-color: var(--color-border-dark, #333);
 }
-body.dark .map-node-circle {
-  stroke: var(--color-text-dark, #eee);
+body.dark-mode .docmap a {
+  color: var(--color-muted-dark, #777);
 }
-body.dark .map-node-label {
-  fill: var(--color-text-dark, #eee);
+body.dark-mode .docmap a:hover, body.dark-mode .docmap a:focus-visible,
+body.dark-mode .docmap li.lit > a {
+  color: var(--color-text-dark, #eee);
 }
-body.dark .map-edge {
-  stroke: var(--color-text-dark, #eee);
-}
-body.dark .map-legend {
-  color: var(--color-muted-dark, #666);
+body.dark-mode .docmap ol ol {
   border-color: var(--color-border-dark, #333);
+}
+body.dark-mode .map-legend {
+  color: var(--color-muted-dark, #777);
+  border-color: var(--color-border-dark, #333);
+}
+body.dark-mode .map-legend .docmap-key--lit {
+  color: var(--color-text-dark, #eee);
 }
 
 .magnifier-toggle input[type=checkbox] {
@@ -1818,6 +2004,11 @@ body:has(#magnify-toggle:checked) .magnifier-zone a {
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 2px;
+}
+
+.magnifier-toggle input[type=checkbox]:checked + label {
+  color: #4caf50;
+  filter: drop-shadow(0 0 2px #4caf50);
 }
 
 .marginalia-pair {
@@ -1946,6 +2137,64 @@ body:has(#magnify-toggle:checked) .magnifier-toggle label {
   flex: 0 0 16px;
 }
 
+.meta-line a:has(img.meta-icon) {
+  position: relative;
+  display: inline-block;
+  text-decoration: none !important;
+  overflow: hidden;
+}
+
+/* Fallback for browsers/contexts where the :has() rule above
+   doesn't apply — targets the link by its own class directly,
+   no relational selector required. */
+.vvip-link {
+  text-decoration: none !important;
+}
+
+.meta-line a:has(img.meta-icon) img.meta-icon {
+  display: block !important;
+  width: 16px !important;
+  height: 16px !important;
+  max-width: 16px !important;
+  max-height: 16px !important;
+  object-fit: contain !important;
+  transition: filter 0.2s ease;
+}
+
+/* ── Dark mode: invert the vvip logo so it stays visible ── */
+body.dark-mode img.meta-icon {
+  filter: invert(1);
+}
+
+.meta-line a:has(img.meta-icon)::after {
+  content: "";
+  position: absolute;
+  top: -30%;
+  left: -80%;
+  width: 45%;
+  height: 160%;
+  background: linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.05) 35%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0.05) 65%, transparent 100%);
+  transform: skewX(-12deg);
+  animation: vvip-sheen 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes vvip-sheen {
+  0%, 65% {
+    left: -80%;
+  }
+  85% {
+    left: 140%;
+  }
+  100% {
+    left: 140%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .meta-line a:has(img.meta-icon)::after {
+    animation: none;
+  }
+}
 .menu-header {
   position: fixed;
   top: 0rem;
@@ -2422,6 +2671,17 @@ body.dark-mode #toggleMode {
   font-size: 1.3rem;
 }
 
+/* ── Tracker: map + stats icons hidden until tracker-toggle is on ── */
+#tracker-map-label,
+#tracker-stats-label {
+  display: none;
+}
+
+body:has(#tracker-toggle:checked) #tracker-map-label,
+body:has(#tracker-toggle:checked) #tracker-stats-label {
+  display: inline;
+}
+
 .modal {
   display: none;
 }
@@ -2487,6 +2747,44 @@ body.dark-mode #toggleMode {
 
 .modal-box .epigraph-body {
   margin: 0;
+}
+
+/* ── Stats modal show rule ── */
+#stats-modal {
+  display: none;
+}
+
+#stats-modal-toggle:checked ~ #stats-modal {
+  display: flex;
+}
+
+/* ── Info / Abstract / Nietzsche modal show rules ──
+   Same fix as map/stats above: these three modals use the same
+   checkbox-sibling pattern but had no matching display rule in
+   this file, so absent an equivalent rule in sass.css they were
+   rendering inline (open) instead of as hidden overlays. ── */
+#info-modal {
+  display: none;
+}
+
+#info-modal-toggle:checked ~ #info-modal {
+  display: flex;
+}
+
+#abstract-modal {
+  display: none;
+}
+
+#abstract-toggle:checked ~ #abstract-modal {
+  display: flex;
+}
+
+#modal-nietzsche-box {
+  display: none;
+}
+
+#modal-nietzsche:checked ~ #modal-nietzsche-box {
+  display: flex;
 }
 
 .microlibrary {
@@ -2693,6 +2991,29 @@ body.dark-mode .police-report {
 }
 .quote-toggle p {
   margin: 0.5em 0;
+}
+
+body:has(#tracker-toggle:checked) label[for=tracker-toggle] {
+  text-shadow: 0 0 10px rgb(120, 200, 255), 0 0 20px rgb(0, 150, 255), 0 0 30px rgb(0, 150, 255);
+  filter: brightness(1.4);
+}
+
+body:has(#map-unlocked:checked) #tracker-map-label {
+  display: inline;
+}
+
+body:has(#map-unlocked:not(:checked)) #tracker-map-label {
+  display: none;
+}
+
+#survey {
+  margin-top: 1rem;
+}
+#survey #survey-readout {
+  font-family: "Courier Prime", "Courier New", monospace;
+  font-size: 0.8em;
+  line-height: 1.6;
+  opacity: 0.75;
 }
 
 .redact-toggle:not(:checked) + a {
@@ -3084,6 +3405,291 @@ video[poster] {
 
 .welcome-hidden {
   display: none;
+}
+
+/* ── Stats modal content ── */
+#stats-modal .modal-box {
+  min-width: min(340px, 88vw);
+}
+
+.stats-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Courier Prime", "Courier New", monospace;
+  font-size: 0.85rem;
+  margin-top: 0.75rem;
+}
+
+.stats-table td {
+  padding: 0.4rem 0.5rem;
+  border-bottom: 1px solid var(--color-border, #eee);
+  vertical-align: top;
+}
+
+.stats-table td:first-child {
+  color: var(--color-muted, #999);
+  white-space: nowrap;
+  padding-right: 1rem;
+}
+
+.stats-table td:last-child {
+  font-weight: 700;
+}
+
+.stats-score-bar {
+  height: 4px;
+  background: var(--color-border, #eee);
+  border-radius: 2px;
+  margin-top: 0.25rem;
+  overflow: hidden;
+}
+
+.stats-score-bar-fill {
+  height: 100%;
+  background: var(--color-accent, #e8c84a);
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
+/* ── Section 3 is locked permanently open: the mainline essay body
+   shouldn't be collapsible. Kept as a <details open> (rather than a
+   plain div) so any map.js logic keyed off details[open] still sees
+   it as open; the summary is just de-clicked via pointer-events. ── */
+summary.summary-locked-open {
+  pointer-events: none;
+  cursor: default;
+}
+
+/* ── Section 3: suppress auto-numbering on the 3a/3b/3c sublist ──
+   The list items are manually labeled (3a., 3b., 3c.) in their
+   own summary text, so the browser's decimal counter would be
+   redundant/stacking (e.g. "1. 3a. ..."). Body text will sit
+   between these sections eventually; they're asides off the
+   main essay flow, not a strict numbered sequence — the "3a."
+   labels are provisional markers, not list numbering. */
+.essay-sublist {
+  list-style: none;
+}
+
+/* ── Section 3a: numbered index of chapter walkthroughs ──
+   Unlike the 3a/3b/3c aside-list above, this inner list (Ch. 9,
+   Ch. 11, Ch. 13, The Tragic Mechanism) IS a sequential walk
+   through the Poetics, so it gets real numbering. The Ch. 13
+   sub-list (decent/wicked-success/etc.) stays unnumbered — it
+   inherits plain .essay-sublist since those four aren't a
+   sequence either, just parallel eliminated candidates. */
+.essay-sublist--numbered {
+  list-style: none;
+  counter-reset: essay-num;
+  padding-left: 2.6rem;
+}
+
+.essay-sublist--numbered > li {
+  counter-increment: essay-num;
+  position: relative;
+  padding-left: 0.3rem;
+}
+
+/* Subtle oldstyle-figure touch on the sub-numbering markers:
+   EB Garamond's text figures (onum) have the varied baseline —
+   some numerals dipping below it — that gives numerals like
+   "3" and "9" their small "boot" descender, softer and more
+   bookish than lining figures. Sized and muted down slightly
+   since this is a sub-numbering, not a top-level index.
+   Uses ::before + counter rather than ::marker — ::marker's
+   support for font-family/font-feature-settings is inconsistent
+   across browsers (notably Safari), so it was silently falling
+   back to the UA default marker. ::before is reliable. */
+.essay-sublist--numbered > li::before {
+  content: counter(essay-num) ".";
+  position: absolute;
+  left: -1.8rem;
+  font-family: "EB Garamond", serif;
+  font-style: italic;
+  font-variant-numeric: oldstyle-nums;
+  font-feature-settings: "onum" 1;
+  font-size: 0.85em;
+  opacity: 0.6;
+}
+
+/* ── Section 3a, Ch. 13 sub-list: the four eliminated arcs ──
+   Nested one level deeper than the Ch. 9/11/13/14 index above —
+   a "sub-sub" numbering — so it's marked distinctly: monospace
+   parenthesized figures rather than italic oldstyle periods,
+   smaller and quieter than the parent list's markers. */
+.essay-sublist--numbered-sub {
+  counter-reset: essay-subnum;
+  padding-left: 1.5rem;
+}
+
+.essay-sublist--numbered-sub > li {
+  counter-increment: essay-subnum;
+  position: relative;
+}
+
+.essay-sublist--numbered-sub > li::before {
+  content: counter(essay-subnum) ")";
+  position: absolute;
+  left: -1.5rem;
+  font-family: "Courier Prime", "Courier New", monospace;
+  font-size: 0.72rem;
+  opacity: 0.5;
+}
+
+/* ── Section 3: structural subheads inside 3a ── */
+.essay-subhead {
+  letter-spacing: 0.02em;
+  margin-top: 2rem;
+}
+
+br + .essay-subhead {
+  margin-top: 0;
+}
+
+.essay-step {
+  margin-top: 1.4rem;
+  margin-left: 1.5rem;
+}
+
+.essay-step-sub {
+  margin-left: 1rem;
+  font-style: italic;
+}
+
+.essay-aside {
+  font-style: italic;
+  opacity: 0.85;
+  margin-left: 1rem;
+}
+
+/* ── Mobile: let indented content fill the frame ──
+   On a narrow viewport, stacking margin-left on .essay-step,
+   .essay-step-sub, .essay-aside, and the two numbered sub-lists
+   eats a big share of an already-narrow column. Below 600px,
+   swap the margin-based indent for a thin left border + small
+   padding, so nesting still reads at a glance without shrinking
+   the line length. This only covers the classes defined in this
+   file's own <style> block — if .book-page or the 3a/3b/3c
+   details/ol nesting also carry left padding from sass.css
+   itself, that needs the equivalent treatment there; that
+   source isn't part of this upload so I can't check/edit it
+   from here. */
+@media (max-width: 600px) {
+  .essay-step {
+    margin-left: 0;
+    padding-left: 0.75rem;
+    border-left: 2px solid var(--color-border, #ddd);
+  }
+  .essay-step-sub {
+    margin-left: 0;
+    padding-left: 0.6rem;
+  }
+  .essay-aside {
+    margin-left: 0;
+    padding-left: 0.6rem;
+    border-left: 2px solid var(--color-border, #ddd);
+  }
+  .essay-sublist--numbered {
+    padding-left: 1.4rem;
+  }
+  .essay-sublist--numbered > li::before {
+    left: -1.1rem;
+  }
+  .essay-sublist--numbered-sub {
+    padding-left: 1rem;
+  }
+  .essay-sublist--numbered-sub > li::before {
+    left: -1rem;
+  }
+}
+details.fold {
+  margin: 0.9rem 0;
+}
+details.fold > summary {
+  cursor: pointer;
+  font-size: 0.9em;
+  font-style: italic;
+  opacity: 0.75;
+  transition: opacity 0.2s ease;
+}
+details.fold > summary:hover {
+  opacity: 1;
+}
+details.fold > .fold-body {
+  margin-top: 0.5rem;
+  padding-left: 0.9rem;
+  border-left: 1px solid var(--color-border, #ddd);
+}
+
+details.fold--note > .fold-body {
+  font-size: 0.92em;
+}
+
+@media (max-width: 600px) {
+  details.fold > .fold-body {
+    padding-left: 0.6rem;
+  }
+}
+#epigram-book-toggle {
+  display: none;
+}
+
+#epigram-book {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+}
+#epigram-book-toggle:checked ~ #epigram-book {
+  display: flex;
+}
+#epigram-book .modal-overlay {
+  display: block;
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  cursor: pointer;
+}
+#epigram-book .modal-box {
+  position: relative;
+  z-index: 201;
+  margin: auto;
+  max-width: min(36rem, 92vw);
+  max-height: 88vh;
+  overflow-y: auto;
+}
+#epigram-book h2 {
+  font-size: 1em;
+  font-weight: normal;
+  font-style: italic;
+  margin: 0 0 1rem;
+}
+
+.epigram-book-list {
+  margin: 0;
+  padding-left: 1.4rem;
+}
+.epigram-book-list a,
+.epigram-book-list label {
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+}
+
+.epigram-book-entry {
+  margin: 0.4rem 0;
+}
+.epigram-book-entry:has(> .epi-have:not(:checked)) {
+  display: none;
+}
+
+#epigram-book-label {
+  display: none;
+}
+
+body:has(.epi-have:checked) #epigram-book-label {
+  display: inline;
 }
 
 body {

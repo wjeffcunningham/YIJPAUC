@@ -41,56 +41,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // --- 3. RESTORE CHECKBOX STATE ---
-const persistIds = ['toggle-pa', 'toggle-ci', 'toggle-ch', 'toggle-x', 'audio-toggle', 'magnify-toggle'];
-
-persistIds.forEach(id => {
-  const el = document.getElementById(id);
-  const saved = localStorage.getItem(id);
-  if (el && saved !== null) el.checked = saved === 'true';
-
-  if (el) {
-    el.addEventListener('change', () => {
-      localStorage.setItem(id, el.checked);
-    });
-  }
-});
-
-  // --- 4. SCORE + CHIME LOGIC ---
-  const totalLinks = 101;
-  const storageKey = 'visitedLinks';
-  const scoreElement = document.getElementById('score');
-  const musicToggle = document.getElementById('music-toggle');
-  const chime = document.getElementById('score-chime');
-
-  const visited = JSON.parse(localStorage.getItem(storageKey)) || [];
-  const previousCount = parseInt(scoreElement?.textContent) || 0;
-  const newCount = visited.length;
-
-  if (scoreElement) {
-    scoreElement.textContent = `${newCount}/${totalLinks}`;
-  }
-
-  if (newCount > previousCount && window.audioReady && chime) {
-    scoreElement.classList.add('pulse');
-    setTimeout(() => scoreElement.classList.remove('pulse'), 600);
-    chime.currentTime = 0;
-    chime.play().catch(() => {});
-  }
-
-  document.querySelectorAll('.track-link').forEach(link => {
-    link.addEventListener('click', function (event) {
-      event.preventDefault();
-      const id = link.dataset.id;
-
-      if (!visited.includes(id)) {
-        visited.push(id);
-        localStorage.setItem(storageKey, JSON.stringify(visited));
-      }
-
-      setTimeout(() => {
-        window.location.href = link.href;
-      }, 50);
-    });
-  });
+  // --- 3, 4 retired 2026-10-30 ---
+  // Checkbox persistence lives in the inline script in index.html (it also
+  // covers tracker-toggle). Link/room scoring moved to map.js, which records
+  // only while the radar is on and no longer delays link clicks.
 });
