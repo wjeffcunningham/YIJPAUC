@@ -4143,6 +4143,7 @@ Spielberg describes procuring a realistic scream from his female lead by droppin
 
 	<!-- Background Audio Tracks -->
 <audio id="bg-audio" muted>
+  <source src="../full/mp3s/02.mp3" type="audio/mpeg">
   <source src="../full/mp3s/02.wav" type="audio/wav">
 </audio>
 
@@ -4165,7 +4166,10 @@ Spielberg describes procuring a realistic scream from his female lead by droppin
   Your browser does not support the audio element.
 </audio>
 
-<audio id="score-chime" src="../full/mp3s/chime.wav" preload="auto"></audio>
+<audio id="score-chime" preload="auto">
+  <source src="../full/mp3s/chime.mp3" type="audio/mpeg">
+  <source src="../full/mp3s/chime.wav" type="audio/wav">
+</audio>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
@@ -4260,20 +4264,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // === 6. AMBIENT AUDIO LOGIC ===
   function playAmbient() {
-    const score = getVisited().length;
-
-    if (score >= 20 && ambientAlt) {
-      ambientDefault.pause();
-      ambientDefault.muted = true;
-
+    // 03.wav (the 20+ variant) may be missing: fall back to the default.
+    const playDefault = () => {
+      ambientAlt?.pause(); if (ambientAlt) ambientAlt.muted = true;
+      ambientDefault.muted = false; ambientDefault.play().catch(() => {});
+    };
+    if (getVisited().length >= 20 && ambientAlt) {
+      ambientDefault.pause(); ambientDefault.muted = true;
       ambientAlt.muted = false;
-      ambientAlt.play().catch(() => {});
+      ambientAlt.play().catch(playDefault);
     } else {
-      ambientAlt?.pause();
-      ambientAlt.muted = true;
-
-      ambientDefault.muted = false;
-      ambientDefault.play().catch(() => {});
+      playDefault();
     }
   }
 
@@ -4288,8 +4289,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
+    // Remembered "on": browsers block sound before the first click/tap,
+    // so start it on the reader's first interaction instead.
     if (audioToggle.checked) {
-      playAmbient();
+      const start = () => { if (audioToggle.checked) playAmbient(); };
+      document.addEventListener('pointerdown', start, { once: true });
+      document.addEventListener('keydown', start, { once: true });
     }
   }
 

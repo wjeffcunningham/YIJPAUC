@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     link.addEventListener('click', function (event) {
       event.preventDefault();
       const id = link.dataset.id;
+      let delay = 50;
 
       if (!visited.includes(id)) {
         visited.push(id);
@@ -26,19 +27,22 @@ document.addEventListener('DOMContentLoaded', () => {
         updateScore();
 
         // 🔔 Pulse animation
-        scoreElement.classList.add('pulse');
-        setTimeout(() => scoreElement.classList.remove('pulse'), 500);
+        if (scoreElement) {
+          scoreElement.classList.add('pulse');
+          setTimeout(() => scoreElement.classList.remove('pulse'), 500);
+        }
 
         // 🔊 Play sound if enabled
         if (audioToggle?.checked && chime) {
           chime.currentTime = 0;
-          chime.play();
+          chime.play().catch(() => {});
+          delay = 450; // let the chime be heard before leaving the page
         }
       }
 
       setTimeout(() => {
         window.location.href = link.href;
-      }, 50);
+      }, delay);
     });
   });
 });

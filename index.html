@@ -1224,17 +1224,18 @@ It is surely necessary that actions of this sort be in the relation of friends t
      ============================================================ -->
 
 <audio id="bg-audio" muted>
+  <source src="full/mp3s/02.mp3" type="audio/mpeg">
   <source src="full/mp3s/02.wav" type="audio/wav">
 </audio>
 <audio id="bg-audio-unlock20" muted>
   <source src="full/mp3s/03.wav" type="audio/wav">
 </audio>
 <audio id="bg-music" loop muted>
-  <source src="full/mp3s/25.11.20.114.mp3" type="audio/mpeg">
+  <source src="full/mp3s/26.06.24.97.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio>
 <audio id="bg-music-unlock5" loop muted>
-  <source src="full/mp3s/26.04.05.123.mp3" type="audio/mpeg">
+  <source src="full/mp3s/25.11.20.114.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio>
 <audio id="bg-music-unlock10" loop muted>
@@ -1296,13 +1297,17 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function playAmbient() {
-    const score = getVisited().length;
-    if (score >= 20 && ambientAlt) {
-      ambientDefault.pause(); ambientDefault.muted = true;
-      ambientAlt.muted = false; ambientAlt.play().catch(() => {});
-    } else {
-      ambientAlt?.pause(); ambientAlt.muted = true;
+    // 03.wav (the 20+ variant) may be missing: fall back to the default.
+    const playDefault = () => {
+      ambientAlt?.pause(); if (ambientAlt) ambientAlt.muted = true;
       ambientDefault.muted = false; ambientDefault.play().catch(() => {});
+    };
+    if (getVisited().length >= 20 && ambientAlt) {
+      ambientDefault.pause(); ambientDefault.muted = true;
+      ambientAlt.muted = false;
+      ambientAlt.play().catch(playDefault);
+    } else {
+      playDefault();
     }
   }
 
@@ -1312,7 +1317,13 @@ document.addEventListener('DOMContentLoaded', () => {
       if (audioToggle.checked) { playAmbient(); }
       else { ambientDefault?.pause(); ambientAlt?.pause(); }
     });
-    if (audioToggle.checked) { playAmbient(); }
+    // Remembered "on": browsers block sound before the first click/tap,
+    // so start it on the reader's first interaction instead.
+    if (audioToggle.checked) {
+      const start = () => { if (audioToggle.checked) playAmbient(); };
+      document.addEventListener('pointerdown', start, { once: true });
+      document.addEventListener('keydown', start, { once: true });
+    }
   }
 
   const musicButton = document.getElementById('music-toggle');
