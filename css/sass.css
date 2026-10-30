@@ -1444,6 +1444,14 @@ body.dark-mode .epigraph-commentary {
     font-size: 20cqw;
   }
 }
+#hero-media::-webkit-media-controls,
+#hero-media::-webkit-media-controls-panel,
+#hero-media::-webkit-media-controls-overlay-play-button,
+#hero-media::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
 .hint-text {
   font-size: 0.85em;
   font-style: italic;

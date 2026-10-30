@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <title>YIJPAUC?</title>
   <link rel="icon" href="./favicon-v2.ico">
-  <link rel="stylesheet" type="text/css" href="./css/sass.css?v=26.10.30">
+  <link rel="stylesheet" type="text/css" href="./css/sass.css?v=26.10.30b">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
@@ -233,7 +233,7 @@
      ============================================================ -->
 
 <div id="hero-image-container">
-  <video autoplay muted playsinline loop id="hero-media" class="hero-media">
+  <video autoplay muted playsinline loop id="hero-media" class="hero-media" poster="./full/gifs/landingdemo-poster.jpg">
     <source src="./full/gifs/landingdemo.mp4" type="video/mp4">
     <img src="./full/gifs/landingdemo.gif" alt="Landing animation">
   </video>
@@ -1327,6 +1327,28 @@ document.addEventListener('DOMContentLoaded', () => {
       document.addEventListener('pointerdown', start, { once: true });
       document.addEventListener('keydown', start, { once: true });
     }
+  }
+
+  // Hero clip: the video autoplays everywhere it's allowed. Where it isn't
+  // (iOS Low Power Mode, data-saver modes), swap in the animated GIF, which
+  // still animates there. Safari's own play button is hidden in
+  // _hero_image.scss, and the poster frame covers the moment before the swap.
+  const hero = document.getElementById('hero-media');
+  if (hero && hero.tagName === 'VIDEO') {
+    let swapped = false;
+    const swapToGif = () => {
+      if (swapped || !hero.paused) return;
+      swapped = true;
+      const gif = document.createElement('img');
+      gif.src = './full/gifs/landingdemo.gif';
+      gif.alt = 'Landing animation';
+      gif.id = 'hero-media';
+      gif.className = 'hero-media';
+      hero.replaceWith(gif);
+    };
+    const tryPlay = hero.play();
+    if (tryPlay) tryPlay.catch(swapToGif);   // autoplay refused outright
+    setTimeout(swapToGif, 2500);              // or silently never started
   }
 
   const musicButton = document.getElementById('music-toggle');

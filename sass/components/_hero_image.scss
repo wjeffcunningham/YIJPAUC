@@ -39,3 +39,14 @@
     font-size: 20cqw;
   }
 }
+
+// iOS Low Power Mode blocks autoplay and overlays Safari's native
+// play button on the hero clip. Hide it: the poster frame shows instead,
+// and the first tap starts the clip (see index.html).
+#hero-media::-webkit-media-controls,
+#hero-media::-webkit-media-controls-panel,
+#hero-media::-webkit-media-controls-overlay-play-button,
+#hero-media::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
