@@ -1,12 +1,10 @@
 // components/_map.scss
-// Map modal — yIJPAUC document exploration map
-// Drop into scss/components/ and @use in main.scss
-
-// ── Toggle input (hidden, checkbox-driven like other modals) ────────────────
+// Document map modal. Restyled 2026-10-30 to match the Epigram Book and
+// the essay itself: EB Garamond throughout (no Courier), italic heading,
+// oldstyle italic numerals like the chapter index, and opacity rather
+// than fixed greys, so dark mode follows on its own.
 
 #map-modal-toggle { display: none; }
-
-// ── Modal overlay + box (mirrors existing .modal pattern) ──────────────────
 
 #map-modal {
   display: none;
@@ -17,55 +15,36 @@
   #map-modal-toggle:checked ~ & { display: flex; }
 
   .modal-overlay {
+    display: block;
     position: absolute;
     inset: 0;
     background: rgba(0, 0, 0, 0.55);
     cursor: pointer;
   }
 
+  // box itself comes from the shared .modal-box (thin rules top and bottom)
   .modal-box {
     position: relative;
     z-index: 201;
     margin: auto;
-    background: var(--color-bg, #fff);
-    border: 1px solid var(--color-border, #ccc);
-    padding: 1.5rem 1.5rem 1rem;
-    max-width: min(680px, 92vw);
-    width: 100%;
+    max-width: min(36rem, 92vw);
     max-height: 88vh;
     overflow-y: auto;
-    border-radius: 2px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-  }
-
-  .modal-close {
-    position: absolute;
-    top: 0.6rem;
-    right: 0.9rem;
-    cursor: pointer;
-    font-size: 1.1rem;
-    color: var(--color-muted, #999);
-    user-select: none;
-
-    &:hover { color: var(--color-text, #000); }
   }
 
   h2 {
-    font-size: 0.75rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--color-muted, #999);
-    margin: 0 0 1.25rem;
+    font-size: 1em;
+    font-weight: normal;
+    font-style: italic;
+    margin: 0 0 1rem;
   }
 }
 
-// ── Document map: plain outline (replaces the SVG node map, 2026-10-24) ──
-// Each <li id="mapnode-{id}"> gets .lit from map.js once its section is opened.
+// ── The outline ─────────────────────────────────────────────────────────────
+// Each <li id="mapnode-{id}"> gets .lit from map.js once its room is opened.
 
 .docmap {
-  font-family: 'EB Garamond', serif;
-  font-size: 1rem;
-  line-height: 1.35;
+  line-height: 1.5;
 
   ol {
     list-style: none;
@@ -73,78 +52,47 @@
     padding: 0;
   }
 
-  // nested levels hang off a thin rule, like an indented contents page
-  ol ol {
-    margin: 0.15rem 0 0.35rem 0.55rem;
-    padding-left: 0.9rem;
-    border-left: 1px solid var(--color-border, #ccc);
-  }
+  // nested levels indent like a contents page; no rules
+  ol ol { margin: 0.1rem 0 0.3rem 1.4rem; }
 
-  li { margin: 0.2rem 0; }
+  li { margin: 0.15rem 0; }
 
   a {
-    color: var(--color-muted, #999);
-    border-bottom: 0;              // site-wide links carry a hairline; not here
-    transition: color 0.3s ease;
+    color: inherit;
+    opacity: 0.45;                 // not yet opened
+    border-bottom: 0;
+    transition: opacity 0.3s ease;
 
     &:hover,
     &:focus-visible {
-      color: var(--color-text, #111);
-      border-bottom: 0.5px solid;
+      opacity: 1;
+      border-bottom: 1px dotted currentColor;
     }
   }
 
-  // opened sections read in full ink
-  li.lit > a { color: var(--color-text, #111); }
+  li.lit > a { opacity: 1; }       // opened rooms read in full ink
 
+  // section numbers: italic oldstyle figures, as in the chapter index
   .docmap-num {
-    font-family: 'Courier Prime', 'Courier New', monospace;
-    font-size: 0.8em;
-    letter-spacing: 0.02em;
-    margin-right: 0.15em;
+    font-style: italic;
+    font-variant-numeric: oldstyle-nums;
+    font-feature-settings: "onum" 1;
+    margin-right: 0.3em;
   }
-
-  // top level reads a touch heavier
-  > ol > li > a { font-weight: 600; }
 }
 
-// ── Legend + count at bottom of modal ───────────────────────────────────────
+// ── Legend + room count ─────────────────────────────────────────────────────
 
 .map-legend {
-  margin-top: 1rem;
-  font-size: 0.72rem;
-  color: var(--color-muted, #999);
-  font-family: 'Courier Prime', monospace;
-  letter-spacing: 0.04em;
-  border-top: 1px solid var(--color-border, #eee);
-  padding-top: 0.6rem;
+  margin-top: 1.25rem;
+  font-size: 0.8em;
+  font-style: italic;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
   gap: 1rem;
+  opacity: 0.7;
 
-  .docmap-key { margin-right: 0.8em; }
-  .docmap-key--lit { color: var(--color-text, #111); }
-}
-
-// ── Dark mode ───────────────────────────────────────────────────────────────
-
-body.dark-mode {
-  #map-modal .modal-box {
-    background: var(--color-bg-dark, #111);
-    border-color: var(--color-border-dark, #333);
-  }
-
-  .docmap {
-    a { color: var(--color-muted-dark, #777); }
-    a:hover, a:focus-visible,
-    li.lit > a { color: var(--color-text-dark, #eee); }
-    ol ol { border-color: var(--color-border-dark, #333); }
-  }
-
-  .map-legend {
-    color: var(--color-muted-dark, #777);
-    border-color: var(--color-border-dark, #333);
-    .docmap-key--lit { color: var(--color-text-dark, #eee); }
-  }
+  .docmap-key { margin-right: 0.8em; opacity: 0.6; }
+  .docmap-key--lit { opacity: 1; }
 }

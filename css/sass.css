@@ -1857,6 +1857,7 @@ ol.depth-3 > li::before {
   display: flex;
 }
 #map-modal .modal-overlay {
+  display: block;
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.55);
@@ -1866,40 +1867,19 @@ ol.depth-3 > li::before {
   position: relative;
   z-index: 201;
   margin: auto;
-  background: var(--color-bg, #fff);
-  border: 1px solid var(--color-border, #ccc);
-  padding: 1.5rem 1.5rem 1rem;
-  max-width: min(680px, 92vw);
-  width: 100%;
+  max-width: min(36rem, 92vw);
   max-height: 88vh;
   overflow-y: auto;
-  border-radius: 2px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
-}
-#map-modal .modal-close {
-  position: absolute;
-  top: 0.6rem;
-  right: 0.9rem;
-  cursor: pointer;
-  font-size: 1.1rem;
-  color: var(--color-muted, #999);
-  user-select: none;
-}
-#map-modal .modal-close:hover {
-  color: var(--color-text, #000);
 }
 #map-modal h2 {
-  font-size: 0.75rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-muted, #999);
-  margin: 0 0 1.25rem;
+  font-size: 1em;
+  font-weight: normal;
+  font-style: italic;
+  margin: 0 0 1rem;
 }
 
 .docmap {
-  font-family: "EB Garamond", serif;
-  font-size: 1rem;
-  line-height: 1.35;
+  line-height: 1.5;
 }
 .docmap ol {
   list-style: none;
@@ -1907,75 +1887,47 @@ ol.depth-3 > li::before {
   padding: 0;
 }
 .docmap ol ol {
-  margin: 0.15rem 0 0.35rem 0.55rem;
-  padding-left: 0.9rem;
-  border-left: 1px solid var(--color-border, #ccc);
+  margin: 0.1rem 0 0.3rem 1.4rem;
 }
 .docmap li {
-  margin: 0.2rem 0;
+  margin: 0.15rem 0;
 }
 .docmap a {
-  color: var(--color-muted, #999);
+  color: inherit;
+  opacity: 0.45;
   border-bottom: 0;
-  transition: color 0.3s ease;
+  transition: opacity 0.3s ease;
 }
 .docmap a:hover, .docmap a:focus-visible {
-  color: var(--color-text, #111);
-  border-bottom: 0.5px solid;
+  opacity: 1;
+  border-bottom: 1px dotted currentColor;
 }
 .docmap li.lit > a {
-  color: var(--color-text, #111);
+  opacity: 1;
 }
 .docmap .docmap-num {
-  font-family: "Courier Prime", "Courier New", monospace;
-  font-size: 0.8em;
-  letter-spacing: 0.02em;
-  margin-right: 0.15em;
-}
-.docmap > ol > li > a {
-  font-weight: 600;
+  font-style: italic;
+  font-variant-numeric: oldstyle-nums;
+  font-feature-settings: "onum" 1;
+  margin-right: 0.3em;
 }
 
 .map-legend {
-  margin-top: 1rem;
-  font-size: 0.72rem;
-  color: var(--color-muted, #999);
-  font-family: "Courier Prime", monospace;
-  letter-spacing: 0.04em;
-  border-top: 1px solid var(--color-border, #eee);
-  padding-top: 0.6rem;
+  margin-top: 1.25rem;
+  font-size: 0.8em;
+  font-style: italic;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
   gap: 1rem;
+  opacity: 0.7;
 }
 .map-legend .docmap-key {
   margin-right: 0.8em;
+  opacity: 0.6;
 }
 .map-legend .docmap-key--lit {
-  color: var(--color-text, #111);
-}
-
-body.dark-mode #map-modal .modal-box {
-  background: var(--color-bg-dark, #111);
-  border-color: var(--color-border-dark, #333);
-}
-body.dark-mode .docmap a {
-  color: var(--color-muted-dark, #777);
-}
-body.dark-mode .docmap a:hover, body.dark-mode .docmap a:focus-visible,
-body.dark-mode .docmap li.lit > a {
-  color: var(--color-text-dark, #eee);
-}
-body.dark-mode .docmap ol ol {
-  border-color: var(--color-border-dark, #333);
-}
-body.dark-mode .map-legend {
-  color: var(--color-muted-dark, #777);
-  border-color: var(--color-border-dark, #333);
-}
-body.dark-mode .map-legend .docmap-key--lit {
-  color: var(--color-text-dark, #eee);
+  opacity: 1;
 }
 
 .magnifier-toggle input[type=checkbox] {
