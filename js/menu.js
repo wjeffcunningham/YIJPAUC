@@ -41,8 +41,23 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // --- 3, 4 retired 2026-10-30 ---
-  // Checkbox persistence lives in the inline script in index.html (it also
-  // covers tracker-toggle). Link/room scoring moved to map.js, which records
-  // only while the radar is on and no longer delays link clicks.
+  // --- 3. RESTORE CHECKBOX STATE ---
+  // Still needed by pages/dossier.html (index.html also does this inline).
+  const persistIds = ['toggle-pa', 'toggle-ci', 'toggle-ch', 'toggle-x', 'audio-toggle', 'magnify-toggle'];
+
+  persistIds.forEach(id => {
+    const el = document.getElementById(id);
+    const saved = localStorage.getItem(id);
+    if (el && saved !== null) el.checked = saved === 'true';
+
+    if (el) {
+      el.addEventListener('change', () => {
+        localStorage.setItem(id, el.checked);
+      });
+    }
+  });
+
+  // --- 4. retired 2026-10-30 ---
+  // Link/room scoring: index.html uses map.js (radar-gated, no link delay);
+  // pages/dossier.html still uses tracklinks.js.
 });
