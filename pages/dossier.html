@@ -46,6 +46,12 @@
     });
   })();
   </script>
+  <style>
+    #hero-media::-webkit-media-controls,
+    #hero-media::-webkit-media-controls-panel,
+    #hero-media::-webkit-media-controls-overlay-play-button,
+    #hero-media::-webkit-media-controls-start-playback-button { display: none !important; -webkit-appearance: none; }
+  </style>
 </head>
 
 <body>
@@ -4534,5 +4540,27 @@ document.addEventListener('DOMContentLoaded', function () {
     if (e.target.closest && e.target.closest('a')) setTimeout(unlock, 50);
   });
 })();
+</script>
+<script>
+// Hero clip: where autoplay is refused (iOS Low Power Mode, data-saver modes),
+// swap in the animated GIF instead of leaving Safari's play button showing.
+document.addEventListener('DOMContentLoaded', function () {
+  var hero = document.getElementById('hero-media');
+  if (!hero || hero.tagName !== 'VIDEO') return;
+  var swapped = false;
+  function swapToGif() {
+    if (swapped || !hero.paused) return;
+    swapped = true;
+    var gif = document.createElement('img');
+    gif.src = '../full/gifs/landingdemo.gif';
+    gif.alt = 'Landing animation';
+    gif.id = 'hero-media';
+    gif.className = 'hero-media';
+    hero.replaceWith(gif);
+  }
+  var tryPlay = hero.play();
+  if (tryPlay) tryPlay.catch(swapToGif);
+  setTimeout(swapToGif, 2500);
+});
 </script>
 </body>
