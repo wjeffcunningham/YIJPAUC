@@ -71,6 +71,7 @@
   // ── chime ──────────────────────────────────────────────────────────────
   var ctx = null;
   function chime(level) {
+    try { if (localStorage.getItem('radar-mute') === 'true') return; } catch (e) {}
     try {
       ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
       if (ctx.state === 'suspended') ctx.resume();

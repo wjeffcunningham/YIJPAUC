@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // 🔊 Play sound if enabled
-        if (audioToggle?.checked && chime) {
+        if (audioToggle?.checked && chime && localStorage.getItem('radar-mute') !== 'true') {
           chime.currentTime = 0;
           chime.play().catch(() => {});
           delay = 450; // let the chime be heard before leaving the page
