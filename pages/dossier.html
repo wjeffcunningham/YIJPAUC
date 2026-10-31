@@ -16,10 +16,6 @@
   <script src="../js/tracklinks.js?v=26.10.31"></script>
   <script src="../js/darkmode.js"></script>
   <style>
-    /* Radar link counter: shown beside 📡 while the radar is on */
-    label[for="tracker-toggle"] { position: relative; }
-    .radar-count { display: none; position: absolute; top: -0.4em; right: -1.4em; font-size: 0.4em; line-height: 1; font-family: 'Courier Prime', monospace; pointer-events: none; }
-    #tracker-toggle:checked ~ .widgets-row .radar-count { display: block; }
     .version-tag { font-size: 0.55em; white-space: nowrap; }
   </style>
   <style>
@@ -211,7 +207,7 @@
         <label for="audio-toggle" class="audio-icon" title="Toggle Background Audio">🔊</label>
         <button id="music-toggle" class="music-icon" title="Cycle Background Music">🎶</button>
         <!-- Radar: records links followed (this device only) while on. The count shows while the radar is on. -->
-        <label for="tracker-toggle" title="Toggle Radar">📡<span id="radar-count" class="radar-count"></span></label>
+        <label for="tracker-toggle" title="Toggle Radar">📡</label>
         <input type="checkbox" id="radar-mute" hidden><label for="radar-mute" id="radar-mute-label" class="radar-mute" title="Radar sound on">🔔</label>
         <label for="bibliography-toggle" id="bibliography-label" title="Bibliography" hidden>📜</label>
         <label for="toggle-x" class="dark-only version-tag" title="Toggle Invisibles">v1.2</label>
@@ -4462,29 +4458,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 		<script>
-// Radar link counter: the number of links followed, from the same
-// localStorage record ("visitedLinks") the music score uses.
-(function () {
-  function count() {
-    try { return JSON.parse(localStorage.getItem('visitedLinks') || '[]').length; }
-    catch (e) { return 0; }
-  }
-  function render() {
-    var el = document.getElementById('radar-count');
-    if (!el) return;
-    var n = count();
-    el.textContent = n;
-    el.title = n + (n === 1 ? ' link' : ' links') + ' followed';
-  }
-  document.addEventListener('DOMContentLoaded', render);
-  window.addEventListener('pageshow', render);
-  window.addEventListener('storage', function (e) { if (e.key === 'visitedLinks') render(); });
-  document.addEventListener('click', function (e) {
-    if (e.target.closest && e.target.closest('a')) setTimeout(render, 50);
-  });
-})();
-</script>
-<script>
 // Keep the radar's on/off state in step with the index page.
 document.addEventListener('DOMContentLoaded', function () {
   var el = document.getElementById('tracker-toggle');
