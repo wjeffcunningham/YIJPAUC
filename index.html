@@ -14,6 +14,30 @@
   <meta name="description" content="Why IJPAUC?">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="prefetch" href="./full/gifs/landingdemo.mp4" as="video" type="video/mp4">
+  <style>
+    .radar-mute { display: none; cursor: pointer; }
+    #tracker-toggle:checked ~ .widgets-row .radar-mute { display: inline-block; }
+  </style>
+  <script>
+  // Radar sound: when muted, the tracking chimes are silenced (background music is unaffected).
+  (function () {
+    var KEY = 'radar-mute';
+    function muted() { try { return localStorage.getItem(KEY) === 'true'; } catch (e) { return false; } }
+    var play = HTMLMediaElement.prototype.play;
+    HTMLMediaElement.prototype.play = function () {
+      var src = (this.currentSrc || this.src || '') + ' ' + (this.id || '');
+      if (muted() && /chime|score-chime/i.test(src)) return Promise.resolve();
+      return play.apply(this, arguments);
+    };
+    document.addEventListener('DOMContentLoaded', function () {
+      var box = document.getElementById('radar-mute'), label = document.getElementById('radar-mute-label');
+      if (!box || !label) return;
+      function sync() { label.textContent = box.checked ? '🔕' : '🔔'; label.title = box.checked ? 'Radar sound off' : 'Radar sound on'; }
+      box.checked = muted(); sync();
+      box.addEventListener('change', function () { try { localStorage.setItem(KEY, box.checked); } catch (e) {} sync(); });
+    });
+  })();
+  </script>
 </head>
 <body>
 
@@ -182,6 +206,7 @@
         <!-- Radar: records rooms opened and links followed (this device only) while on.
              The map icon appears after 5 rooms, or after the survey (#map-unlocked). -->
         <label for="tracker-toggle" title="Toggle Radar">📡</label>
+        <input type="checkbox" id="radar-mute" hidden><label for="radar-mute" id="radar-mute-label" class="radar-mute" title="Radar sound on">🔔</label>
         <label for="map-modal-toggle" id="tracker-map-label" title="Document Map">🗺️</label>
         <label for="epigram-book-toggle" id="epigram-book-label" title="Epigram Book">📖</label>
         <label for="toggle-x" class="dark-only version-tag" title="Toggle Invisibles">v1.2</label>
@@ -321,7 +346,7 @@
 
 <p>A painstaking examination of the available evidence reveals that Spielberg was deeply invested in the production and had every tendency and inclination to involve himself in the development and oversight of Landis’s script, and to deliver that feedback indirectly.</p>
 
-<p>The fatal accident depended on the inclusion of two children in Landis’s third draft as part of a dramatic Vietnamese Village rescue set piece, co-developed by Landis and Lucy Fisher, a Warner Bros. VP of Production who had recently been hired on Spielberg’s recommendation, out of the ashes of American Zoetrope (Chain). The impetus for the rescue was Fisher’s insistence that Landis’s protagonist be made more sympathetic, and ultimately that he be redeemed, in line with storytelling conventions popularized especially in recent years, with the success of Lucasfilm’s highly “archetypical” <i>Star Wars</i> and <i>Indiana Jones</i> films.</p>
+<p>The fatal accident depended on the inclusion of two children in Landis’s third draft as part of a dramatic Vietnamese Village rescue set piece, co-developed by Landis and Lucy Fisher, a Warner Bros. VP of Production who had recently been hired on Spielberg’s recommendation, out of the ashes of American Zoetrope<marginalia data-type="ci"> (Chain)</marginalia>. The impetus for the rescue was Fisher’s insistence that Landis’s protagonist be made more sympathetic, and ultimately that he be redeemed, in line with storytelling conventions popularized especially in recent years, with the success of Lucasfilm’s highly “archetypical” <i>Star Wars</i> and <i>Indiana Jones</i> films.</p>
 
 <p>A fourth draft, based on further notes, which stipulated the inclusion of a prop “broken and naked Barbie doll” (visible in Chen’s hand during the fatal shot), was among the materials never turned over; it was later recovered by Landis’s secretary, who kept copies of the drafts locked in a drawer, in her own interpretation of following Landis’s orders.</p>
 
@@ -617,7 +642,7 @@
 
             <p>Although Aristotle establishes a provisional definition of tragedy in Ch. 6, this mainly ties together tragedy’s place within the broader art of poetry. He unpacks its mechanisms progressively, by way of argument, through the text. Through this process, he splays out the particulars of the effect, and leaves the reader to infer the “how.”</p>
 
-            <marginalia data-type="pa"><p>Note on pervasiveness of Jaeger’s thesis that Aristotle’s works are primarily lecture notes; in some passages (e.g. <i>Rhetoric</i> III.12), the fact that Aristotle may be conceiving himself as writing to a reader is of plain significance.</p>
+            <marginalia data-type="pa"><p>Note on pervasiveness of Jaeger’s thesis that Aristotle’s works are primarily lecture notes; in some passages (e.g. <i>Rhetoric</i> III.12), the fact that Aristotle may be conceiving himself as writing to a reader is of plain significance. (Werner Jaeger, <i>Aristotle: Fundamentals of the History of His Development</i>, 1923; trans. Robinson, 1934.)</p>
             <details class="fold fold--epigram" id="epi-rhet-3-12" data-collect-id="rhet-3-12"><summary>Epigram + <i>On Rhetoric</i> III.12 <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><div class="fold-body">
             <div class="book-page book-page--aristotle book-page--rhetoric" data-source="Rhetoric">
               “What is suited to a written speech is not the same as what suits debate, and the same wording is not suited to both a public assembly and a lawcourt. And it is necessary to have knowledge of both, since one involves knowing how to speak grammatically, the other how to avoid being forced to keep silent when one wants to put one’s opinions out to others, which happens to people who have no skill at writing.”
@@ -1065,8 +1090,17 @@ It is surely necessary that actions of this sort be in the relation of friends t
 
 <p>We now attempt to further delineate the necessary conditions for the production of wonder in the spectator by the story and its storyteller. This is in order to highlight the “blind spot” brought on by an American cultural narrative between the low-brow optimistic ignoramuses; and the prestige class—<i>Poetics</i> by way of Nietzsche.</p>
 
-</details>
-<details id="expand-rhetoric" data-expand-id="expand-rhetoric">
+</details></li>
+
+            </ol>
+
+
+            <p>The production of wonder (or ἔκπληξις) governs the tragic effect in Aristotle. But what are the conditions of wonder?</p>
+
+            <p>In particular we consider the relevance to its production of the credibility of its “speaker.”</p>
+
+            <ol class="essay-sublist">
+            <li><details id="expand-rhetoric" data-expand-id="expand-rhetoric">
               <summary>On Aristotle’s <i>Rhetoric</i> <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><br>
 
             <p>Aristotle provides the principle of conversion at <i>Poetics</i> Ch. 19:</p>
@@ -1184,7 +1218,7 @@ It is surely necessary that actions of this sort be in the relation of friends t
 
         <p>As Aristotle’s account already implies, against Campbell’s strategy, you don’t get the full effect if the storyteller isn’t credible for the narrative they’re trying to sell, in terms of any implicit moral premises the filmmaker intends to be persuasive. The wonder simply won’t be produced. ‘Humanitarian sentiment,’ yes; catharsis, no.</p>
 
-        <p>Why did Production Assistant Carolyn-Lee Epstein tell police and testify to the same effect that longtime Amblin accountant Bonne Radford, “who seemed to be expecting her,” gave her a sealed brown envelope filled with ten $100 bills, the morning of Friday, July 22nd, 1982? LaBrecque, at least <marginalia data-type="ci">(LaBrecque)</marginalia> reports that Radford did so from the Amblin’ offices; at that time located on the Warner Bros. lot. Within five or ten minutes, once she drove back to Landis’s cluster of trailers on the Universal Studios lot, she watched as one of Landis’s co-defendants, Associate Producer George Folsey, Jr., counted the ten $100 bills out in the open.</p>
+        <p>Why did Production Assistant Carolyn-Lee Epstein tell police and testify to the same effect that longtime Amblin accountant Bonne Radford, “who seemed to be expecting her,” gave her a sealed brown envelope filled with ten $100 bills, the morning of Friday, July 22nd, 1982? LaBrecque, at least <marginalia data-type="ci"> (LaBrecque)</marginalia> reports that Radford did so from the Amblin’ offices; at that time located on the Warner Bros. lot. Within five or ten minutes, once she drove back to Landis’s cluster of trailers on the Universal Studios lot, she watched as one of Landis’s co-defendants, Associate Producer George Folsey, Jr., counted the ten $100 bills out in the open.</p>
 
         <details class="quote-toggle"><summary>
         <p>She remembered the amount from <span class="clickable-word"><u>numerous conversations she’d overheard about the hiring.</u></span></p></summary>

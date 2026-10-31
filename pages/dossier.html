@@ -22,6 +22,30 @@
     #tracker-toggle:checked ~ .widgets-row .radar-count { display: block; }
     .version-tag { font-size: 0.55em; white-space: nowrap; }
   </style>
+  <style>
+    .radar-mute { display: none; cursor: pointer; }
+    #tracker-toggle:checked ~ .widgets-row .radar-mute { display: inline-block; }
+  </style>
+  <script>
+  // Radar sound: when muted, the tracking chimes are silenced (background music is unaffected).
+  (function () {
+    var KEY = 'radar-mute';
+    function muted() { try { return localStorage.getItem(KEY) === 'true'; } catch (e) { return false; } }
+    var play = HTMLMediaElement.prototype.play;
+    HTMLMediaElement.prototype.play = function () {
+      var src = (this.currentSrc || this.src || '') + ' ' + (this.id || '');
+      if (muted() && /chime|score-chime/i.test(src)) return Promise.resolve();
+      return play.apply(this, arguments);
+    };
+    document.addEventListener('DOMContentLoaded', function () {
+      var box = document.getElementById('radar-mute'), label = document.getElementById('radar-mute-label');
+      if (!box || !label) return;
+      function sync() { label.textContent = box.checked ? '🔕' : '🔔'; label.title = box.checked ? 'Radar sound off' : 'Radar sound on'; }
+      box.checked = muted(); sync();
+      box.addEventListener('change', function () { try { localStorage.setItem(KEY, box.checked); } catch (e) {} sync(); });
+    });
+  })();
+  </script>
 </head>
 
 <body>
@@ -86,6 +110,7 @@
       <li>Chain, Steve. <em>Fly by Night: The Secret Story of Steven Spielberg, Warner Bros, and the Twilight Zone Deaths.</em> Trine Day, 2021. Cited by chapter.</li>
       <li>Crichton, Michael. <em>Jurassic Park.</em> Knopf, 1990.</li>
       <li>Davis, Michael. <em>Aristotle’s Poetics: The Poetry of Philosophy.</em> 1992.</li>
+      <li>Davis, Derrick, editor and compiler. “Jurassic Time Memoirs: Michael Crichton’s Adaptation of <em>Jurassic Park</em>.” <em>Jurassic Time</em>, jurassictime.trescom.org.</li>
       <li>Farber, Stephen, and Marc Green. <em>Outrageous Conduct: Art, Ego, and the Twilight Zone Case.</em> Arbor House, 1988. Cited as F&amp;G.</li>
       <li>Freud, Sigmund. <em>An Autobiographical Study.</em> 1925.</li>
       <li>Goodnight, G. Thomas. “The Firm, the Park and the University: Fear and Trembling on the Postmodern Trail.” <em>Quarterly Journal of Speech</em>, vol. 81, no. 3, 1995, pp. 267–90.</li>
@@ -103,6 +128,7 @@
       <li>Ong, Walter J. <em>Orality and Literacy: The Technologizing of the Word.</em> Methuen, 1982.</li>
       <li>Phillips, Julia. <em>You’ll Never Eat Lunch in This Town Again.</em> Random House, 1991.</li>
       <li>Plato. <em>Ion</em>; <em>Republic</em>.</li>
+      <li>Plesset, Ross. “<em>Twilight Zone: The Movie</em>—Visions Lost in the Twilight Zone.” <em>The Twilight Zone Museum</em>, twilightzonemuseum.com.</li>
       <li>Proclus. <em>Commentary on the Republic</em>.</li>
       <li>Shay, Don, and Jody Duncan. <em>The Making of Jurassic Park.</em> Ballantine, 1993.</li>
       <li>Sheehan, Henry. “The Fears of Children.” <em>Sight and Sound</em>, vol. 3, no. 7, July 1993.</li>
@@ -121,7 +147,8 @@
       <li>Feldman, Paul. “Outraged: Landis Relieved but Calls Prosecution Dishonest.” <em>Los Angeles Times</em>, June 2nd, 1987.</li>
       <li>Kael, Pauline. In <em>The New Yorker</em>: “Sugarland and Badlands,” March 18th, 1974; “Notes on Evolving Heroes, Morals, Audiences,” November 8th, 1976; “Contrasts,” September 26th, 1977; “The Greening of the Solar System,” November 28th, 1977; “Whipped,” June 15th, 1981; “The Pure and the Impure,” June 14th, 1982; “Hysterics,” July 25th, 1983; “A Breeze, a Bawd, a Bounty,” June 11th, 1984.</li>
       <li>Kael, Pauline. “And you can quote that…” December 22nd, 1985.</li>
-      <li><em>Los Angeles</em> magazine, 1992 (on John Bradshaw).</li>
+      <li>Davis, Sally Ogle. “Oh, Pablum! Why Hollywood’s Latest Guru, John Bradshaw, Is Turning Everyone from Spielberg to Streisand into Crybabies.” <em>Los Angeles</em>, April 1992. Reproduced at johnbradshaw.com.</li>
+      <li>“Science Fiction in Steven Spielberg’s Suburbia.” Interview with Steven Spielberg. <em>Rolling Stone</em>, 1978.</li>
       <li>Schiff, Stephen. “Seriously Spielberg.” <em>The New Yorker</em>, 1994.</li>
       <li>“Spielberg Gets Place to Settle Down.” May 21st, 1984.</li>
       <li>“Spielberg Philosophical Over <em>E.T.</em> Defeat.” April 13th, 1983.</li>
@@ -140,6 +167,9 @@
       <li><em>The Dick Cavett Show</em>. Interview with Steven Spielberg, 1981.</li>
       <li>Untitled Japanese television profile of Steven Spielberg (Amblin offices, Spielberg’s home, the <em>Twilight Zone</em> set). Broadcast Christmas 1982. Uploaded as “Steven Spielberg &amp; Japanese Television Interview (Christmas 1982)” by 1976REDRYDER, YouTube, August 28th, 2013, <a href="https://www.youtube.com/watch?v=8K1Crn34cEg">youtube.com/watch?v=8K1Crn34cEg</a>.</li>
       <li><em>The Making of Jurassic Park</em>. Directed by John Schultz, 1995.</li>
+      <li><em>Easy Riders, Raging Bulls: How the Sex, Drugs and Rock ’n’ Roll Generation Saved Hollywood.</em> Directed by Kenneth Bowser, BBC, 2003.</li>
+      <li><em>Moments That Changed the Movies: Jurassic Park.</em> Academy of Motion Picture Arts and Sciences, YouTube.</li>
+      <li><em>Jurassic Punk.</em> Directed by Scott Leberecht, 2022.</li>
       <li><em>The Making of E.T.</em></li>
       <li><em>The Making of Jaws</em>. Directed by Laurent Bouzereau, 1995.</li>
       <li><em>Spielberg</em>. Directed by Susan Lacy, HBO, 2017.</li>
@@ -173,6 +203,7 @@
         <button id="music-toggle" class="music-icon" title="Cycle Background Music">🎶</button>
         <!-- Radar: records links followed (this device only) while on. The count shows while the radar is on. -->
         <label for="tracker-toggle" title="Toggle Radar">📡<span id="radar-count" class="radar-count"></span></label>
+        <input type="checkbox" id="radar-mute" hidden><label for="radar-mute" id="radar-mute-label" class="radar-mute" title="Radar sound on">🔔</label>
         <label for="bibliography-toggle" id="bibliography-label" title="Bibliography" hidden>📜</label>
         <label for="toggle-x" class="dark-only version-tag" title="Toggle Invisibles">v1.2</label>
         <!-- Kept for older scripts that look up the ghost icon; never shown. -->
@@ -434,7 +465,7 @@ August 4th, 2026
 
 				<p>She stated that John Landis told Folsey and Allingham that they would “just have to get the kids off the street, we won’t put them on any records and we won’t tell anyone what we’re doing.”</p>
 
-				<p>She recalls that George Folsey commented something to the effect, “Okay fine, that’s how we’ll do it.” (Police Report)</p>
+				<p>She recalls that George Folsey commented something to the effect, “Okay fine, that’s how we’ll do it.”<marginalia data-type="ci"> (Police Report)</marginalia></p>
 
 			</div></details>
 
@@ -509,7 +540,7 @@ August 4th, 2026
 
 			<p>And legally speaking, Folsey was correct—a point confirmed by Allingham’s attorney in 1985. According to standards set by the Division of Labor Standards Enforcement (DLSE), the production company was deemed the sole employer of minors and crew members, with liability for their employment and supervision falling squarely on the company’s officers.</p>
 			<p>By July 9th, Folsey only had twelve days until the last scheduled day of shooting, July 21st, and scrambled for solutions.</p>
-			<p>After the third draft had been typed back in June, Landis ordered his studio-assigned typist (Alpha Campbell) to keep it under lock and key. This created an operational bottleneck as various production personnel attempted to get a copy of the latest draft from the production coordinator (Donna Schuman) who herself was being denied by Campbell.</p>
+			<p>After the third draft had been typed back in June, Landis ordered his studio-assigned typist<marginalia data-type="ch"> (Alpha Campbell)</marginalia> to keep it under lock and key. This created an operational bottleneck as various production personnel attempted to get a copy of the latest draft from the production coordinator<marginalia data-type="ch"> (Donna Schuman)</marginalia> who herself was being denied by Campbell.</p>
 
 			<p>Schuman asked Folsey (a family friend outside of work) about the reason for the secrecy, and he told her:</p>
 
@@ -517,7 +548,7 @@ August 4th, 2026
 				<p>“Because John has written two children into the script. We’re going to have to work them without permits. And we don’t want that information getting out.”<marginalia data-type="ci"> (qtd. in Farber and Green [hereafter F&G] 70)</marginalia></p>
 			</div>
 
-			<p>The conspiracy soon expanded to include a production secretary (Cynthia Nigh); the 1st AD (Elie Cohn); the 2nd AD (Anderson House); and a DGA intern (Hilary Leach, acting mostly as a PA).</p>
+			<p>The conspiracy soon expanded to include a production secretary<marginalia data-type="ch"> (Cynthia Nigh)</marginalia>; the 1st AD<marginalia data-type="ch"> (Elie Cohn)</marginalia>; the 2nd AD<marginalia data-type="ch"> (Anderson House)</marginalia>; and a DGA intern (Hilary Leach, acting mostly as a PA).</p>
 			<p>House had clocked the violation as soon as he was brought on board and read the script:</p>
 
 			<div class="blockquote largequote">
@@ -532,7 +563,7 @@ August 4th, 2026
 				<p>It was always described as a <em>big, huge</em> explosion. John said he was going to blow that village off the face of the earth. You couldn’t put two little kids in the middle of that.<marginalia data-type="ci"> (qtd. in F&G 82)</marginalia></p>
 			</div>
 
-			<p>At Folsey’s request, Schuman even volunteered her husband (Dr. Hal Schuman) as a pipeline to LA’s Asian community. Dr. Schuman had previously managed a community mental health center predominantly staffed by and serving Asian clientele, and remained friendly with several of the counsellors still working there.</p></details></li>
+			<p>At Folsey’s request, Schuman even volunteered her husband<marginalia data-type="ch"> (Dr. Hal Schuman)</marginalia> as a pipeline to LA’s Asian community. Dr. Schuman had previously managed a community mental health center predominantly staffed by and serving Asian clientele, and remained friendly with several of the counsellors still working there.</p></details></li>
 
 <li id="section-01d">
   <details>
@@ -606,14 +637,14 @@ August 4th, 2026
     <p></p>
 
 <p>The production migrated to Indian Dunes on Monday, July 19th. </p>
-<p>That evening, according to the 1st AD (Elie Cohn), he, Landis, Folsey, and Allingham held a clandestine meeting to discuss “what day to bring the children, and to make it as short as possible.”</p></details>
+<p>That evening, according to the 1st AD<marginalia data-type="ch"> (Elie Cohn)</marginalia>, he, Landis, Folsey, and Allingham held a clandestine meeting to discuss “what day to bring the children, and to make it as short as possible.”</p></details>
 
 <li id="section-01g">
   <details>
     <summary><span class="underlined">July 20th: First day of filming at Indian Dunes; live ammunition used on set.</span></summary>
     <p></p>
 
-<p>On the morning of Tuesday, July 20th, a 75-year-old Warner Bros. accountant (Jim Henderling) received a call from Bonne Radford.</p>
+<p>On the morning of Tuesday, July 20th, a 75-year-old Warner Bros. accountant<marginalia data-type="ch"> (Jim Henderling)</marginalia> received a call from Bonne Radford.</p>
 
 <p>Radford is listed in the <span class="movietitle">Twilight Zone</span> <a href="#section-08">production directory</a> as an “accountant” from the “Warner Bros” faction of the production. Radford was later the <a href="https://www.imdb.com/name/nm0705511/">longtime paymaster/accountant</a> of Amblin Entertainment, and sister of Mary Radford, who is listed as the “Ass’t to Frank Marshall”.</p>
 			<p>Pursuant to <a href="#section-01n">the deal memo</a> negotiated between Spielberg, Landis, Marshall, and Warner Bros., all production expenses above $500 needed to be co-signed by two gatekeepers. (1) Henderling, a 75-year-old payroll watchdog on the side of the studio, and (2) Marshall, on the side of the two Producer/Directors, and their and his various production companies.</p>
@@ -621,13 +652,13 @@ August 4th, 2026
 			<p>He told her that he didn’t know, but would make some inquiries. He called the Screen Extras Guild but remained in the dark. He then mentioned the request to his boss, the Warner Bros. VP of Production assigned to the film, Ed Morey, who disapproved.</p>
 
 			<p>But before Henderling could get back to Radford, she called him, explaining that they would not be using children in the end after all, so the point was moot. Instead, she asked if Henderling could co-sign a $2,000 cheque payable to George Folsey, Jr., for a “personal cash advance,” that she would courier to Henderling immediately. </p>
-			<p>Henderling said he would ask Morey and call her back. He apprised Morey of the situation and that he suspected the production intended to use the money to hire children illegally. “The whole method seemed unorthodox,” Henderling testified; “I didn’t feel like signing it.”<marginalia data-type="ci"> (176.)</marginalia></p>
+			<p>Henderling said he would ask Morey and call her back. He apprised Morey of the situation and that he suspected the production intended to use the money to hire children illegally. “The whole method seemed unorthodox,” Henderling testified; “I didn’t feel like signing it.”<marginalia data-type="ci"> (176)</marginalia></p>
 			<p>But <a href="#section-05n">Morey advised him</a> that an Associate Producer had every right to request such an advance, and told Henderling to sign the cheque.</p>
 			<p>The cheque, with Henderling’s and Marshall’s signatures on it, became a key piece of evidence linking Twilight Zone Productions, Inc., as well as the production’s payroll entity, <a href="#section-10">DISC Management Services Group, Inc.</a>, to the illegal hiring.</p>
 
 			<p>Meanwhile, at Indian Dunes, the production had begun shooting the story’s Vietnam sequence, in which Morrow’s character emerges from a tropical swamp before hearing a Viet Cong patrol, and hiding himself behind some reeds. But his rustling is noticed by a U.S. Army patrol, who halt, and wait for him to settle, before spraying the plants with machine gun fire.</p>
 
-			<p>During the production of this scene, Morrow (who’d agreed to do most of his own stunts) was waiting behind the plants for Landis’s signal, at which point he would leap out of the way, and then the special effects team would fire with semi-automatic marble guns. But the pressure was weak, and they weren’t punching through the leaves. The Special Effects Supervisor (Paul Stewart) offered to replace them with squibs (small explosives) but when Landis found out that it would take fifteen minutes, Stewart suggested they use live ammunition instead. He happened to have three Remington shotguns and ammo in the back of the special effects truck.</p>
+			<p>During the production of this scene, Morrow (who’d agreed to do most of his own stunts) was waiting behind the plants for Landis’s signal, at which point he would leap out of the way, and then the special effects team would fire with semi-automatic marble guns. But the pressure was weak, and they weren’t punching through the leaves. The Special Effects Supervisor<marginalia data-type="ch"> (Paul Stewart)</marginalia> offered to replace them with squibs (small explosives) but when Landis found out that it would take fifteen minutes, Stewart suggested they use live ammunition instead. He happened to have three Remington shotguns and ammo in the back of the special effects truck.</p>
 
 <div class ="image-grid">
 			<figure>
@@ -640,7 +671,7 @@ August 4th, 2026
 
 			<p>Many of the crew were startled by the practice at the time, even in the context of a shoot already fraught with technical snags, safety violations, and near-misses, and among Landis’s notoriously rough, ramshackle—<a href="https://www.vanityfair.com/hollywood/2013/01/making-of-blues-brothers-budget-for-cocaine?srsltid=AfmBOoqLjwbLZXai6Hwg9OJPd07QeQ6iHkFMwnjnOBEKKooxTF-P5A_7">and loaded</a>—production team.</p>
 			<p>Surely Marshall was aware of at least some of these red flags?</p>
-			<p>According to Chain, in August 1982, Marshall’s lawyers downplayed his involvement to Cal/OSHA, emphasizing the distinction between Spielberg’s group and Landis’s group, which kept separate offices on separate lots. Marshall was dismissed from consideration for indictment on the basis that he had only been on the set three or four times, when in fact it had been at least eight of the twelve days of production (Chain, ch. 31).</p>
+			<p>According to Chain, in August 1982, Marshall’s lawyers downplayed his involvement to Cal/OSHA, emphasizing the distinction between Spielberg’s group and Landis’s group, which kept separate offices on separate lots. Marshall was dismissed from consideration for indictment on the basis that he had only been on the set three or four times, when in fact it had been at least eight of the twelve days of production<marginalia data-type="ci"> (Chain, ch. 31)</marginalia>.</p>
 
 <div class = "image-grid">
 <figure class="wraparound-carousel">
@@ -675,7 +706,7 @@ August 4th, 2026
 <figcaption>The production had used a backhoe to plant the mortars, and a bulldozer to dam the river. The viewing gallery was established between the bulldozer and the Chapman crane.</figcaption>
 </figure></div>
 
-<p>According to Farber & Green, “As they entered the gates of the park, George Folsey turned to Dr. Le. He was relieved to be on private property... The county officials would not be able to get in.”<marginalia> (118)</marginalia></p>
+<p>According to Farber & Green, “As they entered the gates of the park, George Folsey turned to Dr. Le. He was relieved to be on private property... The county officials would not be able to get in.”<marginalia data-type="ci"> (118)</marginalia></p>
 
 <p>As of Wednesday, July 21st, the Chen and Le families were still under the impression that their obligation to the filmmakers was only for six hours, 7:00pm–1:00am. Mrs. Chen had made clear at the July 16th meeting that she was mindful of her son’s sleep schedule.</p>
 
@@ -696,8 +727,8 @@ August 4th, 2026
 					<p>I keep asking him until now he said “We cannot do it. We have to do it after dinner.” I said, “what you mean by dinner? When is dinner? I never have dinner. A man there said twelve o’clock.” I said “Midnight? Dinner? This is strange to me and I expect he finish before midnight.” but then he said. “We worked day already.” We already got there and what can I say, “No I don’t want it? I go home?” I’m not that type woman. He said there’s no danger. So we stayed there, we stayed in the mobile home.</p>
 				</div></details>
 
-				<p>The Special Effects Supervisor (Paul Stewart) told LaBrecque, “I knew by one o’clock that we would never finish... When you do a motion picture you know the Assistant Director is gonna say, ‘Oh, yeah, we’re gonna finish.’ But you walk away knowing he’s full of it. I know what I gotta do and it’s not humanly possible.”<marginalia> (30)</marginalia></p>
-				<p>Folsey was advised by 1st AD (Elie Cohn) at 2:00am that it would be impossible to complete everything that had been planned for the night.</p>
+				<p>The Special Effects Supervisor<marginalia data-type="ch"> (Paul Stewart)</marginalia> told LaBrecque, “I knew by one o’clock that we would never finish... When you do a motion picture you know the Assistant Director is gonna say, ‘Oh, yeah, we’re gonna finish.’ But you walk away knowing he’s full of it. I know what I gotta do and it’s not humanly possible.”<marginalia data-type="ci"> (30)</marginalia></p>
+				<p>Folsey was advised by 1st AD<marginalia data-type="ch"> (Elie Cohn)</marginalia> at 2:00am that it would be impossible to complete everything that had been planned for the night.</p>
 				<p>Landis testified that, at 4:30am,</p>
 
 				<div class="transcript">
@@ -716,7 +747,7 @@ August 4th, 2026
 <div class ="image-grid">
 				<figure class="clip-image">
 					 <video playsinline controls poster="../full/pics/d005.jpg"><source src="../full/mp4s/d02.mp4" type="video/mp4"></video>
-					<figcaption>Shyan-Huei Chen testified that all four parents were taken back to the mobile home around 4:00am–5:00am. Folsey handed Dr. Le an envelope with the names “Daniel and Kim” written on it, and Mrs. Chen an envelope from the Mitsui Manufacturers Bank of Beverly Hills; each held five $100 bills. There were no receipts or stubs indicating dates or hours worked. Folsey told them not to tell anyone they got paid—just to say, if asked, that they were helping out some friends.<marginalia> (Chen family, NTSB; Chain, ch. 2)</marginalia></figcaption>
+					<figcaption>Shyan-Huei Chen testified that all four parents were taken back to the mobile home around 4:00am–5:00am. Folsey handed Dr. Le an envelope with the names “Daniel and Kim” written on it, and Mrs. Chen an envelope from the Mitsui Manufacturers Bank of Beverly Hills; each held five $100 bills. There were no receipts or stubs indicating dates or hours worked. Folsey told them not to tell anyone they got paid—just to say, if asked, that they were helping out some friends.<marginalia data-type="ci"> (Chen family, NTSB; Chain, ch. 2)</marginalia></figcaption>
 				</figure></div>
 
 				<div class="transcript">
@@ -745,7 +776,7 @@ August 4th, 2026
 				
 				<div class="transcript">
 					<p><span class="transcript-name">HKL:</span> And well we look at each other and said, “I have to work, my husband has to work, and Mark had to return back to work. We cannot bring the children here.”</p>
-					<p>And George said, “Well, if you cannot bring the children here, I will pick up the children and bring them here and after the movie I will bring them back, and will treat them like my children. I promise with you.” And after he left there, his children were there too. I met his wife and his boy. He is playing the same as my boy so, well, I thought there was no danger, nothing, just like that. The children happy, giggle, laughing. One more day, maybe. I ask my husband, come back with the boy. ‘...we will pick you up at six o’clock and we finish early, by hour and a half hour, we finish.’<marginalia> (Le family, NTSB)</marginalia></p>
+					<p>And George said, “Well, if you cannot bring the children here, I will pick up the children and bring them here and after the movie I will bring them back, and will treat them like my children. I promise with you.” And after he left there, his children were there too. I met his wife and his boy. He is playing the same as my boy so, well, I thought there was no danger, nothing, just like that. The children happy, giggle, laughing. One more day, maybe. I ask my husband, come back with the boy. ‘...we will pick you up at six o’clock and we finish early, by hour and a half hour, we finish.’<marginalia data-type="ci"> (Le family, NTSB)</marginalia></p>
 				</div>
 
 <p>In any case, Dr. Le conceded that he had mostly just taken the filmmakers at their word.</p>
@@ -771,7 +802,7 @@ August 4th, 2026
 <summary>About six hours later, the crew began arriving <span class="clickable-word"><u>back on set.</u></span></summary>
 
 				<div class="police-report">
-					<p>Mr. Pittman stated in substance that he is a Teamster truck driver and was performing his duties as driver of the special effects 10-ton truck during the filming of the Landis episode of the “Twilight Zone”. Mr. Pittman stated that the afternoon preceding the accident, he arrived on the set at approximately 12:00 o’clock in the afternoon and that prior to arriving at the location, Indian Dunes Park, he had purchased a case of Budweiser beer and soda pop for the special effects crew. He stated that he kept these beverages in a cooler on the back of the 10-ton powder truck. He stated that the 10-ton powder truck was positioned in the area of the Chapman crane and for most of the evening, this is where he spent his time. (Police Report)</p>
+					<p>Mr. Pittman stated in substance that he is a Teamster truck driver and was performing his duties as driver of the special effects 10-ton truck during the filming of the Landis episode of the “Twilight Zone”. Mr. Pittman stated that the afternoon preceding the accident, he arrived on the set at approximately 12:00 o’clock in the afternoon and that prior to arriving at the location, Indian Dunes Park, he had purchased a case of Budweiser beer and soda pop for the special effects crew. He stated that he kept these beverages in a cooler on the back of the 10-ton powder truck. He stated that the 10-ton powder truck was positioned in the area of the Chapman crane and for most of the evening, this is where he spent his time.<marginalia data-type="ci"> (Police Report)</marginalia></p>
 				</div>
 			</details>
 
@@ -787,12 +818,12 @@ August 4th, 2026
 					<p>Miss Epstein stated that around the beginning of July 1982, approximately 1800 hours, she was asked by Folsey to drive her to a mechanic’s garage in the San Fernando Valley so that Mr. Folsey might pick up his car which was being worked on. Miss Epstein stated that during this drive, a general discussion about the “Twilight Zone” movie was taking place. During this drive, Mr. Folsey asked Carolyn if she knew any Oriental children that “we” can use. Miss Epstein stated that although Mr. Folsey did not refer to the final scene of the movie, she knew that this was what he was referring to. She had read the script. She stated that she didn’t understand why Mr. Folsey was asking her if she knew any Oriental children, however, possibly because she was Oriental and maybe had family or friends with Oriental children. She stated that it didn’t seem too out of the ordinary at the time. She told Mr. Folsey that she didn’t know anyone who had Oriental children, and that Mr. Folsey responded in a nonchalant manner, “Well, we have to be careful about this.”</p>
 				</div></details>
 
-				<p>Meanwhile, Allingham got back to House, advising him not to panic about the FSO in question, and to tell the Location Manager (Richard Vane) to keep tabs on his movements.</p>
+				<p>Meanwhile, Allingham got back to House, advising him not to panic about the FSO in question, and to tell the Location Manager<marginalia data-type="ch"> (Richard Vane)</marginalia> to keep tabs on his movements.</p>
 				<p>Vane testified at the grand jury in 1983 that he knowingly complied.</p>
-				<details class="quote-toggle"><summary>By the time the DGA trainee (Hilary Leach) returned to the set, Landis’s inner circle had developed <span class="clickable-word"><u>a new operating protocol.</u></span></summary>
+				<details class="quote-toggle"><summary>By the time the DGA trainee<marginalia data-type="ch"> (Hilary Leach)</marginalia> returned to the set, Landis’s inner circle had developed <span class="clickable-word"><u>a new operating protocol.</u></span></summary>
 				
 				<div class="blockquote largequote">
-					<p>Hilary Leach, the Directors’ [sic] Guild of America trainee, whose job included escorting the children on the set, was told by House to refer to My-Ca and Renee on her walkie-talkie only as “the Vietnamese,” just in case any of the fire safety officers overheard the radio transmissions. (LaBrecque 35)</p>
+					<p>Hilary Leach, the Directors’ [sic] Guild of America trainee, whose job included escorting the children on the set, was told by House to refer to My-Ca and Renee on her walkie-talkie only as “the Vietnamese,” just in case any of the fire safety officers overheard the radio transmissions.<marginalia data-type="ci"> (LaBrecque 35)</marginalia></p>
 				</div></details>
 
 <details class = "quote-toggle">
@@ -813,7 +844,7 @@ August 4th, 2026
 					<p><span class="transcript-name">NTSB:</span> She took them to a trailer?</p>
 					<p><span class="transcript-name">SC:</span> Right. Then we took popcorn and a soft drink for the children. After a while, the lady, the same lady, said the children were to go to the scene.</p>
 					<p><span class="transcript-name">NTSB:</span> The children were to go into the village, to the scene, to be filmed?</p>
-					<p><span class="transcript-name">SC:</span> Right.<marginalia> (Chen family, NTSB)</marginalia></p>
+					<p><span class="transcript-name">SC:</span> Right.<marginalia data-type="ci"> (Chen family, NTSB)</marginalia></p>
 				</div></details></details>
 
 <li id="section-01j">
@@ -828,10 +859,10 @@ August 4th, 2026
         Your browser does not support the video tag.
       </video>
 
-        <figcaption>Two of three camera angles (one redundant) recovered from the 9:30pm shot, at which time Marshall was present and, according to Chain, so was Kennedy<marginalia> (Chain, ch. 47)</marginalia>.<marginalia> If you were a producer of children’s and family films, and you watched this scene, would you be alarmed or think the above might be less than fully legal? Twice (before the shot and during) Morrow was observed by those present to drop (before, during an informal “run-through”) Myca, and (during the actual take) Renee into the water. Landis testified that he asked the children whether or not they could swim: “One could and one could not.”</marginalia></figcaption>
+        <figcaption>Two of three camera angles (one redundant) recovered from the 9:30pm shot, at which time Marshall was present and, according to Chain, so was Kennedy<marginalia data-type="ci"> (Chain, ch. 47)</marginalia>.<marginalia> If you were a producer of children’s and family films, and you watched this scene, would you be alarmed or think the above might be less than fully legal? Twice (before the shot and during) Morrow was observed by those present to drop (before, during an informal “run-through”) Myca, and (during the actual take) Renee into the water. Landis testified that he asked the children whether or not they could swim: “One could and one could not.”</marginalia></figcaption>
     </figure></div>
 
-				<p>The script supervisor (Kathryn Wooten) recalled seeing the children in the “9:30 rescue sequence,” assuming they were “pretty much put in at the last minute and taken out right away.”</p>
+				<p>The script supervisor<marginalia data-type="ch"> (Kathryn Wooten)</marginalia> recalled seeing the children in the “9:30 rescue sequence,” assuming they were “pretty much put in at the last minute and taken out right away.”</p>
 				<p>The helicopter hovered at approximately 60 feet overhead, well above the frame, generating propwash for the scene below. As well, the Unit Production Manager (Allingham) was using it as a platform for <a href="#section-02">the unwieldy (as he had been warned) “Nite-Sun”</a> spotlight the production had rented specially for the segment. He was aiming it out the pilot’s side window (the pilot was flying from the passenger side so that he could keep watch on the nearby cliff face), struggling to keep Morrow centered and in focus; making the hovering helicopter both a technical platform and a dramatic set-piece.</p>
 				<p>Morrow can be seen approaching Renee and Myca behind a hut—where they’d been placed in wait next to two armed, hair-trigger explosives—and scooping them one under each arm, before running out of frame moments before the explosives are detonated.</p>
 
@@ -870,7 +901,7 @@ August 4th, 2026
 				</div></details>
 				
 				<details class ="quote-toggle"><summary>
-				<p>Dr. Le later testified, as well, that he “had thought that the work was over after the nine-thirty shot and asked if he and his son could go home, but Folsey said, “It’s not quite ready yet. You need to stay behind. We have some <span class="clickable-word"><u>other things to do.”</u></span><marginalia> (LaBrecque 173)</marginalia></p></summary>
+				<p>Dr. Le later testified, as well, that he “had thought that the work was over after the nine-thirty shot and asked if he and his son could go home, but Folsey said, “It’s not quite ready yet. You need to stay behind. We have some <span class="clickable-word"><u>other things to do.”</u></span><marginalia data-type="ci"> (LaBrecque 173)</marginalia></p></summary>
 				<p>Shyan-Huei Chen NTSB interview, cont’d:</p>
 
 				<div class="transcript">
@@ -914,7 +945,7 @@ August 4th, 2026
 				<p>The spectators that night were dazzled by the major 11:30pm helicopter and pyrotechnics spectacle. Although the filmmakers were compelled to deny that any of the evening’s shots constituted “stunts,” per se, the NTSB later determined them to be such, according to the standards of the industry.</p>
 
 				<details class ="quote-toggle">
-				<summary>Cynthia Nigh, Folsey’s assistant, recalled Folsey’s <span class="clickable-word"><u>rather incriminating aside</u></span> as they watched the 11:30 shot<marginalia> (Grand Jury)</marginalia>:</summary>
+				<summary>Cynthia Nigh, Folsey’s assistant, recalled Folsey’s <span class="clickable-word"><u>rather incriminating aside</u></span> as they watched the 11:30 shot<marginalia data-type="ci"> (Grand Jury)</marginalia>:</summary>
 
 				<div class="transcript">
 					<p><span class="transcript-name">DA (Kesselman):</span> Did Folsey say something as explosions going off.</p>
@@ -935,7 +966,7 @@ August 4th, 2026
 
 				<p>By the time the rattled flight crew set back down, most of the rest of the crew had migrated to the cast and crew “lunch” taking place at the canteen about a quarter-mile away.</p>
 
-				<p>The spectators were unaware that during the shot the pilot (Dorcey Wingo)—a Vietnam War veteran, who had never worked a film before, and neglected to walk the set beforehand to learn the location of the explosives—had a <a href="https://en.wikipedia.org/wiki/Startle_response">startle response</a>, and turned to his left, into the village, opening up its flank to the next explosive blast, which he had no idea was coming. Flames roasted the open cabin.</p>
+				<p>The spectators were unaware that during the shot the pilot<marginalia data-type="ch"> (Dorcey Wingo)</marginalia>—a Vietnam War veteran, who had never worked a film before, and neglected to walk the set beforehand to learn the location of the explosives—had a <a href="https://en.wikipedia.org/wiki/Startle_response">startle response</a>, and turned to his left, into the village, opening up its flank to the next explosive blast, which he had no idea was coming. Flames roasted the open cabin.</p>
 
 <p>The flight list for all three shots that night was:</p>
 <ol>
@@ -962,7 +993,7 @@ August 4th, 2026
 </div>
 
 <div class="transcript">
-			<p><span class="transcript-name">RR:</span> He was as startled as I was. Yeah it wasn’t much fun. I didn’t want to have to do that again. And I wanted to make sure that...—and I knew that Dorcey was angry because he was fuming about it all the way down, to Dan Allingham, about it. Dan kept saying, “no, no, you’re right. Safety first. ‘Ta-da-ta-da-ta-da,’ so forth.” (Grand Jury)</p>
+			<p><span class="transcript-name">RR:</span> He was as startled as I was. Yeah it wasn’t much fun. I didn’t want to have to do that again. And I wanted to make sure that...—and I knew that Dorcey was angry because he was fuming about it all the way down, to Dan Allingham, about it. Dan kept saying, “no, no, you’re right. Safety first. ‘Ta-da-ta-da-ta-da,’ so forth.”<marginalia data-type="ci"> (Grand Jury)</marginalia></p>
 </div>
 
 <p>By the time the helicopter landed, Landis was across the water at the village set, but only Allingham had on his waders. Wingo and Robinson bided their time to hear their concerns addressed. Eventually they found Landis up in the basket of the Chapman crane, working out the angle of Camera B (Wide master, Steve Lydecker) for the final shot.<p>
@@ -1018,7 +1049,7 @@ August 4th, 2026
 <p>Stewart, interviewed on August 4th, 1982, suggested the open-air fish-drying hut didn’t actually count as a “hut”:</p>
 
 				<div class="police-report">
-					<p>“This really was not a hut, it was just a four legged thing with a cheap thatched roof.”<marginalia> (Police Report)</marginalia></p>
+					<p>“This really was not a hut, it was just a four legged thing with a cheap thatched roof.”<marginalia data-type="ci"> (Police Report)</marginalia></p>
 				</div></details>
 
 				<li id="section-01m">
@@ -1035,10 +1066,10 @@ August 4th, 2026
 				<p>At approximately 2:00am, a shot was taken (Camera C), slated “DOCU/2:00,” for the sake of Marshall’s intended “The Making Of...” documentary. This shot, apparently documenting technical preparations of some kind, was later used by the defence to support their contention that the fatal scene had been well-planned.</p>
 				<p>Shortly before 2:20am, the DGA trainee (Leach) led the kids once again from the makeup trailer to the village, where Landis gave them and Morrow their final remarks, as he prepared for his heroic 100-foot dash. </p>
 				<p>Landis then returned to his spot near Cameras C & F as the helicopter took flight. Standing with him were the 1st AD, Elie Cohn; Jerry Williams; and the propman, Mike Milgrom.</p>
-				<p>Milgrom had just finished his last official duty of the night by giving Renee the “broken and naked Barbie doll” prop called for by the fourth draft, and had been recruited by the Special Effects Supervisor (Paul Stewart) and an SFX technician (Jerry Williams) to fire a powerful marble gun along Morrow’s path to simulate the helicopter’s guns strafing the water. </p>
+				<p>Milgrom had just finished his last official duty of the night by giving Renee the “broken and naked Barbie doll” prop called for by the fourth draft, and had been recruited by the Special Effects Supervisor<marginalia data-type="ch"> (Paul Stewart)</marginalia> and an SFX technician<marginalia data-type="ch"> (Jerry Williams)</marginalia> to fire a powerful marble gun along Morrow’s path to simulate the helicopter’s guns strafing the water. </p>
 				<p>He wasn’t the only crew member moonlighting that night: one of the truck drivers was also manning a marble gun, the Unit Production Manager, Dan Allingham, was managing the Nite-Sun up in the helicopter, and the Stunt Coordinator, Gary McLarty—who was also Vic Morrow’s stunt double—was firing one of two machine guns full of blanks from the helicopter. (Since he was not classifying the shot as a “stunt” per se, he was free to work as a technician.) </p>
-				<p>Williams had wrapped himself in a blanket as protection from the sheets of dust that had stung his eyes during the 11:30 shot. The other SFX technician triggering explosives (James Camomile), standing downriver, was wearing a welder’s mask. He was standing with the SFX Supervisor (Stewart), whose role in the shot was to cue Camomile when it was his turn to fire, and then to radio a third SFX technician (Harry Stewart), further downriver, for his cue to fire two very large mortars near the dam.</p>
-				<p>Standing further behind Landis was Production Designer Richard Sawyer. He was proud of the set he’d built. Earlier in the night, “one of the biggest producers in Hollywood” had put his arm around him and welcomed him to the big time<marginalia> (<em>Cursed Films</em>, S01E05)</marginalia>. He’d just rebuilt the set, following the disarray of the 11:30pm shot, and lacquered the huts’ thatched roofs with liquid cement used as “fire fuel” in preparation for the final shot.</p>
+				<p>Williams had wrapped himself in a blanket as protection from the sheets of dust that had stung his eyes during the 11:30 shot. The other SFX technician triggering explosives<marginalia data-type="ch"> (James Camomile)</marginalia>, standing downriver, was wearing a welder’s mask. He was standing with the SFX Supervisor (Stewart), whose role in the shot was to cue Camomile when it was his turn to fire, and then to radio a third SFX technician<marginalia data-type="ch"> (Harry Stewart)</marginalia>, further downriver, for his cue to fire two very large mortars near the dam.</p>
+				<p>Standing further behind Landis was Production Designer Richard Sawyer. He was proud of the set he’d built. Earlier in the night, “one of the biggest producers in Hollywood” had put his arm around him and welcomed him to the big time<marginalia data-type="ci"> (<em>Cursed Films</em>, S01E05)</marginalia>. He’d just rebuilt the set, following the disarray of the 11:30pm shot, and lacquered the huts’ thatched roofs with liquid cement used as “fire fuel” in preparation for the final shot.</p>
 
 				<p>Fourteen “mortars”—iron pots filled with gunpowder, gasoline, and sawdust—had been dug into the ground. The plan was that once Morrow and the kids were about 15 feet away from the village, the three members of the SFX team would begin triggering their respectively assigned series of explosives.</p>
 
@@ -1136,7 +1167,7 @@ August 4th, 2026
 <details class = "quote-toggle"><summary>
 				<p>Thankfully, Folsey, Jr. was there to help, and <span class="clickable-word"><u>just in the nick of time.</u></span></p></summary>
 				<div class="transcript">
-					<p>And I grabbed the two parents of the two children who were standing with me and turned and pulled them and ran and dove into some bushes that were about 25 feet away from where we had been standing. And then we came back the helicopter was down. And I noticed that the... I didn’t realize this until I testified before the NTSB... that the—that rotor blade, that I think is part of the tail rotor of the helicopter—ended up exactly where the parents and I were standing to observe. (Grand Jury)</p>
+					<p>And I grabbed the two parents of the two children who were standing with me and turned and pulled them and ran and dove into some bushes that were about 25 feet away from where we had been standing. And then we came back the helicopter was down. And I noticed that the... I didn’t realize this until I testified before the NTSB... that the—that rotor blade, that I think is part of the tail rotor of the helicopter—ended up exactly where the parents and I were standing to observe.<marginalia data-type="ci"> (Grand Jury)</marginalia></p>
 				</div></details>
 
 				<p>Despite the accident being witnessed by some one hundred crew and guests, by the time the first police officer arrived at 2:45am, fewer than a dozen remained<marginalia data-type="ci"> (F&amp;G 145)</marginalia>.</p>
@@ -1153,7 +1184,7 @@ August 4th, 2026
 				</figure></div></details></ol>
 <a id="section-02"></a><h3>#02. Extreme negligence</h3>
 
-<div class="book-page">The difficulty of the Twilight Zone case was that the determination of criminality required more discretionary judgment than in other crimes that resulted in death. Budds told me: “This was a subjective intellectual interpretation of what constitutes reckless and wanton conduct. Murder is murder, because — boom! — you shoot somebody and there’s a bullet hole. In the opinion of my witnesses, who lived through the experience, [the actions of Landis and the others were] reckless and wanton.” (LaBrecque 88)</div>
+<div class="book-page">The difficulty of the Twilight Zone case was that the determination of criminality required more discretionary judgment than in other crimes that resulted in death. Budds told me: “This was a subjective intellectual interpretation of what constitutes reckless and wanton conduct. Murder is murder, because — boom! — you shoot somebody and there’s a bullet hole. In the opinion of my witnesses, who lived through the experience, [the actions of Landis and the others were] reckless and wanton.”<marginalia data-type="ci"> (LaBrecque 88)</marginalia></div>
 
 <p>California Penal Code... </p>
 <p>Homicide... </p>
@@ -1167,7 +1198,7 @@ August 4th, 2026
     <li>Involuntary—in the commission of an unlawful act, not amounting to a felony; or in the commission of a lawful act which might produce death, in an unlawful manner, or without due caution and circumspection. This subdivision shall not apply to acts committed in the driving of a vehicle.</li>
     <li>Vehicular... [prosecuted as a distinct category, owing to its nuances and larger body of precedent].</li>
   </ol>
-  <p><marginalia data-type="ci">(California Penal Code §192, as in force in 1982)</marginalia></p>
+  <p><marginalia data-type="ci"> (California Penal Code §192, as in force in 1982)</marginalia></p>
 </div>
 
 <p>This section partially consolidates clear warnings, negligence, and escalation leading to the fatal helicopter crash, supporting the California Penal Code §192 involuntary manslaughter charge.</p>
@@ -1186,13 +1217,13 @@ August 4th, 2026
 <p></p>
       <details>
         <summary><span class="underlined">June 16th & 18th — Marci Liroff’s warnings</span></summary><br>
-        <p>Marci Liroff (casting agent) warned Landis, Folsey, Allingham, and Marshall about Landis’s plans to hire children “off the street.” She said the scene “sounds kind of dangerous.” Marshall told her that he would “take care of it.” (Police Report; Trial testimony)</p>
+        <p>Marci Liroff (casting agent) warned Landis, Folsey, Allingham, and Marshall about Landis’s plans to hire children “off the street.” She said the scene “sounds kind of dangerous.” Marshall told her that he would “take care of it.”<marginalia data-type="ci"> (Police Report; Trial testimony)</marginalia></p>
       </details>
       <details>
         <summary><span class="underlined">June 13th–July 23rd — Office conversations overheard</span></summary><br>
         <p>Donna Schuman, Cynthia Nigh, and Kathryn Wooten reported statements by Landis and Folsey.</p>
         <p>Schuman and Nigh overheard Folsey on calls to what they assumed were the parents of Myca and Renee. Folsey was heard saying: “It is going to be like watching fireworks.” He claimed the helicopter and explosions would not be dangerous to the children.</p>
-        <p>Schuman asked why he mentioned the explosives if they weren’t dangerous. “It is the right thing to do,” she quoted him as saying. “When we are going to have explosions on the set, you ought to tell everybody up front. I mean, you know, God forbid anything goes wrong, and then if you tell everybody then you are covered.” (LaBrecque 21)</p>
+        <p>Schuman asked why he mentioned the explosives if they weren’t dangerous. “It is the right thing to do,” she quoted him as saying. “When we are going to have explosions on the set, you ought to tell everybody up front. I mean, you know, God forbid anything goes wrong, and then if you tell everybody then you are covered.”<marginalia data-type="ci"> (LaBrecque 21)</marginalia></p>
         <p>Schuman asked what the penalty was for using children without permits. Folsey replied: <a href="../full/mp4s/d03.mp4">“A slap on the wrist and a little fine—unless they find out about the explosives, and then they’ll throw my butt in jail.”</a></p>
         <p>Nigh recalled Folsey joking to Landis after a closed-door meeting: “We’ll probably be thrown in jail after this, just because of the kids.”</p>
         <p>On another occasion, Nigh and Schuman said Landis walked down the hall and threw up his arms, saying: <a href="../full/mp4s/d08.mp4">“Arrrgghhh, we are all going to jail.”</a></p>
@@ -1209,7 +1240,7 @@ August 4th, 2026
     <li>
       <p>
         <strong>June 17th–19th:</strong> After reading the script, House asked if they were using a soundstage.
-        Allingham told him they would shoot night-for-night, even though it was illegal. (Grand Jury)
+        Allingham told him they would shoot night-for-night, even though it was illegal.<marginalia data-type="ci"> (Grand Jury)</marginalia>
       </p>
     </li>
 
@@ -1234,7 +1265,7 @@ August 4th, 2026
           <ol class="depth-3">
         <li>
         <p>July 15th–16th: At Franklin Canyon, House again raised the issue, warning that Warner Bros. could lose its license. Landis turned around and said, “Oh.”</p></li>
-        <li><p>July 22nd: After the 9:30 shot (the second time Morrow had dropped a child into the water), House told Cohn to warn Landis about drowning risk. Cohn said he had talked to Landis already: “No problem.” (Chain, ch. 20; cf. ch. 26).</p></li></ol>
+        <li><p>July 22nd: After the 9:30 shot (the second time Morrow had dropped a child into the water), House told Cohn to warn Landis about drowning risk. Cohn said he had talked to Landis already: “No problem.”<marginalia data-type="ci"> (Chain, ch. 20; cf. ch. 26)</marginalia>.</p></li></ol>
       </details>
 <p></p>
     </details>
@@ -1252,12 +1283,12 @@ August 4th, 2026
 
       <details>
         <summary><span class="underlined">2nd Pilot/Rental House—John Gamble:</span></summary><br>
-        <p>After hearing the scene described, Gamble told Allingham, “the most dangerous position for a helicopter is to be in a hover.” As well, he asked, “What about all this wood and debris? I doubt if you will crash the helicopter, but you’re certainly going to do severe damage to it.” According to Gamble, Allingham never mentioned to him that there would be children in the scene (Trial testimony).</p>
+        <p>After hearing the scene described, Gamble told Allingham, “the most dangerous position for a helicopter is to be in a hover.” As well, he asked, “What about all this wood and debris? I doubt if you will crash the helicopter, but you’re certainly going to do severe damage to it.” According to Gamble, Allingham never mentioned to him that there would be children in the scene<marginalia data-type="ci"> (Trial testimony)</marginalia>.</p>
       </details>
 
       <details>
         <summary><span class="underlined">3rd Pilot/Rental House—Dick Hart:</span></summary><br>
-        <p>Allingham told Hart that the Nite-Sun was to be used to shine a light down on Vic and the kids in the dramatic exploding village scene. “Hart happened to have the same Nite-Sun Spielberg used in <em>Close Encounters</em> in the famous shot where the light shines down on Richard Dreyfuss and his car gets lifted up.” (Chain, ch. 4).</p>
+        <p>Allingham told Hart that the Nite-Sun was to be used to shine a light down on Vic and the kids in the dramatic exploding village scene. “Hart happened to have the same Nite-Sun Spielberg used in <em>Close Encounters</em> in the famous shot where the light shines down on Richard Dreyfuss and his car gets lifted up.”<marginalia data-type="ci"> (Chain, ch. 4)</marginalia>.</p>
         <p>Bid: $900/hour.</p>
         <p>Allingham eventually declined, but returned to rent the Nite-Sun spotlight. Hart advised him that the heavy spotlight was difficult to manoeuvre, and offered himself as an experienced technician at no additional cost, an offer Allingham also declined.</p>
       </details>
@@ -1277,12 +1308,12 @@ August 4th, 2026
       <p></p>
       <details>
         <summary><span class="underlined">Early July—Extras locked in railway car during electrical fire:</span></summary><br>
-        <p>July 5th–7th (Universal Backlot): Bob Westmoreland (Makeup Artist) reported an incident in which extras were locked in a railway car when an electrical fire broke out. The director had to be located, and the key found before they could be released. (Chain, ch. 20)</p>
+        <p>July 5th–7th (Universal Backlot): Bob Westmoreland (Makeup Artist) reported an incident in which extras were locked in a railway car when an electrical fire broke out. The director had to be located, and the key found before they could be released.<marginalia data-type="ci"> (Chain, ch. 20)</marginalia></p>
       </details>
 
       <details>
         <summary><span class="underlined">Mid-July—Guns used around trained dogs without warning:</span></summary><br>
-        <p>July 12th–16th (Franklin Canyon): Dog trainer stated there was no prior mention of gunfire in the scene involving dogs. Just before filming, Cohn offhandedly mentioned shotguns would be fired overhead. The trainer objected, noting the dogs were gun-shy. Cohn spoke briefly with the director, then insisted they needed the shot. The trainer reluctantly agreed. As expected, the dogs were terrified. She said the gunfire came as a complete surprise. (Police Report)</p>
+        <p>July 12th–16th (Franklin Canyon): Dog trainer stated there was no prior mention of gunfire in the scene involving dogs. Just before filming, Cohn offhandedly mentioned shotguns would be fired overhead. The trainer objected, noting the dogs were gun-shy. Cohn spoke briefly with the director, then insisted they needed the shot. The trainer reluctantly agreed. As expected, the dogs were terrified. She said the gunfire came as a complete surprise.<marginalia data-type="ci"> (Police Report)</marginalia></p>
       </details>
 
 <details>
@@ -1304,24 +1335,24 @@ August 4th, 2026
         <details>
         <summary><span class="underlined">Helicopter Pilot (Dorcey Wingo)</span></summary><br>
         <p>While Wingo was positioning the aircraft, Landis launched into a tirade over the radio. “What the fuck are you doing up there?” “Tell him to keep his shirt on,” Wingo said to Allingham. Wingo later told investigators,
-“There’s no mistaking John when he talked. He was pretty abrasive at that point. And I was a little surprised to hear that kind of language over the radio because the FCC [Federal Communications Commission] does monitor radios. And it’s a good way to lose your ability to use radios.” (qtd. in LaBrecque 29)</p>
+“There’s no mistaking John when he talked. He was pretty abrasive at that point. And I was a little surprised to hear that kind of language over the radio because the FCC [Federal Communications Commission] does monitor radios. And it’s a good way to lose your ability to use radios.”<marginalia data-type="ci"> (qtd. in LaBrecque 29)</marginalia></p>
       </details> 
 
       <details>
         <summary><span class="underlined">Camera B (Steve Lydecker)</span></summary><br>
         <p>Camera B (Steve Lydecker) testified that on Tuesday, July 20th, he expressed concern to Landis that the concussive effect of bombs detonated in front of the cliff could be reflected back over the village. Landis replied (albeit in jest) “well we may lose the helicopter,” and the matter wasn’t raised again.</p>
 
-	<div class="police-report">Mr. Lydecker stated that on that particular night [July 20th] when the helicopter came over the cliff, the rotor wash had apparently caused some scaffolding, on which this arc light was placed, to sway. Mr. Lydecker stated that he heard the “best boy” voice this concern to the director, John Landis, telling him that the scaffolding should be tied off. He said Mr. Landis’ response was to the effect, “Where am I going to find someone who isn’t chicken shit to climb up on those lights?” He stated that the “best boy” got very upset and told Elie Cohn that he was angry at John Landis. He stated that Dan Allingham interrupted this conversation and that Mr. Allingham and the “best boy” walked away together, yelling back and forth at each other. (Police Report)</div>
+	<div class="police-report">Mr. Lydecker stated that on that particular night [July 20th] when the helicopter came over the cliff, the rotor wash had apparently caused some scaffolding, on which this arc light was placed, to sway. Mr. Lydecker stated that he heard the “best boy” voice this concern to the director, John Landis, telling him that the scaffolding should be tied off. He said Mr. Landis’ response was to the effect, “Where am I going to find someone who isn’t chicken shit to climb up on those lights?” He stated that the “best boy” got very upset and told Elie Cohn that he was angry at John Landis. He stated that Dan Allingham interrupted this conversation and that Mr. Allingham and the “best boy” walked away together, yelling back and forth at each other.<marginalia data-type="ci"> (Police Report)</marginalia></div>
       </details>
 
       <details>
         <summary><span class="underlined">Camera C (John Connor)</span></summary><br>
-        <p>Camera C (Ass’t) (Lee Redmond) told of an incident involving Camera C (John Connor) who was asking Paul Stewart if his camera placement was safe in relation to the upcoming mortar explosions. According to Redmond, before Stewart could answer, Landis testily interrupted and said, “It will be safe and if you don’t want to operate the camera you can go home and I will do it for you.” (qtd. in LaBrecque 28)</p>
+        <p>Camera C (Ass’t) (Lee Redmond) told of an incident involving Camera C (John Connor) who was asking Paul Stewart if his camera placement was safe in relation to the upcoming mortar explosions. According to Redmond, before Stewart could answer, Landis testily interrupted and said, “It will be safe and if you don’t want to operate the camera you can go home and I will do it for you.”<marginalia data-type="ci"> (qtd. in LaBrecque 28)</marginalia></p>
       </details>
 
        <details>
         <summary><span class="underlined">Make-up (Virginia Kearns)</span></summary><br>
-        <p>On 1-6-84, Sergeant Budds interviewed VIRGINIA KEARNS, <input type="checkbox" class="redact-toggle" id="redact-kearns"><a>████ █████████ ██████, █████ █████████, (███) ███-████</a>. Ms. Kearns stated that she had been hired by Robert Westmoreland as a hairdresser for the Landis Segment of the “Twilight Zone” Movie. She stated that she was on the set the night of the crash. During the 11:30 filming, she was in the vicinity of the man-made dam in the village side of the movie set. While standing in the area of the village and the dam during the 11:30 filming, the heat from the fire balls, generated from the special effects explosions, singed her hair. After the 11:30 filming, she overheard Katherine Wooten tell John Landis that they couldn’t do the next shot, because it was too dangerous to bring the helicopter in lower. Ms. Kearns stated that Mr. Landis’s response was to tell Katherine Wooten to shut up. (Police Report)</p>
+        <p>On 1-6-84, Sergeant Budds interviewed VIRGINIA KEARNS, <input type="checkbox" class="redact-toggle" id="redact-kearns"><a>████ █████████ ██████, █████ █████████, (███) ███-████</a>. Ms. Kearns stated that she had been hired by Robert Westmoreland as a hairdresser for the Landis Segment of the “Twilight Zone” Movie. She stated that she was on the set the night of the crash. During the 11:30 filming, she was in the vicinity of the man-made dam in the village side of the movie set. While standing in the area of the village and the dam during the 11:30 filming, the heat from the fire balls, generated from the special effects explosions, singed her hair. After the 11:30 filming, she overheard Katherine Wooten tell John Landis that they couldn’t do the next shot, because it was too dangerous to bring the helicopter in lower. Ms. Kearns stated that Mr. Landis’s response was to tell Katherine Wooten to shut up.<marginalia data-type="ci"> (Police Report)</marginalia></p>
       </details>
 
       <details>
@@ -1333,7 +1364,7 @@ August 4th, 2026
           <p><span class="transcript-name">Robinson (Camera D Ass’t):</span> “Do they realize how intense that blast was?”</p>
           <p><span class="transcript-name">Landis:</span> “That’s just a warm-up for what’s to come. You ain’t seen nothing yet.”</p>
           <p><span class="transcript-name">Wingo:</span> “How would you like a fireball under you right now?”</p>
-          <p><span class="transcript-name">Landis:</span> “Now, don’t be squeamish.”<marginalia> (LaBrecque 42–43; cf. Chain, ch. 5)</marginalia></p>
+          <p><span class="transcript-name">Landis:</span> “Now, don’t be squeamish.”<marginalia data-type="ci"> (LaBrecque 42–43; cf. Chain, ch. 5)</marginalia></p>
         </div>
       </details>
             <p></p>
@@ -1359,7 +1390,7 @@ August 4th, 2026
   <li>
     <details>
       <summary><u>The 11:30pm near-miss</u></summary><br>
-      <p>During the second (<a href="#section-01k">11:30pm</a>) setup of the night, the pilot (Dorcey Wingo) was startled by an explosion and nearly crashed.</p>
+      <p>During the second (<a href="#section-01k">11:30pm</a>) setup of the night, the pilot<marginalia data-type="ch"> (Dorcey Wingo)</marginalia> was startled by an explosion and nearly crashed.</p>
 
 <p>He along with several others among the crew complained to Landis about the close call.</p>
 
@@ -1385,7 +1416,7 @@ August 4th, 2026
       <summary><span class="underlined">Drugs and alcohol</span></summary>
       <p></p>
       <div class="blockquote">
-        <p>The bulk of the hard evidence gathered by Budds, however, spoke against the likelihood that drugs or alcohol were a relevant factor. Kesselman calculated that he and Budds devoted more than one thousand investigative hours solely to the issue of drug and alcohol use. (LaBrecque 92)</p>
+        <p>The bulk of the hard evidence gathered by Budds, however, spoke against the likelihood that drugs or alcohol were a relevant factor. Kesselman calculated that he and Budds devoted more than one thousand investigative hours solely to the issue of drug and alcohol use.<marginalia data-type="ci"> (LaBrecque 92)</marginalia></p>
       </div>
       <p>See also <a href="#section-12">Beer and liquor runs for the SFX team</a>.</p>
     </details>
@@ -1396,7 +1427,7 @@ August 4th, 2026
       <summary><span class="underlined">Fire permit violations</span></summary>
       <p></p>
       <div class="blockquote largequote">
-        <p>“The actual sales records, overlooked for over five years by the police and DA’s investigators, showed that the smallest-sized explosive charges purchased for the fatal scene were 8-oz. charges. Also overlooked was special permit No. 55926 issued by the fire department to Paul Stewart ten days before the crash. It gave him permission to purchase 200 feet of 100 grain prima cord. This amount of “high” explosive was capable of knocking down as many as 70 telephone poles, “like matchsticks,” according to special effects experts. Both of these pieces of evidence ran contrary to all SFX accounts that the highest-powered explosives on the set of the TZ crash were 6-oz. “low” explosives. A “high” explosive far more lethal than the black powder bombs admittedly on the set that night, the prima cord was never mentioned by SFX crew members.” (Chain, ch. 29)</p>
+        <p>“The actual sales records, overlooked for over five years by the police and DA’s investigators, showed that the smallest-sized explosive charges purchased for the fatal scene were 8-oz. charges. Also overlooked was special permit No. 55926 issued by the fire department to Paul Stewart ten days before the crash. It gave him permission to purchase 200 feet of 100 grain prima cord. This amount of “high” explosive was capable of knocking down as many as 70 telephone poles, “like matchsticks,” according to special effects experts. Both of these pieces of evidence ran contrary to all SFX accounts that the highest-powered explosives on the set of the TZ crash were 6-oz. “low” explosives. A “high” explosive far more lethal than the black powder bombs admittedly on the set that night, the prima cord was never mentioned by SFX crew members.”<marginalia data-type="ci"> (Chain, ch. 29)</marginalia></p>
       </div>
     </details>
   </li>
@@ -1405,7 +1436,7 @@ August 4th, 2026
 			<a id="section-03"></a>
 <h3>#03. Five corporations and nine individuals</h3>
 <p>
-On August 2nd, 1982, within two weeks of the incident in question, a civil action <i>Chen et al. v. Warner Bros. et al.</i> was filed in pursuit of damages estimated at $200 million. The complaint, filed in the Superior Court, named numerous entities—corporate and individual—as defendants. Such breadth in initial filings is consistent with litigation arising from complex incidents involving multiple parties, where ensuring inclusion of all potentially liable contributors is a strategic necessity. <marginalia data-type="ci"> (See LaBrecque 68; F&G 177)</marginalia>
+On August 2nd, 1982, within two weeks of the incident in question, a civil action <i>Chen et al. v. Warner Bros. et al.</i> was filed in pursuit of damages estimated at $200 million. The complaint, filed in the Superior Court, named numerous entities—corporate and individual—as defendants. Such breadth in initial filings is consistent with litigation arising from complex incidents involving multiple parties, where ensuring inclusion of all potentially liable contributors is a strategic necessity. <marginalia data-type="ci"> (see LaBrecque 68; F&G 177)</marginalia>
 </p>
 <details class="quote-toggle"><summary>
 The complaint named the following <span class="clickable-word"><u>five corporate defendants:</u></span></summary>
@@ -1433,22 +1464,22 @@ Additionally, <span class="clickable-word"><u>nine individuals were named in the
 On May 23rd, 1983, the Le family was added to the action. While no specific monetary figure was sought, Dr. Le indicated that part of any resulting award would be contributed in Myca’s memory toward the establishment of a safety education department at USC’s School of Cinema-Television<marginalia data-type="pa"> (alum.: George Lucas, Robert Zemeckis, Ron Howard)</marginalia>.
 </p>
 <p>
-The matter was settled out of court on May 7th, 1987—two days prior to a scheduled deposition by Spielberg (Chain). At the time, the defence in the criminal trial had entered its closing phase. Terms of the settlement included $2.3 million awarded to the Le family and $1.7 million to the Chen family, with the difference owing only to legal minutiae.
+The matter was settled out of court on May 7th, 1987—two days prior to a scheduled deposition by Spielberg<marginalia data-type="ci"> (Chain)</marginalia>. At the time, the defence in the criminal trial had entered its closing phase. Terms of the settlement included $2.3 million awarded to the Le family and $1.7 million to the Chen family, with the difference owing only to legal minutiae.
 </p>
 
 <a id="section-04"></a><h3>#04. Serious threats of blacklisting</h3>
 
-<div class="book-page">D’Agostino wanted desperately for the jury to understand the fear of blackballing was causing a number of witnesses to temper their testimony. Initially, Boren had ruled such testimony inadmissible. He changed his mind after hearing witnesses refer to their job fears: “My previous ruling was in error, and there is a right to ask witnesses about whether or not they have feelings of trepidation because of industry pressure, things like that.” (LaBrecque 181)</div>
+<div class="book-page">D’Agostino wanted desperately for the jury to understand the fear of blackballing was causing a number of witnesses to temper their testimony. Initially, Boren had ruled such testimony inadmissible. He changed his mind after hearing witnesses refer to their job fears: “My previous ruling was in error, and there is a right to ask witnesses about whether or not they have feelings of trepidation because of industry pressure, things like that.”<marginalia data-type="ci"> (LaBrecque 181)</marginalia></div>
 
 <details class="quote-toggle"><summary><span class="underlined">Steve Lydecker (Camera B—Master shot):</span></summary>
 
-<div class="police-report"><p>Camera operator Steve Lydecker believed in the power of blackballing. He had worked regularly in the movie industry for twenty-two years and believed that his six months of unemployment was due entirely to his outspoken criticism of the production after the crash. (LaBrecque, reporting on the 1983 grand jury; 100)</p></div>
+<div class="police-report"><p>Camera operator Steve Lydecker believed in the power of blackballing. He had worked regularly in the movie industry for twenty-two years and believed that his six months of unemployment was due entirely to his outspoken criticism of the production after the crash.<marginalia data-type="ci"> (LaBrecque, reporting on the 1983 grand jury; 100)</marginalia></p></div>
 
-<div class="book-page"><p>Steven Lydecker, an experienced camera operator who had worked steadily in Hollywood since doubling for a child actor in the 1948 John Wayne vehicle <span class="movietitle">Wake of the Red Witch</span>, has not worked in the movie business since December 1982. He believes he was blackballed because of his damning statements about Landis. “Friends of mine have put my name in for jobs,” Lydecker says, “and producers say I’m a troublemaker.” (F&G, Epilogue)</p></div>
+<div class="book-page"><p>Steven Lydecker, an experienced camera operator who had worked steadily in Hollywood since doubling for a child actor in the 1948 John Wayne vehicle <span class="movietitle">Wake of the Red Witch</span>, has not worked in the movie business since December 1982. He believes he was blackballed because of his damning statements about Landis. “Friends of mine have put my name in for jobs,” Lydecker says, “and producers say I’m a troublemaker.”<marginalia data-type="ci"> (F&G, Epilogue)</marginalia></p></div>
 
 <p>Lydecker came from a storied Hollywood family; both his father and uncle were <a href="https://en.wikipedia.org/wiki/Lydecker_brothers">well-respected special effects artists</a><marginalia data-type="ci"> (Chain, ch. 21)</marginalia>. By all accounts, Lydecker had absolutely no idea what Landis & co. were planning, and he did his best to cooperate with authorities and speak the truth time and time again. After six years of sparse work following the accident, he left the industry to help manage his family’s investments.</p>
 
-<p>At the time of the accident, Lydecker was perched on the extended platform arm of the Chapman crane, “elevated approximately 25 feet above ground level” (Police Report).</p>
+<p>At the time of the accident, Lydecker was perched on the extended platform arm of the Chapman crane, “elevated approximately 25 feet above ground level”<marginalia data-type="ci"> (Police Report)</marginalia>.</p>
 
 <p>Lydecker had filmed the same angle at 11:30pm, earlier, and was under the impression that the helicopter had been established and was now being used just to provide a mobile wind and lighting-platform effect, as it had been used during the <a href="#section-01j">9:30pm shot</a> earlier. Landis told him as much directly.</p>
 
@@ -1470,9 +1501,9 @@ The matter was settled out of court on May 7th, 1987—two days prior to a sched
 
 <div class="police-report">[Lydecker] stated that during the filming, the helicopter kept coming lower, during which time he lowered his camera. He stated that the frame was getting so low and that the actors became too high in the picture, so he raised the camera because the helicopter was low enough to fit into the frame.</div>
 
-<p>The helicopter, in its uncontrolled descent, arced toward the extended crane arm. the still photographer, <marginalia data-type="ch">Morgan Renard,</marginalia> moved to leap for safety, but Lydecker pulled him back; if he jumped, the sudden change in the arm’s center of gravity would send it flinging out of control. Instead they ducked as low as they could, narrowly avoiding its sweeping blades.</p>
+<p>The helicopter, in its uncontrolled descent, arced toward the extended crane arm. The still photographer<marginalia data-type="ch"> (Morgan Renard)</marginalia> moved to leap for safety, but Lydecker pulled him back; if he jumped, the sudden change in the arm’s center of gravity would send it flinging out of control. Instead they ducked as low as they could, narrowly avoiding its sweeping blades.</p>
 
-<div class="police-report">He said that he left the camera going, because he did not know what else to do. (Police Report)</div>
+<div class="police-report">He said that he left the camera going, because he did not know what else to do.<marginalia data-type="ci"> (Police Report)</marginalia></div>
 
 <div class="image-grid">
   <figure>
@@ -1513,7 +1544,7 @@ The matter was settled out of court on May 7th, 1987—two days prior to a sched
 
 <div class="blockquote largequote"><p>...Complained about being threatened, saying that she’d received anonymous telephone calls during which a male voice warned her that if she said anything unfavorable to Landis, “You are aware you would lose your job”<marginalia data-type="ci"> (LaBrecque 181).</marginalia></p></div>
 
-<div class="book-page">“Four years later, at the time of the trial, Alpha caustically observed that she hadn’t had an executive position at Universal Studios since.” (Chain, ch. 37)</div>
+<div class="book-page">“Four years later, at the time of the trial, Alpha caustically observed that she hadn’t had an executive position at Universal Studios since.”<marginalia data-type="ci"> (Chain, ch. 37)</marginalia></div>
 
 </details>
 
@@ -1547,7 +1578,7 @@ The matter was settled out of court on May 7th, 1987—two days prior to a sched
 </details></li>
 </ul>
 
-<p>In all, eleven witnesses before the grand jury claimed that their work time had fallen off drastically since the accident (F&G 216).</p>
+<p>In all, eleven witnesses before the grand jury claimed that their work time had fallen off drastically since the accident<marginalia data-type="ci"> (F&G 216)</marginalia>.</p>
 				<a id="section-05"></a>
 				<h3>#05. A grand jury hearing, a preliminary hearing, and an appeal gone awry</h3>
 
@@ -1583,7 +1614,7 @@ The matter was settled out of court on May 7th, 1987—two days prior to a sched
 
 				<div class="police-report"><p>On 3-10-86, Sergeant Budds interviewed MORGAN RENARD, via telephone. Mr. Renard stated that he was employed as a Photographer to take still publicity photographs of the <span class="movietitle">“Twilight Zone”</span> movie. Mr. Renard stated that he had taken approximately 108 photographs. Following the fatal crash, Mr. Renard took his three rolls of film with 36 photographs each, to Mr. Robert Friedman, Director of Publicity for Warner Brothers. He stated that he personally handed these three rolls of film to Mr. Friedman.</p>
 
-				<p>On 3-10-86, Sergeant Budds telephoned MR. ROBERT FRIEDMAN at Warner Brothers Studios. Mr. Friedman stated that he will try and locate the above photographs. As of the writing of this report, the photographs had not been located.<marginalia> (Police Report)</marginalia></p></div></details></li>
+				<p>On 3-10-86, Sergeant Budds telephoned MR. ROBERT FRIEDMAN at Warner Brothers Studios. Mr. Friedman stated that he will try and locate the above photographs. As of the writing of this report, the photographs had not been located.<marginalia data-type="ci"> (Police Report)</marginalia></p></div></details></li>
 
 				<li><a id="section-06c"></a><details><summary><span class="underlined">The Executive Producer’s “Making Of...” documentary</span></summary>
 <p></p>
@@ -1604,7 +1635,7 @@ The matter was settled out of court on May 7th, 1987—two days prior to a sched
 
 <li><a id="section-06d"></a><details><summary><span class="underlined">The fourth draft of the script</span></summary><br>
 
-				<p>After the third draft was written and Landis set his intention to go about casting it illegally, he ordered his studio-assigned secretary/typist (Alpha Campbell) to keep it under lock and key. Later on, after the disaster, he ordered her to destroy all remaining copies.</p>
+				<p>After the third draft was written and Landis set his intention to go about casting it illegally, he ordered his studio-assigned secretary/typist<marginalia data-type="ch"> (Alpha Campbell)</marginalia> to keep it under lock and key. Later on, after the disaster, he ordered her to destroy all remaining copies.</p>
 
 				<figure class="scrapbook-img">
 					<img src="../full/pics/d011.jpg">
@@ -1625,14 +1656,14 @@ The matter was settled out of court on May 7th, 1987—two days prior to a sched
 				<p>On July 28th, 1982, Landis was grilled by Cal/OSHA and the NTSB during a panel interview.</p>
 				
 				<div class="blockquote largequote">
-					<p>“He was asked whether there were any written plans for the sequence with the helicopter flying and the explosions going off. Cavalierly, the director allowed, ‘There were lots of thumbnail sketches.’ As for blueprints, he couldn’t remember.” (Chain, ch. 16; cf. ch. 26)</p>
+					<p>“He was asked whether there were any written plans for the sequence with the helicopter flying and the explosions going off. Cavalierly, the director allowed, ‘There were lots of thumbnail sketches.’ As for blueprints, he couldn’t remember.”<marginalia data-type="ci"> (Chain, ch. 16; cf. ch. 26)</marginalia></p>
 				</div>
 
 				<p>These sketches, however, never turned up.</p></details></li>
 
 <li><a id="section-06f"></a><details><summary><span class="underlined">All graphic and visual materials relating to the film’s production</span></summary><br>
 
-				<p>With the additional $200,000 budget, especially for such a technically involved shot, the scene would certainly need to be planned out in some respect, and indeed designers were hired for the task: Richard Sawyer, Gregory Pickrell, and Tom Southwell. They worked in Southwell’s garage. (Chain)</p>
+				<p>With the additional $200,000 budget, especially for such a technically involved shot, the scene would certainly need to be planned out in some respect, and indeed designers were hired for the task: Richard Sawyer, Gregory Pickrell, and Tom Southwell. They worked in Southwell’s garage.<marginalia data-type="ci"> (Chain)</marginalia></p>
 				<p>Still, when the state requested the defence turn over all visual materials pertaining to the segment, such as scripts, notes, and graphical layouts, they resisted, until ordered to do so by an assistant US attorney on behalf of the NTSB, and only turned over a single drawing, known as the spotting plan.</p></details></li></ol>
 		
 				<a id="section-07"></a><h3>#07. “The spotting plan”</h3>
@@ -1657,7 +1688,7 @@ The matter was settled out of court on May 7th, 1987—two days prior to a sched
 
 				<div class="police-report">
 					<p>Mr Pickerel [sic] stated that he was one of the artists for the Landis episode of The Twilight Zone. He stated he was the individual who had drawn the graphic which depicted the crashed helicopter in the final scene of the Landis episode.</p>
-					<p>He stated that he put a crashed helicopter into this artist’s conception because following his research about Vietnamese villages he thought it would add authenticity. He concluded that this concept was solely his idea and that he had suggested to his boss Richard Sawyer that a crashed helicopter be considered for this scene but he had not heard any more about it.<marginalia> (Police Report)</marginalia></p>
+					<p>He stated that he put a crashed helicopter into this artist’s conception because following his research about Vietnamese villages he thought it would add authenticity. He concluded that this concept was solely his idea and that he had suggested to his boss Richard Sawyer that a crashed helicopter be considered for this scene but he had not heard any more about it.<marginalia data-type="ci"> (Police Report)</marginalia></p>
 				</div></details>
 
 				<figure class="scrapbook-img" style="max-width: 600px;">
@@ -1802,7 +1833,7 @@ The matter was settled out of court on May 7th, 1987—two days prior to a sched
 
 <p>At the same time, since about 1973, she was maintaining an escalating cocaine addiction, which peaked in about 1978–79 as a freebase addiction. She eventually went through a successful rehab process, and began working again in 1981 with a new development deal at MGM.</p>
 
-<div class="blockquote"><p><a href="../full/mp4s/d11.mp4">“I had started using cocaine and amphetamines way before the success. And in fact had had quite a bit of success working behind them.<marginalia data-type="pa">[...]</marginalia> There was a definite progression that went from using it as a tool, to using it as a crutch, and then you weren’t using it for anything except that it was life itself.”</a></p></div>
+<div class="blockquote"><p><a href="../full/mp4s/d11.mp4">“I had started using cocaine and amphetamines way before the success. And in fact had had quite a bit of success working behind them.<marginalia data-type="pa">[...]</marginalia> There was a definite progression that went from using it as a tool, to using it as a crutch, and then you weren’t using it for anything except that it was life itself.”<marginalia data-type="ci"> (Phillips, in <i>Easy Riders, Raging Bulls</i>, documentary, dir. Kenneth Bowser, 2003)</marginalia></a></p></div>
 
 <p>Her relationship with Spielberg was never the same, and the two went from close friends to cordial strangers in a matter of years, without so much as a conversation in between.</p>
 
@@ -2122,7 +2153,7 @@ The matter was settled out of court on May 7th, 1987—two days prior to a sched
 				<p>When Landis took the stand in February 1987 as the first witness for the defence, he spent several days telling his side of the story, from how he got his start in the industry, all the way up to the accident. It was at this point that Landis testified that Morrow’s stumble had in fact been staged, improvised by the two of them about twenty minutes prior to the fatal shot, during the 2:00am technical rehearsal.</p>
 
 				<div class="blockquote largequote">
-					<p>“It was planned that Vic should stumble... I think you are having a problem with the fact that what makes this so especially terrible, which is that they are acting, that Vic is acting, and it looks  horrendous. Because it’s supposed to look horrendous. And the tragedy makes it that much harder to watch.”<marginalia> (qtd. in LaBrecque 233)</marginalia></p>
+					<p>“It was planned that Vic should stumble... I think you are having a problem with the fact that what makes this so especially terrible, which is that they are acting, that Vic is acting, and it looks  horrendous. Because it’s supposed to look horrendous. And the tragedy makes it that much harder to watch.”<marginalia data-type="ci"> (qtd. in LaBrecque 233)</marginalia></p>
 				</div>
 
 				<p>On the one hand, the claim that the stumble had been planned helped substantiate the general claim that the 2:20am shot had been adequately rehearsed.</p><details><summary> On the other, it only <u>raised more questions</u>.</summary>
@@ -2151,9 +2182,9 @@ The matter was settled out of court on May 7th, 1987—two days prior to a sched
 					<p><span class="transcript-name">DA:</span> Why did you need to know at 9:30 if the children could swim?</p>
 				</div>
 
-<p>But the prosecutor (Lea D’Agostino) was driving at another point, and Landis’s significant disclosure was left by the wayside.</p>
+<p>But the prosecutor<marginalia data-type="ch"> (Lea D’Agostino)</marginalia> was driving at another point, and Landis’s significant disclosure was left by the wayside.</p>
 
-				<p>Was it possible that the two dropped children witnessed by House and Morrow’s stand-in (Robert Liddle) just before and during the 9:30 shot were rehearsals for a stumble that had been planned further in advance than Landis admitted?</p></details><br>
+				<p>Was it possible that the two dropped children witnessed by House and Morrow’s stand-in<marginalia data-type="ch"> (Robert Liddle)</marginalia> just before and during the 9:30 shot were rehearsals for a stumble that had been planned further in advance than Landis admitted?</p></details><br>
 
 				<a id="section-12"></a><h3>#12. Beer and liquor runs for the SFX team</h3>
 
@@ -2179,7 +2210,7 @@ The matter was settled out of court on May 7th, 1987—two days prior to a sched
 					He was about to drive across the river, enroute to the area of the 10-ton truck, when he was stopped by the helicopter pilot. He said the pilot wanted a ride across the river to “pick up something”. He stated the pilot was holding a can of something in his hand. He stated he refused to give the pilot a ride because there were explosives on the vehicle which he was driving.<br>
 					<p>Mr. Triantafellow asked investigators to turn off the tape recorder, with which we complied. At this time he stated that the pilot was holding a red and white can of “Budweiser” beer, and that this was just prior to the crash flight. He stated that Carl was purchasing whiskey, vodka, and beer for the special effects men and was being reimbursed by them. He said that that evening Carl showed him receipts for purchases totalling $150.00, which Carl indicated was for beverage purchases.</p>
 					<p>He said that after the crash, he left the location, driving the pickup truck, following Carl, who was driving the 10-ton powder truck. He said that Carl was weaving badly all the way back to the Burbank Studios. He said he was alone in the pickup truck and that Carl was alone in the 10-ton truck.</p>
-					<p>He concluded that, while on the set, he recalled asking ANDY HOUSE what kids were doing on the night set. He said Mr. House told him to mind his own business.<marginalia> (Police Report)</marginalia></p>
+					<p>He concluded that, while on the set, he recalled asking ANDY HOUSE what kids were doing on the night set. He said Mr. House told him to mind his own business.<marginalia data-type="ci"> (Police Report)</marginalia></p>
 				</div></details>
 
 				<details class="quote-toggle"><summary><span class="clickable-word"><u>Ishmael Ruiz, Lighting Technician:</u></span></summary>
@@ -2200,7 +2231,7 @@ The matter was settled out of court on May 7th, 1987—two days prior to a sched
 
 				<marginalia data-type="pa"><p>There was a medic on-set, but no police. The nearest telephone was in a booth at the entrance of the park. (Two crew members said they would have called the labour board, but there was no phone access nearby.) Deputies Sinclair and Strait, from the Santa Clarita Valley Sheriff’s Station, arrived at 2:45am (F&amp;G 145). Budds was dispatched at 4:15am and arrived at 6:10am.</p></marginalia>
 
-				<p>That morning, Landis’s studio-assigned typist (Alpha Campbell) documented in her callbook that at 10:15am Marshall called and “needs a lot of things,” and showed up to the office fifteen minutes later and took—at least—several rolls of film.</p>
+				<p>That morning, Landis’s studio-assigned typist<marginalia data-type="ch"> (Alpha Campbell)</marginalia> documented in her callbook that at 10:15am Marshall called and “needs a lot of things,” and showed up to the office fifteen minutes later and took—at least—several rolls of film.</p>
 
 				<marginalia data-type="pa"><p>Chain reports that within days of the accident Marshall gave his account of events to Warner Bros.’ attorneys, as documented in a series of interoffice memos (Chain, ch. 25; ch. 27, etc.) possibly shared as a matter of discovery with defendants or suspects who participated in these unofficial depositions (e.g. Elie Cohn) and then circulated among the defendants’ massive legal network.</p></marginalia>
 
@@ -2219,12 +2250,12 @@ The matter was settled out of court on May 7th, 1987—two days prior to a sched
 					<figcaption><span class="movietitle">Twilight Zone: The Movie</span> was actually Marshall’s second cameo in a Spielberg movie. The first was as “the pilot” in <span class="movietitle">Raiders of the Lost Ark</span>’s famous tarmac fistfight.</figcaption>
 				</figure></div>
 
-				<p>By October, according to Chain, Marshall had already been informed by Cal/OSHA that his name was not being passed to the DA’s office for indictment. In the initial confusion after the accident, with the jurisdictional considerations splitting the investigation into three factions, the NTSB interviewed some thirty-one witnesses to the accident, but Marshall was not among them. According to Chain, earlier, Marshall’s attorneys had lobbied the Cal/OSHA investigator, Marilyn Levine, to exclude Marshall from her investigation, emphasizing the distance between Marshall and his people (who operated on the Warner Bros. lot), and Landis’s people (who operated on the Universal Studios lot). Allegedly, Marshall’s counsel misrepresented the number of days their client appeared on set, claiming he had only stopped by three or four times total, when in fact he had been present at least eight days of twelve (Chain, ch. 31).</p>
+				<p>By October, according to Chain, Marshall had already been informed by Cal/OSHA that his name was not being passed to the DA’s office for indictment. In the initial confusion after the accident, with the jurisdictional considerations splitting the investigation into three factions, the NTSB interviewed some thirty-one witnesses to the accident, but Marshall was not among them. According to Chain, earlier, Marshall’s attorneys had lobbied the Cal/OSHA investigator, Marilyn Levine, to exclude Marshall from her investigation, emphasizing the distance between Marshall and his people (who operated on the Warner Bros. lot), and Landis’s people (who operated on the Universal Studios lot). Allegedly, Marshall’s counsel misrepresented the number of days their client appeared on set, claiming he had only stopped by three or four times total, when in fact he had been present at least eight days of twelve<marginalia data-type="ci"> (Chain, ch. 31)</marginalia>.</p>
 
 				<p>And then in late November/December, Spielberg and Kennedy at least were in town: finishing Spielberg’s Twilight Zone segment; <a href="https://youtu.be/8K1Crn34cEg?si=i2fCiTqK1rCWgtvA">hosting a Japanese television crew making a documentary</a>; and having an early-December story bootcamp with Gloria Katz and Willard Huyck establishing the plot for <span class="movietitle">Indiana Jones and the Temple of Doom.</span></p>
 				<details class="quote-toggle">
 
-				<marginalia data-type="ci">NB: In this connection, see especially J. M. McNab’s <a href="https://www.cracked.com/article_30251_the-dark-allegory-hiding-inside-of-jurassic-park.html"> The Dark Allegory Hiding Inside of Jurassic Park?</a> which, as far as I know, is the first to make the connection, plausibly, of: the TZ accident; “It’s a Good Life”; Temple of Doom; Jurassic Park. However, as I argue in this text, I believe Phillips and McBride also make this link. I myself made this connection while reading McBride, after McNab, but independently.</marginalia>
+				<marginalia data-type="ci"> NB: In this connection, see especially J. M. McNab’s <a href="https://www.cracked.com/article_30251_the-dark-allegory-hiding-inside-of-jurassic-park.html"> The Dark Allegory Hiding Inside of Jurassic Park?</a> which, as far as I know, is the first to make the connection, plausibly, of: the TZ accident; “It’s a Good Life”; Temple of Doom; Jurassic Park. However, as I argue in this text, I believe Phillips and McBride also make this link. I myself made this connection while reading McBride, after McNab, but independently.</marginalia>
 
 				<summary><p>Alpha Campbell also noted that on January 12th, 1983, Frank Marshall returned to John Landis’s office to pick up <span class="clickable-word"><u>a few more things.</u></span></p></summary>
 			
@@ -2244,14 +2275,14 @@ The matter was settled out of court on May 7th, 1987—two days prior to a sched
 
 				<p>By this time, Budds had been trying to circle back to Marshall for several months, with Marshall’s attorney assuring him Marshall was out of town and unavailable but would cooperate at his earliest possibility. Then Budds heard Marshall was back in town. But Marshall was never at his legal residence. And whenever Budds stopped by the Warner Bros. lot and the booth operator called ahead to the Amblin office, Budds was always informed by Bonne or Mary Radford that Marshall was not on the lot at the moment.</p>
 
-				<p>By February 1983, Marshall’s attorney informed Sgt. Budds that his client had decided not to cooperate with investigators willingly. A domestic subpoena was issued for his testimony, but Marshall couldn’t be located at his home or work despite repeated visits by Sgt. Budds, and the case’s lone investigator had bigger fish to fry (LaBrecque 95). In the years to come the DA successfully navigated a grand jury hearing (June 1983), a preliminary hearing (February 1984), and an appeal (November 1984).</p>
+				<p>By February 1983, Marshall’s attorney informed Sgt. Budds that his client had decided not to cooperate with investigators willingly. A domestic subpoena was issued for his testimony, but Marshall couldn’t be located at his home or work despite repeated visits by Sgt. Budds, and the case’s lone investigator had bigger fish to fry<marginalia data-type="ci"> (LaBrecque 95)</marginalia>. In the years to come the DA successfully navigated a grand jury hearing (June 1983), a preliminary hearing (February 1984), and an appeal (November 1984).</p>
 				
 				<p>Spielberg and Kennedy at least were in L.A. for a disappointing 1983 Oscars, when Spielberg’s <span class="movietitle">E.T.</span> failed to win the big award—the movie’s aura tainted, perhaps, to whatever degree, by its association with the tragedy.</p>
 
 				<p>The filming for <span class="movietitle">Temple of Doom</span> took place beginning April 18th, 1983, in Sri Lanka, and continuing through September 8th, 1983, at Elstree Studios in London.</p>
 				
 				<div class="book-page">
-					<p>George Folsey, Jr., told me [LaBrecque] that the defendants, too, wanted Marshall to testify, to corroborate Landis’s statements about the decision to hire the children illegally. He said that Landis talked to Spielberg after the preliminary hearing and asked him to intercede with Marshall. “Whether [Spielberg] attempted it, I don’t know. Obviously, Frank went out of the country and avoided the subpoenas,” Folsey said.</p>
+					<p>George Folsey, Jr., told me [LaBrecque] that the defendants, too, wanted Marshall to testify, to corroborate Landis’s statements about the decision to hire the children illegally. He said that Landis talked to Spielberg after the preliminary hearing and asked him to intercede with Marshall. “Whether [Spielberg] attempted it, I don’t know. Obviously, Frank went out of the country and avoided the subpoenas,” Folsey said.<marginalia data-type="ci"> (LaBrecque 129)</marginalia></p>
 				</div>
 
 				<p>Cal/OSHA had decided back in the fall of 1982 that legally speaking Marshall wasn’t culpable for the hiring. But they were mistaken, as discovered by Allingham’s attorney Leonard Levine in 1985, when posing as a film producer and asking DLSE (Division of Labor Standards Enforcement) Chief of the Entertainment Work Permit Unit, Howard Bacon, whether in the case of an accident on-set the crew would be responsible, or the corporation and upper-level management, receiving an unequivocal answer that:</p>
@@ -2267,14 +2298,14 @@ The matter was settled out of court on May 7th, 1987—two days prior to a sched
 				<p>Braun later told Farber & Green:</p>
 				
 				<div class="blockquote largequote">
-					<p>“Obviously, regardless of what the DA had done, I could have laid a subpoena on Frank Marshall at any time over a three-year period. But Behr [Landis’s personal lawyer] told me, ‘No, we’re not going to do that. It’s too dangerous to the clients’ careers.’ If Spielberg got mad at Landis, Landis could not get a job in this city.”<marginalia> (234)</marginalia></p>
+					<p>“Obviously, regardless of what the DA had done, I could have laid a subpoena on Frank Marshall at any time over a three-year period. But Behr [Landis’s personal lawyer] told me, ‘No, we’re not going to do that. It’s too dangerous to the clients’ careers.’ If Spielberg got mad at Landis, Landis could not get a job in this city.”<marginalia data-type="ci"> (234)</marginalia></p>
 				</div>
 
 				<p>In June 1986, the DA and the Sheriff’s Department tracked Marshall to London, England, where he was staying at St. James’s Hotel and Club, a luxury boutique hotel, working on Amblin’s <span class="movietitle">Who Framed Roger Rabbit</span> at the famous Elstree Studios. Sgt. Budds was sent overseas to personally serve Marshall a new subpoena, but because of his lack of jurisdiction, Budds had to enlist a young legal attaché from the American Embassy to serve the legal document.</p>
 
-				<p>Sgt. Budds listened as she called Marshall from the front desk. Marshall assured her he would be right down. They waited for him for half an hour but he never showed up. A report from Scotland Yard said that Marshall was in Paris, where Spielberg also was at the time, promoting Amblin’s <span class="movietitle">The Money Pit</span>. The report speculated—based on the absence of Marshall’s name from any public flight records—that he had taken a private jet operated by Amblin Entertainment<marginalia> (cf. LaBrecque 128, F&G 241–243, McBride 348, Chain, ch. 42)</marginalia>.</p>
+				<p>Sgt. Budds listened as she called Marshall from the front desk. Marshall assured her he would be right down. They waited for him for half an hour but he never showed up. A report from Scotland Yard said that Marshall was in Paris, where Spielberg also was at the time, promoting Amblin’s <span class="movietitle">The Money Pit</span>. The report speculated—based on the absence of Marshall’s name from any public flight records—that he had taken a private jet operated by Amblin Entertainment<marginalia data-type="ci"> (cf. LaBrecque 128, F&G 241–243, McBride 348, Chain, ch. 42)</marginalia>.</p>
 
-				<p>Given the seriousness of the multiple-homicide trial at issue, Interpol became involved, and Marshall’s name was added to an international “stop and hold” list, along with his longtime girlfriend, Kathleen Kennedy. In fact, Kennedy was intercepted after landing in Barcelona in February 1987, and Marshall on April 7th, 1987, in Madrid<marginalia> (LaBrecque)</marginalia> for pre-production on <span class="movietitle">Empire of the Sun</span>.</p>
+				<p>Given the seriousness of the multiple-homicide trial at issue, Interpol became involved, and Marshall’s name was added to an international “stop and hold” list, along with his longtime girlfriend, Kathleen Kennedy. In fact, Kennedy was intercepted after landing in Barcelona in February 1987, and Marshall on April 7th, 1987, in Madrid<marginalia data-type="ci"> (LaBrecque)</marginalia> for pre-production on <span class="movietitle">Empire of the Sun</span>.</p>
 
 				<p>But by this time the prosecution had rested their case and Marshall’s testimony was no longer of any help.</p>
 
@@ -2291,13 +2322,13 @@ The matter was settled out of court on May 7th, 1987—two days prior to a sched
 						The shed is now in the pine woods. Dogs barking, torches burning.
 				</div>
 
-				<p>The shed scenes are significant for providing plausible deniability to the Location Manager (Richard Vane), who was the highest-ranking member of the production to admit to participating in a conspiracy to conceal the children from a Fire Safety Officer known to work also as an on-set teacher and child welfare worker.</p>
+				<p>The shed scenes are significant for providing plausible deniability to the Location Manager<marginalia data-type="ch"> (Richard Vane)</marginalia>, who was the highest-ranking member of the production to admit to participating in a conspiracy to conceal the children from a Fire Safety Officer known to work also as an on-set teacher and child welfare worker.</p>
 
 				<details><summary> Vane was able at the grand jury hearing to both (1) admit he was actively participating in the conspiracy at the time of the accident (2:20am); and (2) claim that he, and Frank Marshall—standing beside him—didn’t believe the children were going to be used in the shot.<u> Vane was able to say that he believed the concealment plan was ongoing for the sake of the last scene.</u></summary>
 
 				<div class="transcript">
 					<p><span class="transcript-name">DA (Kesselman):</span> Did you know they would be there in violation of the law?</p>
-					<p><span class="transcript-name">RV:</span> Yes, I knew that they were going to be there. I did not think that they would be in the explosion scene. There was a scene that was going to follow that in which the kids were in a shelter. (Grand Jury)</p>
+					<p><span class="transcript-name">RV:</span> Yes, I knew that they were going to be there. I did not think that they would be in the explosion scene. There was a scene that was going to follow that in which the kids were in a shelter.<marginalia data-type="ci"> (Grand Jury)</marginalia></p>
 				</div></details><br>
 
 				<details><summary><u>But was it true?</u></summary>
@@ -2319,14 +2350,14 @@ The matter was settled out of court on May 7th, 1987—two days prior to a sched
 
 				<div class="blockquote largequote">
 
-				<p>“<span class="movietitle">The Twilight Zone</span> has always meant, more than anything else, those little musical notes that you hear from the other room—like a bugle call that draws you to the television set and grips you for half an hour.” (Spielberg<marginalia data-type="ci">, qtd. in F&G 63</marginalia>)</p>
+				<p>“<span class="movietitle">The Twilight Zone</span> has always meant, more than anything else, those little musical notes that you hear from the other room—like a bugle call that draws you to the television set and grips you for half an hour.” (Spielberg<marginalia data-type="ci"> , qtd. in F&G 63</marginalia>)</p>
 				
 				</div>
 
 				<p>Joe Dante, the director of the movie’s third segment, “It’s a Good Life,” said that originally the concept was that “all the stories were going to connect.”</p>
 
 				<div class="blockquote largequote">
-				<p>“Originally the concept was that characters from one episode would appear in another, so that it wasn’t just a series of free-standing stories. It was all linked together. So it seemed like it was a long piece.”</p>
+				<p>“Originally the concept was that characters from one episode would appear in another, so that it wasn’t just a series of freestanding stories. It was all linked together. So it seemed like it was a long piece.”<marginalia data-type="ci"> (qtd. in Ross Plesset, <a href="https://www.twilightzonemuseum.com/media/movie/index.php">“Visions Lost in the Twilight Zone”</a>, Twilight Zone Museum)</marginalia></p>
 				</div>
 
 				<p>The second draft of Landis’s script (May 24th) reflects this original continuity, ending with the lines:</p>
@@ -2340,7 +2371,7 @@ The matter was settled out of court on May 7th, 1987—two days prior to a sched
 				<p>“Matheson” is Richard Matheson, the writer of the other three segments. Besides Landis’s prologue and segment, all three were going to be written by Matheson, an original <i>Twilight Zone</i> screenwriter, who also wrote Spielberg’s riveting TV movie <span class="movietitle">Duel</span> (1971), about a malevolent truck pursuing a terribly anxious man. Spielberg was working closely with Matheson on an original segment about a neighbourhood bully who on Halloween becomes prey to supernatural forces.</p>
 				
 				<div class="blockquote largequote">
-					<p>“There was a lot of talk about [remaking] old episodes,” Dante recently recalled. “I didn’t really want to do an old episode—I thought there [were] so many great stories that hadn’t been done on the <em>Twilight Zone</em> that you could do four new stories. But I think that for whatever reason the studio insisted on doing remakes. <marginalia data-type="ci">[...] </marginalia>Steven’s first thought was to remake ‘It’s a Good Life,’ about the little kid with truly awful powers<marginalia data-type="ci"> [...]</marginalia>. That’s the segment I ultimately inherited.” (Cinefex #14)</p>
+					<p>“There was a lot of talk about [remaking] old episodes,” Dante recently recalled. “I didn’t really want to do an old episode—I thought there [were] so many great stories that hadn’t been done on the <em>Twilight Zone</em> that you could do four new stories. But I think that for whatever reason the studio insisted on doing remakes. <marginalia data-type="ci"> [...] </marginalia>Steven’s first thought was to remake ‘It’s a Good Life,’ about the little kid with truly awful powers<marginalia data-type="ci"> [...]</marginalia>. That’s the segment I ultimately inherited.”<marginalia data-type="ci"> (Cinefex #14)</marginalia></p>
 				</div>
 
 				<p>Little is known about Spielberg’s originally planned segment, except that it was substantial and well under way at the time of the accident.</p>
@@ -2508,7 +2539,7 @@ He just stepped in front of me. I didn’t see him. It wasn’t my fault.</div>
 </div>
 
 <div class="image-grid">
-<p>Spielberg’s final segment, “Kick the Can,” follows a new resident, Mr. Bloom <marginalia data-type="ch">(Scatman Crothers) </marginalia>of Sunnyvale Retirement Home. The residents of the home are old and lifeless, particularly Mr. Conroy, who associates maturity with dour seriousness. Bloom rallies the residents to a moonlit game of kick the can, which magically grants their wishes of being restored to youth. Soon, however, they each, save one, decide that they can’t be bothered to do it all again, and embrace aging playfully instead.</p>
+<p>Spielberg’s final segment, “Kick the Can,” follows a new resident, Mr. Bloom<marginalia data-type="ch"> (Scatman Crothers)</marginalia> of Sunnyvale Retirement Home. The residents of the home are old and lifeless, particularly Mr. Conroy, who associates maturity with dour seriousness. Bloom rallies the residents to a moonlit game of kick the can, which magically grants their wishes of being restored to youth. Soon, however, they each, save one, decide that they can’t be bothered to do it all again, and embrace aging playfully instead.</p>
 
 <p>In the end, Mr. Conroy tragically finds out that magic is real, but that his bitterness has caused him to miss the miracle of eternal youth.</p>
 </div>
@@ -2547,7 +2578,7 @@ He just stepped in front of me. I didn’t see him. It wasn’t my fault.</div>
 
 				<p>According to Farber and Green, “the director did not even attend the pre-production meeting on the segment. ‘His heart just wasn’t in it anymore,’ says Patrick Kehoe, the first AD”<marginalia data-type="ci"> (174)</marginalia>.</p>
 				
-				<p>“It probably is accurate to say that Mr. Spielberg’s heart wasn’t in the movie after the accident,” stated Spielberg’s then-secretary Kathy Switzer. “[A]t the time, I didn’t know Mr. Spielberg well enough to make a judgment about how he felt emotionally. I do know it was a very sad time.”</p>
+				<p>“It probably is accurate to say that Mr. Spielberg’s heart wasn’t in the movie after the accident,” stated Spielberg’s then-secretary Kathy Switzer. “[A]t the time, I didn’t know Mr. Spielberg well enough to make a judgment about how he felt emotionally. I do know it was a very sad time.”<marginalia data-type="ci"> (qtd. in Ross Plesset, <a href="https://www.twilightzonemuseum.com/media/movie/index.php">“Visions Lost in the Twilight Zone”</a>, Twilight Zone Museum)</marginalia></p>
 				
 				<div class="blockquote largequote">
 					<p>Spielberg was so busy preparing detailed sketches for <span class="movietitle">Indiana Jones and the Temple of Doom</span>... that he delegated some of his usual directing duties on <span class="movietitle">Twilight Zone</span>. ...he asked the script supervisor, Kathryn Wooten, and his friend Melissa Mathison (the screenwriter of <span class="movietitle">E.T.</span> and [later] the wife of Harrison Ford) to block out the action with the performers and work with them on their line readings.</p>
@@ -2669,7 +2700,7 @@ He just stepped in front of me. I didn’t see him. It wasn’t my fault.</div>
 
 				<p>In addition to $1.5 million, Crichton was paid $500,000 to write the first draft of the screenplay. Crichton said he was sick of the dinosaurs and the characters at that point, but Spielberg said they just needed someone who could pare it down fast. Crichton said he’d do it, with the provision that he’d eventually hand it off to someone else for the character polishes. He got started in July 1990, even before the book was released.</p>
 
-				<p>Crichton delivered his first draft seven weeks later, on September 7th, 1990. Although this draft has never been published, in 2022, archivist Derrick Davis <a href="https://jurassictime.wixsite.com/memoirs/michael-crichtons-jp-novel-to-screen">summarized</a> its contents. By Spielberg’s request, and Crichton’s intention, the first draft is a straightforward adaptation that <a href="https://jurassictime.wixsite.com/memoirs/michael-crichtons-jp-novel-to-screen">“has all the big scenes retained and has the logical flow that appears in the much longer and more extended argument.”</a></p><details><summary><u> It succeeded in establishing the general outline that would be used in the finished movie.</u></summary>
+				<p>Crichton delivered his first draft seven weeks later, on September 7th, 1990. Although this draft has never been published, in 2022, archivist Derrick Davis <a href="https://jurassictime.wixsite.com/memoirs/michael-crichtons-jp-novel-to-screen">summarized</a> its contents. By Spielberg’s request, and Crichton’s intention, the first draft is a straightforward adaptation that <a href="https://jurassictime.wixsite.com/memoirs/michael-crichtons-jp-novel-to-screen">“has all the big scenes retained and has the logical flow that appears in the much longer and more extended argument.”<marginalia data-type="ci"> (Crichton, qtd. in Davis, <a href="https://www.trescom.org/hosted/scallenger/jurassictime/jtfiles/MichaelCrichtonAdaptationTranscript.pdf">“Michael Crichton’s Adaptation of <i>Jurassic Park</i>”</a>)</marginalia></a></p><details><summary><u> It succeeded in establishing the general outline that would be used in the finished movie.</u></summary>
 
 				<ul>
 					<li>Grant, at the dig, is approached by Hammond or a representative</li>
@@ -2712,7 +2743,7 @@ He just stepped in front of me. I didn’t see him. It wasn’t my fault.</div>
 
 				<p>So goes the surface history of <span class="movietitle">Jurassic Park</span>. But a closer look, aided by other materials unearthed by Davis, including early storyboards, story memos, and a lost draft by Production Designer Rick Carter (<span class="movietitle">Back to the Future Part II</span>), suggests a far more continuous development largely governed by Spielberg himself.</p>
 
-				<p>Months before his first script meeting with Crichton in July ’90, Spielberg was already working out the story. He’d pored through his copy of the book, highlighting his favourite passages and scribbling notes in the margins. Spielberg said, “What I wanted to do was boil the book down and choose my seven or eight favorite scenes and base the script around those. So we crunched the book.”</p>
+				<p>Months before his first script meeting with Crichton in July ’90, Spielberg was already working out the story. He’d pored through his copy of the book, highlighting his favourite passages and scribbling notes in the margins. Spielberg said, “What I wanted to do was boil the book down and choose my seven or eight favorite scenes and base the script around those. So we crunched the book.”<marginalia data-type="ci"> (qtd. in Shay and Duncan 12)</marginalia></p>
 
 				<p>Carter was the first creative professional brought onto the project, within weeks of acquiring the property. They hired seven artists to help conceptualize the story: five primarily doing storyboards (Marty Kline, Ed Varreaux, Tom Cranham, David Lowery, John Bell) and two primarily doing paintings (Dave Negron and Craig Mullins).</p>
 
@@ -2741,7 +2772,7 @@ He just stepped in front of me. I didn’t see him. It wasn’t my fault.</div>
 					<img src="../full/pics/d059.jpg">
 				</figure></div>
 
-				<p>In this frame, for example, we see an older Tim (11) and a younger Lex (7 or 8). These were their ages in the novel, and they were only reversed with Koepp’s draft, since Spielberg wanted Joseph Mazzello as a younger Tim, and “realized that if I cast Lex younger than Tim, she would look about five years old—which was much too young to put in jeopardy with these dinosaurs. It would have turned the audience against us completely.”</p>
+				<p>In this frame, for example, we see an older Tim (11) and a younger Lex (7 or 8). These were their ages in the novel, and they were only reversed with Koepp’s draft, since Spielberg wanted Joseph Mazzello as a younger Tim, and “realized that if I cast Lex younger than Tim, she would look about five years old—which was much too young to put in jeopardy with these dinosaurs. It would have turned the audience against us completely.”<marginalia data-type="ci"> (qtd. in Shay and Duncan 73)</marginalia></p>
 
 				<p>But here Lex is drawn with dark hair, while in Crichton’s novel (earlier) and his drafts (later) she’s described as a blonde. She’s also holding a doll, rather than the baseball mitt she has in Crichton’s novel and both of his drafts. No accessory is mentioned in Carter’s version, and by Marmo’s it’s a flashlight instead.</p>
 
@@ -2754,7 +2785,7 @@ He just stepped in front of me. I didn’t see him. It wasn’t my fault.</div>
 					<img src="../full/pics/d063.jpg">
 				</figure></div>
 
-				<p>Crichton’s first draft introduces more mutilation than exists in the corresponding scenes in the book. In the first draft, and only the first draft, the T-Rex is described as chomping down on Malcolm’s legs, and then pinning Ed Regis (a deleted tour guide character) into the mud with her claws. Then, according to Davis’s summary: “The rex grabs him in his jaws, and lifts him above the limbs of the tree. We don’t see what happens. Body parts seem to fall, but it’s hard to tell in darkness.” Then the gore showers onto Grant and the kids below. </p>
+				<p>Crichton’s first draft introduces more mutilation than exists in the corresponding scenes in the book. In the first draft, and only the first draft, the T-Rex is described as chomping down on Malcolm’s legs, and then pinning Ed Regis (a deleted tour guide character) into the mud with her claws. Then, according to Davis’s summary: “The rex grabs him in his jaws, and lifts him above the limbs of the tree. We don’t see what happens. Body parts seem to fall, but it’s hard to tell in darkness.”<marginalia data-type="ci"> (Davis, “Michael Crichton’s Adaptation”)</marginalia> Then the gore showers onto Grant and the kids below. </p>
 
 				<p>In Crichton’s second draft, Nedry’s body is discovered ripped into parts. </p>
 
@@ -2919,7 +2950,7 @@ He just stepped in front of me. I didn’t see him. It wasn’t my fault.</div>
 				<p>Spielberg had emphasized to Marmo that each scene should be “weighty with narrative ingenuity,” and Koepp continued the process of compressing the story. He refined the movie’s pairs of opposites, such as chaos–order, nature–artifice, man–woman, parent–child, science–religion, carnivore–herbivore, creator–creation, etc.</p>
 				
 				<div class="blockquote largequote">
-					<p>The kids were kind of a challenge, because we didn’t want it to seem like they were there just to have kids in the movie. Steven, in particular, is vulnerable to criticism like that, because he likes to work with kids. He works with kids awfully well, so it’s not entirely fair, but the perception is there nonetheless. So our challenge was to find out why these kids were essential to the movie. (Koepp<marginalia data-type="ci">, qtd. in <a href="https://archive.org/embed/makingofjurassic00shay">Shay</a> 57</marginalia>)</p>
+					<p>The kids were kind of a challenge, because we didn’t want it to seem like they were there just to have kids in the movie. Steven, in particular, is vulnerable to criticism like that, because he likes to work with kids. He works with kids awfully well, so it’s not entirely fair, but the perception is there nonetheless. So our challenge was to find out why these kids were essential to the movie. (Koepp<marginalia data-type="ci"> , qtd. in <a href="https://archive.org/embed/makingofjurassic00shay">Shay</a> 57</marginalia>)</p>
 				</div>
 
 				<p>Koepp turned in an early <a href="https://drive.google.com/file/d/1p43QNiLaMC6B4ZqEn6bL9dfRyuHCA3on/preview">working draft</a> sometime between April 23rd and May 1st, 1992; a draft on May 26th, of which only <a href="https://www.facebook.com/media/set/?set=a.2781141168611237&type=3">ten pages</a> have been released; an update on June 30th (<a href="https://www.facebook.com/media/set/?set=a.1462818743776826&type=3">full script</a>); followed by numerous revisions during principal photography, with a Final Shooting Script dated <a href="https://drive.google.com/file/d/1RFPTKCbNCldFvg4eNWpW_UONPZAb54EQ/preview">November 11th</a> and a Final Draft dated <a href="https://controlroom.jurassicoutpost.com/app/uploads/2016/05/JurassicPark-Final.pdf">December 11th, 1992</a>.</p>
@@ -2978,7 +3009,7 @@ He just stepped in front of me. I didn’t see him. It wasn’t my fault.</div>
 				<p>Reconstituting the components of the miracle at ILM, Koepp’s first draft restores the early brachiosaurus scene from Crichton’s first draft and sequences it next to the movie theatre/computer lab/genetic nursery, amalgamated into a single rotating theme park ride.</p>
 
 				<div class="blockquote largequote">
-					<p>“I’d love to take credit for it, but I think it was Steven’s idea. It was brilliant. We could pop in for a few seconds here and there, put up some essential bits of information, and then get out. ... <em>and</em> it would make sense because it’s all part of the amusement park environment.”</p>
+					<p>“I’d love to take credit for it, but I think it was Steven’s idea. It was brilliant. We could pop in for a few seconds here and there, put up some essential bits of information, and then get out. ... <em>and</em> it would make sense because it’s all part of the amusement park environment.”<marginalia data-type="ci"> (Koepp, qtd. in Shay and Duncan 56)</marginalia></p>
 				</div>
 
 				<p>This conscious, ironic meta-reference became the finishing layer of <span class="movietitle">Jurassic Park</span>’s aesthetic.</p>
@@ -3111,13 +3142,13 @@ He just stepped in front of me. I didn’t see him. It wasn’t my fault.</div>
 					<p>All my friends went to therapy and I thought that maybe I would learn something about myself, so I went for a year. But I can’t say that I found the discoveries conclusive. Everything I learned about myself I knew already or I’d guessed for myself.<marginalia data-type="ci"> (qtd. in McBride, ch. 15)</marginalia></p>
 				</div>
 
-				<p>Spielberg was reportedly in talks with celebrity self-help author John Bradshaw, a guru specializing in healing the inner child, by imaginatively regressing his subject(s) back to their early childhood. According to Bradshaw, Spielberg was deeply impressed by his work. Los Angeles magazine reported that in February of 1992, they met at Spielberg’s house to discuss a TV show Spielberg had been convincing him to do. Bradshaw says, “Steven looked at me on the set of Hook and said, ‘This could be the most powerful television program of all time.’” Spielberg must have valued something about Bradshaw’s analysis, as he hired him as an on-set consultant for <span class="movietitle">Hook</span>, and cast his daughter in the movie.</p>
+				<p>Spielberg was reportedly in talks with celebrity self-help author John Bradshaw, a guru specializing in healing the inner child, by imaginatively regressing his subject(s) back to their early childhood. According to Bradshaw, Spielberg was deeply impressed by his work. Los Angeles magazine reported that in February of 1992, they met at Spielberg’s house to discuss a TV show Spielberg had been convincing him to do. Bradshaw says, “Steven looked at me on the set of Hook and said, ‘This could be the most powerful television program of all time.’”<marginalia data-type="ci"> (qtd. in Sally Ogle Davis, “Oh, Pablum!,” <i>Los Angeles</i>, April 1992)</marginalia> Spielberg must have valued something about Bradshaw’s analysis, as he hired him as an on-set consultant for <span class="movietitle">Hook</span>, and cast his daughter in the movie.</p>
 				<p>In this context, <span class="movietitle">Jurassic Park</span> always seemed like one last summer vacation. Sheinberg had insisted Spielberg get <span class="movietitle">Jurassic Park</span> done before <span class="movietitle">Schindler’s List</span>: “he knew that once I had directed <span class="movietitle">Schindler</span>, I wouldn’t be able to do <span class="movietitle">Jurassic Park</span>.”<marginalia data-type="ci"> (Spielberg, qtd. in McBride, ch. 16)</marginalia></p>
 
 				<p>Critic Kim Newman summed it up as follows:</p>
 
 				<div class="blockquote largequote">
-					<p>The paring-down of a monster best-seller into a suspense machine (<span class="movietitle">Jaws</span>); the tackling of a popular-science childhood sense of wonder perennial with state-of-the-art effects that re-imagine 1950s B-science fiction (<span class="movietitle">Close Encounters of the Third Kind</span>); the all-action jungle adventure littered with incredible perils and gruesome deaths (<span class="movietitle">Raiders of the Lost Ark</span>); and big-eyed creatures who range from beatifically benevolent to toothily murderous (<span class="movietitle">Gremlins</span>, <span class="movietitle">E.T.</span><marginalia data-type="ci">, qtd. in Morris, <span class="booktitle">Empire of Light</span>, 256.</marginalia>).</p>
+					<p>The paring-down of a monster best-seller into a suspense machine (<span class="movietitle">Jaws</span>); the tackling of a popular-science childhood sense of wonder perennial with state-of-the-art effects that re-imagine 1950s B-science fiction (<span class="movietitle">Close Encounters of the Third Kind</span>); the all-action jungle adventure littered with incredible perils and gruesome deaths (<span class="movietitle">Raiders of the Lost Ark</span>); and big-eyed creatures who range from beatifically benevolent to toothily murderous (<span class="movietitle">Gremlins</span>, <span class="movietitle">E.T.</span><marginalia data-type="ci"> , qtd. in Morris, <span class="booktitle">Empire of Light</span>, 256.</marginalia>).</p>
 				</div>
 
 				<p>But what if <span class="movietitle">Jurassic Park</span> wasn’t a break from Spielberg’s therapeutic phase, but its most pivotal moment?</p>
@@ -3374,7 +3405,7 @@ Spielberg is a bit leaden with some of the older actors, and can’t always rede
 
 <li><details><summary><a href="https://www.newyorker.com/magazine/1984/06/11/a-breeze-a-bawd-a-bounty">🔗</a> A Breeze, A Bawd, A Bounty (June 11th, 1984)</summary>
 
-<details><summary>“Temple of Doom” probably has to be called a pre-sequel, or prequel, to “Raiders of the Lost Ark,” which was in 1936, but it isn’t pulpy in the way that “Raiders” was. It doesn’t have the serious undercurrents that “Raiders” had; it’s less “sincere”— and that’s what is so good about it.</summary><br> The two films have the same adventurer-archeologist hero, Dr. Indiana Jones (Harrison Ford), who wears a brown fedora and carries specs and a bullwhip. Indy seems more assured now, and more formidable physically—he’s a professor with the chest of a horse. The plot is minimal this time: the action starts in Shanghai, at the Obi Wan night club, where the lusty blond Willie (Kate Capshaw), in a line of tap-dancing chorus girls, belts out the film’s keynote song, “Anything Goes,” in English and Chinese. After a scramble at the club that features a diamond, a dose of poison, a vial of antidote, a lazy Susan, a pack of Oriental gangsters, and a rickshaw, and turns into a full-blown masterpiece of cheerful slapstick, Willie and Indy and his tiny, daredevil sidekick, the Chinese orphan Short Round (Ke Huy Quan), make a fast getaway by plane and drop off (literally) in India.</p>
+<details><summary>“Temple of Doom” probably has to be called a pre-sequel, or prequel, to “Raiders of the Lost Ark,” which was in 1936, but it isn’t pulpy in the way that “Raiders” was. It doesn’t have the serious undercurrents that “Raiders” had; it’s less “sincere”— and that’s what is so good about it.</summary><br> The two films have the same adventurer-archeologist hero, Dr. Indiana Jones<marginalia data-type="ch"> (Harrison Ford)</marginalia>, who wears a brown fedora and carries specs and a bullwhip. Indy seems more assured now, and more formidable physically—he’s a professor with the chest of a horse. The plot is minimal this time: the action starts in Shanghai, at the Obi Wan night club, where the lusty blond Willie<marginalia data-type="ch"> (Kate Capshaw)</marginalia>, in a line of tap-dancing chorus girls, belts out the film’s keynote song, “Anything Goes,” in English and Chinese. After a scramble at the club that features a diamond, a dose of poison, a vial of antidote, a lazy Susan, a pack of Oriental gangsters, and a rickshaw, and turns into a full-blown masterpiece of cheerful slapstick, Willie and Indy and his tiny, daredevil sidekick, the Chinese orphan Short Round<marginalia data-type="ch"> (Ke Huy Quan)</marginalia>, make a fast getaway by plane and drop off (literally) in India.</p>
 
 <p>The subject of a movie can be momentum. It has often been the true—even if not fully acknowledged— subject of movies. In “Indiana Jones and the Temple of Doom,” it’s not merely acknowledged, it’s gloried in. The picture has an exuberant, hurtling-along spirit. Spielberg tried kinetic comic-strip routines in his “1941” and couldn’t quite make them work; here comparable routines come off just about perfectly. Spielberg uses old wheezes like the lazy Susan and you’re charmed by it, remembering how, as a kid, you were nuts about these spinning discs. “Indiana Jones” is the kind of comedy in which the hero, in the middle of terrifying circumstances, and with his foot smoking, yells for water, and a deluge comes at him. The film sets the comic-book context for the hyperbolic perils that the three central characters get into, and keeps us laughing at the very fact that they don’t get a chance to catch their breath. The whole movie is designed as a shoot-the-chutes, and toward the end, when the heroic trio, having found the sacred stone and freed the stolen children from the maharajah’s mines, are trying to escape in a tiny mine car, and a shift in camera angles places us with them on a literal roller-coaster ride, the audience laughs in recognition that that’s what we’ve been on all along.</p></details>
 
@@ -3420,7 +3451,7 @@ Spielberg is a bit leaden with some of the older actors, and can’t always rede
 
 <p>“Amblin” here covers both of Spielberg’s production companies: his loan-out company, Amblin’ Productions, Inc. (1970), and Amblin’ Entertainment, Inc. (1980), which was trading in 1982 as Amblin Productions. Cases are dated by shooting year.</p>
 
-				<p>Spielberg first saw the galleys for Peter Benchley’s novel, <em>Jaws</em>, on his Universal Studios producer Dick Zanuck’s desk in 1973. He begged to make it, and it was only after Universal won the rights that Spielberg realized how difficult it would be to shoot. Because of its technical challenges, <em>Jaws</em> went several times over its originally planned shooting schedule and budget at Martha’s Vineyard. Although Benchley wrote the first draft, it was quickly discarded. A second draft by Howard Sackler was more successful at reducing the story to its elements. The final pages were written by Carl Gottlieb with Spielberg every night after dinner at Spielberg’s cabin, with the extended schedule affording them time to workshop scenes with the leads<marginalia> (McBride 238–9)</marginalia>.</p>
+				<p>Spielberg first saw the galleys for Peter Benchley’s novel, <em>Jaws</em>, on his Universal Studios producer Dick Zanuck’s desk in 1973. He begged to make it, and it was only after Universal won the rights that Spielberg realized how difficult it would be to shoot. Because of its technical challenges, <em>Jaws</em> went several times over its originally planned shooting schedule and budget at Martha’s Vineyard. Although Benchley wrote the first draft, it was quickly discarded. A second draft by Howard Sackler was more successful at reducing the story to its elements. The final pages were written by Carl Gottlieb with Spielberg every night after dinner at Spielberg’s cabin, with the extended schedule affording them time to workshop scenes with the leads<marginalia data-type="ci"> (McBride 238–9)</marginalia>.</p>
 
 				<p>...As much as Pauline Kael liked <span class="movietitle">Jaws</span>, there was something about it that nagged at her. It was what she called “the hidden confusion of historical fact and sadistic fantasy.” It was about Quint’s monologue.</p>
 
@@ -3913,7 +3944,7 @@ Spielberg describes procuring a realistic scream from his female lead by droppin
 
 					<p>While casting Graffiti, Lucas crashes at a friend’s place, who happens to be writing <span class="movietitle">The Sugarland Express</span>. Spielberg comes over every night to talk about the script over dinner, and the two commiserate about the challenges of getting a movie made.</p>
 
-					<p>After the movie is finished, despite a jubilant test screening, the Universal producers are angry and disappointed, and again forcibly impose cuts. This time, though, the movie is a critical and commercial success, “a lovely nostalgic conception… [which] promises to become that increasingly rare but heartening commodity, a new American movie that almost everyone is going to like.”</p>
+					<p>After the movie is finished, despite a jubilant test screening, the Universal producers are angry and disappointed, and again forcibly impose cuts. This time, though, the movie is a critical and commercial success, “a lovely nostalgic conception… [which] promises to become that increasingly rare but heartening commodity, a new American movie that almost everyone is going to like.”<marginalia data-type="ci"> (Gary Arnold, <i>Washington Post</i>, August 31st, 1973, qtd. in Jones 159)</marginalia></p>
 
 					<p>In the interim, Lucas has been developing his space serial, now known as <span class="movietitle">The Star Wars</span>. As Graffiti is released, Lucas is still in the middle of negotiating his deal memo with Fox. Suddenly, he has leverage. He passes on a quick infusion of money to secure creative control, including merchandising and sequel rights.</p>
 
@@ -3966,7 +3997,7 @@ Spielberg describes procuring a realistic scream from his female lead by droppin
 <a id="section-22e"></a><details><summary><h3>#22e. UNIX System</h3></summary>
 
 					<div class="blockquote largequote">
-						<p>[Kathleen Kennedy: “ILM was in a building that they’re not in anymore, but it was basically a warehouse building that was in San Rafael. It was always interesting because when you took people to ILM I think they had something in their mind that they were going to see magic, but it was basically just a bunch of guys on computers.”]</p>
+						<p>[Kathleen Kennedy: “ILM was in a building that they’re not in anymore, but it was basically a warehouse building that was in San Rafael. It was always interesting because when you took people to ILM I think they had something in their mind that they were going to see magic, but it was basically just a bunch of guys on computers.”]<marginalia data-type="ci"> (<a href="https://www.youtube.com/watch?v=KWsbcBvYqN8"><i>Moments That Changed the Movies: Jurassic Park</i></a>, Academy of Motion Picture Arts and Sciences)</marginalia></p>
 					</div>
 
 					<p>We follow ILM through 1977–1986, as their spatial compositing technology is developed into a 3D modeling system and sold off to Steve Jobs.</p>
@@ -3993,7 +4024,7 @@ Spielberg describes procuring a realistic scream from his female lead by droppin
 
 					<div class="blockquote largequote">Lucas: “I think we may have reached a level here where we have actually created reality, which, of course, is what we were trying to do all along.”<marginalia data-type="ci"> (Jones 381)</marginalia></div>
 
-					<p>Steve Williams, walking through a now abandoned ILM—“This room might not look like much, but every single frame in <span class="movietitle">Terminator 2</span> was done in this room…—So I used to blast Beethoven and Bach in here. There was just something very strange about having Beethoven blasting. It would go right through my head and into my hands and against the keyboard and right into the Rex. It’s one of those weird things where you’re part of the machine.”</p>
+					<p>Steve Williams, walking through a now abandoned ILM—“This room might not look like much, but every single frame in <span class="movietitle">Terminator 2</span> was done in this room…—So I used to blast Beethoven and Bach in here. There was just something very strange about having Beethoven blasting. It would go right through my head and into my hands and against the keyboard and right into the Rex. It’s one of those weird things where you’re part of the machine.”<marginalia data-type="ci"> (<a href="https://www.youtube.com/watch?v=KWsbcBvYqN8"><i>Moments That Changed the Movies: Jurassic Park</i></a>, Academy of Motion Picture Arts and Sciences)</marginalia></p>
 
 					<p>Steve Williams describes how he crafted the illusion of movement and three-dimensionality, and even how he positioned the monitors at just the right angle so Kennedy would see them despite Muren’s objections.</p>
 
@@ -4003,7 +4034,7 @@ Spielberg describes procuring a realistic scream from his female lead by droppin
 
 					<div class="blockquote largequote">
 						<p>“If I failed, I would be the one who failed, no one else, that was it. And I was shooting my mouth out that I could do it. And it was just a lot of pain. The divorces and problems and all this stuff to make sure the specular highlight on a fingernail of a creature looks proper on your monitor…. No one knows the pain you go through to do that.</p>
-						<p>Yeah, this place used to be alive, man.”</p>
+						<p>Yeah, this place used to be alive, man.”<marginalia data-type="ci"> (<a href="https://www.youtube.com/watch?v=KWsbcBvYqN8"><i>Moments That Changed the Movies: Jurassic Park</i></a>, Academy of Motion Picture Arts and Sciences)</marginalia></p>
 					</div></details><br>
 
 	<a id="section-notes"></a>
@@ -4013,7 +4044,7 @@ Spielberg describes procuring a realistic scream from his female lead by droppin
 			</header>
 <div class="image-grid">
 					<figure>
-					<img src="../full/pics/n1.jpg"><figcaption><em>Fig. 3—Courtroom diagram. Landis indicates the path taken by Morrow, Myca, and Renee.<marginalia> (See LaBrecque.)</em></figcaption></figure></div></p>
+					<img src="../full/pics/n1.jpg"><figcaption><em>Fig. 3—Courtroom diagram. Landis indicates the path taken by Morrow, Myca, and Renee.<marginalia data-type="ci"> (see LaBrecque)</marginalia></em></figcaption></figure></div></p>
 					<table>
 						<thead>
 							<tr>
@@ -4127,10 +4158,10 @@ Spielberg describes procuring a realistic scream from his female lead by droppin
 					<p>As well, it’s possible <span class="movietitle">Twilight Zone</span> was initially conceived by Spielberg as a potential franchise.</p>
 					
 					<div class="blockquote largequote">
-						<p>Ted Ashley, who was Serling’s agent at the time that the writer created <span class="movietitle">The Twilight Zone</span>, had graduated to the position of chairman of the board at Warner Bros. Following the success of <span class="movietitle">Star Wars</span>, <span class="movietitle">Close Encounters of the Third Kind</span>, and <span class="movietitle">Alien</span> in the late seventies, Ashley decided the time was right to create a big-screen fantasy built around the concept of <span class="movietitle">The Twilight Zone</span>. <span class="movietitle">Star Trek</span>, another TV show that had a fanatical cult following, was being turned into a whole series of feature films. Ashley imagined the same future for <span class="movietitle">Twilight Zone</span>. (F&G 64)</p>
+						<p>Ted Ashley, who was Serling’s agent at the time that the writer created <span class="movietitle">The Twilight Zone</span>, had graduated to the position of chairman of the board at Warner Bros. Following the success of <span class="movietitle">Star Wars</span>, <span class="movietitle">Close Encounters of the Third Kind</span>, and <span class="movietitle">Alien</span> in the late seventies, Ashley decided the time was right to create a big-screen fantasy built around the concept of <span class="movietitle">The Twilight Zone</span>. <span class="movietitle">Star Trek</span>, another TV show that had a fanatical cult following, was being turned into a whole series of feature films. Ashley imagined the same future for <span class="movietitle">Twilight Zone</span>.<marginalia data-type="ci"> (F&G 64)</marginalia></p>
 					</div>
 
-					<p>“Before the accident, everyone was talking about sequels, and that idea was forgotten.” (Carol Serling, qtd. in F&G, 172)</p></details><br>
+					<p>“Before the accident, everyone was talking about sequels, and that idea was forgotten.”<marginalia data-type="ci"> (Carol Serling, qtd. in F&G 172)</marginalia></p></details><br>
 		
 					<a id="section-03n"></a><details><summary><h3>#03n. “8:00 or 8:30pm”</h3></summary>
 		
@@ -4138,7 +4169,7 @@ Spielberg describes procuring a realistic scream from his female lead by droppin
 
 					<p>At the second meeting, the defendants say Marshall informed them that waivers could only be obtained until “8:00 or 8:30 p.m.” (James Neal’s opening statement; Landis’s testimony).</p>
 
-					<p>However, Colleen Logan, Area Administrator for the DLSE, testified that the board’s policy at that time was—more or less uniformly—to grant extensions until exactly 10:00pm, when requested (trial testimony; cf. D’Agostino closing argument.)</p>
+					<p>However, Colleen Logan, Area Administrator for the DLSE, testified that the board’s policy at that time was—more or less uniformly—to grant extensions until exactly 10:00pm, when requested<marginalia data-type="ci"> (trial testimony; cf. D’Agostino closing argument)</marginalia></p>
 
 					<p>If the defendants’ account of the “8:00 or 8:30 p.m.” restriction is accurate, then where did Marshall get that timeframe? Did he actually have Kennedy—or anyone—call the DLSE?</p>
 
@@ -4154,7 +4185,7 @@ Spielberg describes procuring a realistic scream from his female lead by droppin
 					
 					<p>Chain claims the existence of a series of interdepartmental Warner Bros. memos detailing interviews with key figures involved in the production on the Warner Bros. side in the days after the accident, including Lucy Fisher and Frank Marshall.</p>
 
-<p>If the authenticity of these memos is accepted, it means that Lucy Fisher told Warner Bros. lawyers that she had specifically asked both Landis and Marshall whether the children newly added to the script would be “a problem,” and both men assured her that it would not. She let them know that, if asked, she would deny any knowledge of the matter. (Chain, ch. 18; ch. 47)</p>
+<p>If the authenticity of these memos is accepted, it means that Lucy Fisher told Warner Bros. lawyers that she had specifically asked both Landis and Marshall whether the children newly added to the script would be “a problem,” and both men assured her that it would not. She let them know that, if asked, she would deny any knowledge of the matter.<marginalia data-type="ci"> (Chain, ch. 18; ch. 47)</marginalia></p>
 
 <p>Marshall, for his part, allegedly told Warner Bros. lawyers that he had no idea what Folsey Jr.’s “personal cash advance” cheque was for, having assumed it was going to be used for its stated purposes. In his recounting of an early July meeting at Landis’s Universal Studios compound (he remembered just one, not two), he had told Landis, Folsey, and Allingham that it would not be possible to use young children later than 8:30. Instead, he suggested, they should pursue waivers to hire 12-year-olds who look young, which he assumed they did for the shots in which Marshall saw the children prior to the 2:20am shot.</p>
 
@@ -4170,7 +4201,7 @@ Spielberg describes procuring a realistic scream from his female lead by droppin
 
 <a id="section-05n"></a><details><summary><h3>#05n. The peculiar testimony of Edward Morey</h3></summary>
 
-<p>Morey on Spielberg (Grand Jury, June 1st, 1983):</p>
+<p>Morey on Spielberg<marginalia data-type="ci"> (Grand Jury, June 1st, 1983)</marginalia>:</p>
 					
 <div class="transcript">
 							<p><span class="transcript-name">DA (GK):</span> Who represented the John Landis production staff at those meetings?</p>
@@ -4185,7 +4216,7 @@ Spielberg describes procuring a realistic scream from his female lead by droppin
 
 <p>The FBI and Sheriff’s Dept established fairly early on that the fourth blast fired that night was the one that destroyed the helicopter’s tail rotor. This was the one that came through the “fish-drying hut.” The question became: who cued that blast?</p>
 
-<p>There were two main candidates, each operating wired firing boards at a distance: SFX man Jerry Williams, and SFX man James Camomile. Camomile had been granted immunity for his cooperation early in the investigation. Williams was standing beside Landis; Camomile was standing off somewhere else. This had not been properly disambiguated at the time; though retrospective forensics determined it was Williams (See Chain).</p>
+<p>There were two main candidates, each operating wired firing boards at a distance: SFX man Jerry Williams, and SFX man James Camomile. Camomile had been granted immunity for his cooperation early in the investigation. Williams was standing beside Landis; Camomile was standing off somewhere else. This had not been properly disambiguated at the time; though retrospective forensics determined it was Williams<marginalia data-type="ci"> (see Chain)</marginalia>.</p>
 
 <p>Braun had favoured the “delamination theory”: that not debris, but intense heat had destroyed the tail rotor, creating a lack of precedent. But Neal sensed accurately that the disorganization abounding in the case meant almost anything would do.</p>
 
@@ -4207,11 +4238,11 @@ Spielberg describes procuring a realistic scream from his female lead by droppin
 
 <div class="image-grid"><figure><img src="../full/pics/n2.jpg"></figure></div>
 
-<p>Allingham presented himself to prospective helicopter pilot Clay Wright as working for “Fly by Night” (Chain, ch. 4). According to Chain, “Fly by Night Productions” was the name that Landis had given his segment’s production company for Twilight Zone, in original contract negotiations with Warner, before the deal became structured so that no production entity specific to Landis was needed. According to LaBrecque, at least, it was a “joking tribute to Steven Spielberg, who had called his own production company by that nickname” (26). Chain points out, as well, its utility in telegraphing a thrifty indie film rather than a studio-backed major. “Fly by Night” was painted on the nose of the helicopter; its existence is noted by Budds in his Oct. 26th, 1982, supplementary police report: “The helicopter was olive-drab in color with a painted decal on the nose which read, ‘Fly by night.’” The decal was erased by an unknown person in the later morning hours of July 23rd, 1982. (See Chain, Exhibits, for photo.)</p></details><br>
+<p>Allingham presented himself to prospective helicopter pilot Clay Wright as working for “Fly by Night”<marginalia data-type="ci"> (Chain, ch. 4)</marginalia>. According to Chain, “Fly by Night Productions” was the name that Landis had given his segment’s production company for Twilight Zone, in original contract negotiations with Warner, before the deal became structured so that no production entity specific to Landis was needed. According to LaBrecque, at least, it was a “joking tribute to Steven Spielberg, who had called his own production company by that nickname” (26). Chain points out, as well, its utility in telegraphing a thrifty indie film rather than a studio-backed major. “Fly by Night” was painted on the nose of the helicopter; its existence is noted by Budds in his Oct. 26th, 1982, supplementary police report: “The helicopter was olive-drab in color with a painted decal on the nose which read, ‘Fly by night.’” The decal was erased by an unknown person in the later morning hours of July 23rd, 1982.<marginalia data-type="ci"> (see Chain, Exhibits, for photo)</marginalia></p></details><br>
 
 <a id="section-08n"></a><details><summary><h3>#08n. Steve Williams</h3></summary>
 
-<p>Steve Williams resists the emphasis on Tippett’s “extinction” narrative. Williams had been Animation Supervisor on The Abyss and Terminator 2, and now, despite single-handedly redeeming the prospect of seamless CGI for Jurassic Park, that role was given to Tippett. “Kathleen Kennedy pats me on the back and goes, ‘You have a very bright future.’ And that was that. That was the first and only time I ever met her. I never saw her again.” He was astonished by the lack of recognition that followed his breakthrough, failing to be acknowledged even in Jurassic Park’s Best Visual Effects Oscar speech.</p></details><br>
+<p>Steve Williams resists the emphasis on Tippett’s “extinction” narrative. Williams had been Animation Supervisor on The Abyss and Terminator 2, and now, despite single-handedly redeeming the prospect of seamless CGI for Jurassic Park, that role was given to Tippett. “Kathleen Kennedy pats me on the back and goes, ‘You have a very bright future.’ And that was that. That was the first and only time I ever met her. I never saw her again.”<marginalia data-type="ci"> (<i>Jurassic Punk</i>, dir. Scott Leberecht, 2022)</marginalia> He was astonished by the lack of recognition that followed his breakthrough, failing to be acknowledged even in Jurassic Park’s Best Visual Effects Oscar speech.</p></details><br>
 
 <a id="section-09n"></a><details><summary><h3>#09n. Steve Starkey</h3></summary>
 
@@ -4231,7 +4262,7 @@ Spielberg describes procuring a realistic scream from his female lead by droppin
 							<p>“We have a daughter, Janice, and he tore the head off her Barbie doll.” (<a href="https://youtu.be/BC6suzi-y60?si=mU37IH56K5g09eEq&t=535">Citizen Steve</a>)</p></div>
 
 							<div class="blockquote largequote">
-							<p>“I remember being totally scared of him,” says Janice Zusman, who lived in the house behind the Spielbergs. “One time Susie and I were playing Barbie dolls by the canal near our house, on Indian School Road. I would have been grounded for life if my parents knew I’d even gone near the canal. We were pretending it was the Grand Canyon. Steve was bugging us and teasing us: ‘If you don’t do whatever’—unfortunately, I don’t remember what it was he wanted us to do—‘then I’m going to throw your Barbie into the canal.’ He grabbed my Barbie doll and yanked the head off and threw it into the canal. The most important thing in my life was this Barbie doll! It was so traumatic I’ve been talking about it ever since. The worst thing was that I couldn’t tell my folks, so I had to go down and fish the head out of the canal.” (McBride 89ff.)</p></div>
+							<p>“I remember being totally scared of him,” says Janice Zusman, who lived in the house behind the Spielbergs. “One time Susie and I were playing Barbie dolls by the canal near our house, on Indian School Road. I would have been grounded for life if my parents knew I’d even gone near the canal. We were pretending it was the Grand Canyon. Steve was bugging us and teasing us: ‘If you don’t do whatever’—unfortunately, I don’t remember what it was he wanted us to do—‘then I’m going to throw your Barbie into the canal.’ He grabbed my Barbie doll and yanked the head off and threw it into the canal. The most important thing in my life was this Barbie doll! It was so traumatic I’ve been talking about it ever since. The worst thing was that I couldn’t tell my folks, so I had to go down and fish the head out of the canal.”<marginalia data-type="ci"> (McBride 89ff)</marginalia></p></div>
 
 					<p>Did the Barbie doll symbol hold any personal significance to the filmmaker, any at all, or was it just another shared relic of a bygone era?</p>
 					<p><a href="https://youtu.be/PAiw3-Io5ao?si=5361FkgtOkSt57nB">Robin Williams at Steven Spielberg’s surprise party.</a></p></details><br>
@@ -4257,7 +4288,7 @@ Spielberg describes procuring a realistic scream from his female lead by droppin
 						<li><strong>Copyedit:</strong> every typo, grammar, punctuation, and style fix flagged in the proofread, in all sections and the notes. Examples: “a U.S. Army patrol,” “NTSB,” “Carl Rizzo,” “Nietzsche,” “Robin Williams,” “Ballantine,” “Comic-Con,” “supersede,” “The Tree of Life,” “ultimate” (for “penultimate”), “Location Manager,” “1st AD,” closing and nesting of quotation marks, and stray commas, periods, and spaces.</li>
 						<li><strong>Structure:</strong> the two paragraphs closing #13 (“Even if the memo were spurious…”, “As well, Marshall implied…”) and the question after them moved to the end of #04n, where the Warner Bros. memos are introduced.</li>
 						<li><strong>Classical references:</strong> Mitys reversal cited as Poetics 9.1452a (#17); Thyestes as brother of Atreus and the theatre of Dionysus (#22b); Cadmus (of Oedipus’s line) or Palamedes as bringers of letters (#22d).</li>
-						<li><strong>Factual corrections (author-confirmed):</strong> #01, Landis’s answer on swimming quoted from the trial transcript; three shotguns (per LaBrecque); the fish-drying hut’s bamboo floor; Stewart titled Special Effects Supervisor; the singed-hair account identified as Virginia Kearns’s (bracketed in the quotation); the “About 1 o’clock” answer reattributed to Dr. Peter Chen translating for Shyan-Huei Chen, with the following note crediting Mrs. Chen; the pay-envelope account cited to the Chen family’s NTSB interview; Radford “later” Amblin’s longtime paymaster; Cohn’s grand jury quote corrected. #03, “the defence in the criminal trial.” #04, Morgan Renard (not Kenny Endoso) on the Chapman crane; House a witness for the prosecution; the Rochlenback incident credited to Eugene Trope, Wingo’s counsel (LaBrecque 156–157); the 12:15am exchange conformed to LaBrecque (42–43); the confrontation described as Wingo and Robinson. #05, “the office counts.” #01 (per Chain): both pay envelopes described (Chain, ch. 2); the canteen “about a quarter-mile” away (ch. 5); the Hua family’s six children (ch. 24). #04n (per Chain): “12-year-olds” (ch. 47). Quick facts: “This was no boat accident!” (#17); six sequels, through <span class="movietitle">Jurassic World Rebirth</span> (2025) (#19); Finerman’s win dated 1995 (#09); Mathison “[later]” the wife of Harrison Ford (#16); “the conversion of St. Paul” (#19); ILM dates through 1986, and Catmull as director of NYIT’s Computer Graphics Lab, hired to Lucasfilm’s computer division (#22e); “Kick the Can” filmed in six days (#16); Isaiah di Trani 13th century and Bernard of Chartres 12th (#22b); “Amblin” defined at first use (#01) and in #21, with the California incorporation dates of Amblin’ Productions, Inc. (December 17, 1970) and Amblin’ Entertainment, Inc. (April 1, 1980), also given with entity numbers in #02n; #22a–b footnote links repaired (*1); “dwarfs” (Canadian spelling); the stage crane “attributed by some to Aeschylus” and the Watchers fathering the giants in Enoch (#22b); On Dreams 3, 461a cited for Aristotle’s quivering reflection (#19); Bradshaw a “self-help author” (#19); sources added for the Kennedy, Spielberg and Lucas quotes in #17 (<em>The Making of Jurassic Park</em>, 1995), the bracketed passages in #22c (Jones) and the Ong passage in #22d; Truffaut’s advice cited to McBride (#19); both Freud quotations cited to An Autobiographical Study (#19); the Spielberg and Voorhees quotations in #21 cited to The Making of Jaws (1995); quotations sourced to McBride by chapter (Matheson and Dante, #16; Crichton, Carter and Koepp, #17; Spielberg on therapy, Schindler, Close Encounters and 1941, and Schrader, #19; “the older I get,” #18), with the Carter, Koepp, Schrader and 1941 quotations conformed to McBride’s wording (“disowning this movie”) and the Schrader quotation recited from McBride rather than Easy Riders, Raging Bulls, which does not contain it; the Empire set visit in #19 cited as Rufus Sears, “Making Jurassic Park,” Empire no. 50 (August 1993), replacing the website’s later headline; Rizzo’s height cited to Time (1975); the paragraph on his dives rewritten from Gottlieb and Valerie Taylor’s account (qtd. in McBride, ch. 10), replacing the unsourced claim that the production failed to provide a working tank (#21); Landis’s answer in #11 conformed to the trial transcript (“I asked if the children could swim”); Lucas quotations and the Catmull passage in #22c and #22e cited to Jones by page (130, 153, 232, 258, 289, 381), with “high-tech cartoons” as in Jones; “toyetic” in #19 attributed to Kenner’s Bernard Loomis, per Jones 258, with the unsourced Columbia–Mattel aside removed; the Hoffman contract in #18 restated from McBride, ch. 2 (the age claim made in 1975, per Hoffman’s suit; the 1977 buyout; McBride’s 1994 interview with Hoffman; the 1995 lawsuits); Chain’s <i>Fly by Night</i> dated 2021 (Index, #15, and the Notes); the first officer’s arrival dated 2:45am in #01 and #13 (F&amp;G 145), replacing “3:45am” and “received a call at 2:45am”; citations added for the Penal Code §192 extract (#02) and the Farber and Green passage on Liroff (F&amp;G 378) (#04); domestic gross given as ~$29.5 million (#01n); the Australian shark sizes conformed to Gottlieb (#21); Malcolm’s line quoted from the film (#22a); Rob Bottin credited with the “It’s a Good Life” creatures (#16); Freud’s start dated to the early 1880s (#19); dinosaur bones “first scientifically described” in 1824 (#22b); the year added to Budds’s supplementary report (#07n); Hook’s shoot “until the summer” (#17); name and word slips in the Phillips excerpts (#09) and gaps in the Kael excerpts (#20) marked with bracketed readings; the 2nd-draft script excerpt in #16 conformed to the script’s wording (“Viet Names [sic],” “splitting [sic]”); Spielberg’s last answer in the Cavett transcript (#21) cleaned, with editorial readings in square brackets; Deputy William Strait’s name spelled as in Chain, ch. 1 (#13); Mrs. Le’s alternate ending restated from the DLSE summary alone (no “camps”; Folsey as the source), with a note on the NTSB interview (#16); the alphabet’s inventor described as a Semitic-speaking slave in Egypt, with the script then spreading among the Semitic peoples of the Levant (#22d); HBO’s Spielberg an “authorized documentary,” and Leah Adler’s encouragement made specific (#18); Amblin’s 1983 office in #13 corrected to the Warner Bros. lot (the move to Universal came in 1984); a December 1982 still of the “Amblin Productions” signage on the Warner Bros. lot added to #02n, and #21 notes the 1982 trading name. Also per Chain: the fourth explosion (not the fifth) through the drying hut (#01, ch. 29); the indictment breakdown (#05, ch. 34); Braun’s letters dated 1985 and moved to the interim (#05, ch. 41); Marshall’s days on set cited to ch. 31, with his lawyers’ “three or four times” (#01, #13); “fish-drying hut” throughout; Lucy Fisher named in #15 (ch. 9). #06, the fourth draft described as surviving in LaBrecque’s archive but apparently never examined by the prosecution.</li>
+						<li><strong>Factual corrections (author-confirmed):</strong> #01, Landis’s answer on swimming quoted from the trial transcript; three shotguns (per LaBrecque); the fish-drying hut’s bamboo floor; Stewart titled Special Effects Supervisor; the singed-hair account identified as Virginia Kearns’s (bracketed in the quotation); the “About 1 o’clock” answer reattributed to Dr. Peter Chen translating for Shyan-Huei Chen, with the following note crediting Mrs. Chen; the pay-envelope account cited to the Chen family’s NTSB interview; Radford “later” Amblin’s longtime paymaster; Cohn’s grand jury quote corrected. #03, “the defence in the criminal trial.” #04, Morgan Renard (not Kenny Endoso) on the Chapman crane; House a witness for the prosecution; the Rochlenback incident credited to Eugene Trope, Wingo’s counsel (LaBrecque 156–157); the 12:15am exchange conformed to LaBrecque (42–43); the confrontation described as Wingo and Robinson. #05, “the office counts.” #01 (per Chain): both pay envelopes described (Chain, ch. 2); the canteen “about a quarter-mile” away (ch. 5); the Hua family’s six children (ch. 24). #04n (per Chain): “12-year-olds” (ch. 47). Quick facts: “This was no boat accident!” (#17); six sequels, through <span class="movietitle">Jurassic World Rebirth</span> (2025) (#19); Finerman’s win dated 1995 (#09); Mathison “[later]” the wife of Harrison Ford (#16); “the conversion of St. Paul” (#19); ILM dates through 1986, and Catmull as director of NYIT’s Computer Graphics Lab, hired to Lucasfilm’s computer division (#22e); “Kick the Can” filmed in six days (#16); Isaiah di Trani 13th century and Bernard of Chartres 12th (#22b); “Amblin” defined at first use (#01) and in #21, with the California incorporation dates of Amblin’ Productions, Inc. (December 17, 1970) and Amblin’ Entertainment, Inc. (April 1, 1980), also given with entity numbers in #02n; #22a–b footnote links repaired (*1); “dwarfs” (Canadian spelling); the stage crane “attributed by some to Aeschylus” and the Watchers fathering the giants in Enoch (#22b); On Dreams 3, 461a cited for Aristotle’s quivering reflection (#19); Bradshaw a “self-help author” (#19); sources added for the Kennedy, Spielberg and Lucas quotes in #17 (<em>The Making of Jurassic Park</em>, 1995), the bracketed passages in #22c (Jones) and the Ong passage in #22d; Truffaut’s advice cited to McBride (#19); both Freud quotations cited to An Autobiographical Study (#19); the Spielberg and Voorhees quotations in #21 cited to The Making of Jaws (1995); quotations sourced to McBride by chapter (Matheson and Dante, #16; Crichton, Carter and Koepp, #17; Spielberg on therapy, Schindler, Close Encounters and 1941, and Schrader, #19; “the older I get,” #18), with the Carter, Koepp, Schrader and 1941 quotations conformed to McBride’s wording (“disowning this movie”) and the Schrader quotation recited from McBride rather than Easy Riders, Raging Bulls, which does not contain it; the Empire set visit in #19 cited as Rufus Sears, “Making Jurassic Park,” Empire no. 50 (August 1993), replacing the website’s later headline; Rizzo’s height cited to Time (1975); the paragraph on his dives rewritten from Gottlieb and Valerie Taylor’s account (qtd. in McBride, ch. 10), replacing the unsourced claim that the production failed to provide a working tank (#21); Landis’s answer in #11 conformed to the trial transcript (“I asked if the children could swim”); Lucas quotations and the Catmull passage in #22c and #22e cited to Jones by page (130, 153, 232, 258, 289, 381), with “high-tech cartoons” as in Jones; “toyetic” in #19 attributed to Kenner’s Bernard Loomis, per Jones 258, with the unsourced Columbia–Mattel aside removed; three #17 quotations cited to Shay and Duncan (12, 56, 73), with the unattributed “I’d love to take credit” block identified as Koepp’s; Phillips’s cocaine quotation (#09) cited to the documentary Easy Riders, Raging Bulls (2003); the 1973 American Graffiti review (#22c) identified as Gary Arnold’s in the Washington Post, cited via Jones 159; Bradshaw’s Hook quotation (#19) cited to Sally Ogle Davis, Los Angeles, April 1992; Kennedy’s and Steve Williams’s ILM recollections (#22e) cited to the Academy’s Moments That Changed the Movies: Jurassic Park; Williams on Kennedy (#08n) cited to Jurassic Punk (2022); Dante’s and Kathy Switzer’s quotations (#16) cited to Ross Plesset’s Twilight Zone Museum article (“freestanding” as there); Folsey’s remark in #13 cited to LaBrecque 129; Crichton’s first-draft quotation and the first-draft excerpt (#17) cited to Derrick Davis’s Jurassic Time transcript; the Hoffman contract in #18 restated from McBride, ch. 2 (the age claim made in 1975, per Hoffman’s suit; the 1977 buyout; McBride’s 1994 interview with Hoffman; the 1995 lawsuits); Chain’s <i>Fly by Night</i> dated 2021 (Index, #15, and the Notes); the first officer’s arrival dated 2:45am in #01 and #13 (F&amp;G 145), replacing “3:45am” and “received a call at 2:45am”; citations added for the Penal Code §192 extract (#02) and the Farber and Green passage on Liroff (F&amp;G 378) (#04); domestic gross given as ~$29.5 million (#01n); the Australian shark sizes conformed to Gottlieb (#21); Malcolm’s line quoted from the film (#22a); Rob Bottin credited with the “It’s a Good Life” creatures (#16); Freud’s start dated to the early 1880s (#19); dinosaur bones “first scientifically described” in 1824 (#22b); the year added to Budds’s supplementary report (#07n); Hook’s shoot “until the summer” (#17); name and word slips in the Phillips excerpts (#09) and gaps in the Kael excerpts (#20) marked with bracketed readings; the 2nd-draft script excerpt in #16 conformed to the script’s wording (“Viet Names [sic],” “splitting [sic]”); Spielberg’s last answer in the Cavett transcript (#21) cleaned, with editorial readings in square brackets; Deputy William Strait’s name spelled as in Chain, ch. 1 (#13); Mrs. Le’s alternate ending restated from the DLSE summary alone (no “camps”; Folsey as the source), with a note on the NTSB interview (#16); the alphabet’s inventor described as a Semitic-speaking slave in Egypt, with the script then spreading among the Semitic peoples of the Levant (#22d); HBO’s Spielberg an “authorized documentary,” and Leah Adler’s encouragement made specific (#18); Amblin’s 1983 office in #13 corrected to the Warner Bros. lot (the move to Universal came in 1984); a December 1982 still of the “Amblin Productions” signage on the Warner Bros. lot added to #02n, and #21 notes the 1982 trading name. Also per Chain: the fourth explosion (not the fifth) through the drying hut (#01, ch. 29); the indictment breakdown (#05, ch. 34); Braun’s letters dated 1985 and moved to the interim (#05, ch. 41); Marshall’s days on set cited to ch. 31, with his lawyers’ “three or four times” (#01, #13); “fish-drying hut” throughout; Lucy Fisher named in #15 (ch. 9). #06, the fourth draft described as surviving in LaBrecque’s archive but apparently never examined by the prosecution.</li>
 						<li><strong>Private details:</strong> Virginia Kearns’s address and telephone number redacted (#02).</li>
 						<li><strong>Menu:</strong> brought into line with the index page’s menu: the 👻 and 🎮 icons and the visible score removed; invisibles now toggled from the v1.2 version tag; the 📡 radar added, with a count of links followed shown while it is on; menu links tagged for link tracking as on the index page.</li>
 						<li><strong>Dates and numbers (author’s prose):</strong> ordinal dates throughout (July 23rd, June 13th–July 23rd); numbers one to ninety-nine spelled out, with numerals kept for ages, times, measurements, money, citations, counts used as labels, and figures in lists.</li>
