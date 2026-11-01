@@ -82,3 +82,9 @@
     overflow-y: auto;
   }
 }
+
+// Tall modal that scrolls inside a shorter box (bibliography).
+.modal .modal-box.modal-box--scroll {
+  max-height: 80vh;
+  overflow-y: auto;
+}

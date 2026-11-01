@@ -72,3 +72,27 @@
   background-color: #000;
 }
 
+// Plain grid: wider columns, captions shown under the image.
+.image-grid.image-grid--plain {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+.image-grid.image-grid--plain figure figcaption {
+  padding: 6px 4px 0;
+  font-size: 0.9em;
+  color: #555;
+}
+
+.image-grid img.img-max-300 { max-width: 300px; }
+
+// Muted looping clips standing in for GIFs.
+.image-grid video.gif-loop {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}

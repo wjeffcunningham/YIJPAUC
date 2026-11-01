@@ -5,13 +5,18 @@
   margin-bottom: 2em;
 }
 
+// No poster="" on the hero video: video[poster] { width: 100% } would
+// override this and blow the hero up to full window width. The still
+// shows through as a background instead (as on IJPAUC?).
 .hero-media {
   width: 768px;
   height: auto;
+  aspect-ratio: 640 / 480;
   display: block;
   margin: 0 auto;
   object-fit: cover;
   object-position: top;
+  background: #0a0a0a url('../full/gifs/landingdemo-poster.jpg') top center / cover no-repeat;
 }
 
 @media (max-width: 768px) {
@@ -21,6 +26,8 @@
 }
 
 .hero-image-text {
+  display: block; // also when it is the page <h1>
+  margin: 0;
   width: 100%;
   position: absolute;
   top: 50%;

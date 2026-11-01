@@ -1034,10 +1034,12 @@ body.dark-mode .datebook-note::before {
 .hero-media {
   width: 768px;
   height: auto;
+  aspect-ratio: 640/480;
   display: block;
   margin: 0 auto;
   object-fit: cover;
   object-position: top;
+  background: #0a0a0a url("../full/gifs/landingdemo-poster.jpg") top center/cover no-repeat;
 }
 
 @media (max-width: 768px) {
@@ -1046,6 +1048,8 @@ body.dark-mode .datebook-note::before {
   }
 }
 .hero-image-text {
+  display: block;
+  margin: 0;
   width: 100%;
   position: absolute;
   top: 50%;
@@ -1167,6 +1171,31 @@ details[open] > summary .hint-expand {
   display: block;
   border-radius: 8px;
   background-color: #000;
+}
+
+.image-grid.image-grid--plain {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+.image-grid.image-grid--plain figure figcaption {
+  padding: 6px 4px 0;
+  font-size: 0.9em;
+  color: #555;
+}
+
+.image-grid img.img-max-300 {
+  max-width: 300px;
+}
+
+.image-grid video.gif-loop {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
 }
 
 .image-grid-2x2 {
@@ -2111,6 +2140,11 @@ body:has(#tracker-toggle:checked) #tracker-stats-label {
   overflow-y: auto;
 }
 
+.modal .modal-box.modal-box--scroll {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
 .movietitle {
   font-style: italic;
   text-decoration: underline;
@@ -2266,6 +2300,14 @@ body:has(#map-unlocked:not(:checked)) #tracker-map-label {
   width: 100%;
   height: auto;
   display: block;
+}
+
+.scrapbook-img.scrapbook-img--w100 {
+  max-width: 100px;
+}
+
+.scrapbook-img.scrapbook-img--w600 {
+  max-width: 600px;
 }
 
 .scriptexcerpt, .scriptexcerpt-left, .scriptexcerpt-center {
