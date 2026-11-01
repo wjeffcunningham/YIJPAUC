@@ -13,35 +13,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
 
   <script src="../js/menu.js?v=26.10.30"></script>
-  <script src="../js/map.js?v=26.11.01e"></script>
+  <script src="../js/map.js?v=26.11.01f"></script>
   <script src="../js/darkmode.js"></script>
   <style>
     .version-tag { font-size: 0.55em; white-space: nowrap; }
   </style>
-  <style>
-    .radar-mute { display: none; cursor: pointer; }
-    #tracker-toggle:checked ~ .widgets-row .radar-mute { display: inline-block; }
-  </style>
-  <script>
-  // Radar sound: off unless the reader turns it on (🔕 → 🔔). When off, the tracking chimes are silenced (background music is unaffected).
-  (function () {
-    var KEY = 'radar-mute';
-    function muted() { try { return localStorage.getItem(KEY) !== 'false'; } catch (e) { return true; } }
-    var play = HTMLMediaElement.prototype.play;
-    HTMLMediaElement.prototype.play = function () {
-      var src = (this.currentSrc || this.src || '') + ' ' + (this.id || '');
-      if (muted() && /chime|score-chime/i.test(src)) return Promise.resolve();
-      return play.apply(this, arguments);
-    };
-    document.addEventListener('DOMContentLoaded', function () {
-      var box = document.getElementById('radar-mute'), label = document.getElementById('radar-mute-label');
-      if (!box || !label) return;
-      function sync() { label.textContent = box.checked ? '🔕' : '🔔'; label.title = box.checked ? 'Radar sound off' : 'Radar sound on'; }
-      box.checked = muted(); sync();
-      box.addEventListener('change', function () { try { localStorage.setItem(KEY, box.checked); } catch (e) {} sync(); });
-    });
-  })();
-  </script>
   <style>
     #hero-media::-webkit-media-controls,
     #hero-media::-webkit-media-controls-panel,
@@ -208,7 +184,6 @@
         <button id="music-toggle" class="music-icon" title="Cycle Background Music">🎶</button>
         <!-- Radar: on by default; records links followed (this device only) while on. Click 📡 to turn it off. -->
         <label for="tracker-toggle" title="Toggle Radar">📡</label>
-        <input type="checkbox" id="radar-mute" checked hidden><label for="radar-mute" id="radar-mute-label" class="radar-mute" title="Radar sound off">🔕</label>
         <label for="bibliography-toggle" id="bibliography-label" title="Bibliography" hidden>📜</label>
         <label for="toggle-x" class="dark-only version-tag" title="Toggle Invisibles">v1.2</label>
         <!-- Kept for older scripts that look up the ghost icon; never shown. -->
