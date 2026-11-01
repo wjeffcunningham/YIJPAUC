@@ -10,11 +10,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap">
-<link rel="prefetch" href="full/gifs/landingdemo.mp4" as="video" type="video/mp4">
-<script src="js/menu.js?v=26.11.01h"></script>
-<script src="js/map.js?v=26.11.01j"></script>
-<script src="js/darkmode.js?v=26.11.01h"></script>
-<script src="js/site.js?v=26.11.01h"></script>
+<script defer src="js/menu.js?v=26.11.01h"></script>
+<script defer src="js/map.js?v=26.11.01j"></script>
+<script defer src="js/darkmode.js?v=26.11.01h"></script>
+<script defer src="js/site.js?v=26.11.01k"></script>
 </head>
 <body>
 
@@ -313,9 +312,8 @@
 <!-- Hero -->
 
 <div id="hero-image-container">
-  <video autoplay muted playsinline loop id="hero-media" class="hero-media" data-fallback="full/gifs/landingdemo.gif" data-fallback-alt="Landing animation">
-    <source src="./full/gifs/landingdemo.mp4" type="video/mp4">
-    <img src="./full/gifs/landingdemo.gif" alt="Landing animation">
+  <video autoplay muted playsinline loop preload="auto" poster="full/gifs/landingdemo-poster.jpg" width="640" height="480" id="hero-media" class="hero-media" data-fallback="full/gifs/landingdemo.gif" data-fallback-alt="Landing animation">
+    <source src="./full/gifs/landingdemo-web.mp4" type="video/mp4">
   </video>
   <div class="hero-image-text">WHY <i>IJPAUC?</i></div>
 </div>
@@ -339,7 +337,7 @@
       <a href="https://github.com/wjeffcunningham" class="track-link">WJC</a>
       October 11th, 2026
       <a href="https://www.youtube.com/@VVIP2027" class="track-link vvip-link" data-id="page26">
-        <img src="vvip.png" alt="VVIP27" class="meta-icon">
+        <img src="vvip-icon.png" alt="VVIP27" class="meta-icon">
       </a>
       <div class="magnifier-toggle">
         <input type="checkbox" id="magnify-toggle">
@@ -350,11 +348,11 @@
     <br>
     <div class="image-grid">
       <figure>
-        <img src="./full/pics/y01.png" alt="Still from Spielberg (HBO, 2017), dir. Susan Lacy">
+        <img src="./full/pics/y01.jpg" alt="Still from Spielberg (HBO, 2017), dir. Susan Lacy">
         <figcaption><i>Spielberg</i>, HBO, in partnership with Amblin Entertainment, Inc., dir. Susan Lacy (2017)</figcaption>
       </figure>
       <figure>
-        <img src="./full/pics/y02.png" alt="Still from Spielberg (HBO, 2017), dir. Susan Lacy">
+        <img src="./full/pics/y02.jpg" alt="Still from Spielberg (HBO, 2017), dir. Susan Lacy">
         <figcaption><i>Spielberg</i>, HBO, in partnership with Amblin Entertainment, Inc., dir. Susan Lacy (2017)</figcaption>
       </figure>
     </div>
@@ -363,11 +361,11 @@
 
     <div class="image-grid">
       <figure>
-        <img src="https://ijpauc.net/full/pics/01.jpg" alt="Last known photo of Myca Dinh Le and Renee Shin-Yi Chen">
+        <img loading="lazy" src="https://ijpauc.net/full/pics/01.jpg" alt="Last known photo of Myca Dinh Le and Renee Shin-Yi Chen">
         <figcaption>Last known photo of Le and Chen.</figcaption>
       </figure>
       <figure>
-        <img src="https://ijpauc.net/full/pics/10.jpg" alt="Jurassic Park production illustration: the T. rex attacks the tour car in the rain">
+        <img loading="lazy" src="https://ijpauc.net/full/pics/10.jpg" alt="Jurassic Park production illustration: the T. rex attacks the tour car in the rain">
         <figcaption>Production illustration for <i>Jurassic Park</i>, based on thumbnail sketches by Steven Spielberg (1990–91).</figcaption>
       </figure>
     </div>
@@ -386,7 +384,7 @@
 
     <div class="image-grid">
       <figure>
-        <img src="https://ijpauc.net/full/pics/03.jpg" alt="Frank Marshall, 1985">
+        <img loading="lazy" src="https://ijpauc.net/full/pics/03.jpg" alt="Frank Marshall, 1985">
         <figcaption>Frank Marshall, 1985; somewhere in Europe</figcaption>
       </figure>
     </div>
@@ -405,11 +403,11 @@
 
     <div class="image-grid">
       <figure>
-        <img src="./full/pics/w01.png" alt="Jurassic Park main-road T. rex attack beside Twilight Zone: The Movie, scene 32">
+        <img loading="lazy" src="./full/pics/w01.png" alt="Jurassic Park main-road T. rex attack beside Twilight Zone: The Movie, scene 32">
         <figcaption>Left: <i>Jurassic Park</i> (1993). Main-Road T-Rex Attack. The final draft describes the T-Rex as being “twenty five feet high.” Right: <i>Twilight Zone: The Movie</i>, scene 32, July 23rd, 1982. According to the NTSB, the helicopter “hovered about 25 feet above the village.”</figcaption>
       </figure>
       <figure>
-        <img src="./full/pics/land01.jpg" alt="Jurassic Park main-road T. rex attack beside Twilight Zone: The Movie, scene 32">
+        <img loading="lazy" src="./full/pics/land01.jpg" alt="Jurassic Park main-road T. rex attack beside Twilight Zone: The Movie, scene 32">
         <figcaption>Left: <i>Jurassic Park</i> (1993). Main-Road T-Rex Attack. The final draft describes the T-Rex as being “twenty five feet high.” Right: <i>Twilight Zone: The Movie</i>, scene 32, July 23rd, 1982. According to the NTSB, the helicopter “hovered about 25 feet above the village.”</figcaption>
       </figure>
     </div>
@@ -418,34 +416,34 @@
 
     <div class="image-grid">
       <figure>
-        <img src="https://ijpauc.net/full/pics/10.jpg" alt="Jurassic Park production illustration: the T. rex attacks the tour car in the rain">
+        <img loading="lazy" src="https://ijpauc.net/full/pics/10.jpg" alt="Jurassic Park production illustration: the T. rex attacks the tour car in the rain">
       </figure>
     </div>
 
     <div class="image-grid">
       <figure>
-        <img src="https://ijpauc.net/full/pics/13.jpg" alt="Jurassic Park storyboard, main road, night, rain: &quot;...and lands with a splash in a puddle of mud&quot;">
+        <img loading="lazy" src="https://ijpauc.net/full/pics/13.jpg" alt="Jurassic Park storyboard, main road, night, rain: &quot;...and lands with a splash in a puddle of mud&quot;">
       </figure>
       <figure>
-        <img src="https://ijpauc.net/full/pics/18.jpg" alt="Jurassic Park storyboard sketch: wrecked vehicle tangled in the trees">
+        <img loading="lazy" src="https://ijpauc.net/full/pics/18.jpg" alt="Jurassic Park storyboard sketch: wrecked vehicle tangled in the trees">
       </figure>
       <figure>
-        <img src="https://ijpauc.net/full/pics/15.jpg" alt="Jurassic Park storyboard: Grant and Tim roll out of the way as the Explorer crashes down">
+        <img loading="lazy" src="https://ijpauc.net/full/pics/15.jpg" alt="Jurassic Park storyboard: Grant and Tim roll out of the way as the Explorer crashes down">
       </figure>
       <figure>
-        <img src="https://ijpauc.net/full/pics/11.jpg" alt="Jurassic Park storyboard: the children inside the tour car under the T. rex">
+        <img loading="lazy" src="https://ijpauc.net/full/pics/11.jpg" alt="Jurassic Park storyboard: the children inside the tour car under the T. rex">
       </figure>
       <figure>
-        <img src="https://ijpauc.net/full/pics/12.jpg" alt="Jurassic Park storyboard: a seat comes down and pins Tim in the mud">
+        <img loading="lazy" src="https://ijpauc.net/full/pics/12.jpg" alt="Jurassic Park storyboard: a seat comes down and pins Tim in the mud">
       </figure>
     </div>
 
     <div class="image-grid">
       <figure>
-        <img src="https://ijpauc.net/full/pics/17.jpg" alt="Film still from Jurassic Park (1993)">
+        <img loading="lazy" src="https://ijpauc.net/full/pics/17.jpg" alt="Film still from Jurassic Park (1993)">
       </figure>
       <figure>
-        <img src="https://ijpauc.net/full/pics/d010.jpg" alt="The crashed helicopter at Indian Dunes after the Twilight Zone accident, 1982">
+        <img loading="lazy" src="https://ijpauc.net/full/pics/d010.jpg" alt="The crashed helicopter at Indian Dunes after the Twilight Zone accident, 1982">
       </figure>
     </div>
 
@@ -453,10 +451,10 @@
 
     <div class="image-grid">
       <figure>
-        <img src="https://ijpauc.net/full/pics/19.jpg" alt="Early Jurassic Park script page: Gennaro on &quot;a $2 million lawsuit from the family of that construction worker&quot;">
+        <img loading="lazy" src="https://ijpauc.net/full/pics/19.jpg" alt="Early Jurassic Park script page: Gennaro on &quot;a $2 million lawsuit from the family of that construction worker&quot;">
       </figure>
       <figure>
-        <img src="https://ijpauc.net/full/pics/20.jpg" alt="Early Jurassic Park script page: Gennaro on &quot;a $20 million lawsuit from the family of that worker&quot;">
+        <img loading="lazy" src="https://ijpauc.net/full/pics/20.jpg" alt="Early Jurassic Park script page: Gennaro on &quot;a $20 million lawsuit from the family of that worker&quot;">
       </figure>
     </div>
 
@@ -466,7 +464,7 @@
 
     <div class="image-grid">
       <figure>
-        <img src="./full/pics/w02.png" alt="Video still with a figure circled in red">
+        <img loading="lazy" src="./full/pics/w02.png" alt="Video still with a figure circled in red">
       </figure>
     </div>
 
@@ -476,16 +474,16 @@
 
     <div class="image-grid">
       <figure>
-        <img src="https://ijpauc.net/full/pics/d034.jpg" alt="Sam Neill, Laura Dern and Steven Spielberg on the Jurassic Park set">
+        <img loading="lazy" src="https://ijpauc.net/full/pics/d034.jpg" alt="Sam Neill, Laura Dern and Steven Spielberg on the Jurassic Park set">
       </figure>
       <figure>
-        <img src="./full/pics/d048.jpg" alt="Steven Spielberg and Richard Attenborough in black tie">
+        <img loading="lazy" src="./full/pics/d048.jpg" alt="Steven Spielberg and Richard Attenborough in black tie">
       </figure>
       <figure>
-        <img src="https://ijpauc.net/full/pics/d056.jpg" alt="Jurassic Park production painting: the T. rex attacks the tour car in the rain">
+        <img loading="lazy" src="https://ijpauc.net/full/pics/d056.jpg" alt="Jurassic Park production painting: the T. rex attacks the tour car in the rain">
       </figure>
       <figure>
-        <img src="./full/pics/35b.jpg" alt="The Amblin trio at Indian Dunes, 1985">
+        <img loading="lazy" src="./full/pics/35b.jpg" alt="The Amblin trio at Indian Dunes, 1985">
         <figcaption>The Amblin trio return to Indian Dunes in 1985 for <i>The Color Purple</i></figcaption>
       </figure>
     </div>
@@ -500,7 +498,7 @@
 
           <div class="image-grid">
             <figure>
-              <img src="https://ijpauc.net/full/pics/13.jpg" alt="Jurassic Park storyboard, main road, night, rain: &quot;...and lands with a splash in a puddle of mud&quot;">
+              <img loading="lazy" src="https://ijpauc.net/full/pics/13.jpg" alt="Jurassic Park storyboard, main road, night, rain: &quot;...and lands with a splash in a puddle of mud&quot;">
               <figcaption>Not in the book, in case you were wondering. Landis told the NTSB in the days after the accident that several “thumbnail sketches” existed for the sequence; but only one was ever turned over to authorities, because its existence had already been independently verified by several sources. It was a top-down diagram of the set known as “the spotting plan” which included an icon of a helicopter already crashed with its tail rotor snapped off. Virtually the same sequence had happened in <i>The Exterminator</i> (1980), also shot at Indian Dunes under Special Effects Supervisor Paul Stewart.</figcaption>
             </figure>
           </div>
@@ -515,7 +513,7 @@
 
           <div class="image-grid">
             <figure class="clip-image">
-              <video playsinline controls poster="https://ijpauc.net/full/pics/02.jpg">
+              <video playsinline controls preload="metadata" poster="https://ijpauc.net/full/pics/02.jpg">
                 <source src="https://ijpauc.net/full/mp4s/01_Landis_compressed.mp4" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
@@ -543,7 +541,7 @@
 
           <div class="image-grid">
             <figure class="clip-image">
-              <video playsinline controls poster="https://ijpauc.net/full/gifs/03-ezgif.com-optimize.gif">
+              <video playsinline controls preload="metadata" poster="https://ijpauc.net/full/gifs/03-ezgif.com-optimize.gif">
                 <source src="https://ijpauc.net/full/mp4s/d04.mp4" type="video/mp4">
                 Your browser does not support the video tag.
               </video>

@@ -103,7 +103,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (getState()) playMusic(getState());
 
   // Hero clip: where autoplay is refused (iOS Low Power Mode, data saver),
-  // swap in the image named by data-fallback.
+  // swap in the image named by data-fallback. No timeout: a clip that is
+  // merely slow to buffer (Safari) keeps its poster until it plays.
 
   const hero = document.getElementById('hero-media');
   if (hero && hero.tagName === 'VIDEO' && hero.dataset.fallback) {
@@ -120,7 +121,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     const playing = hero.play();
     if (playing) playing.catch(swap);
-    setTimeout(swap, 2500);
   }
 
   // Radar sound toggle (🔔 / 🔕)
