@@ -3006,6 +3006,15 @@ body:has(#map-unlocked:not(:checked)) #tracker-map-label {
   opacity: 0.75;
 }
 
+.radar-mute {
+  display: none;
+  cursor: pointer;
+}
+
+#tracker-toggle:checked ~ .widgets-row .radar-mute {
+  display: inline-block;
+}
+
 .redact-toggle:not(:checked) + a {
   background-color: rgb(0, 0, 0);
   line-height: 140%;

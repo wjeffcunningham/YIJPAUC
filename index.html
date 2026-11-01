@@ -2,42 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>YIJPAUC?</title>
-  <link rel="icon" href="./favicon-v2.ico">
-  <link rel="stylesheet" type="text/css" href="./css/sass.css?v=26.11.01g">
+  <meta name="description" content="Why IJPAUC?">
+  <link rel="icon" href="favicon-v2.ico">
+  <link rel="stylesheet" href="css/sass.css?v=26.11.01h">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
-  <script type="text/javascript" src="./js/menu.js?v=26.10.30"></script>
-  <script type="text/javascript" src="./js/map.js?v=26.11.01f"></script>
-  <script type="text/javascript" src="./js/darkmode.js"></script>
-  <meta name="description" content="Why IJPAUC?">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="prefetch" href="./full/gifs/landingdemo.mp4" as="video" type="video/mp4">
-  <style>
-    .radar-mute { display: none; cursor: pointer; }
-    #tracker-toggle:checked ~ .widgets-row .radar-mute { display: inline-block; }
-  </style>
-  <script>
-  // Radar sound: on unless the reader turns it off (🔔 → 🔕). When off, the tracking chimes are silenced (background music is unaffected).
-  (function () {
-    var KEY = 'radar-mute';
-    function muted() { try { return localStorage.getItem(KEY) === 'true'; } catch (e) { return false; } }
-    var play = HTMLMediaElement.prototype.play;
-    HTMLMediaElement.prototype.play = function () {
-      var src = (this.currentSrc || this.src || '') + ' ' + (this.id || '');
-      if (muted() && /chime|score-chime/i.test(src)) return Promise.resolve();
-      return play.apply(this, arguments);
-    };
-    document.addEventListener('DOMContentLoaded', function () {
-      var box = document.getElementById('radar-mute'), label = document.getElementById('radar-mute-label');
-      if (!box || !label) return;
-      function sync() { label.textContent = box.checked ? '🔕' : '🔔'; label.title = box.checked ? 'Radar sound off' : 'Radar sound on'; }
-      box.checked = muted(); sync();
-      box.addEventListener('change', function () { try { localStorage.setItem(KEY, box.checked); } catch (e) {} sync(); });
-    });
-  })();
-  </script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap">
+  <link rel="prefetch" href="full/gifs/landingdemo.mp4" as="video" type="video/mp4">
+  <script src="js/menu.js?v=26.11.01h"></script>
+  <script src="js/map.js?v=26.11.01h"></script>
+  <script src="js/darkmode.js?v=26.11.01h"></script>
+  <script src="js/site.js?v=26.11.01h"></script>
 </head>
 <body>
 
@@ -259,7 +236,7 @@
      ============================================================ -->
 
 <div id="hero-image-container">
-  <video autoplay muted playsinline loop id="hero-media" class="hero-media">
+  <video autoplay muted playsinline loop id="hero-media" class="hero-media" data-fallback="full/gifs/landingdemo.gif" data-fallback-alt="Landing animation">
     <source src="./full/gifs/landingdemo.mp4" type="video/mp4">
     <img src="./full/gifs/landingdemo.gif" alt="Landing animation">
   </video>
@@ -1244,210 +1221,6 @@ It is surely necessary that actions of this sort be in the relation of friends t
   Your browser does not support the audio element.
 </audio>
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const tracks = {
-    1: document.getElementById('bg-music'),
-    2: document.getElementById('bg-music-unlock5'),
-    3: document.getElementById('bg-music-unlock10')
-  };
-  const ambientDefault = document.getElementById('bg-audio');
-  const ambientAlt = document.getElementById('bg-audio-unlock20');
-
-  const getState = () => parseInt(localStorage.getItem('musicState')) || 0;
-  const setState = s => localStorage.setItem('musicState', s);
-  const getVisited = () => JSON.parse(localStorage.getItem('visitedLinks') || '[]');
-  const getUnlocked = () => JSON.parse(localStorage.getItem('unlockedMusic') || '[]');
-  const setUnlocked = arr => localStorage.setItem('unlockedMusic', JSON.stringify(arr));
-
-  function showToast(level) {
-    const toast = document.createElement('div');
-    toast.className = 'unlock-toast';
-    toast.textContent = `🎉 New music unlocked at score ${level}!`;
-    document.body.appendChild(toast);
-    setTimeout(() => toast.remove(), 3000);
-  }
-
-  function stopAllMusic() {
-    Object.values(tracks).forEach(a => {
-      if (a) { a.pause(); a.currentTime = 0; a.muted = true; }
-    });
-  }
-
-  function playMusic(state) {
-    stopAllMusic();
-    const a = tracks[state];
-    if (a) { a.muted = false; a.play().catch(err => console.warn('Music play error:', err)); }
-  }
-
-  function cycleMusic() {
-    const visited = getVisited();
-    const unlockedFlags = getUnlocked();
-    const score = visited.length;
-    if (score >= 5 && !unlockedFlags.includes(5)) { unlockedFlags.push(5); setUnlocked(unlockedFlags); showToast(5); }
-    if (score >= 10 && !unlockedFlags.includes(10)) { unlockedFlags.push(10); setUnlocked(unlockedFlags); showToast(10); }
-    if (score >= 20 && !unlockedFlags.includes(20)) { unlockedFlags.push(20); setUnlocked(unlockedFlags); showToast(20); }
-    const available = [1];
-    if (score >= 5) available.push(2);
-    if (score >= 10) available.push(3);
-    const current = getState();
-    const currentIndex = available.indexOf(current);
-    const next = (currentIndex === -1) ? available[0] : (currentIndex === available.length - 1) ? 0 : available[currentIndex + 1];
-    setState(next);
-    if (next === 0) { stopAllMusic(); } else { playMusic(next); }
-  }
-
-  function playAmbient() {
-    // 03.wav (the 20+ variant) may be missing. A missing <source> never
-    // rejects play() (the element just waits), so check networkState first.
-    const altUsable = ambientAlt && !ambientAlt.error &&
-      ambientAlt.networkState !== HTMLMediaElement.NETWORK_NO_SOURCE;
-    const playDefault = () => {
-      ambientAlt?.pause(); if (ambientAlt) ambientAlt.muted = true;
-      ambientDefault.muted = false; ambientDefault.play().catch(() => {});
-    };
-    if (getVisited().length >= 20 && altUsable) {
-      ambientDefault.pause(); ambientDefault.muted = true;
-      ambientAlt.muted = false;
-      ambientAlt.play().catch(playDefault);
-    } else {
-      playDefault();
-    }
-  }
-
-  const audioToggle = document.getElementById('audio-toggle');
-  if (audioToggle) {
-    audioToggle.addEventListener('change', () => {
-      if (audioToggle.checked) { playAmbient(); }
-      else { ambientDefault?.pause(); ambientAlt?.pause(); }
-    });
-    // Remembered "on": browsers block sound before the first click/tap,
-    // so start it on the reader's first interaction instead.
-    if (audioToggle.checked) {
-      const start = () => { if (audioToggle.checked) playAmbient(); };
-      document.addEventListener('pointerdown', start, { once: true });
-      document.addEventListener('keydown', start, { once: true });
-    }
-  }
-
-  // Hero clip: the video autoplays everywhere it's allowed. Where it isn't
-  // (iOS Low Power Mode, data-saver modes), swap in the animated GIF, which
-  // still animates there. Safari's own play button is hidden in
-  // _hero_image.scss. (No poster attribute: video[poster] in the CSS would
-  // override .hero-media's width and break the hero framing.)
-  const hero = document.getElementById('hero-media');
-  if (hero && hero.tagName === 'VIDEO') {
-    let swapped = false;
-    const swapToGif = () => {
-      if (swapped || !hero.paused) return;
-      swapped = true;
-      const gif = document.createElement('img');
-      gif.src = './full/gifs/landingdemo.gif';
-      gif.alt = 'Landing animation';
-      gif.id = 'hero-media';
-      gif.className = 'hero-media';
-      hero.replaceWith(gif);
-    };
-    const tryPlay = hero.play();
-    if (tryPlay) tryPlay.catch(swapToGif);   // autoplay refused outright
-    setTimeout(swapToGif, 2500);              // or silently never started
-  }
-
-  const musicButton = document.getElementById('music-toggle');
-  if (musicButton) { musicButton.addEventListener('click', cycleMusic); }
-
-  const initState = getState();
-  if (initState) playMusic(initState);
-
-  // === EPIGRAM COLLECTION ===
-  // Two kinds of collectable epigram, one list in localStorage
-  // ('collectedEpigraphs', 8 on the page):
-  //   - modal checkboxes tagged .epigraph-collect-toggle (none at present)
-  //   - <details data-collect-id> folds in the essay body
-  // Either one is recorded on first open. The Epigram Book is plain HTML:
-  // syncBook() only ticks each entry's hidden .epi-have checkbox; CSS does
-  // the showing/hiding (and reveals the menu icon).
-  const getCollectedEpigraphs = () => JSON.parse(localStorage.getItem('collectedEpigraphs') || '[]');
-  const setCollectedEpigraphs = arr => localStorage.setItem('collectedEpigraphs', JSON.stringify(arr));
-
-  // Complete = every epigram fold on the page collected. Counted from the
-  // page, so ids saved before an epigram was removed (e.g. en-7-14) don't count.
-  const epigramsComplete = () => {
-    const ids = [...document.querySelectorAll('details[data-collect-id]')].map(d => d.dataset.collectId);
-    const collected = getCollectedEpigraphs();
-    return ids.length > 0 && ids.every(id => collected.includes(id));
-  };
-
-  const syncBook = () => {
-    const collected = getCollectedEpigraphs();
-    document.querySelectorAll('.epi-have').forEach(box => {
-      box.checked = collected.includes(box.dataset.collectId);
-    });
-    const done = document.getElementById('epi-complete');
-    if (done) done.checked = epigramsComplete();
-  };
-
-  const collect = id => {
-    if (!id) return;
-    const collected = getCollectedEpigraphs();
-    if (!collected.includes(id)) {
-      collected.push(id);
-      setCollectedEpigraphs(collected);
-      // Cues (map.js): a small figure per epigram, a cadence for the last
-      const yij = window.YIJ;
-      if (yij && epigramsComplete()) { yij.cue('complete'); yij.note('Epigram book complete.'); }
-      else if (yij) yij.cue('epigram');
-    }
-    syncBook();
-  };
-
-  document.querySelectorAll('.epigraph-collect-toggle').forEach(toggle => {
-    toggle.addEventListener('change', function () {
-      if (this.checked) collect(this.dataset.collectId);
-    });
-  });
-
-  document.querySelectorAll('details[data-collect-id]').forEach(fold => {
-    fold.addEventListener('toggle', () => {
-      if (fold.open) collect(fold.dataset.collectId);
-    });
-  });
-
-  // Book entries: close the book, then open the fold (and every
-  // collapsed section around it) before following the link.
-  const bookToggle = document.getElementById('epigram-book-toggle');
-  document.querySelectorAll('.epigram-book-entry a, .epigram-book-entry label').forEach(entry => {
-    entry.addEventListener('click', () => {
-      if (bookToggle) bookToggle.checked = false;
-      const hash = entry.getAttribute('href');
-      const target = hash && document.querySelector(hash);
-      for (let el = target; el; el = el.parentElement) {
-        if (el.tagName === 'DETAILS') el.open = true;
-      }
-    });
-  });
-
-  syncBook();
-
-  // === TRACKER TOGGLE (formerly game-toggle): persist across sessions ===
-  // One-time carry-over of the old saved setting under its previous name.
-  if (localStorage.getItem('tracker-toggle') === null && localStorage.getItem('game-toggle') !== null) {
-    localStorage.setItem('tracker-toggle', localStorage.getItem('game-toggle'));
-  }
-  const persistIds = ['toggle-pa', 'toggle-ci', 'toggle-ch', 'toggle-x', 'audio-toggle', 'magnify-toggle', 'tracker-toggle'];
-  persistIds.forEach(id => {
-    const el = document.getElementById(id);
-    const saved = localStorage.getItem(id);
-    if (el && saved !== null) el.checked = saved === 'true';
-    if (el) {
-      el.addEventListener('change', () => {
-        localStorage.setItem(id, el.checked);
-      });
-    }
-  });
-
-});
-</script>
 
 </body>
 </html>

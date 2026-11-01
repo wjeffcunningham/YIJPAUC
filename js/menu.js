@@ -1,63 +1,25 @@
-// ========== AUDIO UNLOCK ==========
-window.audioReady = false;
-document.addEventListener("click", () => {
-  window.audioReady = true;
-  sessionStorage.setItem("audioReady", "true");
-});
-window.audioReady = sessionStorage.getItem("audioReady") === "true";
+// Menu settings: keep the two magnify switches in step, and remember
+// each toggle's state on this device.
 
-// ========== MAIN INIT ==========
-document.addEventListener("DOMContentLoaded", () => {
-  // --- 1. MENU NAV TOGGLE LOGIC ---
-  const menuToggle = document.getElementById("menu-btn");
-  const menuLinks = document.querySelectorAll(".nav-link");
+document.addEventListener('DOMContentLoaded', () => {
+  const menuMagnify = document.getElementById('toggle-pa');
+  const mainMagnify = document.getElementById('magnify-toggle');
+  if (menuMagnify && mainMagnify) {
+    menuMagnify.addEventListener('change', () => { mainMagnify.checked = menuMagnify.checked; });
+    mainMagnify.addEventListener('change', () => { menuMagnify.checked = mainMagnify.checked; });
+  }
 
-  menuLinks.forEach(link => {
-    link.addEventListener("click", () => {
-      menuToggle.checked = false;
+  // The radar setting was saved as 'game-toggle' before it was renamed.
+  if (localStorage.getItem('tracker-toggle') === null && localStorage.getItem('game-toggle') !== null) {
+    localStorage.setItem('tracker-toggle', localStorage.getItem('game-toggle'));
+  }
 
-      const sectionId = link.getAttribute("href").substring(1);
-      const toggleId = sectionId.replace("section-", "handle-");
-      const sectionToggle = document.getElementById(toggleId);
-      if (sectionToggle) {
-        sectionToggle.checked = true;
-      }
-    });
-  });
-
-  // --- 2. SYNC MAGNIFY TOGGLES ---
-  const menuMagnify = document.getElementById("toggle-pa");
-  const mainMagnify = document.getElementById("magnify-toggle");
-
-  menuMagnify?.addEventListener("change", () => {
-    if (mainMagnify && mainMagnify.checked !== menuMagnify.checked) {
-      mainMagnify.checked = menuMagnify.checked;
-    }
-  });
-
-  mainMagnify?.addEventListener("change", () => {
-    if (menuMagnify && menuMagnify.checked !== mainMagnify.checked) {
-      menuMagnify.checked = mainMagnify.checked;
-    }
-  });
-
-  // --- 3. RESTORE CHECKBOX STATE ---
-  // Still needed by pages/dossier.html (index.html also does this inline).
-  const persistIds = ['toggle-pa', 'toggle-ci', 'toggle-ch', 'toggle-x', 'audio-toggle', 'magnify-toggle'];
-
-  persistIds.forEach(id => {
+  const saved = ['toggle-pa', 'toggle-ci', 'toggle-ch', 'toggle-x', 'audio-toggle', 'magnify-toggle', 'tracker-toggle'];
+  saved.forEach(id => {
     const el = document.getElementById(id);
-    const saved = localStorage.getItem(id);
-    if (el && saved !== null) el.checked = saved === 'true';
-
-    if (el) {
-      el.addEventListener('change', () => {
-        localStorage.setItem(id, el.checked);
-      });
-    }
+    if (!el) return;
+    const value = localStorage.getItem(id);
+    if (value !== null) el.checked = value === 'true';
+    el.addEventListener('change', () => localStorage.setItem(id, el.checked));
   });
-
-  // --- 4. retired 2026-10-30 ---
-  // Link/room scoring: index.html uses map.js (radar-gated, no link delay);
-  // pages/dossier.html still uses tracklinks.js.
 });

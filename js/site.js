@@ -1,0 +1,205 @@
+// Page behaviour shared by index.html and pages/dossier.html:
+// background audio, the hero clip fallback, the radar sound toggle,
+// the epigram book and the bibliography unlock.
+
+document.addEventListener('DOMContentLoaded', () => {
+  const readList = key => {
+    try { return JSON.parse(localStorage.getItem(key)) || []; } catch (e) { return []; }
+  };
+
+  // Background music and ambient sound
+
+  const tracks = {
+    1: document.getElementById('bg-music'),
+    2: document.getElementById('bg-music-unlock5'),
+    3: document.getElementById('bg-music-unlock10')
+  };
+  const ambient = document.getElementById('bg-audio');
+  const ambientAlt = document.getElementById('bg-audio-unlock20');
+
+  const getState = () => parseInt(localStorage.getItem('musicState')) || 0;
+  const setState = s => localStorage.setItem('musicState', s);
+  const linksFollowed = () => readList('visitedLinks').length;
+
+  const toast = text => {
+    const el = document.createElement('div');
+    el.className = 'unlock-toast';
+    el.textContent = text;
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 3000);
+  };
+
+  const stopMusic = () => {
+    Object.values(tracks).forEach(a => {
+      if (a) { a.pause(); a.currentTime = 0; a.muted = true; }
+    });
+  };
+
+  const playMusic = state => {
+    stopMusic();
+    const a = tracks[state];
+    if (a) { a.muted = false; a.play().catch(() => {}); }
+  };
+
+  // Tracks unlock at 5 and 10 links followed; 20 unlocks the alternate ambient.
+  const cycleMusic = () => {
+    const score = linksFollowed();
+    const unlocked = readList('unlockedMusic');
+    [5, 10, 20].forEach(level => {
+      if (score >= level && !unlocked.includes(level)) {
+        unlocked.push(level);
+        localStorage.setItem('unlockedMusic', JSON.stringify(unlocked));
+        toast(`🎉 New music unlocked at score ${level}!`);
+      }
+    });
+    const available = [1];
+    if (score >= 5) available.push(2);
+    if (score >= 10) available.push(3);
+    const i = available.indexOf(getState());
+    const next = i === -1 ? available[0] : i === available.length - 1 ? 0 : available[i + 1];
+    setState(next);
+    if (next === 0) stopMusic(); else playMusic(next);
+  };
+
+  // A missing <source> never rejects play(), so check networkState first.
+  const playAmbient = () => {
+    const altUsable = ambientAlt && !ambientAlt.error &&
+      ambientAlt.networkState !== HTMLMediaElement.NETWORK_NO_SOURCE;
+    const playDefault = () => {
+      if (ambientAlt) { ambientAlt.pause(); ambientAlt.muted = true; }
+      ambient.muted = false;
+      ambient.play().catch(() => {});
+    };
+    if (linksFollowed() >= 20 && altUsable) {
+      ambient.pause();
+      ambient.muted = true;
+      ambientAlt.muted = false;
+      ambientAlt.play().catch(playDefault);
+    } else {
+      playDefault();
+    }
+  };
+
+  const audioToggle = document.getElementById('audio-toggle');
+  if (audioToggle && ambient) {
+    audioToggle.addEventListener('change', () => {
+      if (audioToggle.checked) {
+        playAmbient();
+      } else {
+        ambient.pause();
+        if (ambientAlt) ambientAlt.pause();
+      }
+    });
+    // Browsers block sound until the first interaction.
+    if (audioToggle.checked) {
+      const start = () => { if (audioToggle.checked) playAmbient(); };
+      document.addEventListener('pointerdown', start, { once: true });
+      document.addEventListener('keydown', start, { once: true });
+    }
+  }
+
+  const musicButton = document.getElementById('music-toggle');
+  if (musicButton) musicButton.addEventListener('click', cycleMusic);
+  if (getState()) playMusic(getState());
+
+  // Hero clip: where autoplay is refused (iOS Low Power Mode, data saver),
+  // swap in the image named by data-fallback.
+
+  const hero = document.getElementById('hero-media');
+  if (hero && hero.tagName === 'VIDEO' && hero.dataset.fallback) {
+    let swapped = false;
+    const swap = () => {
+      if (swapped || !hero.paused) return;
+      swapped = true;
+      const img = document.createElement('img');
+      img.src = hero.dataset.fallback;
+      img.alt = hero.dataset.fallbackAlt || '';
+      img.id = 'hero-media';
+      img.className = 'hero-media';
+      hero.replaceWith(img);
+    };
+    const playing = hero.play();
+    if (playing) playing.catch(swap);
+    setTimeout(swap, 2500);
+  }
+
+  // Radar sound toggle (🔔 / 🔕)
+
+  const mute = document.getElementById('radar-mute');
+  const muteLabel = document.getElementById('radar-mute-label');
+  if (mute && muteLabel) {
+    const sync = () => {
+      muteLabel.textContent = mute.checked ? '🔕' : '🔔';
+      muteLabel.title = mute.checked ? 'Radar sound off' : 'Radar sound on';
+    };
+    try { mute.checked = localStorage.getItem('radar-mute') === 'true'; } catch (e) {}
+    sync();
+    mute.addEventListener('change', () => {
+      try { localStorage.setItem('radar-mute', mute.checked); } catch (e) {}
+      sync();
+    });
+  }
+
+  // Epigram book: each epigram fold is collected the first time it opens.
+  // Completion is counted against the folds on the page, so ids saved
+  // before an epigram was removed don't count.
+
+  const folds = [...document.querySelectorAll('details[data-collect-id]')];
+  if (folds.length) {
+    const collected = () => readList('collectedEpigraphs');
+    const complete = () => {
+      const have = collected();
+      return folds.every(f => have.includes(f.dataset.collectId));
+    };
+    const syncBook = () => {
+      const have = collected();
+      document.querySelectorAll('.epi-have').forEach(box => {
+        box.checked = have.includes(box.dataset.collectId);
+      });
+      const done = document.getElementById('epi-complete');
+      if (done) done.checked = complete();
+    };
+
+    folds.forEach(fold => {
+      fold.addEventListener('toggle', () => {
+        const id = fold.dataset.collectId;
+        const have = collected();
+        if (!fold.open || have.includes(id)) return;
+        have.push(id);
+        localStorage.setItem('collectedEpigraphs', JSON.stringify(have));
+        if (window.YIJ) {
+          if (complete()) { window.YIJ.cue('complete'); window.YIJ.note('Epigram book complete.'); }
+          else window.YIJ.cue('epigram');
+        }
+        syncBook();
+      });
+    });
+
+    // Book entries close the book and open the folds around their target.
+    const bookToggle = document.getElementById('epigram-book-toggle');
+    document.querySelectorAll('.epigram-book-entry a').forEach(entry => {
+      entry.addEventListener('click', () => {
+        if (bookToggle) bookToggle.checked = false;
+        const target = document.querySelector(entry.getAttribute('href'));
+        for (let el = target; el; el = el.parentElement) {
+          if (el.tagName === 'DETAILS') el.open = true;
+        }
+      });
+    });
+
+    syncBook();
+  }
+
+  // Bibliography: the 📜 icon appears once 50 links have been followed.
+
+  const bibLabel = document.getElementById('bibliography-label');
+  if (bibLabel) {
+    const unlock = () => { bibLabel.hidden = linksFollowed() < 50; };
+    unlock();
+    window.addEventListener('pageshow', unlock);
+    window.addEventListener('storage', e => { if (e.key === 'visitedLinks') unlock(); });
+    document.addEventListener('click', e => {
+      if (e.target.closest && e.target.closest('a')) setTimeout(unlock, 50);
+    });
+  }
+});

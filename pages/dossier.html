@@ -2,28 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dossier</title>
-    <link rel="icon" href="../favicon-v2.ico">
   <meta name="description" content="Is Jurassic Park (1993) an Unconscious Confession?">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <link rel="stylesheet" type="text/css" href="../css/sass.css?v=26.11.01f">
+  <link rel="icon" href="../favicon-v2.ico">
+  <link rel="stylesheet" href="../css/sass.css?v=26.11.01h">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
-
-  <script src="../js/menu.js?v=26.10.30"></script>
-  <script src="../js/map.js?v=26.11.01f"></script>
-  <script src="../js/darkmode.js"></script>
-  <style>
-    .version-tag { font-size: 0.55em; white-space: nowrap; }
-  </style>
-  <style>
-    #hero-media::-webkit-media-controls,
-    #hero-media::-webkit-media-controls-panel,
-    #hero-media::-webkit-media-controls-overlay-play-button,
-    #hero-media::-webkit-media-controls-start-playback-button { display: none !important; -webkit-appearance: none; }
-  </style>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap">
+  <script src="../js/menu.js?v=26.11.01h"></script>
+  <script src="../js/map.js?v=26.11.01h"></script>
+  <script src="../js/darkmode.js?v=26.11.01h"></script>
+  <script src="../js/site.js?v=26.11.01h"></script>
 </head>
 
 <body>
@@ -186,8 +176,6 @@
         <label for="tracker-toggle" title="Toggle Radar">📡</label>
         <label for="bibliography-toggle" id="bibliography-label" title="Bibliography" hidden>📜</label>
         <label for="toggle-x" class="dark-only version-tag" title="Toggle Invisibles">v1.2</label>
-        <!-- Kept for older scripts that look up the ghost icon; never shown. -->
-        <label for="toggle-x" class="ghost-icon" style="display:none" aria-hidden="true"></label>
       </div>
     </div>
 
@@ -228,7 +216,6 @@
         <li><a href="#section-notes" class="track-link" data-id="page24">23</a></li>
       </ol>
     </details>
-    <div id="score" hidden>0</div>
   </div>
 </div>
 
@@ -241,6 +228,8 @@
     preload="auto"
     id="hero-media"
     class="hero-media"
+    data-fallback="../full/gifs/landing-still.jpg"
+    data-fallback-alt="Landing still"
     width="640"
     height="480">
     <source src="../full/gifs/landingdemo1.mp4" type="video/mp4">
@@ -4288,199 +4277,6 @@ Spielberg describes procuring a realistic scream from his female lead by droppin
   Your browser does not support the audio element.
 </audio>
 
-<audio id="score-chime" preload="auto">
-  <source src="../full/mp3s/chime.mp3" type="audio/mpeg">
-  <source src="../full/mp3s/chime.wav" type="audio/wav">
-</audio>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  // === 1. MUSIC TRACKS ===
-  const tracks = {
-    1: document.getElementById('bg-music'),
-    2: document.getElementById('bg-music-unlock5'),
-    3: document.getElementById('bg-music-unlock10')
-  };
-
-  // === 2. AMBIENT TRACKS ===
-  const ambientDefault = document.getElementById('bg-audio');
-  const ambientAlt = document.getElementById('bg-audio-unlock20');
-
-  // === 3. STORAGE HELPERS ===
-  const getState = () => parseInt(localStorage.getItem('musicState')) || 0;
-  const setState = s => localStorage.setItem('musicState', s);
-  const getVisited = () => JSON.parse(localStorage.getItem('visitedLinks') || '[]');
-  const getUnlocked = () => JSON.parse(localStorage.getItem('unlockedMusic') || '[]');
-  const setUnlocked = arr => localStorage.setItem('unlockedMusic', JSON.stringify(arr));
-
-  // === 4. TOAST ===
-  function showToast(level) {
-    const toast = document.createElement('div');
-    toast.className = 'unlock-toast';
-    toast.textContent = `🎉 New music unlocked at score ${level}!`;
-    document.body.appendChild(toast);
-    setTimeout(() => toast.remove(), 3000);
-  }
-
-  // === 5. MUSIC FUNCTIONS ===
-  function stopAllMusic() {
-    Object.values(tracks).forEach(a => {
-      if (a) {
-        a.pause();
-        a.currentTime = 0;
-        a.muted = true;
-      }
-    });
-  }
-
-  function playMusic(state) {
-    stopAllMusic();
-    const a = tracks[state];
-    if (a) {
-      a.muted = false;
-      a.play().catch(err => console.warn('Music play error:', err));
-    }
-  }
-
-  function cycleMusic() {
-    const visited = getVisited();
-    const unlockedFlags = getUnlocked();
-    const score = visited.length;
-
-    if (score >= 5 && !unlockedFlags.includes(5)) {
-      unlockedFlags.push(5);
-      setUnlocked(unlockedFlags);
-      showToast(5);
-    }
-    if (score >= 10 && !unlockedFlags.includes(10)) {
-      unlockedFlags.push(10);
-      setUnlocked(unlockedFlags);
-      showToast(10);
-    }
-    if (score >= 20 && !unlockedFlags.includes(20)) {
-      unlockedFlags.push(20);
-      setUnlocked(unlockedFlags);
-      showToast(20);
-    }
-
-    const available = [1];
-    if (score >= 5) available.push(2);
-    if (score >= 10) available.push(3);
-    // NO music track at 20; ambient unlock only
-
-    const current = getState();
-    const currentIndex = available.indexOf(current);
-    const next = (currentIndex === -1)
-      ? available[0]
-      : (currentIndex === available.length - 1)
-        ? 0
-        : available[currentIndex + 1];
-
-    setState(next);
-    if (next === 0) {
-      stopAllMusic();
-    } else {
-      playMusic(next);
-    }
-  }
-
-  // === 6. AMBIENT AUDIO LOGIC ===
-  function playAmbient() {
-    // 03.wav (the 20+ variant) may be missing. A missing <source> never
-    // rejects play() (the element just waits), so check networkState first.
-    const altUsable = ambientAlt && !ambientAlt.error &&
-      ambientAlt.networkState !== HTMLMediaElement.NETWORK_NO_SOURCE;
-    const playDefault = () => {
-      ambientAlt?.pause(); if (ambientAlt) ambientAlt.muted = true;
-      ambientDefault.muted = false; ambientDefault.play().catch(() => {});
-    };
-    if (getVisited().length >= 20 && altUsable) {
-      ambientDefault.pause(); ambientDefault.muted = true;
-      ambientAlt.muted = false;
-      ambientAlt.play().catch(playDefault);
-    } else {
-      playDefault();
-    }
-  }
-
-  const audioToggle = document.getElementById('audio-toggle');
-  if (audioToggle) {
-    audioToggle.addEventListener('change', () => {
-      if (audioToggle.checked) {
-        playAmbient();
-      } else {
-        ambientDefault?.pause();
-        ambientAlt?.pause();
-      }
-    });
-
-    // Remembered "on": browsers block sound before the first click/tap,
-    // so start it on the reader's first interaction instead.
-    if (audioToggle.checked) {
-      const start = () => { if (audioToggle.checked) playAmbient(); };
-      document.addEventListener('pointerdown', start, { once: true });
-      document.addEventListener('keydown', start, { once: true });
-    }
-  }
-
-  // === 7. HOOK UP MUSIC BUTTON ===
-  const musicButton = document.getElementById('music-toggle');
-  if (musicButton) {
-    musicButton.addEventListener('click', cycleMusic);
-  }
-});
-</script>
 
 
-		<script>
-// Keep the radar's on/off state in step with the index page.
-document.addEventListener('DOMContentLoaded', function () {
-  var el = document.getElementById('tracker-toggle');
-  if (!el) return;
-  var saved = localStorage.getItem('tracker-toggle');
-  if (saved !== null) el.checked = saved === 'true';
-  el.addEventListener('change', function () { localStorage.setItem('tracker-toggle', el.checked); });
-});
-</script>
-<script>
-// Bibliography: the 📜 menu icon appears once 50 links have been followed
-// (the same "visitedLinks" record the radar counter reads).
-(function () {
-  function unlock() {
-    var label = document.getElementById('bibliography-label');
-    if (!label) return;
-    var n = 0;
-    try { n = JSON.parse(localStorage.getItem('visitedLinks') || '[]').length; } catch (e) {}
-    label.hidden = n < 50;
-  }
-  document.addEventListener('DOMContentLoaded', unlock);
-  window.addEventListener('pageshow', unlock);
-  window.addEventListener('storage', function (e) { if (e.key === 'visitedLinks') unlock(); });
-  document.addEventListener('click', function (e) {
-    if (e.target.closest && e.target.closest('a')) setTimeout(unlock, 50);
-  });
-})();
-</script>
-<script>
-// Hero clip: where autoplay is refused (iOS Low Power Mode, data-saver modes),
-// swap in the still image instead of leaving Safari's play button showing.
-document.addEventListener('DOMContentLoaded', function () {
-  var hero = document.getElementById('hero-media');
-  if (!hero || hero.tagName !== 'VIDEO') return;
-  var swapped = false;
-  function swapToGif() {
-    if (swapped || !hero.paused) return;
-    swapped = true;
-    var gif = document.createElement('img');
-    gif.src = '../full/gifs/landing-still.jpg';
-    gif.alt = 'Landing still';
-    gif.id = 'hero-media';
-    gif.className = 'hero-media';
-    hero.replaceWith(gif);
-  }
-  var tryPlay = hero.play();
-  if (tryPlay) tryPlay.catch(swapToGif);
-  setTimeout(swapToGif, 2500);
-});
-</script>
 </body>

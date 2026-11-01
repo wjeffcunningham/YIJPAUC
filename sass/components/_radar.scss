@@ -47,3 +47,7 @@ body:has(#map-unlocked:not(:checked)) #tracker-map-label {
     opacity: 0.75;
   }
 }
+
+// 🔔/🔕 radar sound toggle: shown only while the radar is on
+.radar-mute { display: none; cursor: pointer; }
+#tracker-toggle:checked ~ .widgets-row .radar-mute { display: inline-block; }
