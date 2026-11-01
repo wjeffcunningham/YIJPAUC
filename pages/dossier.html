@@ -13,7 +13,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
 
   <script src="../js/menu.js?v=26.10.30"></script>
-  <script src="../js/tracklinks.js?v=26.10.31"></script>
+  <script src="../js/map.js?v=26.11.01"></script>
   <script src="../js/darkmode.js"></script>
   <style>
     .version-tag { font-size: 0.55em; white-space: nowrap; }
@@ -23,10 +23,10 @@
     #tracker-toggle:checked ~ .widgets-row .radar-mute { display: inline-block; }
   </style>
   <script>
-  // Radar sound: when muted, the tracking chimes are silenced (background music is unaffected).
+  // Radar sound: off unless the reader turns it on (🔕 → 🔔). When off, the tracking chimes are silenced (background music is unaffected).
   (function () {
     var KEY = 'radar-mute';
-    function muted() { try { return localStorage.getItem(KEY) === 'true'; } catch (e) { return false; } }
+    function muted() { try { return localStorage.getItem(KEY) !== 'false'; } catch (e) { return true; } }
     var play = HTMLMediaElement.prototype.play;
     HTMLMediaElement.prototype.play = function () {
       var src = (this.currentSrc || this.src || '') + ' ' + (this.id || '');
@@ -190,7 +190,7 @@
   <div class="menu-grid">
     <input type="checkbox" id="info-toggle" hidden>
     <input type="checkbox" id="tools-toggle" hidden>
-    <input type="checkbox" id="tracker-toggle" hidden>
+    <input type="checkbox" id="tracker-toggle" checked hidden>
 
     <div class="widgets-row">
       <div class="widgets" id="base-widgets">
@@ -206,9 +206,9 @@
         <input type="checkbox" id="audio-toggle" hidden>
         <label for="audio-toggle" class="audio-icon" title="Toggle Background Audio">🔊</label>
         <button id="music-toggle" class="music-icon" title="Cycle Background Music">🎶</button>
-        <!-- Radar: records links followed (this device only) while on. The count shows while the radar is on. -->
+        <!-- Radar: on by default; records links followed (this device only) while on. Click 📡 to turn it off. -->
         <label for="tracker-toggle" title="Toggle Radar">📡</label>
-        <input type="checkbox" id="radar-mute" hidden><label for="radar-mute" id="radar-mute-label" class="radar-mute" title="Radar sound on">🔔</label>
+        <input type="checkbox" id="radar-mute" checked hidden><label for="radar-mute" id="radar-mute-label" class="radar-mute" title="Radar sound off">🔕</label>
         <label for="bibliography-toggle" id="bibliography-label" title="Bibliography" hidden>📜</label>
         <label for="toggle-x" class="dark-only version-tag" title="Toggle Invisibles">v1.2</label>
         <!-- Kept for older scripts that look up the ghost icon; never shown. -->

@@ -2,12 +2,15 @@
  * map.js — YIJPAUC radar, rooms, chime, map and survey
  *
  * Everything here only records while the radar (#tracker-toggle) is on,
- * and only in this browser's localStorage.
+ * and only in this browser's localStorage. The radar is on by default
+ * (checked in the HTML); a reader's "off" is remembered. Used by
+ * index.html and pages/dossier.html (which has links but no rooms).
  *
  *  Rooms   every <details data-expand-id="..."> is a room. The total and
  *          each room's level (how deeply it is nested in other rooms)
  *          are read from the page, so new sections count automatically.
- *  Chime   the first opening of each room plays a short soft tone,
+ *  Chime   off by default (radar-mute unless set to 'false' via 🔕/🔔).
+ *          When on, the first opening of each room plays a short soft tone,
  *          one step higher per level (C, E, G, high C). Made in the
  *          browser; no sound files.
  *  Map     the hand-written outline in #map-modal: opened rooms get .lit,
@@ -71,7 +74,7 @@
   // ── chime ──────────────────────────────────────────────────────────────
   var ctx = null;
   function chime(level) {
-    try { if (localStorage.getItem('radar-mute') === 'true') return; } catch (e) {}
+    try { if (localStorage.getItem('radar-mute') !== 'false') return; } catch (e) { return; }
     try {
       ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
       if (ctx.state === 'suspended') ctx.resume();
@@ -243,5 +246,12 @@
 
     checkUnlock(false);
     refreshMap();
+
+    // Radar on at load (the default): rooms already open, e.g. Section 3,
+    // count without a chime. Deferred so the saved on/off state, restored
+    // by the page's own DOMContentLoaded script, is applied first.
+    setTimeout(function () {
+      if (radarOn()) rooms().forEach(function (el) { if (el.open) recordRoom(el, false); });
+    }, 0);
   });
 })();
