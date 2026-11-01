@@ -17,9 +17,9 @@
  *          rise; complete = small cadence. window.YIJ.cue(name) plays one.
  *  Bookmark  keeps the reader's place on each page (the last room or
  *          section heading scrolled past), on this device only, whether
- *          or not the radar is on. First visit: a welcome note. Later
- *          visits: "Welcome back — resume at …", with % of rooms opened
- *          when the radar is on.
+ *          or not the radar is on. First visit: VVIP mark + "Why IJPAUC?"
+ *          and a link to IJPAUC? (its favicon). Later visits: "Resume: …",
+ *          with % of rooms opened when the radar is on.
  *  Map     the hand-written outline in #map-modal: opened rooms get .lit,
  *          the legend reads "n / N rooms", and each entry opens its
  *          section (and the folds around it) before jumping.
@@ -315,12 +315,14 @@
   }
 
   function greet() {
+    var base = location.pathname.indexOf('/pages/') !== -1 ? '../' : './';
     var seen = flag(SEEN_KEY);
     if (!seen) {
       setFlag(SEEN_KEY);
-      welcome('<p><b>Welcome.</b> The folds open into rooms, and rooms within rooms. ' +
-        'This page keeps your place for next time, on this device only. ' +
-        '📡 notes which rooms you’ve entered; tap it to stop.</p>');
+      welcome('<p><img src="' + base + 'vvip.png" alt="VVIP" class="welcome-logo"> ' +
+        '<i>Why IJPAUC?</i></p>' +
+        '<p class="welcome-sub"><a href="https://ijpauc.net">' +
+        '<img src="' + base + 'favicon-v2.ico" alt="" class="welcome-logo"> <i>IJPAUC?</i></a></p>');
       return;
     }
     if (location.hash) return;                       // came for a particular spot
@@ -331,11 +333,15 @@
     if (target.getClientRects().length && r.top > -60 && r.top < window.innerHeight) return;
     var pct = '';
     if (radarOn() && rooms().length) {
-      pct = ' · ' + Math.round(100 * read(ROOMS_KEY).length / rooms().length) + '% explored';
+      pct = ' · ' + Math.round(100 * read(ROOMS_KEY).length / rooms().length) + '%';
     }
-    welcome('<p><b>Welcome back.</b> <a href="#' + mark.id + '" class="welcome-resume">Resume at ' +
-      '<i></i></a>' + pct + '</p>', function (box, close) {
-        box.querySelector('.welcome-resume i').textContent = mark.label;
+    welcome('<p><img src="' + base + 'vvip.png" alt="VVIP" class="welcome-logo"> ' +
+      '<a href="#' + mark.id + '" class="welcome-resume">Resume: <span></span></a>' +
+      '<span class="welcome-sub">' + pct + '</span></p>', function (box, close) {
+        // short: just the tag before a colon ("Ch. 13"), else the title
+        var l = mark.label.split(':')[0].trim();
+        box.querySelector('.welcome-resume span').textContent =
+          l.length > 34 ? l.slice(0, 32).trim() + '…' : l;
         box.querySelector('.welcome-resume').addEventListener('click', function (e) {
           e.preventDefault();
           close();
