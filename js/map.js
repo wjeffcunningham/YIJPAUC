@@ -10,6 +10,7 @@
   'use strict';
 
   var ROOMS_KEY  = 'roomsOpened';
+  var WEIGHT_KEY = 'roomWeights';   // { id: points } for rooms opened
   var LINKS_KEY  = 'visitedLinks';
   var EPI_KEY    = 'collectedEpigraphs';
   var SURVEY_KEY = 'surveyTaken';
@@ -40,6 +41,34 @@
   function rooms() {
     return Array.prototype.slice.call(
       document.querySelectorAll('details[data-expand-id]'));
+  }
+  // Main rooms score 3, nested entries and quote-toggles 1 (data-weight).
+  function weightOf(el) {
+    return parseInt(el.dataset.weight, 10) || 1;
+  }
+  function weights() {
+    try { return JSON.parse(localStorage.getItem(WEIGHT_KEY)) || {}; } catch (e) { return {}; }
+  }
+  // Weight of an opened room, wherever it is: saved when opened, else the map's entry.
+  function storedWeight(id, w) {
+    if (w[id]) return w[id];
+    var node = document.getElementById('mapnode-' + id);
+    return node ? (parseInt(node.dataset.weight, 10) || 1) : 1;
+  }
+  function points() {
+    var w = weights();
+    return read(ROOMS_KEY).reduce(function (n, id) { return n + storedWeight(id, w); }, 0);
+  }
+  function mainsOpened() {
+    var w = weights();
+    return read(ROOMS_KEY).filter(function (id) { return storedWeight(id, w) >= 3; }).length;
+  }
+  function totals() {
+    var nav = document.querySelector('.docmap[data-points-total]');
+    return {
+      points: nav ? parseInt(nav.dataset.pointsTotal, 10) : 0,
+      rooms: nav ? parseInt(nav.dataset.roomsTotal, 10) : rooms().length
+    };
   }
   function levelOf(el) {
     var n = 1;
@@ -143,17 +172,26 @@
     return read(EPI_KEY).filter(function (id) { return ids.indexOf(id) !== -1; });
   }
   function refreshMap() {
-    var opened = read(ROOMS_KEY);
+    var opened = read(ROOMS_KEY), t = totals();
     opened.forEach(light);
+    // small rooms tallied beside their main room, e.g. "2/5"
+    Array.prototype.forEach.call(document.querySelectorAll('.docmap li[data-kids]'), function (li) {
+      var kids = li.dataset.kids.split(' ');
+      var have = kids.filter(function (id) { return opened.indexOf(id) !== -1; }).length;
+      var tally = li.querySelector('.docmap-tally');
+      if (tally) tally.textContent = have + '/' + kids.length;
+      li.classList.toggle('full', have === kids.length);
+    });
     var label = document.getElementById('map-score-label');
-    if (label) label.textContent = opened.length + ' / ' + rooms().length + ' rooms';
+    if (label) label.textContent = points() + ' / ' + t.points + ' points · ' +
+      mainsOpened() + ' / ' + t.rooms + ' rooms';
     var epi = document.getElementById('map-epi-label');
     if (epi && epiIds().length) epi.textContent = epiHave().length + ' / ' + epiIds().length + ' epigrams';
   }
   function checkUnlock(announce) {
     var box = document.getElementById('map-unlocked');
     if (!box || box.checked) return;
-    if (read(ROOMS_KEY).length >= UNLOCK_AT || flag(SURVEY_KEY)) {
+    if (mainsOpened() >= UNLOCK_AT || flag(SURVEY_KEY)) {
       box.checked = true;
       if (announce) { cue('unlock'); note('Map unlocked: 🗺️ is now in the tools menu.'); }
     }
@@ -172,6 +210,8 @@
     if (opened.indexOf(id) !== -1) return;
     opened.push(id);
     write(ROOMS_KEY, opened);
+    var w = weights(); w[id] = weightOf(el);
+    try { localStorage.setItem(WEIGHT_KEY, JSON.stringify(w)); } catch (e) {}
     light(id);
     if (withChime) cue('room', levelOf(el));
     checkUnlock(true);
@@ -193,7 +233,9 @@
     var links = read(LINKS_KEY).filter(function (id) {
       return String(id).indexOf('expand-') !== 0;
     });
-    return 'Rooms ' + read(ROOMS_KEY).length + '/' + rooms().length +
+    var t = totals();
+    return 'Points ' + points() + '/' + t.points + '; ' +
+      'Rooms ' + mainsOpened() + '/' + t.rooms +
       ' (' + read(ROOMS_KEY).join(', ') + '); ' +
       'Epigrams ' + epiHave().length + '/' + epiIds().length +
       ' (' + epiHave().join(', ') + '); ' +
@@ -216,7 +258,8 @@
       var el = document.getElementById(id);
       if (el) el.textContent = text;
     };
-    set('readout-rooms', read(ROOMS_KEY).length + ' / ' + rooms().length);
+    var t = totals();
+    set('readout-rooms', mainsOpened() + ' / ' + t.rooms + ' (' + points() + ' / ' + t.points + ' points)');
     set('readout-epigrams', epiHave().length + ' / ' + epiIds().length);
     set('readout-links', String(links.length));
     box.hidden = false;
@@ -296,7 +339,7 @@
     if (target.getClientRects().length && r.top > -60 && r.top < window.innerHeight) return;
     var pct = '';
     if (radarOn() && rooms().length) {
-      pct = ' · ' + Math.round(100 * read(ROOMS_KEY).length / rooms().length) + '%';
+      pct = ' · ' + Math.round(100 * points() / (totals().points || 1)) + '%';
     }
     welcome('<p><img src="' + base + 'vvip.png" alt="VVIP" class="welcome-logo"> ' +
       '<a href="#' + mark.id + '" class="welcome-resume">Resume: <span></span></a>' +
@@ -370,6 +413,13 @@
         showReadout();
       });
       if (flag(SURVEY_KEY)) showReadout();
+    }
+
+    // Arriving from the map on the other page (#d-01a, #expand-tz): open the fold and go there.
+    var arrived = location.hash && document.getElementById(location.hash.slice(1));
+    if (arrived && arrived.tagName === 'DETAILS') {
+      openTo(arrived);
+      setTimeout(function () { arrived.scrollIntoView({ block: 'start' }); }, 50);
     }
 
     checkUnlock(false);

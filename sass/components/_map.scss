@@ -88,3 +88,37 @@
   gap: 1rem;
   opacity: 0.7;
 }
+
+// Combined map: Why IJPAUC? / Dossier / IJPAUC?
+// Part and group titles are labels, not rooms, so they stay in full ink.
+
+.docmap {
+  .docmap-part { margin: 0 0 1.1rem; }
+
+  .docmap-part-title {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+  }
+
+  .docmap-group { margin: 0.5rem 0 0.2rem; }
+
+  .docmap-group-title {
+    display: block;
+    font-style: italic;
+    font-size: 0.85em;
+    opacity: 0.8;
+  }
+
+  .docmap-part-title a,
+  a.docmap-away { opacity: 1; }
+
+  // Small rooms opened under a main room, e.g. "2/5"
+  .docmap-tally {
+    margin-left: 0.5em;
+    font-size: 0.75em;
+    font-variant-numeric: tabular-nums;
+    opacity: 0.6;
+  }
+  li.full > .docmap-tally { opacity: 1; }
+}

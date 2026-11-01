@@ -1432,6 +1432,37 @@ ol.depth-3 > li::before {
   opacity: 0.7;
 }
 
+.docmap .docmap-part {
+  margin: 0 0 1.1rem;
+}
+.docmap .docmap-part-title {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+}
+.docmap .docmap-group {
+  margin: 0.5rem 0 0.2rem;
+}
+.docmap .docmap-group-title {
+  display: block;
+  font-style: italic;
+  font-size: 0.85em;
+  opacity: 0.8;
+}
+.docmap .docmap-part-title a,
+.docmap a.docmap-away {
+  opacity: 1;
+}
+.docmap .docmap-tally {
+  margin-left: 0.5em;
+  font-size: 0.75em;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.6;
+}
+.docmap li.full > .docmap-tally {
+  opacity: 1;
+}
+
 .magnifier-toggle input[type=checkbox] {
   display: none;
 }
