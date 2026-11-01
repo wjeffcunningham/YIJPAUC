@@ -106,7 +106,7 @@
 
   var ctx = null, bus = null;
   function soundOn() {
-    try { return localStorage.getItem('radar-mute') === 'false'; } catch (e) { return false; }
+    try { return localStorage.getItem('radar-mute') !== 'true'; } catch (e) { return true; }
   }
   function audio() {
     if (ctx) return ctx;

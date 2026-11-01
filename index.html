@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <title>YIJPAUC?</title>
   <link rel="icon" href="./favicon-v2.ico">
-  <link rel="stylesheet" type="text/css" href="./css/sass.css?v=26.11.01f">
+  <link rel="stylesheet" type="text/css" href="./css/sass.css?v=26.11.01g">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
   <script type="text/javascript" src="./js/menu.js?v=26.10.30"></script>
-  <script type="text/javascript" src="./js/map.js?v=26.11.01e"></script>
+  <script type="text/javascript" src="./js/map.js?v=26.11.01f"></script>
   <script type="text/javascript" src="./js/darkmode.js"></script>
   <meta name="description" content="Why IJPAUC?">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,10 +19,10 @@
     #tracker-toggle:checked ~ .widgets-row .radar-mute { display: inline-block; }
   </style>
   <script>
-  // Radar sound: off unless the reader turns it on (🔕 → 🔔). When off, the tracking chimes are silenced (background music is unaffected).
+  // Radar sound: on unless the reader turns it off (🔔 → 🔕). When off, the tracking chimes are silenced (background music is unaffected).
   (function () {
     var KEY = 'radar-mute';
-    function muted() { try { return localStorage.getItem(KEY) !== 'false'; } catch (e) { return true; } }
+    function muted() { try { return localStorage.getItem(KEY) === 'true'; } catch (e) { return false; } }
     var play = HTMLMediaElement.prototype.play;
     HTMLMediaElement.prototype.play = function () {
       var src = (this.currentSrc || this.src || '') + ' ' + (this.id || '');
@@ -207,7 +207,7 @@
         <!-- Radar: records rooms opened and links followed (this device only) while on.
              The map icon appears after 5 rooms, or after the survey (#map-unlocked). -->
         <label for="tracker-toggle" title="Toggle Radar">📡</label>
-        <input type="checkbox" id="radar-mute" checked hidden><label for="radar-mute" id="radar-mute-label" class="radar-mute" title="Radar sound off">🔕</label>
+        <input type="checkbox" id="radar-mute" hidden><label for="radar-mute" id="radar-mute-label" class="radar-mute" title="Radar sound on">🔔</label>
         <label for="map-modal-toggle" id="tracker-map-label" title="Document Map">🗺️</label>
         <label for="epigram-book-toggle" id="epigram-book-label" title="Epigram Book">📖</label>
         <label for="toggle-x" class="dark-only version-tag" title="Toggle Invisibles">v1.2</label>
