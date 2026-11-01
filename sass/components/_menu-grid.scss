@@ -92,11 +92,6 @@ body:has(#toggle-x:checked) marginalia[data-type="x"] {
 }
 
 /* Dark mode: toggle invisibles only if in dark mode AND checked */
-@media (prefers-color-scheme: dark) {
-  #toggle-x:checked ~ .menu-grid marginalia[data-type="x"] {
-    display: inline;
-  }
-}
 
 #menu-btn:checked ~ .menu-grid {
   display: grid;
@@ -125,13 +120,6 @@ body:has(#toggle-x:checked) marginalia[data-type="x"] {
 .menu-abstract, .menu-index, .menu-nav {
   border-top: 1px solid rgba(0, 0, 0, 0.3);
   padding-top: 0.4rem;
-}
-
-.menu-nav a {
-  display: inline-block;
-  margin: 0 1rem;
-  font-weight: bold;
-  font-size: 1.1rem;
 }
 
 .menu-links {
@@ -166,16 +154,6 @@ body:has(#toggle-x:checked) marginalia[data-type="x"] {
   line-height: inherit;
 }
 
-.menu-links li label {
-  display: block;
-  font-size: inherit; /* ✅ same size as numbered links */
-  color: inherit;
-  text-align: center;
-  cursor: pointer;
-  font-family: inherit;
-  font-weight: normal;
-}
-
 /* Base widget styles */
 .widgets {
   display: none;
@@ -191,23 +169,12 @@ body:has(#toggle-x:checked) marginalia[data-type="x"] {
   display: grid;
 }
 
-#info-toggle:not(:checked) ~ #info-widgets { display: none; }
-#info-toggle:checked ~ #info-widgets { display: grid; }
-
-#info-toggle:checked ~ #base-widgets {
-  display: none;
-}
-
 #tools-widgets {
   display: none;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.25rem;
   margin-top: -0.25rem; /* tighten spacing slightly */
   justify-items: center;
-}
-
-#tools-toggle:checked ~ #tools-widgets {
-  display: grid;
 }
 
 /* Base widget layout (top row) */
@@ -234,22 +201,6 @@ body:has(#toggle-x:checked) marginalia[data-type="x"] {
   justify-items: center;
 }
 
-#tools-toggle:checked ~ #tools-widgets {
-  display: grid;
-}
-
-/* Hide base row if tools is active */
-#tools-toggle:checked ~ #base-widgets {
-  display: none;
-}
-
-/* Optional: future-proofed logic if info row returns */
-#info-toggle:not(:checked) ~ #info-widgets { display: none; }
-#info-toggle:checked ~ #info-widgets { display: grid; }
-#info-toggle:checked ~ #base-widgets {
-  display: none;
-}
-
 /* Shared widget item styling */
 .widgets span,
 .widgets label,
@@ -263,13 +214,6 @@ body:has(#toggle-x:checked) marginalia[data-type="x"] {
   background: none;
   border: none;
   cursor: pointer;
-}
-
-/* Score box tweak */
-#score {
-  font-size: 0.75rem;
-  font-weight: bold;
-  cursor: default;
 }
 
 /* Optional: hide invisible-only icon unless in dark mode */
@@ -347,14 +291,6 @@ body:has(#toggle-pa:checked) label[for="magnify-toggle"] {
 }
 
 body:has(#audio-toggle:checked) label[for="audio-toggle"] {
-  text-shadow:
-    0 0 10px rgba(120, 200, 255, 1),
-    0 0 20px rgba(0, 150, 255, 1),
-    0 0 30px rgba(0, 150, 255, 1);
-  filter: brightness(1.4);
-}
-
-body:has(#music-toggle:checked) label[for="music-toggle"] {
   text-shadow:
     0 0 10px rgba(120, 200, 255, 1),
     0 0 20px rgba(0, 150, 255, 1),
@@ -470,6 +406,4 @@ body.dark-mode #toggleMode {
   opacity: 0.6;
   align-self: center;
 }
-
-
 

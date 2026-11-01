@@ -31,7 +31,6 @@ img {
   display: block;
 }
 
-
 /**
  * Basic styles for links
  */
@@ -47,31 +46,6 @@ a {
     border-bottom-color: red; // or your highlight color
   }
 }
-
-figure.hover-caption {
-  position: relative;
-  display: inline-block;
-}
-
-figure.hover-caption figcaption {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.6); /* optional: translucent dark */
-  color: white;
-  padding: 0.5em;
-  font-size: 0.9em;
-  text-align: center;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none; /* ensures caption doesn't block hover */
-}
-
-figure.hover-caption:hover figcaption {
-  opacity: 1;
-}
-
 
 p {
   margin-top: 0;

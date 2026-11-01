@@ -341,10 +341,6 @@ template {
     filter: brightness(1);
   }
 }
-#score.pulse {
-  animation: score-pulse 0.6s ease;
-}
-
 /**
  * Set up a decent box model on the root element
  */
@@ -386,30 +382,6 @@ a:hover, a:active {
   border-bottom-color: red;
 }
 
-figure.hover-caption {
-  position: relative;
-  display: inline-block;
-}
-
-figure.hover-caption figcaption {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.6); /* optional: translucent dark */
-  color: white;
-  padding: 0.5em;
-  font-size: 0.9em;
-  text-align: center;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none; /* ensures caption doesn't block hover */
-}
-
-figure.hover-caption:hover figcaption {
-  opacity: 1;
-}
-
 p {
   margin-top: 0;
   margin-bottom: 1em;
@@ -448,10 +420,6 @@ p, li, summary {
   text-decoration: none;
 }
 
-body.work-bg {
-  color: hsl(255, 100%, 100%);
-}
-
 figcaption {
   font-size: 0.8em;
   font-style: italic;
@@ -462,84 +430,8 @@ h1 {
   margin: 1em 0;
 }
 
-.bold-text {
-  font-weight: 900;
-}
-
-.script-mark {
-  font-family: "EB Garamond", serif !important;
-}
-
 .underlined {
   text-decoration: underline;
-}
-
-/**
- * Clear inner floats
- */
-.clearfix::after {
-  clear: both;
-  content: "";
-  display: table;
-}
-
-/**
- * Main content containers
- * 1. Make the container full-width with a maximum width
- * 2. Center it in the viewport
- * 3. Leave some space on the edges, especially valuable on small screens
- */
-.container {
-  max-width: 800px; /* 1 */
-  margin-left: auto; /* 2 */
-  margin-right: auto; /* 2 */
-  padding-left: 20px; /* 3 */
-  padding-right: 20px; /* 3 */
-  width: 100%; /* 1 */
-}
-
-/**
- * Hide text while making it readable for screen readers
- * 1. Needed in WebKit-based browsers because of an implementation bug;
- *    See: https://code.google.com/p/chromium/issues/detail?id=457146
- */
-.hide-text {
-  overflow: hidden;
-  padding: 0; /* 1 */
-  text-indent: 101%;
-  white-space: nowrap;
-}
-
-/**
- * Hide element while making it readable for screen readers
- * Shamelessly borrowed from HTML5Boilerplate:
- * https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css#L119-L133
- */
-.visually-hidden {
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
-}
-
-/**
-*/
-.container img {
-  width: 100%;
-  object-fit: contain;
-}
-
-.container {
-  max-width: 800px; /* 1 */
-  margin-left: auto; /* 2 */
-  margin-right: auto; /* 2 */
-  padding-left: 20px; /* 3 */
-  padding-right: 20px; /* 3 */
-  width: 100%; /* 1 */
 }
 
 footer {
@@ -548,16 +440,6 @@ footer {
 
 /*********************************************/
 /* menu                                      */
-/*********************************************/
-.container {
-  max-width: 800px; /* 1 */
-  margin-left: auto; /* 2 */
-  margin-right: auto; /* 2 */
-  padding-left: 20px; /* 3 */
-  padding-right: 20px; /* 3 */
-  width: 100%; /* 1 */
-}
-
 .header {
   max-width: 800px; /* 1 */
   margin-left: auto; /* 2 */
@@ -585,31 +467,6 @@ h1 {
   display: inline-block;
 }
 
-/* menu - navbar */
-.menu {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  font-weight: 300;
-  font-size: 1em;
-}
-
-.menu {
-  list-style: none;
-  margin: 0px;
-  padding: 0px;
-}
-
-.menu > ul > li {
-  font-size: 0.5em;
-  padding: 0.5em;
-}
-
-.menu > ul {
-  list-style: none;
-  padding: 0;
-}
-
 main {
   width: 100%;
   max-width: 800px;
@@ -632,34 +489,6 @@ main ul + p {
   margin-top: 1em;
 }
 
-.abstract-cards {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  margin-top: 1rem;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-.abstract-card {
-  background-color: #f5f5f5;
-  border-left: 3px solid #999;
-  padding: 0.75rem 1rem;
-  border-radius: 0.3rem;
-  font-size: 0.95rem;
-  line-height: 1.4;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-@media (prefers-color-scheme: dark) {
-  .abstract-card {
-    background-color: #222;
-    border-left: 3px solid #555;
-    color: #eee;
-  }
-}
 .abstract-carousel {
   position: relative;
   width: 100%;
@@ -695,63 +524,8 @@ main ul + p {
   }
 }
 /*
- CSS for the main interaction
-*/
-.accordion > input[type=checkbox] {
-  position: absolute;
-  left: -100vw;
-}
-
-.accordion .accordion-content {
-  overflow-y: hidden;
-  height: 0;
-  transition: height 0.3s ease;
-}
-
-.accordion > input[type=checkbox]:checked ~ .accordion-content {
-  height: auto;
-  overflow: visible;
-}
-
-.handle > label {
-  display: block;
-}
-
-/*
  Styling
 */
-.accordion {
-  margin-bottom: 1em;
-}
-
-.accordion-content {
-  padding-top: 1em;
-}
-
-.accordion > input[type=checkbox]:checked ~ .content {
-  padding: 15px;
-  border-top: 0;
-}
-
-.accordion .handle {
-  margin: 0;
-  font-size: 1.125em;
-  line-height: 1.2em;
-}
-
-.handle > label {
-  color: #333;
-  cursor: pointer;
-  font-weight: normal;
-  padding: 15px;
-  background-color: #e8e8e8;
-}
-
-.handle > label:hover,
-.handle > label:focus {
-  background-color: #d8d8d8;
-}
-
 .handle > label:before {
   content: "▶";
   display: inline-block;
@@ -809,16 +583,6 @@ main ul + p {
   border-left: 3px solid rgba(180, 140, 60, 0.5);
 }
 
-.book-page--nietzsche {
-  border-left: 1px solid rgba(0, 0, 0, 0.2);
-}
-
-.book-page--shakespeare {
-  border: 1px solid #ccc;
-  outline: 3px solid #ccc;
-  outline-offset: 3px;
-}
-
 .book-meta {
   margin-top: 0.5rem;
   font-size: 0.72em;
@@ -861,16 +625,6 @@ body.dark-mode .book-page::before {
 
 body.dark-mode .book-page--aristotle {
   border-left: 3px solid rgba(200, 160, 80, 0.6);
-}
-
-body.dark-mode .book-page--nietzsche {
-  border-left: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-body.dark-mode .book-page--shakespeare {
-  border: 1px solid #555;
-  outline: 3px solid #555;
-  outline-offset: 3px;
 }
 
 /* ── Section 3: per-source citation styling (book-page) ──
@@ -1033,23 +787,6 @@ body.dark-mode .book-page--ethics {
 .blockquote p {
   padding-left: 1.5em;
   padding-right: 1.5em;
-}
-
-.bracket-hover .bracketed {
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-.bracket-hover .bracketed::before, .bracket-hover .bracketed::after {
-  content: "[";
-  visibility: hidden;
-}
-.bracket-hover:hover .bracketed {
-  visibility: visible;
-  opacity: 1;
-}
-.bracket-hover:hover .bracketed::before, .bracket-hover:hover .bracketed::after {
-  visibility: visible;
 }
 
 .clip-image {
@@ -1288,112 +1025,6 @@ body.dark-mode .datebook-note::before {
   opacity: 1;
 }
 
-/* ── Epigraph modal commentary slot: quiet, separated from the quote ── */
-.epigraph-commentary {
-  margin-top: 0.9rem;
-  padding-top: 0.75rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.15);
-  font-size: 0.82em;
-  line-height: 1.5;
-  opacity: 0.8;
-}
-
-.epigraph-commentary .commentary-tk {
-  font-style: italic;
-  opacity: 0.6;
-}
-
-body.dark-mode .epigraph-commentary {
-  border-top-color: rgba(255, 255, 255, 0.15);
-}
-
-.fade-toggle {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-  /* Hide the checkbox itself */
-  /* The <label> holds both images, stacked on top of each other */
-  /* Both images occupy the same position */
-  /* The “front” image: visible by default */
-  /* The “back” image: hidden by default */
-  /* When checkbox is checked, swap opacities */
-}
-.fade-toggle input {
-  display: none;
-}
-.fade-toggle label {
-  display: block;
-  position: relative;
-  width: 100%;
-  max-width: 600px;
-  aspect-ratio: 4/3;
-  overflow: hidden;
-}
-.fade-toggle img {
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: opacity 0.6s ease;
-}
-.fade-toggle .img-1 {
-  opacity: 1;
-  z-index: 2;
-}
-.fade-toggle .img-2 {
-  opacity: 0;
-  z-index: 1;
-}
-.fade-toggle input:checked + label .img-1 {
-  opacity: 0;
-}
-.fade-toggle input:checked + label .img-2 {
-  opacity: 1;
-}
-
-.fade-once-toggle {
-  position: relative;
-  aspect-ratio: 4/3;
-  overflow: hidden;
-  cursor: pointer;
-}
-.fade-once-toggle input {
-  display: none;
-}
-.fade-once-toggle label {
-  display: block;
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-.fade-once-toggle img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: opacity 0.6s ease;
-  pointer-events: none;
-}
-.fade-once-toggle .img-1 {
-  opacity: 1;
-  z-index: 2;
-}
-.fade-once-toggle .img-2 {
-  opacity: 0;
-  z-index: 1;
-}
-.fade-once-toggle input:checked + label .img-1 {
-  opacity: 0;
-}
-.fade-once-toggle input:checked + label .img-2 {
-  opacity: 1;
-}
-
 #hero-image-container {
   position: relative;
   width: 100%;
@@ -1469,21 +1100,6 @@ details[open] > summary .hint-expand {
   display: none;
 }
 
-.hover-reveal::after {
-  content: attr(data-name);
-  visibility: hidden;
-  opacity: 0;
-  margin-left: 0.5em;
-  font-style: italic;
-  color: #666;
-  transition: opacity 0.3s ease;
-}
-
-.hover-reveal:hover::after {
-  visibility: visible;
-  opacity: 1;
-}
-
 .image-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -1533,25 +1149,6 @@ details[open] > summary .hint-expand {
   overflow: hidden;
 }
 
-.image-grid .tall-image {
-  grid-column: span 1;
-  border-radius: 8px;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  max-height: 100%;
-}
-
-.image-grid .tall-image img {
-  max-width: 100%;
-  height: auto;
-  width: auto;
-  border-radius: 8px;
-  display: block;
-  object-fit: contain;
-}
-
 .image-grid.no-bg-grid figure:first-child {
   background-color: transparent;
   box-shadow: none;
@@ -1596,77 +1193,6 @@ details[open] > summary .hint-expand {
   color: #444;
   background-color: #fafafa;
   text-align: center;
-}
-
-.image-grid-strict169 {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5rem;
-  margin: 2rem 0;
-}
-.image-grid-strict169 figure {
-  position: relative;
-  aspect-ratio: 16/9;
-  background-color: #000;
-  overflow: hidden;
-  border-radius: 8px;
-  margin: 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.image-grid-strict169 figure img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center;
-  display: block;
-}
-.image-grid-strict169 figure figcaption {
-  padding: 0.5rem;
-  font-size: 0.9rem;
-  color: #444;
-  background: rgba(255, 255, 255, 0.85);
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-}
-.image-grid-strict169 figure:hover figcaption {
-  opacity: 1;
-}
-.image-grid-strict169 a {
-  display: block;
-  cursor: zoom-in;
-}
-
-.index-entry {
-  margin: 0.75rem 0;
-  padding: 0.75rem 1rem;
-  border-left: 4px solid #666;
-  background-color: #f9f9f9;
-  font-family: Georgia, serif;
-  cursor: pointer;
-}
-.index-entry summary {
-  font-weight: bold;
-  color: #444;
-  list-style: none;
-  margin-bottom: 0.25rem;
-  outline: none;
-}
-.index-entry .quote {
-  font-style: italic;
-  color: #222;
-  margin-top: 0.5rem;
-}
-.index-entry:hover {
-  background-color: #f0f0f0;
 }
 
 .letter {
@@ -1717,12 +1243,6 @@ ol.depth-3 > li::before {
     font-size: 1.6em;
   }
 }
-.menu-btn:checked ~ .menu {
-  visibility: visible;
-  z-index: 10;
-  background-color: #ffffff;
-}
-
 .five-card-carousel {
   position: relative;
   max-width: 960px;
@@ -1937,25 +1457,9 @@ body:has(#magnify-toggle:checked) .magnifier-zone :hover > marginalia {
   display: inline;
 }
 
-.magnifier-zone a {
-  text-decoration: none;
-  color: inherit;
-  border-bottom: none;
-}
-
-body:has(#magnify-toggle:checked) .magnifier-zone a {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
-}
-
 .magnifier-toggle input[type=checkbox]:checked + label {
   color: #4caf50;
   filter: drop-shadow(0 0 2px #4caf50);
-}
-
-.marginalia-pair {
-  display: inline;
 }
 
 marginalia[data-type=ci],
@@ -1965,62 +1469,6 @@ marginalia[data-type=ch] {
 
 #magnify-toggle:checked ~ main marginalia[data-type=pa] {
   display: inline;
-}
-
-#magnify-toggle:checked ~ main .ci-glow,
-#magnify-toggle:checked ~ main .ch-glow {
-  box-shadow: 0 0 5px 2px rgba(255, 255, 0, 0.5);
-  border-radius: 4px;
-  padding: 0 2px;
-  cursor: pointer;
-  transition: box-shadow 0.3s ease;
-}
-
-#magnify-toggle:checked ~ main .ci-glow:hover + marginalia[data-type=ci],
-#magnify-toggle:checked ~ main .ch-glow:hover + marginalia[data-type=ch] {
-  display: inline;
-}
-
-.magnify-container {
-  position: relative;
-  overflow: hidden;
-}
-.magnify-container .magnifier-wrap {
-  position: relative;
-  overflow: hidden;
-}
-.magnify-container .magnify-target {
-  width: 100%;
-  display: block;
-  --zoom: 2.5;
-  cursor: zoom-in;
-  transition: transform 0.3s ease;
-}
-.magnify-container .magnifier-wrap::after {
-  content: "";
-  position: absolute;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  box-shadow: 0 0 0 2px #fff, 0 0 6px rgba(0, 0, 0, 0.3);
-  pointer-events: none;
-  background-repeat: no-repeat;
-  background-size: calc(100% * var(--zoom));
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-.magnify-container .magnifier-wrap:hover::after {
-  opacity: 1;
-}
-.magnify-container .magnifier-wrap:hover .magnify-target {
-  transform: scale(var(--zoom));
-  transform-origin: center;
-}
-.magnify-container .magnifier-wrap:hover {
-  cursor: none;
-}
-.magnify-container .magnifier-wrap:hover::after {
-  animation: followMouse 0s infinite;
 }
 
 .meta-line {
@@ -2229,11 +1677,6 @@ body:has(#toggle-x:checked) marginalia[data-type=x] {
 }
 
 /* Dark mode: toggle invisibles only if in dark mode AND checked */
-@media (prefers-color-scheme: dark) {
-  #toggle-x:checked ~ .menu-grid marginalia[data-type=x] {
-    display: inline;
-  }
-}
 #menu-btn:checked ~ .menu-grid {
   display: grid;
 }
@@ -2259,13 +1702,6 @@ body:has(#toggle-x:checked) marginalia[data-type=x] {
 .menu-abstract, .menu-index, .menu-nav {
   border-top: 1px solid rgba(0, 0, 0, 0.3);
   padding-top: 0.4rem;
-}
-
-.menu-nav a {
-  display: inline-block;
-  margin: 0 1rem;
-  font-weight: bold;
-  font-size: 1.1rem;
 }
 
 .menu-links {
@@ -2300,16 +1736,6 @@ body:has(#toggle-x:checked) marginalia[data-type=x] {
   line-height: inherit;
 }
 
-.menu-links li label {
-  display: block;
-  font-size: inherit; /* ✅ same size as numbered links */
-  color: inherit;
-  text-align: center;
-  cursor: pointer;
-  font-family: inherit;
-  font-weight: normal;
-}
-
 /* Base widget styles */
 .widgets {
   display: none;
@@ -2325,28 +1751,12 @@ body:has(#toggle-x:checked) marginalia[data-type=x] {
   display: grid;
 }
 
-#info-toggle:not(:checked) ~ #info-widgets {
-  display: none;
-}
-
-#info-toggle:checked ~ #info-widgets {
-  display: grid;
-}
-
-#info-toggle:checked ~ #base-widgets {
-  display: none;
-}
-
 #tools-widgets {
   display: none;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.25rem;
   margin-top: -0.25rem; /* tighten spacing slightly */
   justify-items: center;
-}
-
-#tools-toggle:checked ~ #tools-widgets {
-  display: grid;
 }
 
 /* Base widget layout (top row) */
@@ -2373,28 +1783,6 @@ body:has(#toggle-x:checked) marginalia[data-type=x] {
   justify-items: center;
 }
 
-#tools-toggle:checked ~ #tools-widgets {
-  display: grid;
-}
-
-/* Hide base row if tools is active */
-#tools-toggle:checked ~ #base-widgets {
-  display: none;
-}
-
-/* Optional: future-proofed logic if info row returns */
-#info-toggle:not(:checked) ~ #info-widgets {
-  display: none;
-}
-
-#info-toggle:checked ~ #info-widgets {
-  display: grid;
-}
-
-#info-toggle:checked ~ #base-widgets {
-  display: none;
-}
-
 /* Shared widget item styling */
 .widgets span,
 .widgets label,
@@ -2408,13 +1796,6 @@ body:has(#toggle-x:checked) marginalia[data-type=x] {
   background: none;
   border: none;
   cursor: pointer;
-}
-
-/* Score box tweak */
-#score {
-  font-size: 0.75rem;
-  font-weight: bold;
-  cursor: default;
 }
 
 /* Optional: hide invisible-only icon unless in dark mode */
@@ -2490,11 +1871,6 @@ body:has(#toggle-pa:checked) label[for=magnify-toggle] {
 }
 
 body:has(#audio-toggle:checked) label[for=audio-toggle] {
-  text-shadow: 0 0 10px rgb(120, 200, 255), 0 0 20px rgb(0, 150, 255), 0 0 30px rgb(0, 150, 255);
-  filter: brightness(1.4);
-}
-
-body:has(#music-toggle:checked) label[for=music-toggle] {
   text-shadow: 0 0 10px rgb(120, 200, 255), 0 0 20px rgb(0, 150, 255), 0 0 30px rgb(0, 150, 255);
   filter: brightness(1.4);
 }
@@ -2599,29 +1975,6 @@ body.dark-mode #toggleMode {
   align-self: center;
 }
 
-.menu-icons {
-  display: flex;
-  flex-wrap: wrap; /* Optional: wraps icons if too narrow */
-  align-items: center;
-  gap: 0.5em;
-  padding: 0.5em 1em;
-  font-size: 1.1rem;
-  border-bottom: 1px solid #ccc;
-  list-style: none;
-}
-
-.menu-icons a,
-.menu-icons button,
-.menu-icons span,
-.menu-icons label {
-  text-decoration: none;
-  color: inherit;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.3rem;
-}
-
 /* ── Tracker: map + stats icons hidden until tracker-toggle is on ── */
 #tracker-map-label,
 #tracker-stats-label {
@@ -2641,18 +1994,6 @@ body:has(#tracker-toggle:checked) #tracker-stats-label {
 #abstract-toggle:checked ~ #abstract-modal,
 #modal-nietzsche:checked ~ #modal-nietzsche-box {
   display: block;
-}
-
-.modal-toggle {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.modal-trigger {
-  cursor: pointer;
-  border-bottom: 1px dotted currentColor;
-  font-style: normal;
 }
 
 .modal-overlay {
@@ -2696,19 +2037,6 @@ body:has(#tracker-toggle:checked) #tracker-stats-label {
   opacity: 1;
 }
 
-.modal-box .epigraph-body {
-  margin: 0;
-}
-
-/* ── Stats modal show rule ── */
-#stats-modal {
-  display: none;
-}
-
-#stats-modal-toggle:checked ~ #stats-modal {
-  display: flex;
-}
-
 /* ── Info / Abstract / Nietzsche modal show rules ──
    Same fix as map/stats above: these three modals use the same
    checkbox-sibling pattern but had no matching display rule in
@@ -2727,14 +2055,6 @@ body:has(#tracker-toggle:checked) #tracker-stats-label {
 }
 
 #abstract-toggle:checked ~ #abstract-modal {
-  display: flex;
-}
-
-#modal-nietzsche-box {
-  display: none;
-}
-
-#modal-nietzsche:checked ~ #modal-nietzsche-box {
   display: flex;
 }
 
@@ -2763,57 +2083,6 @@ body:has(#tracker-toggle:checked) #tracker-stats-label {
   overflow-y: auto;
 }
 
-.microlibrary {
-  font-family: Georgia, serif;
-  padding: 1rem;
-  max-width: 800px;
-  margin: auto;
-}
-.microlibrary h4 {
-  font-size: 1.4rem;
-  margin-bottom: 1em;
-  border-bottom: 2px solid #ccc;
-  padding-bottom: 0.3em;
-}
-.microlibrary details {
-  margin-bottom: 1.5em;
-  padding: 1em;
-  border: 1px solid #ddd;
-  border-left: 5px solid #888;
-  background-color: #fdfdfd;
-  border-radius: 6px;
-}
-.microlibrary details summary {
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 1.1rem;
-  margin-bottom: 0.5em;
-  color: #222;
-}
-.microlibrary details .blockquote {
-  font-style: italic;
-  color: #333;
-  margin-top: 0.5em;
-}
-
-.tag-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5em;
-  justify-content: center;
-  margin: 1em 0;
-}
-.tag-nav a {
-  background: #eee;
-  padding: 0.4em 0.8em;
-  border-radius: 4px;
-  text-decoration: none;
-  color: #333;
-}
-.tag-nav a:hover {
-  background: #ddd;
-}
-
 .movietitle {
   font-style: italic;
   text-decoration: underline;
@@ -2822,34 +2091,10 @@ body:has(#tracker-toggle:checked) #tracker-stats-label {
   text-decoration-color: rgba(0, 0, 0, 0.25);
 }
 
-/* menu - navbar */
-.menu {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
-  font-size: 1.2em;
-  font-weight: 900;
-  visibility: hidden;
-  opacity: 1;
-  z-index: 10;
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-}
-
 .grid-cell {
   justify-self: center;
   align-content: center;
   padding: 0 1em;
-}
-
-.nav-item {
-  max-width: 40vw;
-}
-
-.nav-link {
-  text-decoration: none;
 }
 
 .menu-header {
@@ -2863,66 +2108,6 @@ body:has(#tracker-toggle:checked) #tracker-stats-label {
   z-index: 20;
 }
 
-.menu > ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-flow: column wrap;
-  max-height: 20vh;
-  min-height: 400px;
-}
-
-.menu > ul > li {
-  font-size: 0.5em;
-  padding: 0.5em;
-}
-
-.newspaper-block {
-  background: #fff;
-  color: #111;
-  font-family: "Georgia", serif;
-  font-size: 1em;
-  line-height: 1.6;
-  padding: 0.75em 1.25em 0.5em 1.25em;
-  margin: 2em 0;
-  border-left: 4px solid #ccc;
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 4px inset, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px;
-}
-.newspaper-block p {
-  margin: 0 0 0.75em 0;
-  padding: 0;
-}
-.newspaper-block em {
-  font-style: italic;
-}
-.newspaper-block strong {
-  font-weight: 600;
-}
-.newspaper-block cite {
-  display: block;
-  font-size: 0.85em;
-  margin-top: 0.5em;
-  text-align: right;
-  color: #555;
-}
-
-body.dark-mode .newspaper-block {
-  background: #1a1a1a;
-  color: #f0f0f0;
-  border-left: 4px solid #666;
-  box-shadow: rgba(255, 255, 255, 0.05) 0px 2px 4px inset, rgba(255, 255, 255, 0.1) 0px 4px 6px -1px;
-}
-
-body.dark-mode .newspaper-block cite {
-  color: #aaa;
-}
-
-.newspaper {
-  font-family: "Times New Roman", serif;
-}
-.newspaper p {
-  margin-bottom: 1rem;
-}
 .police-report {
   font-family: "Courier Prime", Courier, monospace;
   background-color: #f4f4f4;
@@ -3037,39 +2222,6 @@ body:has(#map-unlocked:not(:checked)) #tracker-map-label {
   color: #000000;
 }
 
-#score {
-  font-family: monospace;
-  font-weight: bold;
-  margin-left: 0.75em;
-  padding: 0 0.5em;
-  transition: color 0.3s, text-shadow 0.3s;
-}
-
-/* Glow in hint mode */
-body.hint-mode #score {
-  text-shadow: 0 0 6px gold;
-  color: gold;
-}
-
-/* Gold pulse animation */
-@keyframes score-pulse {
-  0% {
-    background-color: gold;
-    color: black;
-  }
-  30% {
-    background-color: #ffd700;
-    color: black;
-  }
-  100% {
-    background-color: transparent;
-    color: inherit;
-  }
-}
-#score.pulse {
-  animation: score-pulse 0.5s ease;
-}
-
 .scrapbook-img {
   max-width: 300px;
   margin: 2rem auto;
@@ -3088,16 +2240,6 @@ body.hint-mode #score {
   display: block;
 }
 
-.scrapbook-img .scrap-label {
-  margin-top: 0.5em;
-  background: #eee;
-  padding: 4px 8px;
-  border-left: 3px solid #999;
-  font-size: 0.75em;
-  color: #333;
-  text-align: left;
-}
-
 .scriptexcerpt, .scriptexcerpt-left, .scriptexcerpt-center {
   font-family: "Courier Prime", monospace;
   padding: 0rem 1.5rem;
@@ -3112,61 +2254,6 @@ body.hint-mode #score {
 
 .scriptexcerpt-left {
   text-align: left;
-}
-
-.sketch-sequence {
-  display: grid;
-  gap: 2rem;
-  margin: 3rem 0;
-}
-.sketch-sequence.vertical-feature {
-  grid-template-columns: 1fr;
-  justify-items: center;
-}
-.sketch-sequence.vertical-feature .scrapbook-img {
-  max-width: 520px;
-}
-.sketch-sequence.vertical-feature .scrapbook-img figure {
-  margin: 0;
-}
-.sketch-sequence.vertical-feature .scrapbook-img figure img {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-}
-.sketch-sequence.vertical-feature .scrapbook-img figure figcaption {
-  margin-top: 0.8rem;
-  font-size: 0.96rem;
-  color: ffffff;
-  line-height: 1.5;
-  text-align: left;
-}
-.sketch-sequence.thumbnail-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1rem;
-  justify-content: center;
-}
-.sketch-sequence.thumbnail-row figure {
-  margin: 0;
-  text-align: center;
-}
-.sketch-sequence.thumbnail-row figure img {
-  width: 100%;
-  height: auto;
-  border-radius: 6px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-}
-.sketch-sequence.thumbnail-row figure figcaption {
-  margin-top: 0.6rem;
-  font-size: 0.88rem;
-  color: ffffff;
-}
-
-.soft-media {
-  border: 1px solid #000;
-  padding: 1rem;
 }
 
 /* =========================================
@@ -3242,30 +2329,6 @@ body.dark-mode .trans:not(.is-translated) {
   font-weight: 900;
 }
 
-.video-resize {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-}
-
-.video-aspect-16-9 {
-  padding-top: 56.25%;
-}
-
-.video-aspect-4-3 {
-  padding-top: 75%;
-}
-
-.video-resize > iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-}
-
 .unlock-toast {
   position: fixed;
   bottom: 1.5rem;
@@ -3299,11 +2362,6 @@ body.dark-mode .trans:not(.is-translated) {
     transform: translateX(-50%) translateY(10px);
   }
 }
-.video-container {
-  margin: 0;
-  margin-bottom: 1em;
-}
-
 video[poster] {
   object-fit: cover;
   width: 100%;
@@ -3449,50 +2507,6 @@ video[poster] {
     max-width: none;
   }
 }
-/* ── Stats modal content ── */
-#stats-modal .modal-box {
-  min-width: min(340px, 88vw);
-}
-
-.stats-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-family: "Courier Prime", "Courier New", monospace;
-  font-size: 0.85rem;
-  margin-top: 0.75rem;
-}
-
-.stats-table td {
-  padding: 0.4rem 0.5rem;
-  border-bottom: 1px solid var(--color-border, #eee);
-  vertical-align: top;
-}
-
-.stats-table td:first-child {
-  color: var(--color-muted, #999);
-  white-space: nowrap;
-  padding-right: 1rem;
-}
-
-.stats-table td:last-child {
-  font-weight: 700;
-}
-
-.stats-score-bar {
-  height: 4px;
-  background: var(--color-border, #eee);
-  border-radius: 2px;
-  margin-top: 0.25rem;
-  overflow: hidden;
-}
-
-.stats-score-bar-fill {
-  height: 100%;
-  background: var(--color-accent, #e8c84a);
-  border-radius: 2px;
-  transition: width 0.4s ease;
-}
-
 /* ── Section 3 is locked permanently open: the mainline essay body
    shouldn't be collapsible. Kept as a <details open> (rather than a
    plain div) so any map.js logic keyed off details[open] still sees
@@ -3578,32 +2592,6 @@ summary.summary-locked-open {
   opacity: 0.5;
 }
 
-/* ── Section 3: structural subheads inside 3a ── */
-.essay-subhead {
-  letter-spacing: 0.02em;
-  margin-top: 2rem;
-}
-
-br + .essay-subhead {
-  margin-top: 0;
-}
-
-.essay-step {
-  margin-top: 1.4rem;
-  margin-left: 1.5rem;
-}
-
-.essay-step-sub {
-  margin-left: 1rem;
-  font-style: italic;
-}
-
-.essay-aside {
-  font-style: italic;
-  opacity: 0.85;
-  margin-left: 1rem;
-}
-
 /* ── Mobile: let indented content fill the frame ──
    On a narrow viewport, stacking margin-left on .essay-step,
    .essay-step-sub, .essay-aside, and the two numbered sub-lists
@@ -3617,20 +2605,6 @@ br + .essay-subhead {
    source isn't part of this upload so I can't check/edit it
    from here. */
 @media (max-width: 600px) {
-  .essay-step {
-    margin-left: 0;
-    padding-left: 0.75rem;
-    border-left: 2px solid var(--color-border, #ddd);
-  }
-  .essay-step-sub {
-    margin-left: 0;
-    padding-left: 0.6rem;
-  }
-  .essay-aside {
-    margin-left: 0;
-    padding-left: 0.6rem;
-    border-left: 2px solid var(--color-border, #ddd);
-  }
   .essay-sublist--numbered {
     padding-left: 1.4rem;
   }
@@ -3661,10 +2635,6 @@ details.fold > .fold-body {
   margin-top: 0.5rem;
   padding-left: 0.9rem;
   border-left: 1px solid var(--color-border, #ddd);
-}
-
-details.fold--note > .fold-body {
-  font-size: 0.92em;
 }
 
 @media (max-width: 600px) {
@@ -3747,11 +2717,6 @@ body:has(#epi-complete:checked) #map-epi-label {
 
 body {
   color: #000;
-}
-
-figure {
-  position: relative;
-  display: inline-block;
 }
 
 figure {

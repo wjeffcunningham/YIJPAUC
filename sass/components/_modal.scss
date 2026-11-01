@@ -8,18 +8,6 @@
   display: block;
 }
 
-.modal-toggle {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.modal-trigger {
-  cursor: pointer;
-  border-bottom: 1px dotted currentColor;
-  font-style: normal;
-}
-
 .modal-overlay {
   display: none;
   position: fixed;
@@ -61,14 +49,7 @@
   opacity: 1;
 }
 
-.modal-box .epigraph-body {
-  margin: 0;
-}
-
 // ── Modal show rules (moved from index.html <style>, 2026-10-17) ──
-/* ── Stats modal show rule ── */
-#stats-modal { display: none; }
-#stats-modal-toggle:checked ~ #stats-modal { display: flex; }
 
 /* ── Info / Abstract / Nietzsche modal show rules ──
    Same fix as map/stats above: these three modals use the same
@@ -79,8 +60,6 @@
 #info-modal-toggle:checked ~ #info-modal { display: flex; }
 #abstract-modal { display: none; }
 #abstract-toggle:checked ~ #abstract-modal { display: flex; }
-#modal-nietzsche-box { display: none; }
-#modal-nietzsche:checked ~ #modal-nietzsche-box { display: flex; }
 
 // ── About / Abstract / Nietzsche: float over the page, centred (2026-10-30) ──
 // These boxes sat in the page flow (only the dimmed overlay was fixed), so

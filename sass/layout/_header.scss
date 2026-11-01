@@ -6,15 +6,6 @@
 // -----------------------------------------------------------------------------
 /*********************************************/
 /* menu                                      */
-/*********************************************/
-.container {
-	max-width: variables.$max-width; /* 1 */
-	margin-left: auto; /* 2 */
-	margin-right: auto; /* 2 */
-	padding-left: 20px; /* 3 */
-	padding-right: 20px; /* 3 */
-	width: 100%; /* 1 */
-  }
 
 .header {
 	// position: ;
@@ -71,24 +62,6 @@ h1 {
 	// font-size: 1em;
 }
 
-/* menu - navbar */
-.menu {
-	width: 100%;
-	display: flex;
-	flex-direction: row;
-	font-weight: 300;
-	// justify-content: space-between;
-	// text-transform: uppercase;
-	font-size: 1em;
-}
-
-.menu
-{
-	list-style: none;
-	margin: 0px;
-	padding: 0px; 
-}
-
 nav > .menu > li {
 	// margin-right: 20px;
 	// margin-top: 10px;
@@ -97,14 +70,4 @@ nav > .menu > li {
 	// 	margin-right: 0px;
 	// 	margin-top: 0px;
 	// }
-}
-
-.menu > ul > li {
-	font-size: 0.5em;
-	padding: 0.5em;
-}
-
-.menu > ul {
-	list-style: none;
-	padding: 0;
 }

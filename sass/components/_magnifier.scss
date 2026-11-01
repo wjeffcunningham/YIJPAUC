@@ -34,20 +34,6 @@ body:has(#magnify-toggle:checked) {
   }
 }
 
-.magnifier-zone a {
-  text-decoration: none;
-  color: inherit;
-  border-bottom: none;
-}
-
-
-// In magnify mode, reveal underline or other styles
-body:has(#magnify-toggle:checked) .magnifier-zone a {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
-}
-
 // ── Restored from css/sass.css (May build) (moved from index.html <style>, 2026-10-17) ──
 .magnifier-toggle input[type=checkbox]:checked + label {
   color: #4caf50;

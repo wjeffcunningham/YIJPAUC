@@ -24,9 +24,3 @@
     font-size: 1.6em;
   }
 }
-
-.menu-btn:checked ~ .menu {
-  visibility: visible;
-  z-index: 10;
-  background-color: #ffffff;
-}

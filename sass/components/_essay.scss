@@ -77,16 +77,6 @@ summary.summary-locked-open { pointer-events: none; cursor: default; }
   opacity: 0.5;
 }
 
-/* ── Section 3: structural subheads inside 3a ── */
-.essay-subhead {
-  letter-spacing: 0.02em;
-  margin-top: 2rem;
-}
-br + .essay-subhead { margin-top: 0; }
-.essay-step { margin-top: 1.4rem; margin-left: 1.5rem; }
-.essay-step-sub { margin-left: 1rem; font-style: italic; }
-.essay-aside { font-style: italic; opacity: 0.85; margin-left: 1rem; }
-
 /* ── Mobile: let indented content fill the frame ──
    On a narrow viewport, stacking margin-left on .essay-step,
    .essay-step-sub, .essay-aside, and the two numbered sub-lists
@@ -100,20 +90,6 @@ br + .essay-subhead { margin-top: 0; }
    source isn't part of this upload so I can't check/edit it
    from here. */
 @media (max-width: 600px) {
-  .essay-step {
-    margin-left: 0;
-    padding-left: 0.75rem;
-    border-left: 2px solid var(--color-border, #ddd);
-  }
-  .essay-step-sub {
-    margin-left: 0;
-    padding-left: 0.6rem;
-  }
-  .essay-aside {
-    margin-left: 0;
-    padding-left: 0.6rem;
-    border-left: 2px solid var(--color-border, #ddd);
-  }
   .essay-sublist--numbered {
     padding-left: 1.4rem;
   }

@@ -49,25 +49,6 @@
   overflow: hidden;
 }
 
-.image-grid .tall-image {
-  grid-column: span 1; // change to span 2 if desired
-  border-radius: 8px;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  max-height: 100%;
-}
-
-.image-grid .tall-image img {
-  max-width: 100%;
-  height: auto;
-  width: auto;
-  border-radius: 8px;
-  display: block;
-  object-fit: contain;
-}
-
 // Special case override for a single image grid variant
 .image-grid.no-bg-grid figure:first-child {
   background-color: transparent;
@@ -90,6 +71,4 @@
   border-radius: 8px;
   background-color: #000;
 }
-
-
 

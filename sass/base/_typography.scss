@@ -21,10 +21,6 @@ p, li, summary {
   text-decoration: none;
 }
 
-body.work-bg {
-  color: variables.$work-text-color;
-}
-
 figcaption
 {
   font-size: 0.8em;
@@ -41,14 +37,6 @@ h1
 {
   font-size: 3vw; 
   margin: 1em 0;
-}
-
-.bold-text {
-  font-weight: 900;
-}
-
-.script-mark {
-  font-family: variables.$text-font-stack !important;
 }
 
 .underlined {
