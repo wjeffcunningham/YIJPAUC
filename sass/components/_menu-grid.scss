@@ -456,12 +456,17 @@ body.dark-mode #toggleMode {
   display: grid;
 }
 
-// Version tag: doubles as the (dark-mode-only) invisibles toggle
-.version-tag {
+// Version tag: doubles as the (dark-mode-only) invisibles toggle.
+// Scoped under .widgets so it outranks the shared ".widgets label"
+// sizing (1.1rem, 2.2rem max-width), which pushed it past the menu edge.
+.widgets .version-tag {
   grid-column: 4;
   font-family: "Courier Prime", "Courier New", monospace;
   font-size: 0.7rem;
   letter-spacing: 0.04em;
+  white-space: nowrap;
+  max-width: none;
+  padding: 0.3rem 0;
   opacity: 0.6;
   align-self: center;
 }

@@ -2604,11 +2604,14 @@ body.dark-mode #toggleMode {
   display: grid;
 }
 
-.version-tag {
+.widgets .version-tag {
   grid-column: 4;
   font-family: "Courier Prime", "Courier New", monospace;
   font-size: 0.7rem;
   letter-spacing: 0.04em;
+  white-space: nowrap;
+  max-width: none;
+  padding: 0.3rem 0;
   opacity: 0.6;
   align-self: center;
 }
