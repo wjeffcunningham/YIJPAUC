@@ -183,7 +183,7 @@
       li.classList.toggle('full', have === kids.length);
     });
     var label = document.getElementById('map-score-label');
-    if (label) label.textContent = points() + ' / ' + t.points + ' points · ' +
+    if (label) label.textContent = points() + ' / ' + t.points + ' points // ' +
       mainsOpened() + ' / ' + t.rooms + ' rooms';
     var epi = document.getElementById('map-epi-label');
     if (epi && epiIds().length) epi.textContent = epiHave().length + ' / ' + epiIds().length + ' epigrams';
@@ -285,6 +285,21 @@
     var t = (src.textContent || '').replace(/\s+/g, ' ').trim();
     return t.length > 64 ? t.slice(0, 62).trim() + '…' : t;
   }
+  // Share of this page's points opened (0–1).
+  var RESUME_AT = 0.2;
+  function pageRead() {
+    var opened = read(ROOMS_KEY), have = 0, all = 0;
+    rooms().forEach(function (el) {
+      var w = weightOf(el); all += w;
+      if (opened.indexOf(el.dataset.expandId) !== -1) have += w;
+    });
+    return all ? have / all : 0;
+  }
+  // How far down the page the reader is (0–1).
+  function depth() {
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    return max > 0 ? Math.min(1, window.scrollY / max) : 0;
+  }
   function bookmarks() {
     try { return JSON.parse(localStorage.getItem(BOOK_KEY)) || {}; } catch (e) { return {}; }
   }
@@ -295,7 +310,9 @@
     });
     if (!here || !here.id) return;
     var all = bookmarks();
-    all[location.pathname] = { id: here.id, label: labelOf(here) };
+    var prev = all[location.pathname] || {};
+    all[location.pathname] = { id: here.id, label: labelOf(here),
+      depth: Math.max(prev.depth || 0, depth()) };
     try { localStorage.setItem(BOOK_KEY, JSON.stringify(all)); } catch (e) {}
   }
 
@@ -337,10 +354,11 @@
     if (!target) return;
     var r = target.getBoundingClientRect();          // already in view
     if (target.getClientRects().length && r.top > -60 && r.top < window.innerHeight) return;
-    var pct = '';
-    if (radarOn() && rooms().length) {
-      pct = ' · ' + Math.round(100 * points() / (totals().points || 1)) + '%';
-    }
+    // Only offer to resume once at least 20% of this page has been read:
+    // by rooms opened on this page (radar on), or by how far down the bookmark sits.
+    var done = Math.max(pageRead(), mark.depth || 0);
+    if (done < RESUME_AT) return;
+    var pct = ' // ' + Math.round(100 * done) + '%';
     welcome('<p><img src="' + base + 'vvip.png" alt="VVIP" class="welcome-logo"> ' +
       '<a href="#' + mark.id + '" class="welcome-resume">Resume: <span></span></a>' +
       '<span class="welcome-sub">' + pct + '</span></p>', function (box, close) {
