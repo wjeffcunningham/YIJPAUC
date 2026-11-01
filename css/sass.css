@@ -3034,7 +3034,7 @@ body:has(#tracker-toggle:checked) .meta-line .radar-status {
   filter: none;
 }
 body:has(#tracker-toggle:checked) .meta-line .radar-status::after {
-  background: #4caf50;
+  display: none;
 }
 
 .redact-toggle:not(:checked) + a {
