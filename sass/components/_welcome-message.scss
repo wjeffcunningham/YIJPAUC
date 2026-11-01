@@ -1,13 +1,14 @@
 // =============================================================
 // Welcome / bookmark note (built by map.js greet(), 2026-11-01)
-// First visit: VVIP mark + "Why IJPAUC?", link to IJPAUC?.
+// First visit: VVIP mark + "Why IJPAUC? Media Essay by WJC." and a
+// pointer (↗) up to the ≡ menu, so the box sits just under the icon.
 // Later visits: "Resume: …". Plain system sans, kept small.
 // =============================================================
 
 #welcome-message {
   position: fixed;
-  top: 1.5rem;
-  right: 1.5rem;
+  top: 3.25rem;
+  right: 1rem;
   background: #fff;
   color: #000;
   border: 1px solid #ccc;
@@ -35,6 +36,13 @@
   }
 
   .welcome-sub { opacity: 0.7; }
+
+  .welcome-arrow {
+    display: inline-block;
+    font-size: 1.1em;
+    line-height: 1;
+    margin-left: 0.15em;
+  }
 
   a {
     color: inherit;
@@ -64,8 +72,7 @@
 
 @media (max-width: 600px) {
   #welcome-message {
-    top: auto;
-    bottom: 1.5rem;
+    top: 2.75rem;
     right: 1rem;
     left: 1rem;
     max-width: none;

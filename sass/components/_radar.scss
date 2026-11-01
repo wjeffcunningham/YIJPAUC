@@ -5,15 +5,26 @@
 // coming later in the cascade (same specificity).
 // =============================================================
 
-$radar-glow:
-  0 0 10px rgb(120, 200, 255),
-  0 0 20px rgb(0, 150, 255),
-  0 0 30px rgb(0, 150, 255);
+// 📡 Radar icon (tools menu): no glow when on. When off, a small red
+// dot sits at its lower right — the only state that's marked.
+// (The meta-line copy was removed 2026-11-01; the menu is its only home.)
+.widgets label[for=tracker-toggle] {
+  position: relative;
+  padding-right: 0.45em;
 
-// 📡 Radar icon: same aura as the other active toggles
-body:has(#tracker-toggle:checked) label[for=tracker-toggle] {
-  text-shadow: $radar-glow;
-  filter: brightness(1.4);
+  &::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0.1em;
+    width: 0.38em;
+    height: 0.38em;
+    border-radius: 50%;
+    background: #c0392b;
+  }
+}
+body:has(#tracker-toggle:checked) .widgets label[for=tracker-toggle]::after {
+  display: none;
 }
 
 // 🗺️ Map icon: shown once #map-unlocked is ticked (5 rooms, or the
@@ -35,35 +46,4 @@ body:has(#map-unlocked:not(:checked)) #tracker-map-label {
     line-height: 1.6;
     opacity: 0.75;
   }
-}
-
-// 📡 status in the meta-line (beside 🔍): a second label for
-// #tracker-toggle, so tapping it turns the radar on/off. A small dot
-// shows only when it's off (red); on, the default, shows no dot. No glow here — the
-// aura rule above is for the tools menu icon only.
-.meta-line .radar-status {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-  font-size: 1.1em;
-  line-height: 1;
-  margin-left: 0.5ch;
-  padding-right: 0.45em;
-
-  &::after {
-    content: "";
-    position: absolute;
-    right: 0;
-    bottom: 0.1em;
-    width: 0.38em;
-    height: 0.38em;
-    border-radius: 50%;
-    background: #c0392b;
-  }
-}
-body:has(#tracker-toggle:checked) .meta-line .radar-status {
-  text-shadow: none;
-  filter: none;
-
-  &::after { display: none; }
 }

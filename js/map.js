@@ -88,17 +88,20 @@
     return 440 * Math.pow(2, semi / 12);
   }
   // [note, start (s), length (s)] — chords are notes with the same start
+  // [note, start (s), length (s), level (0–1, default 1)].
+  // Low, dry and brief: an acknowledgment, not a reward. Each room is a
+  // single soft tone with a faint fifth above; deeper rooms sit a step lower.
   var CUES = {
     room: [
-      [['C5', 0, 0.5], ['G5', 0.13, 0.9]],
-      [['D5', 0, 0.5], ['A5', 0.13, 0.9]],
-      [['E5', 0, 0.5], ['B5', 0.13, 0.9]],
-      [['G5', 0, 0.5], ['D6', 0.13, 0.9]]
+      [['A3', 0, 0.7], ['E4', 0.09, 0.6, 0.3]],
+      [['G3', 0, 0.7], ['D4', 0.09, 0.6, 0.3]],
+      [['F3', 0, 0.7], ['C4', 0.09, 0.6, 0.3]],
+      [['E3', 0, 0.7], ['B3', 0.09, 0.6, 0.3]]
     ],
-    epigram:  [['E5', 0, 0.4], ['G5', 0.12, 0.4], ['C6', 0.24, 1.1]],
-    unlock:   [['C5', 0, 0.35], ['E5', 0.12, 0.35], ['G5', 0.24, 0.35], ['C6', 0.36, 1.2]],
-    complete: [['G4', 0, 0.4], ['C5', 0.15, 0.4], ['E5', 0.3, 0.4],
-               ['D5', 0.48, 0.5], ['C5', 0.7, 1.6], ['E5', 0.7, 1.6], ['G5', 0.7, 1.6]]
+    epigram:  [['D4', 0, 0.8], ['A4', 0.1, 0.7, 0.3]],
+    unlock:   [['A3', 0, 1.1], ['E4', 0, 1.1, 0.35], ['A4', 0.16, 1.0, 0.22]],
+    complete: [['D3', 0, 1.6], ['A3', 0, 1.6, 0.45],
+               ['D4', 0.2, 1.4, 0.28], ['F4', 0.2, 1.4, 0.16]]
   };
 
   var ctx = null, bus = null;
@@ -110,34 +113,28 @@
     ctx = new (window.AudioContext || window.webkitAudioContext)();
     // master → soft low-pass → out, plus one faint echo (KQ-style room)
     var tone = ctx.createBiquadFilter();
-    tone.type = 'lowpass'; tone.frequency.value = 3200;
+    tone.type = 'lowpass'; tone.frequency.value = 1600;
     var delay = ctx.createDelay(1), fb = ctx.createGain(), wet = ctx.createGain();
-    delay.delayTime.value = 0.21; fb.gain.value = 0.28; wet.gain.value = 0.22;
+    delay.delayTime.value = 0.23; fb.gain.value = 0.2; wet.gain.value = 0.14;
     bus = ctx.createGain(); bus.gain.value = 1;
     bus.connect(tone); tone.connect(ctx.destination);
     tone.connect(delay); delay.connect(fb); fb.connect(delay);
     delay.connect(wet); wet.connect(ctx.destination);
     return ctx;
   }
-  function voice(freq, t0, len) {
-    var peak = 0.05;
-    // fundamental + quiet 2nd and 3rd partials: flute/organ, not beep
-    [[1, 1], [2, 0.22], [3, 0.08]].forEach(function (p) {
+  function voice(freq, t0, len, level) {
+    var peak = 0.07 * (level == null ? 1 : level);
+    // fundamental + a trace of 2nd partial; soft onset, no vibrato
+    [[1, 1], [2, 0.12]].forEach(function (p) {
       var osc = ctx.createOscillator(), g = ctx.createGain();
       osc.type = 'sine';
       osc.frequency.value = freq * p[0];
       g.gain.setValueAtTime(0.0001, t0);
-      g.gain.exponentialRampToValueAtTime(peak * p[1], t0 + 0.025);
-      g.gain.exponentialRampToValueAtTime(peak * p[1] * 0.45, t0 + 0.18);
+      g.gain.exponentialRampToValueAtTime(peak * p[1], t0 + 0.04);
+      g.gain.exponentialRampToValueAtTime(peak * p[1] * 0.3, t0 + 0.2);
       g.gain.exponentialRampToValueAtTime(0.0001, t0 + len);
       osc.connect(g).connect(bus);
       osc.start(t0); osc.stop(t0 + len + 0.05);
-      if (p[0] === 1) {            // slow, slight vibrato on the fundamental
-        var lfo = ctx.createOscillator(), depth = ctx.createGain();
-        lfo.frequency.value = 5.2; depth.gain.value = freq * 0.003;
-        lfo.connect(depth).connect(osc.frequency);
-        lfo.start(t0 + 0.12); lfo.stop(t0 + len + 0.05);
-      }
     });
   }
   function cue(name, level) {
@@ -150,7 +147,7 @@
         : CUES[name];
       if (!seq) return;
       var now = ctx.currentTime + 0.02;
-      seq.forEach(function (n) { voice(hz(n[0]), now + n[1], n[2]); });
+      seq.forEach(function (n) { voice(hz(n[0]), now + n[1], n[2], n[3]); });
     } catch (e) {}
   }
 
@@ -320,9 +317,9 @@
     if (!seen) {
       setFlag(SEEN_KEY);
       welcome('<p><img src="' + base + 'vvip.png" alt="VVIP" class="welcome-logo"> ' +
-        '<i>Why IJPAUC?</i></p>' +
-        '<p class="welcome-sub"><a href="https://ijpauc.net">' +
-        '<img src="' + base + 'favicon-v2.ico" alt="" class="welcome-logo"> <i>IJPAUC?</i></a></p>');
+        '<i>Why IJPAUC?</i> Media Essay by WJC.</p>' +
+        '<p class="welcome-sub">Progress saved automatically; additional settings in Utilities Menu ' +
+        '<span class="welcome-arrow" aria-hidden="true">↗</span></p>');
       return;
     }
     if (location.hash) return;                       // came for a particular spot
