@@ -18,9 +18,7 @@
 </head>
 <body>
 
-<!-- ============================================================
-     MODALS
-     ============================================================ -->
+<!-- Modals -->
 
 <input type="checkbox" id="map-modal-toggle" hidden>
 <input type="checkbox" id="map-unlocked" hidden>
@@ -28,23 +26,14 @@
 <input type="checkbox" id="epi-complete" hidden>
 <input type="checkbox" id="info-modal-toggle" hidden>
 
-<!-- ============================================================
-     MAP MODAL
-     ============================================================ -->
+<!-- Map modal -->
 
 <div class="modal" id="map-modal">
   <label class="modal-overlay" for="map-modal-toggle"></label>
   <div class="modal-box">
     <label for="map-modal-toggle" class="modal-close">×</label>
     <h2>Document Map</h2>
-    <!--
-      Document map: a plain outline of the essay's folds.
-      Each <li id="mapnode-{id}"> matches a <details id="{id}" data-expand-id="{id}">.
-      map.js adds .lit to entries whose section ("room") has been opened while
-      the radar is on, and makes each link open its section (and any folds
-      around it) before jumping. The room total is counted from the page.
-      New section? Add one <li> here, in reading order.
-    -->
+    <!-- Document map. Each li#mapnode-{id} matches a details#{id}; add new sections here in reading order. -->
     <nav class="docmap" aria-label="Document map">
       <ol>
         <li id="mapnode-expand-tz"><a href="#expand-tz"><span class="docmap-num">1.</span> The <i>Twilight Zone</i> Accident (July 1982)</a></li>
@@ -78,12 +67,7 @@
   </div>
 </div>
 
-<!-- Epigram Book: one entry per collectable epigram (8).
-     Each entry carries a hidden .epi-have checkbox; the collection script
-     ticks it from localStorage; CSS blanks unticked entries, leaving a numbered gap. The
-     menu icon (#epigram-book-label) appears once any box is ticked.
-     #epi-complete is ticked once every epigram on the page is collected
-     (gold trim on the book, the icon and the map legend). -->
+<!-- Epigram book. One entry per epigram fold; site.js ticks .epi-have as each is collected. -->
 <div class="modal" id="epigram-book">
   <label class="modal-overlay" for="epigram-book-toggle"></label>
   <div class="modal-box">
@@ -153,17 +137,13 @@
   </div>
 </div>
 
-<!-- ============================================================
-     MENU
-     ============================================================ -->
+<!-- Menu -->
 
 <div class="menu-header" id="menu-header">
   <input class="menu-btn" type="checkbox" id="menu-btn" autocomplete="off">
   <label class="menu-icon" for="menu-btn">&#x2261;</label>
-  <input type="checkbox" id="notes-toggle" hidden>
 
   <div class="menu-grid">
-    <input type="checkbox" id="info-toggle" hidden>
     <input type="checkbox" id="tools-toggle" hidden>
     <input type="checkbox" id="tracker-toggle" checked hidden>
 
@@ -181,8 +161,7 @@
         <input type="checkbox" id="audio-toggle" hidden>
         <label for="audio-toggle" class="audio-icon" title="Toggle Background Audio">🔊</label>
         <button id="music-toggle" class="music-icon" title="Cycle Background Music">🎶</button>
-        <!-- Radar: records rooms opened and links followed (this device only) while on.
-             The map icon appears after 5 rooms, or after the survey (#map-unlocked). -->
+        <!-- Radar: records rooms opened and links followed, on this device only. -->
         <label for="tracker-toggle" title="Toggle Radar">📡</label>
         <input type="checkbox" id="radar-mute" hidden><label for="radar-mute" id="radar-mute-label" class="radar-mute" title="Radar sound on">🔔</label>
         <label for="map-modal-toggle" id="tracker-map-label" title="Document Map">🗺️</label>
@@ -231,9 +210,7 @@
   </div>
 </div>
 
-<!-- ============================================================
-     HERO
-     ============================================================ -->
+<!-- Hero -->
 
 <div id="hero-image-container">
   <video autoplay muted playsinline loop id="hero-media" class="hero-media" data-fallback="full/gifs/landingdemo.gif" data-fallback-alt="Landing animation">
@@ -243,18 +220,14 @@
   <div class="hero-image-text">WHY <i>IJPAUC?</i></div>
 </div>
 
-<!-- ============================================================
-     MARGINALIA TOGGLES
-     ============================================================ -->
+<!-- Marginalia toggles -->
 
 <input type="checkbox" id="toggle-pa" hidden>
 <input type="checkbox" id="toggle-ci" hidden>
 <input type="checkbox" id="toggle-ch" hidden>
 <input type="checkbox" id="toggle-x" hidden>
 
-<!-- ============================================================
-     MAIN
-     ============================================================ -->
+<!-- Main -->
 
 <main>
   <div class="title-header"></div>
@@ -1188,9 +1161,7 @@
   </div>
 </main>
 
-<!-- ============================================================
-     AUDIO
-     ============================================================ -->
+<!-- Audio -->
 
 <audio id="bg-audio" muted>
   <source src="full/mp3s/02.mp3" type="audio/mpeg">

@@ -65,16 +65,14 @@ body:has(#magnify-toggle:checked) .magnifier-toggle label {
   flex: 0 0 16px;
 }
 
-// ── VVIP icon link + sheen (moved from index.html <style>, 2026-10-17) ──
+// VVIP icon link + sheen
 .meta-line a:has(img.meta-icon) {
   position: relative;
   display: inline-block;
   text-decoration: none !important;
   overflow: hidden;
 }
-/* Fallback for browsers/contexts where the :has() rule above
-   doesn't apply — targets the link by its own class directly,
-   no relational selector required. */
+/* Fallback for browsers without :has() */
 .vvip-link {
   text-decoration: none !important;
 }
@@ -89,7 +87,7 @@ body:has(#magnify-toggle:checked) .magnifier-toggle label {
   transition: filter 0.2s ease;
 }
 
-/* ── Dark mode: invert the vvip logo so it stays visible ── */
+/* Dark mode: invert the vvip logo so it stays visible */
 body.dark-mode img.meta-icon {
   filter: invert(1);
 }

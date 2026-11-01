@@ -103,8 +103,7 @@ body.dark-mode .book-page--aristotle {
   border-left: 3px solid rgba(200, 160, 80, 0.6);
 }
 
-// ── Section 3 citation styling (moved from index.html <style>, 2026-10-17) ──
-/* ── Section 3: per-source citation styling (book-page) ──
+/* Section 3: per-source citation styling (book-page)
    These are additive modifiers layered on top of the existing
    .book-page / .book-page--aristotle rules in sass.css. Until this
    is folded into a _citations.scss partial, it lives here inline,
@@ -122,7 +121,7 @@ body.dark-mode .book-page--aristotle {
 }
 .book-page--rhetoric { border-bottom: 1px solid var(--src-accent); }
 .book-page--ethics   { border-top: 1px solid var(--src-accent); }
-/* ── Dark mode counterpart ──
+/* Dark mode counterpart
    sass.css's body.dark-mode .book-page sets a flat 1px #333
    border on all sides, and body.dark-mode .book-page--aristotle
    adds a gold left accent on top of that — both are equal-
@@ -142,7 +141,7 @@ body.dark-mode .book-page--ethics {
 }
 body.dark-mode .book-page--rhetoric { border-bottom: 1px solid var(--src-accent); }
 body.dark-mode .book-page--ethics   { border-top: 1px solid var(--src-accent); }
-/* ── Mobile-only: double-line border, drawn by hand ──
+/* Mobile-only: double-line border, drawn by hand
    border-style: double is fine on desktop — this override is
    scoped to mobile only, where it isn't. Mobile Safari doesn't
    reliably render border-style: double: at certain fractional
@@ -208,7 +207,7 @@ body.dark-mode .book-page--ethics   { border-top: 1px solid var(--src-accent); }
 }
 .perseus-link:hover { opacity: 1; }
 
-/* ── Section 3: always-visible chapter number on citations ──
+/* Section 3: always-visible chapter number on citations
    Sits outside .book-meta-ref so it shows even when the
    #toggle-ci citation toggle is off (sass.css sets
    .book-meta-ref { display: none } by default). Matches
@@ -218,5 +217,5 @@ body.dark-mode .book-page--ethics   { border-top: 1px solid var(--src-accent); }
   opacity: 0.65;
 }
 
-/* ── Tighten top gap before blockquotes ── */
+/* Tighten top gap before blockquotes */
 .book-page { margin-top: 0.75rem; }

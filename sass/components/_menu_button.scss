@@ -10,12 +10,9 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  font-size: 2em; // desktop (unchanged, already correct)
+  font-size: 2em;
   z-index: 20;
 
-  // @include respond-to('medium') {
-  //   display: none;
-  // }
 }
 
 // Mobile: slightly smaller than desktop

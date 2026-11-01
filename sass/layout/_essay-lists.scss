@@ -1,10 +1,6 @@
-// =============================================================
-// Essay lists (proofread r2, 2026-10-30)
-// Replaces the inline style on the main <ol>, the bullets on the
-// Ch. 14 <ul>, and the five empty <p></p> spacers.
-// =============================================================
+// Essay lists
 
-// Main numbered essay list (was style="padding-left:1.4em;margin-left:0")
+// Main numbered essay list
 .essay-list {
   padding-left: 1.4em;
   margin-left: 0;
@@ -16,7 +12,7 @@
   padding-left: 1.4em;
 }
 
-// Space that the empty <p></p> spacers used to make
+// Spacing between list items
 main {
   ol + p,
   ul + p {

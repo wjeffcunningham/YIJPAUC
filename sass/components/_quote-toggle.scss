@@ -1,4 +1,3 @@
-// This stays in your main SCSS file
 .quote-toggle {
   margin: 1.5rem 0;
   font-size: inherit;
@@ -28,7 +27,7 @@ ul {
   margin-top: inherit;
   padding-left: inherit;
   border-left: inherit;
-  color: inherit; // ← ✅ Use this instead of #444
+  color: inherit;
 }
 
   p {

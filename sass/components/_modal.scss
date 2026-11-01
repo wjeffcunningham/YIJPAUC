@@ -49,22 +49,17 @@
   opacity: 1;
 }
 
-// ── Modal show rules (moved from index.html <style>, 2026-10-17) ──
-
-/* ── Info / Abstract / Nietzsche modal show rules ──
+/* Info / Abstract / Nietzsche modal show rules
    Same fix as map/stats above: these three modals use the same
    checkbox-sibling pattern but had no matching display rule in
    this file, so absent an equivalent rule in sass.css they were
-   rendering inline (open) instead of as hidden overlays. ── */
+   rendering inline (open) instead of as hidden overlays. */
 #info-modal { display: none; }
 #info-modal-toggle:checked ~ #info-modal { display: flex; }
 #abstract-modal { display: none; }
 #abstract-toggle:checked ~ #abstract-modal { display: flex; }
 
-// ── About / Abstract / Nietzsche: float over the page, centred (2026-10-30) ──
-// These boxes sat in the page flow (only the dimmed overlay was fixed), so
-// an open box pushed the hero and text down and could be scrolled away.
-// Same mechanics as #epigram-book and #map-modal.
+// About / Abstract / Nietzsche: fixed and centred over the page
 #info-modal,
 #abstract-modal,
 #modal-nietzsche-box {

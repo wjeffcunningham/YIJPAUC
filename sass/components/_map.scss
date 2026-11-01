@@ -1,8 +1,5 @@
-// components/_map.scss
-// Document map modal. Restyled 2026-10-30 to match the Epigram Book and
-// the essay itself: EB Garamond throughout (no Courier), italic heading,
-// oldstyle italic numerals like the chapter index, and opacity rather
-// than fixed greys, so dark mode follows on its own.
+// Document map modal. Uses opacity rather than fixed greys so it
+// works in both light and dark mode.
 
 #map-modal-toggle { display: none; }
 
@@ -22,7 +19,6 @@
     cursor: pointer;
   }
 
-  // box itself comes from the shared .modal-box (thin rules top and bottom)
   .modal-box {
     position: relative;
     z-index: 201;
@@ -40,8 +36,8 @@
   }
 }
 
-// ── The outline ─────────────────────────────────────────────────────────────
-// Each <li id="mapnode-{id}"> gets .lit from map.js once its room is opened.
+// The outline
+// map.js adds .lit to entries whose room has been opened.
 
 .docmap {
   line-height: 1.5;
@@ -52,7 +48,6 @@
     padding: 0;
   }
 
-  // nested levels indent like a contents page; no rules
   ol ol { margin: 0.1rem 0 0.3rem 1.4rem; }
 
   li { margin: 0.15rem 0; }
@@ -72,7 +67,7 @@
 
   li.lit > a { opacity: 1; }       // opened rooms read in full ink
 
-  // section numbers: italic oldstyle figures, as in the chapter index
+  // Section numbers in italic oldstyle figures
   .docmap-num {
     font-style: italic;
     font-variant-numeric: oldstyle-nums;
@@ -81,7 +76,7 @@
   }
 }
 
-// ── Legend + room count ─────────────────────────────────────────────────────
+// Legend + room count
 
 .map-legend {
   margin-top: 1.25rem;

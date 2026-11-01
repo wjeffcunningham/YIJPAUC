@@ -45,8 +45,7 @@
   </div>
 </div>
 
-<!-- Bibliography: sources cited across YIJPAUC, IJPAUC? and the Dossier.
-     The menu icon (#bibliography-label) appears once 50 links have been followed. -->
+<!-- Bibliography (unlocked after 50 links) -->
 <input type="checkbox" id="bibliography-toggle" hidden>
 <div class="modal" id="bibliography-modal">
   <label class="modal-overlay" for="bibliography-toggle"></label>
@@ -151,10 +150,8 @@
 <div class="menu-header" id="menu-header">
   <input class="menu-btn" type="checkbox" id="menu-btn" autocomplete="off">
   <label class="menu-icon" for="menu-btn">&#x2261;</label>
-  <input type="checkbox" id="notes-toggle" hidden>
 
   <div class="menu-grid">
-    <input type="checkbox" id="info-toggle" hidden>
     <input type="checkbox" id="tools-toggle" hidden>
     <input type="checkbox" id="tracker-toggle" checked hidden>
 
@@ -172,7 +169,7 @@
         <input type="checkbox" id="audio-toggle" hidden>
         <label for="audio-toggle" class="audio-icon" title="Toggle Background Audio">🔊</label>
         <button id="music-toggle" class="music-icon" title="Cycle Background Music">🎶</button>
-        <!-- Radar: on by default; records links followed (this device only) while on. Click 📡 to turn it off. -->
+        <!-- Radar: records links followed, on this device only. -->
         <label for="tracker-toggle" title="Toggle Radar">📡</label>
         <label for="bibliography-toggle" id="bibliography-label" title="Bibliography" hidden>📜</label>
         <label for="toggle-x" class="dark-only version-tag" title="Toggle Invisibles">v1.2</label>
@@ -233,7 +230,6 @@
   width="640"
   height="480">
     <source src="../full/gifs/landingdemo1.mp4" type="video/mp4">
-    <!-- Fallback message -->
     Your browser does not support the video tag.
   </video>
   <noscript>
@@ -4242,7 +4238,7 @@ He just stepped in front of me. I didn’t see him. It wasn’t my fault.</div>
   <br>
 </main>
 
-<!-- Background Audio Tracks -->
+<!-- Background audio -->
 <audio id="bg-audio" muted>
   <source src="../full/mp3s/02.mp3" type="audio/mpeg">
   <source src="../full/mp3s/02.wav" type="audio/wav">

@@ -1,13 +1,8 @@
-// =============================================================
-// Radar, room map and survey (map.js r3, 2026-10-30)
-// Must be @used AFTER components/menu-icons: the map-icon gate
-// below overrides menu-icons' "show when tracker is on" rule by
-// coming later in the cascade (same specificity).
-// =============================================================
+// Radar, map icon and survey.
+// Keep after components/menu-icons in main.scss: the map-icon rule
+// below overrides it by cascade order.
 
-// 📡 Radar icon (tools menu): no glow when on. When off, a small red
-// dot sits at its lower right — the only state that's marked.
-// (The meta-line copy was removed 2026-11-01; the menu is its only home.)
+// Radar icon: a small red dot when the radar is off.
 .widgets label[for=tracker-toggle] {
   position: relative;
   padding-right: 0.45em;
@@ -27,8 +22,7 @@ body:has(#tracker-toggle:checked) .widgets label[for=tracker-toggle]::after {
   display: none;
 }
 
-// 🗺️ Map icon: shown once #map-unlocked is ticked (5 rooms, or the
-// survey), whether or not the radar is on; hidden otherwise.
+// Map icon: shown once #map-unlocked is ticked (5 rooms, or the survey).
 body:has(#map-unlocked:checked) #tracker-map-label {
   display: inline;
 }
@@ -48,6 +42,6 @@ body:has(#map-unlocked:not(:checked)) #tracker-map-label {
   }
 }
 
-// 🔔/🔕 radar sound toggle: shown only while the radar is on
+// Radar sound toggle: shown only while the radar is on
 .radar-mute { display: none; cursor: pointer; }
 #tracker-toggle:checked ~ .widgets-row .radar-mute { display: inline-block; }

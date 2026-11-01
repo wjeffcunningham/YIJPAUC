@@ -385,7 +385,6 @@ a:hover, a:active {
 p {
   margin-top: 0;
   margin-bottom: 1em;
-  /*  max-width: 700px; */
 }
 
 /**
@@ -438,8 +437,8 @@ footer {
   height: 1em;
 }
 
-/*********************************************/
-/* menu                                      */
+/******************************************** */
+/* menu */
 .header {
   max-width: 800px; /* 1 */
   margin-left: auto; /* 2 */
@@ -627,7 +626,7 @@ body.dark-mode .book-page--aristotle {
   border-left: 3px solid rgba(200, 160, 80, 0.6);
 }
 
-/* ── Section 3: per-source citation styling (book-page) ──
+/* Section 3: per-source citation styling (book-page)
    These are additive modifiers layered on top of the existing
    .book-page / .book-page--aristotle rules in sass.css. Until this
    is folded into a _citations.scss partial, it lives here inline,
@@ -661,7 +660,7 @@ body.dark-mode .book-page--aristotle {
   border-top: 1px solid var(--src-accent);
 }
 
-/* ── Dark mode counterpart ──
+/* Dark mode counterpart
    sass.css's body.dark-mode .book-page sets a flat 1px #333
    border on all sides, and body.dark-mode .book-page--aristotle
    adds a gold left accent on top of that — both are equal-
@@ -688,7 +687,7 @@ body.dark-mode .book-page--ethics {
   border-top: 1px solid var(--src-accent);
 }
 
-/* ── Mobile-only: double-line border, drawn by hand ──
+/* Mobile-only: double-line border, drawn by hand
    border-style: double is fine on desktop — this override is
    scoped to mobile only, where it isn't. Mobile Safari doesn't
    reliably render border-style: double: at certain fractional
@@ -762,7 +761,7 @@ body.dark-mode .book-page--ethics {
   opacity: 1;
 }
 
-/* ── Section 3: always-visible chapter number on citations ──
+/* Section 3: always-visible chapter number on citations
    Sits outside .book-meta-ref so it shows even when the
    #toggle-ci citation toggle is off (sass.css sets
    .book-meta-ref { display: none } by default). Matches
@@ -772,7 +771,7 @@ body.dark-mode .book-page--ethics {
   opacity: 0.65;
 }
 
-/* ── Tighten top gap before blockquotes ── */
+/* Tighten top gap before blockquotes */
 .book-page {
   margin-top: 0.75rem;
 }
@@ -1089,7 +1088,7 @@ details[open] > summary .hint-text {
   pointer-events: none;
 }
 
-/* ── Section 3: tap-to-expand / tap-to-collapse hint text ──
+/* Section 3: tap-to-expand / tap-to-collapse hint text
    Two spans, toggled purely by the native details-element's
    open attribute. No JS required. */
 details:not([open]) > summary .hint-collapse {
@@ -1535,9 +1534,7 @@ body:has(#magnify-toggle:checked) .magnifier-toggle label {
   overflow: hidden;
 }
 
-/* Fallback for browsers/contexts where the :has() rule above
-   doesn't apply — targets the link by its own class directly,
-   no relational selector required. */
+/* Fallback for browsers without :has() */
 .vvip-link {
   text-decoration: none !important;
 }
@@ -1552,7 +1549,7 @@ body:has(#magnify-toggle:checked) .magnifier-toggle label {
   transition: filter 0.2s ease;
 }
 
-/* ── Dark mode: invert the vvip logo so it stays visible ── */
+/* Dark mode: invert the vvip logo so it stays visible */
 body.dark-mode img.meta-icon {
   filter: invert(1);
 }
@@ -1713,7 +1710,7 @@ body:has(#toggle-x:checked) marginalia[data-type=x] {
   margin: 0;
   list-style: none;
   text-align: center;
-  font-size: 0.75rem; /* ⬅️ smaller font */
+  font-size: 0.75rem;
   line-height: 1.1;
 }
 
@@ -1755,7 +1752,7 @@ body:has(#toggle-x:checked) marginalia[data-type=x] {
   display: none;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.25rem;
-  margin-top: -0.25rem; /* tighten spacing slightly */
+  margin-top: -0.25rem;
   justify-items: center;
 }
 
@@ -1774,7 +1771,7 @@ body:has(#toggle-x:checked) marginalia[data-type=x] {
   display: grid;
 }
 
-/* Utility (tools) row — appears underneath when toggled */
+/* Tools row, shown underneath when toggled */
 #tools-widgets {
   display: none;
   grid-template-columns: repeat(3, 1fr);
@@ -1818,7 +1815,7 @@ body.dark-mode .dark-only {
 
 .dossier-dropdown summary {
   cursor: pointer;
-  font-weight: normal; /* 👈 fix boldness */
+  font-weight: normal;
   font-size: 1.1rem;
   list-style: none;
   text-align: center;
@@ -1858,7 +1855,7 @@ body.dark-mode #toggleMode::after {
   border: none;
 }
 
-/* 🔥 Unified glow for all active utility toggles */
+/* Glow for active utility toggles */
 body:has(#toggle-pa:checked) label[for=toggle-pa],
 body:has(#toggle-ci:checked) label[for=toggle-ci],
 body:has(#toggle-ch:checked) label[for=toggle-ch],
@@ -1875,7 +1872,7 @@ body:has(#audio-toggle:checked) label[for=audio-toggle] {
   filter: brightness(1.4);
 }
 
-/* ✨ Glow on hover for light/dark toggle */
+/* Glow on hover for the light/dark toggle */
 body.dark-mode #toggleMode {
   text-shadow: 0 0 10px rgb(120, 200, 255), 0 0 20px rgb(0, 150, 255), 0 0 30px rgb(0, 150, 255);
   filter: brightness(1.4);
@@ -1954,9 +1951,9 @@ body.dark-mode #toggleMode {
 
 #tools-widgets {
   display: none;
-  grid-template-columns: repeat(4, 1fr); /* so 👻 aligns with ☰ */
+  grid-template-columns: repeat(4, 1fr);
   justify-items: center;
-  margin-top: -0.2rem; /* slight tighten */
+  margin-top: -0.2rem;
 }
 
 #tools-toggle:checked ~ .widgets-row #tools-widgets {
@@ -1975,7 +1972,7 @@ body.dark-mode #toggleMode {
   align-self: center;
 }
 
-/* ── Tracker: map + stats icons hidden until tracker-toggle is on ── */
+/* Tracker: map + stats icons hidden until tracker-toggle is on */
 #tracker-map-label,
 #tracker-stats-label {
   display: none;
@@ -2037,11 +2034,11 @@ body:has(#tracker-toggle:checked) #tracker-stats-label {
   opacity: 1;
 }
 
-/* ── Info / Abstract / Nietzsche modal show rules ──
+/* Info / Abstract / Nietzsche modal show rules
    Same fix as map/stats above: these three modals use the same
    checkbox-sibling pattern but had no matching display rule in
    this file, so absent an equivalent rule in sass.css they were
-   rendering inline (open) instead of as hidden overlays. ── */
+   rendering inline (open) instead of as hidden overlays. */
 #info-modal {
   display: none;
 }
@@ -2507,16 +2504,16 @@ video[poster] {
     max-width: none;
   }
 }
-/* ── Section 3 is locked permanently open: the mainline essay body
+/* Section 3 is locked permanently open: the mainline essay body
    shouldn't be collapsible. Kept as a <details open> (rather than a
    plain div) so any map.js logic keyed off details[open] still sees
-   it as open; the summary is just de-clicked via pointer-events. ── */
+   it as open; the summary is just de-clicked via pointer-events. */
 summary.summary-locked-open {
   pointer-events: none;
   cursor: default;
 }
 
-/* ── Section 3: suppress auto-numbering on the 3a/3b/3c sublist ──
+/* Section 3: suppress auto-numbering on the 3a/3b/3c sublist
    The list items are manually labeled (3a., 3b., 3c.) in their
    own summary text, so the browser's decimal counter would be
    redundant/stacking (e.g. "1. 3a. ..."). Body text will sit
@@ -2527,7 +2524,7 @@ summary.summary-locked-open {
   list-style: none;
 }
 
-/* ── Section 3a: numbered index of chapter walkthroughs ──
+/* Section 3a: numbered index of chapter walkthroughs
    Unlike the 3a/3b/3c aside-list above, this inner list (Ch. 9,
    Ch. 11, Ch. 13, The Tragic Mechanism) IS a sequential walk
    through the Poetics, so it gets real numbering. The Ch. 13
@@ -2568,7 +2565,7 @@ summary.summary-locked-open {
   opacity: 0.6;
 }
 
-/* ── Section 3a, Ch. 13 sub-list: the four eliminated arcs ──
+/* Section 3a, Ch. 13 sub-list: the four eliminated arcs
    Nested one level deeper than the Ch. 9/11/13/14 index above —
    a "sub-sub" numbering — so it's marked distinctly: monospace
    parenthesized figures rather than italic oldstyle periods,
@@ -2592,7 +2589,7 @@ summary.summary-locked-open {
   opacity: 0.5;
 }
 
-/* ── Mobile: let indented content fill the frame ──
+/* Mobile: let indented content fill the frame
    On a narrow viewport, stacking margin-left on .essay-step,
    .essay-step-sub, .essay-aside, and the two numbered sub-lists
    eats a big share of an already-narrow column. Below 600px,

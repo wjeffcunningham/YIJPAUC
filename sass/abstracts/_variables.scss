@@ -34,7 +34,6 @@ $mid-grey: rgb(153, 153, 153) !default;
 /// @type Color
 $dark-grey: rgb(68, 68, 68) !default;
 
-
 /// Work text colour
 /// @type Color
 $work-text-color: hsl(255, 100%, 100%) !default;
@@ -67,7 +66,6 @@ $breakpoints: (
   'medium': (min-width: 768px),
   'large': (min-width: 1024px),
 ) !default;
-
 
 /// Relative or absolute URL where all assets are served from
 /// @type String

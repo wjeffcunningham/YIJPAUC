@@ -8,7 +8,7 @@ body {
   color: variables.$text-color;
   font-weight: 300;
   font-family: variables.$text-font-stack;
-font-size: 18px; // or 20px if you prefer
+font-size: 18px;
 font-weight: 300;
 }
 
@@ -29,8 +29,6 @@ figcaption
 
 .largequote
 {
-  // font-size: 1.5em;
-  // font-weight: 900;
 }
 
 h1
@@ -42,16 +40,3 @@ h1
 .underlined {
   text-decoration: underline;
 }
-
-// summary {
-//   all: unset;
-//   display: inline;
-//   font-size: inherit;
-//   font-family: "EB Garamond", serif;
-//   font-weight: 300;
-//   line-height: 1.6;
-//   color: inherit !important;
-//   -webkit-font-smoothing: antialiased;
-//   -moz-osx-font-smoothing: grayscale;
-//   cursor: pointer;
-// }

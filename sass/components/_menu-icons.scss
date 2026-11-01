@@ -1,5 +1,4 @@
-// ── Tracker icons (moved from index.html <style>, 2026-10-17) ──
-/* ── Tracker: map + stats icons hidden until tracker-toggle is on ── */
+/* Tracker: map + stats icons hidden until tracker-toggle is on */
 #tracker-map-label,
 #tracker-stats-label { display: none; }
 body:has(#tracker-toggle:checked) #tracker-map-label,

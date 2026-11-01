@@ -1,40 +1,10 @@
-/**
- * map.js — YIJPAUC radar, rooms, chime, map and survey
- *
- * Everything here only records while the radar (#tracker-toggle) is on,
- * and only in this browser's localStorage. The radar is on by default
- * (checked in the HTML); a reader's "off" is remembered. Used by
- * index.html and pages/dossier.html (which has links but no rooms).
- *
- *  Rooms   every <details data-expand-id="..."> is a room. The total and
- *          each room's level (how deeply it is nested in other rooms)
- *          are read from the page, so new sections count automatically.
- *  Cues    off by default (radar-mute unless set to 'false' via 🔕/🔔).
- *          Short melodic figures, made in the browser (no sound files):
- *          a soft organ-ish voice (sine + quiet overtones, gentle vibrato)
- *          through a faint echo. room = two rising notes, a step higher
- *          per level; epigram = three-note arpeggio; unlock = four-note
- *          rise; complete = small cadence. window.YIJ.cue(name) plays one.
- *  Bookmark  keeps the reader's place on each page (the last room or
- *          section heading scrolled past), on this device only, whether
- *          or not the radar is on. First visit: VVIP mark + "Why IJPAUC?"
- *          and a link to IJPAUC? (its favicon). Later visits: "Resume: …",
- *          with % of rooms opened when the radar is on.
- *  Map     the hand-written outline in #map-modal: opened rooms get .lit,
- *          the legend reads "n / N rooms", and each entry opens its
- *          section (and the folds around it) before jumping.
- *          The 🗺️ icon shows once #map-unlocked is ticked: after 5 rooms,
- *          or after the survey link in About is followed.
- *  Links   .track-link clicks are recorded (data-id) into visitedLinks.
- *          No preventDefault, no delay: links behave like links.
- *  Survey  following the survey link unlocks the map, shows the
- *          reader's readout under it, and pre-fills the same readout
- *          into the Google Form's Readout field (READOUT_ENTRY).
- *
- * Replaces the old map.js + tracklinks.js + the scoring half of menu.js,
- * which were three scripts writing to one list (links and rooms mixed,
- * out of a hard-coded 101).
- */
+// Radar, document map, sound cues, bookmark and survey.
+//
+// Rooms are <details data-expand-id> sections; opening one while the radar
+// (#tracker-toggle) is on records it in localStorage. .track-link clicks are
+// recorded the same way. Nothing leaves the reader's browser except the
+// survey readout, which is pre-filled into the Google Form when they follow
+// the survey link.
 
 (function () {
   'use strict';
@@ -47,7 +17,7 @@
   var BOOK_KEY   = 'bookmark';      // { pathname: { id, label } }
   var SEEN_KEY   = 'welcomed';
 
-  // ── storage ────────────────────────────────────────────────────────────
+  // Storage
   function read(key) {
     try { return JSON.parse(localStorage.getItem(key)) || []; }
     catch (e) { return []; }
@@ -62,7 +32,7 @@
     try { localStorage.setItem(key, 'true'); } catch (e) {}
   }
 
-  // ── page ───────────────────────────────────────────────────────────────
+  // Page
   function radarOn() {
     var t = document.getElementById('tracker-toggle');
     return !!(t && t.checked);
@@ -79,7 +49,7 @@
     return n;
   }
 
-  // ── cues ───────────────────────────────────────────────────────────
+  // Cues
   // Note names → Hz (equal temperament, A4 = 440)
   function hz(n) {
     var m = /^([A-G])(#?)(\d)$/.exec(n);
@@ -87,10 +57,8 @@
       (m[2] ? 1 : 0) + (parseInt(m[3], 10) - 4) * 12;
     return 440 * Math.pow(2, semi / 12);
   }
-  // [note, start (s), length (s)] — chords are notes with the same start
-  // [note, start (s), length (s), level (0–1, default 1)].
-  // Low, dry and brief: an acknowledgment, not a reward. Each room is a
-  // single soft tone with a faint fifth above; deeper rooms sit a step lower.
+  // [note, start (s), length (s), level (0–1, default 1)]
+  // Deeper rooms sit a step lower.
   var CUES = {
     room: [
       [['A3', 0, 0.7], ['E4', 0.09, 0.6, 0.3]],
@@ -111,7 +79,7 @@
   function audio() {
     if (ctx) return ctx;
     ctx = new (window.AudioContext || window.webkitAudioContext)();
-    // master → soft low-pass → out, plus one faint echo (KQ-style room)
+    // low-pass filter plus a faint echo
     var tone = ctx.createBiquadFilter();
     tone.type = 'lowpass'; tone.frequency.value = 1600;
     var delay = ctx.createDelay(1), fb = ctx.createGain(), wet = ctx.createGain();
@@ -124,7 +92,6 @@
   }
   function voice(freq, t0, len, level) {
     var peak = 0.07 * (level == null ? 1 : level);
-    // fundamental + a trace of 2nd partial; soft onset, no vibrato
     [[1, 1], [2, 0.12]].forEach(function (p) {
       var osc = ctx.createOscillator(), g = ctx.createGain();
       osc.type = 'sine';
@@ -151,7 +118,7 @@
     } catch (e) {}
   }
 
-  // ── message box (reuses .unlock-toast) ─────────────────────────────────
+  // Message box (reuses .unlock-toast)
   function note(text) {
     var el = document.createElement('div');
     el.className = 'unlock-toast';
@@ -160,13 +127,12 @@
     setTimeout(function () { el.remove(); }, 3000);
   }
 
-  // ── map ────────────────────────────────────────────────────────────────
+  // Map
   function light(id) {
     var node = document.getElementById('mapnode-' + id);
     if (node) node.classList.add('lit');
   }
-  // Epigrams counted against the folds on the page, so ids saved before
-  // an epigram was removed don't inflate the count.
+  // Count only epigrams still on the page.
   function epiIds() {
     return Array.prototype.map.call(
       document.querySelectorAll('details[data-collect-id]'),
@@ -198,7 +164,7 @@
     }
   }
 
-  // ── recording ──────────────────────────────────────────────────────────
+  // Recording
   function recordRoom(el, withChime) {
     if (!radarOn()) return;
     var id = el.dataset.expandId;
@@ -219,8 +185,8 @@
     }
   }
 
-  // ── survey readout ─────────────────────────────────────────────────────
-  // Google Form "Readout (Filled-in Automatically)" field
+  // Survey readout
+  // Google Form field for the readout
   var READOUT_ENTRY = 'entry.1702901217';
 
   function readoutText() {
@@ -244,7 +210,7 @@
     var box = document.getElementById('survey-readout');
     if (!box) return;
     var links = read(LINKS_KEY).filter(function (id) {
-      return String(id).indexOf('expand-') !== 0; // old map.js mixed rooms in here
+      return String(id).indexOf('expand-') !== 0;
     });
     var set = function (id, text) {
       var el = document.getElementById(id);
@@ -256,9 +222,9 @@
     box.hidden = false;
   }
 
-  // ── bookmark & welcome ─────────────────────────────────────────────────
-  // Places worth returning to: rooms on the essay page, section anchors
-  // on the dossier. Only ones actually rendered (not inside a closed fold).
+  // Bookmark & welcome
+  // Bookmarkable places: rooms on the essay, section anchors on the dossier,
+  // skipping any inside a closed fold.
   function places() {
     return Array.prototype.filter.call(
       document.querySelectorAll('details[data-expand-id], a[id^="section-"]'),
@@ -302,7 +268,7 @@
       window.removeEventListener('scroll', far);
     };
     var y0 = window.scrollY;
-    var far = function () {   // reading on past a screen: let it go
+    var far = function () {   // dismiss after a screen of scrolling
       if (Math.abs(window.scrollY - y0) > window.innerHeight) close();
     };
     box.querySelector('.welcome-close').addEventListener('click', close);
@@ -322,11 +288,11 @@
         '<span class="welcome-arrow" aria-hidden="true">↗</span></p>');
       return;
     }
-    if (location.hash) return;                       // came for a particular spot
+    if (location.hash) return;
     var mark = bookmarks()[location.pathname];
     var target = mark && document.getElementById(mark.id);
     if (!target) return;
-    var r = target.getBoundingClientRect();          // already there (scroll restored)
+    var r = target.getBoundingClientRect();          // already in view
     if (target.getClientRects().length && r.top > -60 && r.top < window.innerHeight) return;
     var pct = '';
     if (radarOn() && rooms().length) {
@@ -335,7 +301,7 @@
     welcome('<p><img src="' + base + 'vvip.png" alt="VVIP" class="welcome-logo"> ' +
       '<a href="#' + mark.id + '" class="welcome-resume">Resume: <span></span></a>' +
       '<span class="welcome-sub">' + pct + '</span></p>', function (box, close) {
-        // short: just the tag before a colon ("Ch. 13"), else the title
+        // e.g. "Ch. 13" from "Ch. 13: Mistake, ..."
         var l = mark.label.split(':')[0].trim();
         box.querySelector('.welcome-resume span').textContent =
           l.length > 34 ? l.slice(0, 32).trim() + '…' : l;
@@ -348,10 +314,10 @@
       });
   }
 
-  // Public: cues and notes for the page's own scripts (epigram collection)
+  // Used by site.js
   window.YIJ = { cue: cue, note: note };
 
-  // ── wiring ─────────────────────────────────────────────────────────────
+  // Wiring
   document.addEventListener('DOMContentLoaded', function () {
 
     rooms().forEach(function (el) {
@@ -365,7 +331,7 @@
       radar.addEventListener('change', function () {
         if (radar.checked) {
           note('Radar on: rooms you open are recorded on this device only.');
-          // rooms already open (e.g. Section 3) count, without a chime
+          // count rooms already open, without a chime
           rooms().forEach(function (el) { if (el.open) recordRoom(el, false); });
         } else {
           note('Radar off: rooms aren’t recorded. Your bookmark is still kept.');
@@ -386,7 +352,7 @@
     document.querySelectorAll('.docmap a[href^="#"]').forEach(function (a) {
       a.addEventListener('click', function (e) {
         var target = document.getElementById(a.getAttribute('href').slice(1));
-        if (!target) return;                    // fall back to plain anchor
+        if (!target) return;
         e.preventDefault();
         if (mapToggle) mapToggle.checked = false;
         openTo(target);
@@ -398,7 +364,7 @@
     var survey = document.getElementById('survey-link');
     if (survey) {
       survey.addEventListener('click', function () {
-        prefill(survey);   // carries the readout into the form
+        prefill(survey);
         setFlag(SURVEY_KEY);
         checkUnlock(true);
         showReadout();
@@ -409,15 +375,12 @@
     checkUnlock(false);
     refreshMap();
 
-    // Radar on at load (the default): rooms already open, e.g. Section 3,
-    // count without a chime. Deferred so the saved on/off state, restored
-    // by the page's own DOMContentLoaded script, is applied first.
+    // Count rooms already open at load, once the saved radar setting is restored.
     setTimeout(function () {
       if (radarOn()) rooms().forEach(function (el) { if (el.open) recordRoom(el, false); });
     }, 0);
 
-    // Bookmark: greet once layout (and any restored scroll) has settled,
-    // then keep the place as the reader scrolls (only after they move).
+    // Greet after layout settles; save the place once the reader scrolls.
     setTimeout(greet, 400);
     var pending = null, moved = false;
     window.addEventListener('scroll', function () {
