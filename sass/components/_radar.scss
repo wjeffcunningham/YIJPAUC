@@ -36,3 +36,34 @@ body:has(#map-unlocked:not(:checked)) #tracker-map-label {
     opacity: 0.75;
   }
 }
+
+// 📡 status in the meta-line (beside 🔍): a second label for
+// #tracker-toggle, so tapping it turns the radar on/off. A small dot
+// says which: green on (the default), red off. No glow here — the
+// aura rule above is for the tools menu icon only.
+.meta-line .radar-status {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  font-size: 1.1em;
+  line-height: 1;
+  margin-left: 0.5ch;
+  padding-right: 0.45em;
+
+  &::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0.1em;
+    width: 0.38em;
+    height: 0.38em;
+    border-radius: 50%;
+    background: #c0392b;
+  }
+}
+body:has(#tracker-toggle:checked) .meta-line .radar-status {
+  text-shadow: none;
+  filter: none;
+
+  &::after { background: #4caf50; }
+}

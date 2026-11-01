@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <title>YIJPAUC?</title>
   <link rel="icon" href="./favicon-v2.ico">
-  <link rel="stylesheet" type="text/css" href="./css/sass.css?v=26.10.30d">
+  <link rel="stylesheet" type="text/css" href="./css/sass.css?v=26.11.01b">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
   <script type="text/javascript" src="./js/menu.js?v=26.10.30"></script>
-  <script type="text/javascript" src="./js/map.js?v=26.11.01"></script>
+  <script type="text/javascript" src="./js/map.js?v=26.11.01b"></script>
   <script type="text/javascript" src="./js/darkmode.js"></script>
   <meta name="description" content="Why IJPAUC?">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,6 +48,7 @@
 <input type="checkbox" id="map-modal-toggle" hidden>
 <input type="checkbox" id="map-unlocked" hidden>
 <input type="checkbox" id="epigram-book-toggle" hidden>
+<input type="checkbox" id="epi-complete" hidden>
 <input type="checkbox" id="info-modal-toggle" hidden>
 
 <!-- ============================================================
@@ -96,14 +97,17 @@
     <div class="map-legend">
       <span><span class="docmap-key docmap-key--lit">opened</span> <span class="docmap-key">not yet</span></span>
       <span id="map-score-label"></span>
+      <span id="map-epi-label"></span>
     </div>
   </div>
 </div>
 
-<!-- Epigram Book: one entry per collectable epigram (10 planned).
+<!-- Epigram Book: one entry per collectable epigram (9).
      Each entry carries a hidden .epi-have checkbox; the collection script
      ticks it from localStorage, and CSS only shows ticked entries. The
-     menu icon (#epigram-book-label) appears once any box is ticked. -->
+     menu icon (#epigram-book-label) appears once any box is ticked.
+     #epi-complete is ticked once every epigram on the page is collected
+     (gold trim on the book, the icon and the map legend). -->
 <div class="modal" id="epigram-book">
   <label class="modal-overlay" for="epigram-book-toggle"></label>
   <div class="modal-box">
@@ -113,7 +117,6 @@
       <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="nietzsche" hidden><a href="#epi-nietzsche">Nietzsche, <i>Die Geburt der Tragödie</i> §5</a></li>
       <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="poetics-6" hidden><a href="#epi-poetics-6">Aristotle, <i>Poetics</i>, Ch. 6</a></li>
       <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="davis-88" hidden><a href="#epi-davis-88">Davis, <i>The Poetry of Philosophy</i> (1992)</a></li>
-      <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="en-7-14" hidden><a href="#epi-en-7-14">Aristotle, <i>Nicomachean Ethics</i>, VII.14</a></li>
       <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="en-9-5" hidden><a href="#epi-en-9-5">Aristotle, <i>Nicomachean Ethics</i>, IX.5</a></li>
       <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="poetics-4" hidden><a href="#epi-poetics-4">Aristotle, <i>Poetics</i>, Ch. 4</a></li>
       <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="ion-535c" hidden><a href="#epi-ion-535c">Plato, <i>Ion</i>, 535c</a></li>
@@ -294,6 +297,7 @@
     <input type="checkbox" id="magnify-toggle">
     <label for="magnify-toggle" title="Toggle Magnify Mode"></label>
   </div>
+  <label for="tracker-toggle" class="radar-status" title="Radar: tap to turn on/off">📡</label>
 </div>
 
 <br>
@@ -807,16 +811,6 @@
 
 <p>The corollary is that the vicious, insofar as they recognize their own failings at all, see them for lapses of restraint, rather than defects of character. They focus on the extenuating circumstances, such as their accidents of upbringing or the generally “wicked” (<i>poneria</i>) nature of human beings altogether.</p>
 
-<details class="fold fold--epigram" id="epi-en-7-14" data-collect-id="en-7-14"><summary>Epigram + <i>EN</i> VII.14 <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><div class="fold-body">
-<div class="book-page book-page--aristotle book-page--ethics" data-source="Nicomachean Ethics">
-  Hence, a god always enjoys a pleasure that is one and simple, for there is a being-at-work not only of motion but also of motionlessness, and there is a greater pleasure in rest than in motion. But change of everything is sweet, according to the poet, on account of some badness (<span class="trans" data-en="wickedness">πονηρίαν</span>), for just as it is a bad human being (<span class="trans" data-en="the wicked man">ὁ πονηρός</span>) who is easily changeable, it is also a bad nature that needs change; it is not simple and not suitable (<span class="trans" data-en="decent">ἐπιεικής</span>).
-  <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Nicomachean Ethics</i></span><span class=book-meta-chapter>, Ch. VII.14</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0054:bekker+page=1154b target=_blank rel=noopener>1154b26–31</a>, trans. Sachs</span></footer>
-</div>
-<div class="book-page book-page--aristotle book-page--ethics" data-source="Nicomachean Ethics">
-  We also apply the word for dissipation to the misbehavior of children (<span class="trans" data-en="childish mistakes">παιδικὰς ἁμαρτίας</span>), since it has some likeness. Which is named after which makes no difference to the things now being explored, but it is clear that the later condition is named after the earlier one. And the meaning seems to have been transferred not badly, for anything that has a lot of growth while stretching out toward ugly things needs to be kept back, and of this sort most of all are desire and a child. For children too live in accordance with desire, and the desire for what is pleasant is greatest in them.
-  <footer class=book-meta><span class=book-meta-author>Aristotle, <i>Nicomachean Ethics</i></span><span class=book-meta-chapter>, Ch. III.12</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0054:bekker+page=1119a target=_blank rel=noopener>1119a33–b7</a>, trans. Sachs</span></footer>
-</div>
-</div></details>
 
 <p>So what does it mean to be unrestrained; in general and/or in respect to any given branch of human excellence (the virtues)?</p>
 
@@ -1378,7 +1372,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // === EPIGRAM COLLECTION ===
   // Two kinds of collectable epigram, one list in localStorage
-  // ('collectedEpigraphs', 10 planned):
+  // ('collectedEpigraphs', 9 on the page):
   //   - modal checkboxes tagged .epigraph-collect-toggle (none at present)
   //   - <details data-collect-id> folds in the essay body
   // Either one is recorded on first open. The Epigram Book is plain HTML:
@@ -1387,11 +1381,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const getCollectedEpigraphs = () => JSON.parse(localStorage.getItem('collectedEpigraphs') || '[]');
   const setCollectedEpigraphs = arr => localStorage.setItem('collectedEpigraphs', JSON.stringify(arr));
 
+  // Complete = every epigram fold on the page collected. Counted from the
+  // page, so ids saved before an epigram was removed (e.g. en-7-14) don't count.
+  const epigramsComplete = () => {
+    const ids = [...document.querySelectorAll('details[data-collect-id]')].map(d => d.dataset.collectId);
+    const collected = getCollectedEpigraphs();
+    return ids.length > 0 && ids.every(id => collected.includes(id));
+  };
+
   const syncBook = () => {
     const collected = getCollectedEpigraphs();
     document.querySelectorAll('.epi-have').forEach(box => {
       box.checked = collected.includes(box.dataset.collectId);
     });
+    const done = document.getElementById('epi-complete');
+    if (done) done.checked = epigramsComplete();
   };
 
   const collect = id => {
@@ -1400,6 +1404,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!collected.includes(id)) {
       collected.push(id);
       setCollectedEpigraphs(collected);
+      // Cues (map.js): a small figure per epigram, a cadence for the last
+      const yij = window.YIJ;
+      if (yij && epigramsComplete()) { yij.cue('complete'); yij.note('Epigram book complete.'); }
+      else if (yij) yij.cue('epigram');
     }
     syncBook();
   };

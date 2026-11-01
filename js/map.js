@@ -9,10 +9,17 @@
  *  Rooms   every <details data-expand-id="..."> is a room. The total and
  *          each room's level (how deeply it is nested in other rooms)
  *          are read from the page, so new sections count automatically.
- *  Chime   off by default (radar-mute unless set to 'false' via 🔕/🔔).
- *          When on, the first opening of each room plays a short soft tone,
- *          one step higher per level (C, E, G, high C). Made in the
- *          browser; no sound files.
+ *  Cues    off by default (radar-mute unless set to 'false' via 🔕/🔔).
+ *          Short melodic figures, made in the browser (no sound files):
+ *          a soft organ-ish voice (sine + quiet overtones, gentle vibrato)
+ *          through a faint echo. room = two rising notes, a step higher
+ *          per level; epigram = three-note arpeggio; unlock = four-note
+ *          rise; complete = small cadence. window.YIJ.cue(name) plays one.
+ *  Bookmark  keeps the reader's place on each page (the last room or
+ *          section heading scrolled past), on this device only, whether
+ *          or not the radar is on. First visit: a welcome note. Later
+ *          visits: "Welcome back — resume at …", with % of rooms opened
+ *          when the radar is on.
  *  Map     the hand-written outline in #map-modal: opened rooms get .lit,
  *          the legend reads "n / N rooms", and each entry opens its
  *          section (and the folds around it) before jumping.
@@ -37,7 +44,8 @@
   var EPI_KEY    = 'collectedEpigraphs';
   var SURVEY_KEY = 'surveyTaken';
   var UNLOCK_AT  = 5;
-  var NOTES      = [523.25, 659.25, 783.99, 1046.5]; // C5 E5 G5 C6
+  var BOOK_KEY   = 'bookmark';      // { pathname: { id, label } }
+  var SEEN_KEY   = 'welcomed';
 
   // ── storage ────────────────────────────────────────────────────────────
   function read(key) {
@@ -71,27 +79,78 @@
     return n;
   }
 
-  // ── chime ──────────────────────────────────────────────────────────────
-  var ctx = null;
-  function chime(level) {
-    try { if (localStorage.getItem('radar-mute') !== 'false') return; } catch (e) { return; }
+  // ── cues ───────────────────────────────────────────────────────────
+  // Note names → Hz (equal temperament, A4 = 440)
+  function hz(n) {
+    var m = /^([A-G])(#?)(\d)$/.exec(n);
+    var semi = { C: -9, D: -7, E: -5, F: -4, G: -2, A: 0, B: 2 }[m[1]] +
+      (m[2] ? 1 : 0) + (parseInt(m[3], 10) - 4) * 12;
+    return 440 * Math.pow(2, semi / 12);
+  }
+  // [note, start (s), length (s)] — chords are notes with the same start
+  var CUES = {
+    room: [
+      [['C5', 0, 0.5], ['G5', 0.13, 0.9]],
+      [['D5', 0, 0.5], ['A5', 0.13, 0.9]],
+      [['E5', 0, 0.5], ['B5', 0.13, 0.9]],
+      [['G5', 0, 0.5], ['D6', 0.13, 0.9]]
+    ],
+    epigram:  [['E5', 0, 0.4], ['G5', 0.12, 0.4], ['C6', 0.24, 1.1]],
+    unlock:   [['C5', 0, 0.35], ['E5', 0.12, 0.35], ['G5', 0.24, 0.35], ['C6', 0.36, 1.2]],
+    complete: [['G4', 0, 0.4], ['C5', 0.15, 0.4], ['E5', 0.3, 0.4],
+               ['D5', 0.48, 0.5], ['C5', 0.7, 1.6], ['E5', 0.7, 1.6], ['G5', 0.7, 1.6]]
+  };
+
+  var ctx = null, bus = null;
+  function soundOn() {
+    try { return localStorage.getItem('radar-mute') === 'false'; } catch (e) { return false; }
+  }
+  function audio() {
+    if (ctx) return ctx;
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    // master → soft low-pass → out, plus one faint echo (KQ-style room)
+    var tone = ctx.createBiquadFilter();
+    tone.type = 'lowpass'; tone.frequency.value = 3200;
+    var delay = ctx.createDelay(1), fb = ctx.createGain(), wet = ctx.createGain();
+    delay.delayTime.value = 0.21; fb.gain.value = 0.28; wet.gain.value = 0.22;
+    bus = ctx.createGain(); bus.gain.value = 1;
+    bus.connect(tone); tone.connect(ctx.destination);
+    tone.connect(delay); delay.connect(fb); fb.connect(delay);
+    delay.connect(wet); wet.connect(ctx.destination);
+    return ctx;
+  }
+  function voice(freq, t0, len) {
+    var peak = 0.05;
+    // fundamental + quiet 2nd and 3rd partials: flute/organ, not beep
+    [[1, 1], [2, 0.22], [3, 0.08]].forEach(function (p) {
+      var osc = ctx.createOscillator(), g = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.value = freq * p[0];
+      g.gain.setValueAtTime(0.0001, t0);
+      g.gain.exponentialRampToValueAtTime(peak * p[1], t0 + 0.025);
+      g.gain.exponentialRampToValueAtTime(peak * p[1] * 0.45, t0 + 0.18);
+      g.gain.exponentialRampToValueAtTime(0.0001, t0 + len);
+      osc.connect(g).connect(bus);
+      osc.start(t0); osc.stop(t0 + len + 0.05);
+      if (p[0] === 1) {            // slow, slight vibrato on the fundamental
+        var lfo = ctx.createOscillator(), depth = ctx.createGain();
+        lfo.frequency.value = 5.2; depth.gain.value = freq * 0.003;
+        lfo.connect(depth).connect(osc.frequency);
+        lfo.start(t0 + 0.12); lfo.stop(t0 + len + 0.05);
+      }
+    });
+  }
+  function cue(name, level) {
+    if (!soundOn()) return;
     try {
-      ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
+      audio();
       if (ctx.state === 'suspended') ctx.resume();
-      var f = NOTES[Math.min(level, NOTES.length) - 1];
-      var now = ctx.currentTime;
-      [[f, 0.06], [f * 2, 0.015]].forEach(function (pair) {
-        var osc = ctx.createOscillator();
-        var gain = ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.value = pair[0];
-        gain.gain.setValueAtTime(0.0001, now);
-        gain.gain.exponentialRampToValueAtTime(pair[1], now + 0.015);
-        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.7);
-        osc.connect(gain).connect(ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.75);
-      });
+      var seq = name === 'room'
+        ? CUES.room[Math.min(level || 1, CUES.room.length) - 1]
+        : CUES[name];
+      if (!seq) return;
+      var now = ctx.currentTime + 0.02;
+      seq.forEach(function (n) { voice(hz(n[0]), now + n[1], n[2]); });
     } catch (e) {}
   }
 
@@ -109,18 +168,31 @@
     var node = document.getElementById('mapnode-' + id);
     if (node) node.classList.add('lit');
   }
+  // Epigrams counted against the folds on the page, so ids saved before
+  // an epigram was removed don't inflate the count.
+  function epiIds() {
+    return Array.prototype.map.call(
+      document.querySelectorAll('details[data-collect-id]'),
+      function (d) { return d.dataset.collectId; });
+  }
+  function epiHave() {
+    var ids = epiIds();
+    return read(EPI_KEY).filter(function (id) { return ids.indexOf(id) !== -1; });
+  }
   function refreshMap() {
     var opened = read(ROOMS_KEY);
     opened.forEach(light);
     var label = document.getElementById('map-score-label');
     if (label) label.textContent = opened.length + ' / ' + rooms().length + ' rooms';
+    var epi = document.getElementById('map-epi-label');
+    if (epi && epiIds().length) epi.textContent = epiHave().length + ' / ' + epiIds().length + ' epigrams';
   }
   function checkUnlock(announce) {
     var box = document.getElementById('map-unlocked');
     if (!box || box.checked) return;
     if (read(ROOMS_KEY).length >= UNLOCK_AT || flag(SURVEY_KEY)) {
       box.checked = true;
-      if (announce) note('Map unlocked: 🗺️ is now in the tools menu.');
+      if (announce) { cue('unlock'); note('Map unlocked: 🗺️ is now in the tools menu.'); }
     }
   }
   function openTo(target) {
@@ -138,7 +210,7 @@
     opened.push(id);
     write(ROOMS_KEY, opened);
     light(id);
-    if (withChime) chime(levelOf(el));
+    if (withChime) cue('room', levelOf(el));
     checkUnlock(true);
   }
   function recordLink(id) {
@@ -160,9 +232,8 @@
     });
     return 'Rooms ' + read(ROOMS_KEY).length + '/' + rooms().length +
       ' (' + read(ROOMS_KEY).join(', ') + '); ' +
-      'Epigrams ' + read(EPI_KEY).length + '/' +
-      document.querySelectorAll('details[data-collect-id]').length +
-      ' (' + read(EPI_KEY).join(', ') + '); ' +
+      'Epigrams ' + epiHave().length + '/' + epiIds().length +
+      ' (' + epiHave().join(', ') + '); ' +
       'Links ' + links.length + ' (' + links.join(', ') + ')';
   }
 
@@ -183,11 +254,99 @@
       if (el) el.textContent = text;
     };
     set('readout-rooms', read(ROOMS_KEY).length + ' / ' + rooms().length);
-    set('readout-epigrams', read(EPI_KEY).length + ' / ' +
-      document.querySelectorAll('details[data-collect-id]').length);
+    set('readout-epigrams', epiHave().length + ' / ' + epiIds().length);
     set('readout-links', String(links.length));
     box.hidden = false;
   }
+
+  // ── bookmark & welcome ─────────────────────────────────────────────────
+  // Places worth returning to: rooms on the essay page, section anchors
+  // on the dossier. Only ones actually rendered (not inside a closed fold).
+  function places() {
+    return Array.prototype.filter.call(
+      document.querySelectorAll('details[data-expand-id], a[id^="section-"]'),
+      function (el) { return el.getClientRects().length > 0; });
+  }
+  function labelOf(el) {
+    var src = el;
+    if (el.tagName === 'DETAILS') {
+      src = el.querySelector('summary').cloneNode(true);
+      Array.prototype.forEach.call(src.querySelectorAll('.hint-text'),
+        function (h) { h.remove(); });
+    } else if (el.nextElementSibling && /^H\d$/.test(el.nextElementSibling.tagName)) {
+      src = el.nextElementSibling;
+    }
+    var t = (src.textContent || '').replace(/\s+/g, ' ').trim();
+    return t.length > 64 ? t.slice(0, 62).trim() + '…' : t;
+  }
+  function bookmarks() {
+    try { return JSON.parse(localStorage.getItem(BOOK_KEY)) || {}; } catch (e) { return {}; }
+  }
+  function saveBookmark() {
+    var line = window.innerHeight / 3, here = null;
+    places().forEach(function (el) {
+      if (el.getBoundingClientRect().top < line) here = el;
+    });
+    if (!here || !here.id) return;
+    var all = bookmarks();
+    all[location.pathname] = { id: here.id, label: labelOf(here) };
+    try { localStorage.setItem(BOOK_KEY, JSON.stringify(all)); } catch (e) {}
+  }
+
+  function welcome(html, onShow) {
+    var box = document.createElement('div');
+    box.id = 'welcome-message';
+    box.setAttribute('role', 'status');
+    box.innerHTML = '<button type="button" class="welcome-close" aria-label="Close">×</button>' + html;
+    document.body.appendChild(box);
+    var close = function () {
+      box.classList.remove('show');
+      setTimeout(function () { box.remove(); }, 500);
+      window.removeEventListener('scroll', far);
+    };
+    var y0 = window.scrollY;
+    var far = function () {   // reading on past a screen: let it go
+      if (Math.abs(window.scrollY - y0) > window.innerHeight) close();
+    };
+    box.querySelector('.welcome-close').addEventListener('click', close);
+    window.addEventListener('scroll', far, { passive: true });
+    if (onShow) onShow(box, close);
+    setTimeout(function () { box.classList.add('show'); }, 700);
+  }
+
+  function greet() {
+    var seen = flag(SEEN_KEY);
+    if (!seen) {
+      setFlag(SEEN_KEY);
+      welcome('<p><b>Welcome.</b> The folds open into rooms, and rooms within rooms. ' +
+        'This page keeps your place for next time, on this device only. ' +
+        '📡 notes which rooms you’ve entered; tap it to stop.</p>');
+      return;
+    }
+    if (location.hash) return;                       // came for a particular spot
+    var mark = bookmarks()[location.pathname];
+    var target = mark && document.getElementById(mark.id);
+    if (!target) return;
+    var r = target.getBoundingClientRect();          // already there (scroll restored)
+    if (target.getClientRects().length && r.top > -60 && r.top < window.innerHeight) return;
+    var pct = '';
+    if (radarOn() && rooms().length) {
+      pct = ' · ' + Math.round(100 * read(ROOMS_KEY).length / rooms().length) + '% explored';
+    }
+    welcome('<p><b>Welcome back.</b> <a href="#' + mark.id + '" class="welcome-resume">Resume at ' +
+      '<i></i></a>' + pct + '</p>', function (box, close) {
+        box.querySelector('.welcome-resume i').textContent = mark.label;
+        box.querySelector('.welcome-resume').addEventListener('click', function (e) {
+          e.preventDefault();
+          close();
+          openTo(target);
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+  }
+
+  // Public: cues and notes for the page's own scripts (epigram collection)
+  window.YIJ = { cue: cue, note: note };
 
   // ── wiring ─────────────────────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', function () {
@@ -206,7 +365,7 @@
           // rooms already open (e.g. Section 3) count, without a chime
           rooms().forEach(function (el) { if (el.open) recordRoom(el, false); });
         } else {
-          note('Radar off: nothing is being recorded.');
+          note('Radar off: rooms aren’t recorded. Your bookmark is still kept.');
         }
       });
     }
@@ -253,5 +412,16 @@
     setTimeout(function () {
       if (radarOn()) rooms().forEach(function (el) { if (el.open) recordRoom(el, false); });
     }, 0);
+
+    // Bookmark: greet once layout (and any restored scroll) has settled,
+    // then keep the place as the reader scrolls (only after they move).
+    setTimeout(greet, 400);
+    var pending = null, moved = false;
+    window.addEventListener('scroll', function () {
+      moved = true;
+      if (pending) return;
+      pending = setTimeout(function () { pending = null; saveBookmark(); }, 600);
+    }, { passive: true });
+    window.addEventListener('pagehide', function () { if (moved) saveBookmark(); });
   });
 })();

@@ -1,5 +1,5 @@
 // ============================================================
-// EPIGRAM BOOK — collected epigrams (8 planned)
+// EPIGRAM BOOK — collected epigrams (9)
 // ============================================================
 // Pure checkbox/:has() mechanics, like the game-mode icons:
 //  - #epigram-book-toggle opens the modal (same pattern as #map-modal)
@@ -64,3 +64,17 @@
 // Menu icon: hidden until the first epigram is collected
 #epigram-book-label { display: none; }
 body:has(.epi-have:checked) #epigram-book-label { display: inline; }
+
+// Full set: #epi-complete is ticked once every epigram fold on the page
+// has been collected. A quiet gold trim on the book, its icon, and the
+// epigram count in the map legend.
+$epi-gold: #b8963e;
+
+body:has(#epi-complete:checked) {
+  #epigram-book .modal-box {
+    border-top: 3px double $epi-gold;
+    border-bottom: 3px double $epi-gold;
+  }
+  #epigram-book-label { text-shadow: 0 0 6px rgba(184, 150, 62, 0.85); }
+  #map-epi-label { color: $epi-gold; }
+}
