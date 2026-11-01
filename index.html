@@ -95,16 +95,15 @@
     </nav>
 
     <div class="map-legend">
-      <span><span class="docmap-key docmap-key--lit">opened</span> <span class="docmap-key">not yet</span></span>
       <span id="map-score-label"></span>
       <span id="map-epi-label"></span>
     </div>
   </div>
 </div>
 
-<!-- Epigram Book: one entry per collectable epigram (9).
+<!-- Epigram Book: one entry per collectable epigram (8).
      Each entry carries a hidden .epi-have checkbox; the collection script
-     ticks it from localStorage, and CSS only shows ticked entries. The
+     ticks it from localStorage; CSS blanks unticked entries, leaving a numbered gap. The
      menu icon (#epigram-book-label) appears once any box is ticked.
      #epi-complete is ticked once every epigram on the page is collected
      (gold trim on the book, the icon and the map legend). -->
@@ -120,7 +119,6 @@
       <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="en-9-5" hidden><a href="#epi-en-9-5">Aristotle, <i>Nicomachean Ethics</i>, IX.5</a></li>
       <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="poetics-4" hidden><a href="#epi-poetics-4">Aristotle, <i>Poetics</i>, Ch. 4</a></li>
       <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="ion-535c" hidden><a href="#epi-ion-535c">Plato, <i>Ion</i>, 535c</a></li>
-      <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="rhet-3-12" hidden><a href="#epi-rhet-3-12">Aristotle, <i>On Rhetoric</i>, III.12</a></li>
       <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="problemata-30-1" hidden><a href="#epi-problemata-30-1">[Aristotle], <i>Problemata</i>, XXX.1</a></li>
       <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="proclus-rep" hidden><a href="#epi-proclus-rep">Proclus, <i>Commentary on the Republic</i></a></li>
     </ol>
@@ -644,14 +642,6 @@
             <p>The problem becomes salient once one appreciates that “pity and fear” are almost opposites, and from many angles drive each other out. Aristotle defines the two terms in the <i>Rhetoric</i>. Fear concerns our anticipation of our own potential suffering. Pity concerns our anticipation of the potential suffering of others who are like us—so long as they don’t deserve it.<marginalia data-type="ci"> (<i>Rhetoric</i> II.5, II.7; <i>Poetics</i> Ch. 13)</marginalia> It is very difficult to pity someone that you fear at the same time as you are fearing them. It’s this intersubjective asymmetry—the lack of a “doesn’t deserve it” clause on fear, in contrast to pity—which tragedy exploits.</p>
 
             <p>Although Aristotle establishes a provisional definition of tragedy in Ch. 6, this mainly ties together tragedy’s place within the broader art of poetry. He unpacks its mechanisms progressively, by way of argument, through the text. Through this process, he splays out the particulars of the effect, and leaves the reader to infer the “how.”</p>
-
-            <marginalia data-type="pa"><p>Note on pervasiveness of Jaeger’s thesis that Aristotle’s works are primarily lecture notes; in some passages (e.g. <i>Rhetoric</i> III.12), the fact that Aristotle may be conceiving himself as writing to a reader is of plain significance. (Werner Jaeger, <i>Aristotle: Fundamentals of the History of His Development</i>, 1923; trans. Robinson, 1934.)</p>
-            <details class="fold fold--epigram" id="epi-rhet-3-12" data-collect-id="rhet-3-12"><summary>Epigram + <i>On Rhetoric</i> III.12 <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><div class="fold-body">
-            <div class="book-page book-page--aristotle book-page--rhetoric" data-source="Rhetoric">
-              “What is suited to a written speech is not the same as what suits debate, and the same wording is not suited to both a public assembly and a lawcourt. And it is necessary to have knowledge of both, since one involves knowing how to speak grammatically, the other how to avoid being forced to keep silent when one wants to put one’s opinions out to others, which happens to people who have no skill at writing.”
-              <footer class=book-meta><span class=book-meta-author>Aristotle, <i>On Rhetoric</i></span><span class=book-meta-chapter>, Ch. III.12</span><span class=book-meta-ref> — <a class=perseus-link href=https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0060:bekker+page=1413b target=_blank rel=noopener>1413b3–10</a>, trans. Sachs</span></footer>
-            </div>
-            </div></details></marginalia>
 
             <details class="fold fold--epigram" id="epi-poetics-6" data-collect-id="poetics-6"><summary>Epigram + <i>Poetics</i>, Ch. 6 <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><div class="fold-body">
             <div class="book-page book-page--aristotle book-page--poetics" data-source="Poetics">
@@ -1371,7 +1361,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // === EPIGRAM COLLECTION ===
   // Two kinds of collectable epigram, one list in localStorage
-  // ('collectedEpigraphs', 9 on the page):
+  // ('collectedEpigraphs', 8 on the page):
   //   - modal checkboxes tagged .epigraph-collect-toggle (none at present)
   //   - <details data-collect-id> folds in the essay body
   // Either one is recorded on first open. The Epigram Book is plain HTML:

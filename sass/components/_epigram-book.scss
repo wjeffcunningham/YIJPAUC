@@ -1,10 +1,11 @@
 // ============================================================
-// EPIGRAM BOOK — collected epigrams (9)
+// EPIGRAM BOOK — collected epigrams (8)
 // ============================================================
 // Pure checkbox/:has() mechanics, like the game-mode icons:
 //  - #epigram-book-toggle opens the modal (same pattern as #map-modal)
 //  - each entry holds a hidden .epi-have checkbox, ticked by the
-//    collection script from localStorage; unticked entries stay hidden
+//    collection script from localStorage; unticked entries keep their
+//    place (and number) but show as a blank gap
 //  - the menu icon only appears once at least one box is ticked
 
 #epigram-book-toggle { display: none; }
@@ -58,7 +59,8 @@
 .epigram-book-entry {
   margin: 0.4rem 0;
 
-  &:has(> .epi-have:not(:checked)) { display: none; }
+  // Not yet collected: keep the numbered line, blank the title
+  &:has(> .epi-have:not(:checked)) > a { visibility: hidden; }
 }
 
 // Menu icon: hidden until the first epigram is collected
