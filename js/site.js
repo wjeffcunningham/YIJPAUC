@@ -121,6 +121,13 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     const playing = hero.play();
     if (playing) playing.catch(swap);
+    // Safari can leave a muted autoplay clip sitting paused without
+    // rejecting play(). Once the clip has data and still isn't playing,
+    // fall back; if no data arrives at all, fall back after 8 seconds.
+    const check = () => setTimeout(swap, 600);
+    if (hero.readyState >= 3) check();
+    else hero.addEventListener('canplay', check, { once: true });
+    setTimeout(() => { if (hero.readyState < 2) swap(); }, 8000);
   }
 
   // Radar sound toggle (🔔 / 🔕)
