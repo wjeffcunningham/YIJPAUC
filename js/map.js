@@ -348,31 +348,6 @@
         '<span class="welcome-arrow" aria-hidden="true">↗</span></p>');
       return;
     }
-    if (location.hash) return;
-    var mark = bookmarks()[location.pathname];
-    var target = mark && document.getElementById(mark.id);
-    if (!target) return;
-    var r = target.getBoundingClientRect();          // already in view
-    if (target.getClientRects().length && r.top > -60 && r.top < window.innerHeight) return;
-    // Only offer to resume once at least 20% of this page has been read:
-    // by rooms opened on this page (radar on), or by how far down the bookmark sits.
-    var done = Math.max(pageRead(), mark.depth || 0);
-    if (done < RESUME_AT) return;
-    var pct = ' // ' + Math.round(100 * done) + '%';
-    welcome('<p><img src="' + base + 'vvip.png" alt="VVIP" class="welcome-logo"> ' +
-      '<a href="#' + mark.id + '" class="welcome-resume">Resume: <span></span></a>' +
-      '<span class="welcome-sub">' + pct + '</span></p>', function (box, close) {
-        // e.g. "Ch. 13" from "Ch. 13: Mistake, ..."
-        var l = mark.label.split(':')[0].trim();
-        box.querySelector('.welcome-resume span').textContent =
-          l.length > 34 ? l.slice(0, 32).trim() + '…' : l;
-        box.querySelector('.welcome-resume').addEventListener('click', function (e) {
-          e.preventDefault();
-          close();
-          openTo(target);
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
-      });
   }
 
   // Used by site.js
