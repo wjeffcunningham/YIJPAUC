@@ -2785,6 +2785,79 @@ body:has(#epi-complete:checked) #map-epi-label {
   color: #b8963e;
 }
 
+#scrolls-toggle {
+  display: none;
+}
+
+#scrolls-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+}
+#scrolls-toggle:checked ~ #scrolls-modal {
+  display: flex;
+}
+#scrolls-modal .modal-overlay {
+  display: block;
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  cursor: pointer;
+}
+#scrolls-modal .modal-box {
+  position: relative;
+  z-index: 201;
+  margin: auto;
+  max-width: min(36rem, 92vw);
+  max-height: 88vh;
+  overflow-y: auto;
+}
+#scrolls-modal h2 {
+  font-size: 1em;
+  font-weight: normal;
+  font-style: italic;
+  margin: 0 0 1rem;
+}
+#scrolls-modal h4 {
+  font-size: 0.85em;
+  font-weight: normal;
+  font-variant: small-caps;
+  margin: 1rem 0 0.4rem;
+}
+
+.scrolls-list {
+  margin: 0;
+  padding-left: 1.4rem;
+}
+
+.scroll-entry {
+  margin: 0.4rem 0;
+}
+.scroll-entry > details.fold {
+  margin: 0;
+}
+.scroll-entry:has(> .scroll-have:not(:checked)) > details {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.scroll-crew {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.9em;
+  line-height: 1.45;
+}
+
+#scrolls-label {
+  display: none;
+}
+
+body:has(.scroll-have:checked) #scrolls-label {
+  display: inline;
+}
+
 body {
   color: #000;
 }

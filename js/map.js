@@ -1,7 +1,9 @@
 // Radar, document map, sound cues, bookmark and survey.
 //
 // Rooms are <details data-expand-id> sections; opening one while the radar
-// (#tracker-toggle) is on records it in localStorage. .track-link clicks are
+// (#tracker-toggle) is on records it in localStorage. Dossier sections with
+// no fold carry data-visit-id on their anchor and count as rooms once their
+// heading has sat on screen for a moment. .track-link clicks are
 // recorded the same way. Nothing leaves the reader's browser except the
 // survey readout, which is pre-filled into the Google Form when they follow
 // the survey link.
@@ -41,6 +43,9 @@
   function rooms() {
     return Array.prototype.slice.call(
       document.querySelectorAll('details[data-expand-id]'));
+  }
+  function visits() {
+    return Array.prototype.slice.call(document.querySelectorAll('[data-visit-id]'));
   }
   // Main rooms score 3, nested entries and quote-toggles 1 (data-weight).
   function weightOf(el) {
@@ -205,7 +210,7 @@
   // Recording
   function recordRoom(el, withChime) {
     if (!radarOn()) return;
-    var id = el.dataset.expandId;
+    var id = el.dataset.expandId || el.dataset.visitId;
     var opened = read(ROOMS_KEY);
     if (opened.indexOf(id) !== -1) return;
     opened.push(id);
@@ -213,7 +218,7 @@
     var w = weights(); w[id] = weightOf(el);
     try { localStorage.setItem(WEIGHT_KEY, JSON.stringify(w)); } catch (e) {}
     light(id);
-    if (withChime) cue('room', levelOf(el));
+    if (withChime) cue('room', el.dataset.visitId ? 1 : levelOf(el));
     checkUnlock(true);
   }
   function recordLink(id) {
@@ -361,6 +366,23 @@
         if (el.open) recordRoom(el, true);
       });
     });
+
+    // Visits: a section heading in the upper part of the screen for 1.2s.
+    if ('IntersectionObserver' in window) {
+      var anchors = visits(), timers = [];
+      var heads = anchors.map(function (a) { return a.nextElementSibling || a; });
+      var watch = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          var i = heads.indexOf(e.target);
+          if (i === -1) return;
+          clearTimeout(timers[i]);
+          if (e.isIntersecting) {
+            timers[i] = setTimeout(function () { recordRoom(anchors[i], true); }, 1200);
+          }
+        });
+      }, { rootMargin: '0px 0px -40% 0px' });
+      heads.forEach(function (h) { watch.observe(h); });
+    }
 
     var radar = document.getElementById('tracker-toggle');
     if (radar) {

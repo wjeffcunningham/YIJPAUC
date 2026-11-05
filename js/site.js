@@ -1,6 +1,6 @@
 // Page behaviour shared by index.html and pages/dossier.html:
 // background audio, the hero clip fallback, the radar sound toggle,
-// the epigram book and the bibliography unlock.
+// the epigram book and the scrolls.
 
 document.addEventListener('DOMContentLoaded', () => {
   const readList = key => {
@@ -147,6 +147,33 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Scrolls: three missable texts, kept once found (localStorage 'scrollsFound').
+  //   enoch         every epigram collected
+  //   crew          the Dossier's crew list (#d-08-q1) unfolded
+  //   bibliography  50 links followed
+
+  const SCROLLS = { enoch: 'the Book of Enoch', crew: 'the crew list', bibliography: 'the bibliography' };
+  const scrollsFound = () => readList('scrollsFound');
+  const syncScrolls = () => {
+    const have = scrollsFound();
+    document.querySelectorAll('.scroll-have').forEach(box => {
+      box.checked = have.includes(box.dataset.scrollId);
+    });
+  };
+  const findScroll = id => {
+    const have = scrollsFound();
+    if (have.includes(id)) return;
+    have.push(id);
+    try { localStorage.setItem('scrollsFound', JSON.stringify(have)); } catch (e) {}
+    syncScrolls();
+    if (window.YIJ) {
+      window.YIJ.cue('unlock');
+      window.YIJ.note(have.length === 1
+        ? `Scroll found: ${SCROLLS[id]}. 📜 is now in the tools menu.`
+        : `Scroll found: ${SCROLLS[id]}.`);
+    }
+  };
+
   // Epigram book: each epigram fold is collected the first time it opens.
   // Completion is counted against the folds on the page, so ids saved
   // before an epigram was removed don't count.
@@ -175,7 +202,11 @@ document.addEventListener('DOMContentLoaded', () => {
         have.push(id);
         localStorage.setItem('collectedEpigraphs', JSON.stringify(have));
         if (window.YIJ) {
-          if (complete()) { window.YIJ.cue('complete'); window.YIJ.note('Epigram book complete.'); }
+          if (complete()) {
+            window.YIJ.cue('complete');
+            window.YIJ.note('Epigram book complete.');
+            setTimeout(() => findScroll('enoch'), 3200);   // after the first message clears
+          }
           else window.YIJ.cue('epigram');
         }
         syncBook();
@@ -195,18 +226,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     syncBook();
+    if (complete()) findScroll('enoch');   // completed before scrolls existed
   }
 
-  // Bibliography: the 📜 icon appears once 50 links have been followed.
+  // Crew list: found by unfolding it in the Dossier.
 
-  const bibLabel = document.getElementById('bibliography-label');
-  if (bibLabel) {
-    const unlock = () => { bibLabel.hidden = linksFollowed() < 50; };
-    unlock();
-    window.addEventListener('pageshow', unlock);
-    window.addEventListener('storage', e => { if (e.key === 'visitedLinks') unlock(); });
-    document.addEventListener('click', e => {
-      if (e.target.closest && e.target.closest('a')) setTimeout(unlock, 50);
-    });
+  const crewFold = document.getElementById('d-08-q1');
+  if (crewFold) {
+    crewFold.addEventListener('toggle', () => { if (crewFold.open) findScroll('crew'); });
   }
+
+  // Bibliography: found once 50 links have been followed.
+
+  const checkLinks = () => { if (linksFollowed() >= 50) findScroll('bibliography'); };
+  checkLinks();
+  window.addEventListener('pageshow', checkLinks);
+  window.addEventListener('storage', e => {
+    if (e.key === 'visitedLinks') checkLinks();
+    if (e.key === 'scrollsFound') syncScrolls();
+  });
+  document.addEventListener('click', e => {
+    if (e.target.closest && e.target.closest('a')) setTimeout(checkLinks, 50);
+  });
+
+  syncScrolls();
 });
