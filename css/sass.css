@@ -2610,6 +2610,14 @@ summary.summary-locked-open {
   padding-left: 2.6rem;
 }
 
+/* A numbered list resumed after an interposed passage keeps
+   counting from the list before it (3a: Catharsis 5 → bridge
+   paragraph → Rhetoric 6), since the counter's scope carries
+   over to following siblings. */
+.essay-sublist--numbered.essay-sublist--continued {
+  counter-reset: none;
+}
+
 .essay-sublist--numbered > li {
   counter-increment: essay-num;
   position: relative;
