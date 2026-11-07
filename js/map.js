@@ -176,22 +176,62 @@
     var ids = epiIds();
     return read(EPI_KEY).filter(function (id) { return ids.indexOf(id) !== -1; });
   }
+  // Length of each room, drawn as a short rule after its title
+  // (square root of its word count, so short rooms still show).
+  function drawLengths() {
+    var lis = document.querySelectorAll('.docmap li[data-words]');
+    var max = 0;
+    Array.prototype.forEach.call(lis, function (li) {
+      max = Math.max(max, parseInt(li.dataset.words, 10) || 0);
+    });
+    Array.prototype.forEach.call(lis, function (li) {
+      if (li.querySelector(':scope > .docmap-len')) return;
+      var bar = document.createElement('span');
+      bar.className = 'docmap-len';
+      bar.setAttribute('aria-hidden', 'true');
+      bar.style.setProperty('--len', Math.sqrt((parseInt(li.dataset.words, 10) || 0) / max).toFixed(3));
+      var a = li.querySelector(':scope > a');
+      if (a) a.insertAdjacentElement('afterend', bar);
+    });
+  }
+  function ledger(id, have, all) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.innerHTML = '';
+    el.appendChild(document.createTextNode(have));
+    var s = document.createElement('span');
+    s.className = 'map-ledger-of';
+    s.textContent = ' / ' + all;
+    el.appendChild(s);
+  }
   function refreshMap() {
     var opened = read(ROOMS_KEY), t = totals();
+    drawLengths();
     opened.forEach(light);
-    // small rooms tallied beside their main room, e.g. "2/5"
+    // quote-toggles under a main room: one small square each, filled once opened
     Array.prototype.forEach.call(document.querySelectorAll('.docmap li[data-kids]'), function (li) {
       var kids = li.dataset.kids.split(' ');
       var have = kids.filter(function (id) { return opened.indexOf(id) !== -1; }).length;
       var tally = li.querySelector('.docmap-tally');
-      if (tally) tally.textContent = have + '/' + kids.length;
+      if (tally) {
+        tally.innerHTML = '';
+        kids.forEach(function (id) {
+          var q = document.createElement('i');
+          if (opened.indexOf(id) !== -1) q.className = 'on';
+          tally.appendChild(q);
+        });
+        tally.title = have + ' of ' + kids.length + (kids.length === 1 ? ' quote' : ' quotes') + ' opened';
+      }
       li.classList.toggle('full', have === kids.length);
     });
-    var label = document.getElementById('map-score-label');
-    if (label) label.textContent = points() + ' / ' + t.points + ' points // ' +
-      mainsOpened() + ' / ' + t.rooms + ' rooms';
-    var epi = document.getElementById('map-epi-label');
-    if (epi && epiIds().length) epi.textContent = epiHave().length + ' / ' + epiIds().length + ' epigrams';
+    var nav = document.querySelector('.docmap');
+    var epiAll = epiIds().length || (nav ? parseInt(nav.dataset.epigramsTotal, 10) || 0 : 0);
+    var epiGot = epiIds().length ? epiHave().length : Math.min(read(EPI_KEY).length, epiAll);
+    var links = read(LINKS_KEY).filter(function (id) { return String(id).indexOf('expand-') !== 0; });
+    ledger('map-l-rooms', mainsOpened(), t.rooms);
+    ledger('map-l-points', points(), t.points);
+    ledger('map-l-epigrams', epiGot, epiAll);
+    ledger('map-l-links', links.length, 101);
   }
   function checkUnlock(announce) {
     var box = document.getElementById('map-unlocked');

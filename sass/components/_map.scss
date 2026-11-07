@@ -76,18 +76,35 @@
   }
 }
 
-// Legend + room count
+// Ledger: Rooms / Points / Epigrams / Links in four even columns,
+// italic labels over typewriter figures; the totals sit back.
 
-.map-legend {
+.map-ledger {
   margin-top: 1.25rem;
-  font-size: 0.8em;
-  font-style: italic;
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 1rem;
-  opacity: 0.7;
+  padding-top: 0.6rem;
+  border-top: 1px solid currentColor;
+  border-top-color: rgba(127, 127, 127, 0.4);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0 0.75rem;
+
+  > div { display: flex; flex-direction: column; }
 }
+
+.map-ledger-k {
+  font-size: 0.75em;
+  font-style: italic;
+  opacity: 0.6;
+}
+
+.map-ledger-v {
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  font-size: 0.9em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.map-ledger-of { opacity: 0.45; }
 
 // Combined map: Why IJPAUC? / Dossier / IJPAUC?
 // Part and group titles are labels, not rooms, so they stay in full ink.
@@ -113,12 +130,50 @@
   .docmap-part-title a,
   a.docmap-away { opacity: 1; }
 
-  // Small rooms opened under a main room, e.g. "2/5"
-  .docmap-tally {
-    margin-left: 0.5em;
-    font-size: 0.75em;
-    font-variant-numeric: tabular-nums;
-    opacity: 0.6;
+  // A room's title, rule and quote squares sit on one row, so the
+  // rule never drops onto a line of its own; a sub-list wraps below.
+  li[data-words] {
+    display: grid;
+    grid-template-columns: minmax(0, max-content) auto auto 1fr;
+    align-items: center;
+    column-gap: 0.5em;
+
+    > ol { grid-column: 1 / -1; }
   }
-  li.full > .docmap-tally { opacity: 1; }
+
+  // Length rule after each room: longer rooms, longer rule.
+  // Dotted and faint until the room is opened, then solid ink.
+  .docmap-len {
+    display: inline-block;
+    vertical-align: middle;
+    flex: none;
+    width: calc(0.4em + var(--len, 0) * 6em);
+    border-top: 1px dotted currentColor;
+    opacity: 0.4;
+  }
+  li.lit > .docmap-len {
+    border-top: 2px solid currentColor;
+    opacity: 0.75;
+  }
+
+  // Quote-toggles inside a main room: one small square each,
+  // hollow until opened.
+  .docmap-tally {
+    display: inline-flex;
+    flex: none;
+    gap: 2px;
+    vertical-align: middle;
+
+    i {
+      display: block;
+      width: 0.42em;
+      height: 0.42em;
+      border: 1px solid currentColor;
+      opacity: 0.45;
+    }
+    i.on {
+      background: currentColor;
+      opacity: 0.85;
+    }
+  }
 }
