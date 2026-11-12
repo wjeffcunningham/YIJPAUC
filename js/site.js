@@ -207,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
             window.YIJ.note('Epigram book complete.');
             setTimeout(() => findScroll('enoch'), 3200);   // after the first message clears
           }
-          else window.YIJ.cue('epigram');
+          else window.YIJ.cue(have.length === 1 ? 'epigramFirst' : 'epigram');
         }
         syncBook();
       });

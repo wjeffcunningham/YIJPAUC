@@ -101,6 +101,8 @@
       [['E3', 0, 0.7], ['B3', 0.09, 0.6, 0.3]]
     ],
     epigram:  [['D4', 0, 0.8], ['A4', 0.1, 0.7, 0.3]],
+    // first epigram: the same figure, held longer, with an octave on top
+    epigramFirst: [['D4', 0, 1.1, 1.15], ['A4', 0.1, 1.0, 0.4], ['D5', 0.24, 0.9, 0.22]],
     unlock:   [['A3', 0, 1.1], ['E4', 0, 1.1, 0.35], ['A4', 0.16, 1.0, 0.22]],
     complete: [['D3', 0, 1.6], ['A3', 0, 1.6, 0.45],
                ['D4', 0.2, 1.4, 0.28], ['F4', 0.2, 1.4, 0.16]]
@@ -389,11 +391,26 @@
       setFlag(SEEN_KEY);
       welcome('<p><img src="' + base + 'vvip.png" alt="VVIP" class="welcome-logo"> ' +
         '<i>Why IJPAUC?</i> Media Essay by WJC.</p>' +
+        '<p class="welcome-sub">Try to find an epigram hidden in the essay: each one you open fills a page of your Epigram Book 📖</p>' +
         '<p class="welcome-sub">Progress saved automatically; additional settings in Utilities Menu ' +
         '<span class="welcome-arrow" aria-hidden="true">↗</span></p>');
       return;
     }
   }
+
+  // Safari only lets audio start inside a tap or keypress handler, and a
+  // fold's 'toggle' event arrives a moment later, so wake the audio on the
+  // reader's first touch.
+  function prime() {
+    ['pointerdown', 'keydown'].forEach(function (t) {
+      document.removeEventListener(t, prime, true);
+    });
+    if (!soundOn()) return;
+    try { audio(); if (ctx.state === 'suspended') ctx.resume(); } catch (e) {}
+  }
+  ['pointerdown', 'keydown'].forEach(function (t) {
+    document.addEventListener(t, prime, true);
+  });
 
   // Used by site.js
   window.YIJ = { cue: cue, note: note };
