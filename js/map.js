@@ -144,13 +144,17 @@
     if (!soundOn()) return;
     try {
       audio();
-      if (ctx.state === 'suspended') ctx.resume();
       var seq = name === 'room'
         ? CUES.room[Math.min(level || 1, CUES.room.length) - 1]
         : CUES[name];
       if (!seq) return;
-      var now = ctx.currentTime + 0.02;
-      seq.forEach(function (n) { voice(hz(n[0]), now + n[1], n[2], n[3]); });
+      var play = function () {
+        var now = ctx.currentTime + 0.02;
+        seq.forEach(function (n) { voice(hz(n[0]), now + n[1], n[2], n[3]); });
+      };
+      // a suspended context has a frozen clock: wait for it to start
+      if (ctx.state !== 'running' && ctx.resume) ctx.resume().then(play, function () {});
+      else play();
     } catch (e) {}
   }
 
@@ -398,19 +402,25 @@
     }
   }
 
-  // Safari only lets audio start inside a tap or keypress handler, and a
-  // fold's 'toggle' event arrives a moment later, so wake the audio on the
-  // reader's first touch.
+  // Safari only lets audio start inside a tap, click or keypress handler
+  // (on iPhone, touchend, not touchstart), and a fold's 'toggle' event
+  // arrives a moment later, so wake the audio on the reader's touches
+  // until it is running, with a silent sample to unlock it.
+  var PRIME = ['pointerdown', 'touchend', 'click', 'keydown'];
   function prime() {
-    ['pointerdown', 'keydown'].forEach(function (t) {
-      document.removeEventListener(t, prime, true);
-    });
     if (!soundOn()) return;
-    try { audio(); if (ctx.state === 'suspended') ctx.resume(); } catch (e) {}
+    try {
+      audio();
+      if (ctx.state !== 'running') ctx.resume();
+      var b = ctx.createBufferSource();
+      b.buffer = ctx.createBuffer(1, 1, 22050);
+      b.connect(ctx.destination); b.start(0);
+      if (ctx.state === 'running') {
+        PRIME.forEach(function (t) { document.removeEventListener(t, prime, true); });
+      }
+    } catch (e) {}
   }
-  ['pointerdown', 'keydown'].forEach(function (t) {
-    document.addEventListener(t, prime, true);
-  });
+  PRIME.forEach(function (t) { document.addEventListener(t, prime, true); });
 
   // Used by site.js
   window.YIJ = { cue: cue, note: note };
