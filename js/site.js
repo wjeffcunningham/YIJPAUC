@@ -225,33 +225,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // Sort: essay order (as written), ↑ oldest first, ↓ newest first.
-    // Ties (e.g. the Aristotle entries) keep their essay order.
-    const sortBtn = document.getElementById('epi-sort');
-    const bookList = document.querySelector('.epigram-book-list');
-    if (sortBtn && bookList) {
-      const entries = [...bookList.children];
-      const MODES = ['essay', 'up', 'down'];
-      const LABELS = { essay: 'in essay order', up: '↑ oldest first', down: '↓ newest first' };
-      const applySort = mode => {
-        const year = li => parseInt(li.dataset.year, 10) || 0;
-        const order = mode === 'essay' ? entries
-          : [...entries].sort((a, b) => mode === 'up' ? year(a) - year(b) : year(b) - year(a));
-        order.forEach(li => bookList.appendChild(li));
-        sortBtn.textContent = LABELS[mode];
-        sortBtn.dataset.mode = mode;
-      };
-      let mode = 'essay';
-      try { mode = localStorage.getItem('epigramSort') || 'essay'; } catch (e) {}
-      if (!MODES.includes(mode)) mode = 'essay';
-      applySort(mode);
-      sortBtn.addEventListener('click', () => {
-        const next = MODES[(MODES.indexOf(sortBtn.dataset.mode) + 1) % MODES.length];
-        try { localStorage.setItem('epigramSort', next); } catch (e) {}
-        applySort(next);
-      });
-    }
-
     syncBook();
     if (complete()) findScroll('enoch');   // completed before scrolls existed
   }
