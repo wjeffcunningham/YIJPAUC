@@ -42,7 +42,7 @@
     <h2>Document Map</h2>
     <!-- Document map. Each li#mapnode-{id} matches a details#{id}; add new sections here in reading order. -->
     <!-- docmap:start -->
-<nav class="docmap" aria-label="Document map" data-points-total="374" data-rooms-total="83" data-epigrams-total="8">
+<nav class="docmap" aria-label="Document map" data-points-total="374" data-rooms-total="83" data-epigrams-total="9">
 <ol>
 <li class="docmap-part" id="mappart-essay"><span class="docmap-part-title"><i>Why IJPAUC?</i></span><ol>
         <li id="mapnode-expand-tz" data-words="438" data-weight="3"><a href="#expand-tz"><span class="docmap-num">1.</span> The <i>Twilight Zone</i> Accident (July 1982)</a></li>
@@ -186,21 +186,24 @@
   </div>
 </div>
 
-<!-- Epigram book. One entry per epigram fold; site.js ticks .epi-have as each is collected. -->
+<!-- Epigram book. One entry per epigram fold; site.js ticks .epi-have as each is collected.
+     data-year (approximate, BCE negative) drives the sort: essay order, ↑ oldest first, ↓ newest first. -->
 <div class="modal" id="epigram-book">
   <label class="modal-overlay" for="epigram-book-toggle"></label>
   <div class="modal-box">
     <label for="epigram-book-toggle" class="modal-close">×</label>
     <h2>Epigram Book</h2>
+    <button type="button" class="epi-sort" id="epi-sort">in essay order</button>
     <ol class="epigram-book-list">
-      <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="ion-535c" hidden><a href="#epi-ion-535c">Plato, <i>Ion</i> (535c)</a></li>
-      <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="poetics-6" hidden><a href="#epi-poetics-6">Aristotle, <i>Poetics</i>, Ch. 6</a></li>
-      <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="davis-88" hidden><a href="#epi-davis-88">Davis, <i>The Poetry of Philosophy</i> (1992)</a></li>
-      <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="en-9-5" hidden><a href="#epi-en-9-5">Aristotle, <i>Nicomachean Ethics</i>, IX.5</a></li>
-      <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="poetics-4" hidden><a href="#epi-poetics-4">Aristotle, <i>Poetics</i>, Ch. 4</a></li>
-      <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="problemata-30-1" hidden><a href="#epi-problemata-30-1">[Aristotle], <i>Problemata</i>, XXX.1</a></li>
-      <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="nietzsche" hidden><a href="#epi-nietzsche">Nietzsche, <i>Die Geburt der Tragödie</i> §5</a></li>
-      <li class="epigram-book-entry"><input type="checkbox" class="epi-have" data-collect-id="proclus-rep" hidden><a href="#epi-proclus-rep">Proclus, <i>Commentary on the Republic</i></a></li>
+      <li class="epigram-book-entry" data-year="-390"><input type="checkbox" class="epi-have" data-collect-id="ion-535c" hidden><a href="#epi-ion-535c">Plato, <i>Ion</i> (535c)</a></li>
+      <li class="epigram-book-entry" data-year="-335"><input type="checkbox" class="epi-have" data-collect-id="poetics-6" hidden><a href="#epi-poetics-6">Aristotle, <i>Poetics</i>, Ch. 6</a></li>
+      <li class="epigram-book-entry" data-year="1992"><input type="checkbox" class="epi-have" data-collect-id="davis-88" hidden><a href="#epi-davis-88">Davis, <i>The Poetry of Philosophy</i> (1992)</a></li>
+      <li class="epigram-book-entry" data-year="-335"><input type="checkbox" class="epi-have" data-collect-id="en-9-5" hidden><a href="#epi-en-9-5">Aristotle, <i>Nicomachean Ethics</i>, IX.5</a></li>
+      <li class="epigram-book-entry" data-year="-335"><input type="checkbox" class="epi-have" data-collect-id="poetics-4" hidden><a href="#epi-poetics-4">Aristotle, <i>Poetics</i>, Ch. 4</a></li>
+      <li class="epigram-book-entry" data-year="-300"><input type="checkbox" class="epi-have" data-collect-id="problemata-30-1" hidden><a href="#epi-problemata-30-1">[Aristotle], <i>Problemata</i>, XXX.1</a></li>
+      <li class="epigram-book-entry" data-year="1872"><input type="checkbox" class="epi-have" data-collect-id="nietzsche" hidden><a href="#epi-nietzsche">Nietzsche, <i>Die Geburt der Tragödie</i> §5</a></li>
+      <li class="epigram-book-entry" data-year="450"><input type="checkbox" class="epi-have" data-collect-id="proclus-rep" hidden><a href="#epi-proclus-rep">Proclus, <i>Commentary on the Republic</i></a></li>
+      <li class="epigram-book-entry" data-year="450"><input type="checkbox" class="epi-have" data-collect-id="proclus-mythoplasts" hidden><a href="#epi-proclus-mythoplasts">Proclus, on the mythoplasts</a></li>
     </ol>
   </div>
 </div>
@@ -1369,9 +1372,11 @@
 
                       <p>Actually, it’s likely Euripides intended that the <i>Iphigenia</i> appear as a wish-fulfilment fantasy. It was nevertheless bittersweet and effective; and this was sufficient for Aristotle’s point in Ch. 14 of the <i>Poetics</i>.<marginalia data-type="x"> That just as some actions are in poor taste; some stories, impeccably told, can get the point across in the subtlest, most tactful of ways.</marginalia></p>
 
-                      <p>Nietzsche’s critique of Aristotle (and his Socratic milieu) is similar to that of Proclus, the Neoplatonic philosopher. Both observe that Aristotle is hyper-attentive to the material facets of the phenomena he addresses. Proclus does so with Aristotle’s theory of nature, which only accounts for the bottom “hypostasis” of the four-tiered Neoplatonic hierarchy of reality. Nietzsche suggests that Aristotle reduces poetry to its mechanical formulae, rather than adequately accounting for its full phenomenology—an impossible task.<marginalia data-type="pa"> (Proclus criticizes Aristotle on the basis of dwelling on physical explanations, absent theological mooring, beyond what is called for—a preoccupation Proclus finds to be endemic to Aristotle’s work (<i>In Tim.</i> I, 294.28–296.12). Aristotle’s account of time, then, turns out only to be unfolding an image of the “image of eternity” (<i>In Tim.</i> IV, 10.4–6). The argumentative manifestation of Aristotle’s mistake seems to be his failure to acknowledge that time is not merely dependent on particular souls counting, but on the potential of Soul as such for counting, or employing the unit, which would point the way to Time’s proper root in the Intellect (<i>In Tim.</i> IV, 9.25–31; 26.17–23; 32.22–28). Proclus transposes Aristotle’s definition of time as follows: “a measure of motions… in the sense of that which is such as to produce and to delimit the lifespan and all other changes among the things that are located in time or as that which measures these temporal beings in relation to their paradigms and assimilates them to the latter” (<i>In Tim.</i> IV, 20.1–15).)</marginalia></p>
+                      <p>Nietzsche’s critique of Aristotle is similar to that of Proclus, the Neoplatonic philosopher. Both observe that Aristotle is hyper-attentive to the material facets of the phenomena he addresses. Proclus does so with regard to Aristotle’s theory of nature, which only accounts for the bottom “hypostasis” of the four-tiered Neoplatonic hierarchy of reality.<marginalia data-type="pa"> (Proclus criticizes Aristotle on the basis of dwelling on physical explanations, absent theological mooring, beyond what is called for—a preoccupation Proclus finds to be endemic to Aristotle’s work (<i>In Tim.</i> I, 294.28–296.12). Aristotle’s account of time, then, turns out only to be unfolding an image of the “image of eternity” (<i>In Tim.</i> IV, 10.4–6). The argumentative manifestation of Aristotle’s mistake seems to be his failure to acknowledge that time is not merely dependent on particular souls counting, but on the potential of Soul as such for counting, or employing the unit, which would point the way to Time’s proper root in the Intellect (<i>In Tim.</i> IV, 9.25–31; 26.17–23; 32.22–28). Proclus transposes Aristotle’s definition of time as follows: “a measure of motions… in the sense of that which is such as to produce and to delimit the lifespan and all other changes among the things that are located in time or as that which measures these temporal beings in relation to their paradigms and assimilates them to the latter” (<i>In Tim.</i> IV, 20.1–15).)</marginalia></p>
 
-                      <p>But it’s possible Aristotle is leaving such matters to other occasions.</p>
+                      <p>Nietzsche suggests that Aristotle reduces poetry to its mechanical formulae, rather than adequately accounting for its full phenomenology—an impossible task.</p>
+
+                      <p>In both cases, it’s possible Aristotle is leaving such matters to other occasions.</p>
 
                       <p>While Nietzsche abandons Aristotle’s ambivalence for pessimism, Proclus’s own theory of poetry is entirely consistent with Aristotle’s.</p>
 
@@ -1384,14 +1389,12 @@
 
                       <p>For Proclus, the true poetic experience, as opposed to mere entertainment, concerns not story per se, but the proper interpretation of necessarily degraded and contradictory symbols of the divine.</p>
 
-                      <details class="fold"><summary>Note: Proclus, <i>Commentary on the Republic</i> <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><div class="fold-body">
+                      <details class="fold fold--epigram" id="epi-proclus-mythoplasts" data-collect-id="proclus-mythoplasts"><summary>Epigram + Proclus, on the mythoplasts <span class="hint-text hint-expand">(tap to expand)</span><span class="hint-text hint-collapse">(tap to collapse)</span></summary><div class="fold-body">
                           <div class="book-page" data-source="Proclus">
                             “It is my belief that the theatrical, the monstrous, and the unnatural in poetic fictions also move the hearers in all sorts of ways to search after the truth and that they are a device to draw us toward the secret knowledge. Because of their manifest lack of plausibility, they do not permit us to remain at the level of the concepts projected on the surface but rather force us to penetrate into the interior of the myths and concern ourselves with the meaning of the mythoplasts, which is hidden away where it cannot be seen, and to consider what qualities and what great powers they have put into that meaning of theirs and passed on to posterity with these symbols.”
                             <footer class="book-meta"><span class="book-meta-author">Proclus, <i>Commentary on Plato’s Republic</i></span><span class="book-meta-chapter">, Essay 6, Book 1</span><span class="book-meta-ref"> — trans. Lamberton, <i>Proclus the Successor on Poetics and the Homeric Poems</i>, p. 76</span></footer>
                           </div>
                         </div></details>
-
-                      <p><marginalia data-type="x">Proclus considers the highest kind of poetry-making as inspired in the strong sense—literally, god-possession (<i>enthusiasmos</i>) (263). And its effect, properly received, is akin to that of an initiation rite, revealing the nature of things that exist, doing something like re-attaching the soul to the one (85, 295, cf. 69). It’s a “hieratic” art—a sort of theology-poetry (85, 75). The symbolic mode, as against the imitative one, employs <i>opposites</i>: “symbols are not imitations of those things they symbolize. Things could never be imitations of their opposites (good imitating bad, natural imitating unnatural), but the symbolic mode indicates the nature of things even by means of their complete opposites” (295). It is by this technique of crafting together opposites, that the fathers of myth managed to reverse-engineer the cosmos’ successive generation of images of itself in such a way as not to perpetuate this generation through its lowest level, but to reflect back towards this order (73).</marginalia></p>
 
                       <p>All of this is to say that Aristotle’s theory of poetry remains interpretively “ambivalent” (with Proclus; contra Campbell, optimistic, and Nietzsche, pessimistic), and wonder-dependent.</p>
 
