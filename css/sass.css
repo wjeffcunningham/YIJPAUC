@@ -2997,4 +2997,17 @@ body:has(x-toggle:checked) marginalia[data-type=x] {
   display: inline !important;
 }
 
+/* Closing epigram: Euripides in light mode, Casino in dark mode */
+.closing-epigram--dark {
+  display: none;
+}
+
+body.dark-mode .closing-epigram--light {
+  display: none;
+}
+
+body.dark-mode .closing-epigram--dark {
+  display: block;
+}
+
 /*# sourceMappingURL=sass.css.map */

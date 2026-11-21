@@ -23,3 +23,16 @@ body.dark-mode, #menu-list.dark-mode {
   font-size: 1rem;
   border-radius: 5px;
 }
+
+/* Closing epigram: Euripides in light mode, Casino in dark mode */
+.closing-epigram--dark {
+  display: none;
+}
+
+body.dark-mode .closing-epigram--light {
+  display: none;
+}
+
+body.dark-mode .closing-epigram--dark {
+  display: block;
+}
